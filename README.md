@@ -20,6 +20,7 @@ Open the URL shown in the terminal (usually `http://localhost:5173`).
 |--------|-------------|
 | `npm run dev` | Vite dev server with HMR |
 | `npm run build` | Typecheck + production build + `dist/404.html` + verify `dist/` |
+| `npm run build:docs` | Same as **`build`**, then copy **`dist/` → `docs/`** for “Deploy from branch → /docs” |
 | `npm run preview` | Serve `dist/` locally (same paths as production) |
 
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
@@ -78,13 +79,18 @@ That almost always means the live site is **not** serving the **Vite build** in 
 
 **Symptoms:** View source on `https://yoursite.github.io/` and you see `<script type="module" src="/src/main.tsx">` or `href="%BASE_URL%favicon.svg"`. Those only exist in the **development** `index.html` at the repo root. Browsers cannot load `/src/main.tsx` from static hosting, so the app never runs → white screen.
 
-**Fix:**
+**Fix (pick one):**
 
-1. **Settings → Pages → Source:** choose **GitHub Actions**, **not** “Deploy from a branch” with **/(root)** or **/docs** from the same repo (that publishes the raw repo, including unbuilt `index.html`).
-2. Push to **`main`** or **`master`** so **`.github/workflows/deploy.yml`** runs. Check **Actions** for a green run; open the **deploy** job and confirm it uploaded **`dist/`**.
-3. After the workflow finishes, hard-refresh the site (or wait a minute for CDN). View source again: you should see `<script type="module" … src="/assets/index-….js">` (hashed bundle), not `/src/main.tsx`.
+**A — GitHub Actions (recommended)**  
+1. **Settings → Pages → Source:** **GitHub Actions** (not “Deploy from a branch”).  
+2. Push **`main`** / **`master`** so **`.github/workflows/deploy.yml`** runs and uploads **`dist/`**.  
+3. Hard-refresh the site. View source: you must see **`src="/assets/index-….js"`**, not **`/src/main.tsx`**.
 
-Locally, **`npm run build`** must succeed end-to-end (it runs **`scripts/verify-dist.mjs`** to ensure `dist/index.html` looks like a production build).
+**B — Deploy from a branch (no Actions)**  
+Publishing **/(root)** from this repo serves the **development** `index.html` → **`/src/main.tsx`** → white page / MIME errors.  
+Instead: run **`npm run build:docs`**, commit the generated **`docs/`** folder, push, and set Pages to **Deploy from a branch** → branch **`main`** (or **`master`**) → folder **`/docs`**. The **`docs/`** tree is the same as **`dist/`** (built assets + **`404.html`**).
+
+Locally, **`npm run build`** must succeed ( **`scripts/verify-dist.mjs`** checks **`dist/index.html`** ).
 
 ### “MIME type application/octet-stream” (module script failed)
 
