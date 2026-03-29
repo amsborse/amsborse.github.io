@@ -1,7 +1,26 @@
 import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import type { Plugin } from "vite";
 import { defineConfig, loadEnv } from "vite";
+
+/**
+ * GitHub Pages (and some static hosts) serve module scripts with MIME quirks when
+ * `crossorigin` is set on `<script type="module">` / `<link rel="stylesheet">`.
+ * Strip it from emitted HTML; same-origin loads do not need it.
+ */
+function stripHtmlCrossorigin(): Plugin {
+  return {
+    name: "strip-html-crossorigin",
+    apply: "build",
+    transformIndexHtml: {
+      order: "post",
+      handler(html: string) {
+        return html.replace(/\s+crossorigin(?:="[^"]*")?/g, "");
+      },
+    },
+  };
+}
 
 /**
  * Static hosting (GitHub Pages) — `base` must match where the site is served:
@@ -30,7 +49,7 @@ export default defineConfig(({ mode }) => ({
     port: 5173,
     strictPort: false,
   },
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), stripHtmlCrossorigin()],
   resolve: {
     alias: { "@": path.resolve(__dirname, "src") },
   },

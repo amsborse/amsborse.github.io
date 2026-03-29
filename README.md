@@ -19,7 +19,7 @@ Open the URL shown in the terminal (usually `http://localhost:5173`).
 | Script | Description |
 |--------|-------------|
 | `npm run dev` | Vite dev server with HMR |
-| `npm run build` | Typecheck + production build + `dist/404.html` SPA fallback |
+| `npm run build` | Typecheck + production build + `dist/404.html` + verify `dist/` |
 | `npm run preview` | Serve `dist/` locally (same paths as production) |
 
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
@@ -72,11 +72,33 @@ This repo is set up for the **GitHub Actions → Pages** flow (no `gh-pages` bra
 1. **Repository → Settings → Pages**
 2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch” unless you intentionally want branch-based deploys).
 
+### Blank white page on GitHub Pages
+
+That almost always means the live site is **not** serving the **Vite build** in **`dist/`**.
+
+**Symptoms:** View source on `https://yoursite.github.io/` and you see `<script type="module" src="/src/main.tsx">` or `href="%BASE_URL%favicon.svg"`. Those only exist in the **development** `index.html` at the repo root. Browsers cannot load `/src/main.tsx` from static hosting, so the app never runs → white screen.
+
+**Fix:**
+
+1. **Settings → Pages → Source:** choose **GitHub Actions**, **not** “Deploy from a branch” with **/(root)** or **/docs** from the same repo (that publishes the raw repo, including unbuilt `index.html`).
+2. Push to **`main`** or **`master`** so **`.github/workflows/deploy.yml`** runs. Check **Actions** for a green run; open the **deploy** job and confirm it uploaded **`dist/`**.
+3. After the workflow finishes, hard-refresh the site (or wait a minute for CDN). View source again: you should see `<script type="module" … src="/assets/index-….js">` (hashed bundle), not `/src/main.tsx`.
+
+Locally, **`npm run build`** must succeed end-to-end (it runs **`scripts/verify-dist.mjs`** to ensure `dist/index.html` looks like a production build).
+
+### “MIME type application/octet-stream” (module script failed)
+
+Browsers require module scripts to be served as JavaScript. **`application/octet-stream`** usually means one of:
+
+1. **The URL still points at source**, e.g. **`/src/main.tsx`** — GitHub Pages does not compile Vite; it serves that file as a generic binary, so the MIME type is wrong. **Fix:** deploy **`dist/`** from **`npm run build`**, not the repo-root `index.html`. View source: you must see **`/assets/index-….js`**, not **`/src/main.tsx`**.
+2. **Wrong `base` for a project site** — if the site is at **`https://user.github.io/repo/`** but the HTML references **`/assets/...`** (root), the browser requests a missing URL and you can get odd responses. **Fix:** set **`VITE_BASE=/repo/`** in **`.env.production`** and **`links.siteUrl`** accordingly, then rebuild.
+
+The production build also strips **`crossorigin`** from emitted `<script>` / `<link>` tags so static hosts are less likely to mishandle module loads.
+
 ### How deploy works
 
 - Workflow: **`.github/workflows/deploy.yml`**
-- On each push to **`main`**, Actions runs `npm ci`, `npm run build`, uploads **`dist/`**, and publishes to Pages.
-- If your default branch is still **`master`**, edit the workflow `on.push.branches` to include `master`, or rename the branch to `main`.
+- On each push to **`main`** or **`master`**, Actions runs `npm ci`, `npm run build`, uploads **`dist/`**, and publishes to Pages.
 
 ### After deploy
 
