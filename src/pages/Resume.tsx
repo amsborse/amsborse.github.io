@@ -13,7 +13,7 @@ export default function ResumePage() {
 
       <div className="article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
         <p className="section-label">Resume</p>
-        <h1 className="mt-4 font-display text-[2.25rem] font-medium tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
+        <h1 className="mt-4 font-display text-[2.25rem] font-semibold tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
           Career highlights
         </h1>
         <p className="mt-5 text-sm leading-relaxed text-[var(--color-ink-muted)] sm:text-[0.9375rem]">
@@ -24,7 +24,7 @@ export default function ResumePage() {
           page.
         </p>
 
-        <div className="mt-12 border border-[var(--color-border)] bg-[var(--color-surface-elevated)]/35 p-8 sm:p-10">
+        <div className="mt-12 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] p-8 shadow-sm sm:p-10">
           <h2 className="section-label">Executive summary</h2>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-body)]">{resume.executiveSummary}</p>
         </div>
@@ -72,7 +72,7 @@ export default function ResumePage() {
         <div className="mt-14 flex flex-wrap gap-4">
           <Link
             to="/contact"
-            className="rounded-md border border-[var(--color-border)] bg-white/[0.06] px-5 py-2.5 text-sm font-medium text-[var(--color-ink)] transition-colors hover:border-white/15"
+            className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-2.5 text-sm font-medium text-[var(--color-ink)] shadow-sm transition-colors hover:border-[var(--color-border-strong)]"
           >
             Get in touch
           </Link>

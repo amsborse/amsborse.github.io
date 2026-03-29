@@ -12,7 +12,7 @@ export default function ContactPage() {
 
       <div className="article-shell max-w-2xl py-16 sm:py-20 lg:py-24">
         <p className="section-label">Contact</p>
-        <h1 className="mt-4 font-display text-[2.25rem] font-medium tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
+        <h1 className="mt-4 font-display text-[2.25rem] font-semibold tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
           Let’s connect
         </h1>
         <p className="mt-5 leading-relaxed text-[var(--color-ink-muted)]">{contactPage.intro}</p>
@@ -21,7 +21,7 @@ export default function ContactPage() {
           <p className="section-label">Email</p>
           <a
             href={`mailto:${site.email}`}
-            className="mt-4 block w-fit font-display text-xl text-[var(--color-accent)] underline decoration-white/[0.12] underline-offset-4 transition-colors hover:decoration-[var(--color-accent)]/60 sm:text-2xl"
+            className="mt-4 block w-fit font-display text-xl text-[var(--color-accent)] underline decoration-[var(--color-accent)]/25 underline-offset-4 transition-colors hover:decoration-[var(--color-accent)]/55 sm:text-2xl"
           >
             {site.email}
           </a>

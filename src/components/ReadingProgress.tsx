@@ -36,11 +36,11 @@ export function ReadingProgress() {
 
   return (
     <div
-      className="pointer-events-none fixed left-0 right-0 top-0 z-50 h-px bg-[var(--color-border)]/60"
+      className="pointer-events-none fixed left-0 right-0 top-0 z-50 h-0.5 bg-[var(--color-border)]"
       aria-hidden
     >
       <div
-        className="reading-progress-fill h-full bg-[var(--color-accent)]/30"
+        className="reading-progress-fill h-full bg-[var(--color-accent)]/55"
         style={{ width: `${p}%` }}
       />
     </div>

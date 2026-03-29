@@ -7,7 +7,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="premium-card group relative p-6 sm:p-7">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-        <h3 className="font-display text-[1.2rem] font-medium leading-snug tracking-tight text-[var(--color-ink)]">
+        <h3 className="font-display text-[1.2rem] font-semibold leading-snug tracking-tight text-[var(--color-ink)]">
           {project.name}
         </h3>
         <span className="shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-[var(--color-ink-muted)]">
@@ -36,7 +36,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <a
             key={l.label}
             href={l.href}
-            className="text-sm text-[var(--color-accent)] underline decoration-white/[0.1] underline-offset-[5px] transition-colors hover:decoration-[var(--color-accent)]/50"
+            className="text-sm text-[var(--color-accent)] underline decoration-[var(--color-accent)]/25 underline-offset-[5px] transition-colors hover:decoration-[var(--color-accent)]/55"
           >
             {l.label}
           </a>

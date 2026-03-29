@@ -7,7 +7,7 @@ export function RootLayout() {
     <div className="flex min-h-screen flex-col">
       <a
         href="#main"
-        className="absolute left-[-9999px] top-4 z-[100] rounded-md bg-[var(--color-surface-elevated)] px-4 py-2 text-sm text-[var(--color-ink)] focus:left-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+        className="absolute left-[-9999px] top-4 z-[100] rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm text-[var(--color-ink)] shadow-sm focus:left-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30"
       >
         Skip to content
       </a>

@@ -26,14 +26,14 @@ export default function Article() {
           <nav aria-label="Breadcrumb">
             <Link
               to="/writing"
-              className="inline-block text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
+              className="inline-block text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-accent)]"
             >
               ← All writing
             </Link>
           </nav>
 
           <header className="mx-auto mt-12 max-w-[var(--article-measure-reading)] lg:mt-16">
-            <h1 className="font-display text-[1.75rem] font-medium leading-[1.22] tracking-[-0.02em] text-[var(--color-ink)] sm:text-[2rem] sm:leading-[1.2] lg:text-[2.15rem]">
+            <h1 className="font-display text-[1.75rem] font-semibold leading-[1.22] tracking-[-0.02em] text-[var(--color-ink)] sm:text-[2rem] sm:leading-[1.2] lg:text-[2.15rem]">
               {post.title}
             </h1>
             <p className="mt-6 text-[1.05rem] leading-[1.72] text-[var(--color-body)] sm:text-[1.0625rem] sm:leading-[1.75]">
@@ -83,7 +83,7 @@ export default function Article() {
                   <span className="mx-2 opacity-30">·</span>
                   <Link
                     to="/writing"
-                    className="text-[var(--color-body)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-ink-soft)] hover:decoration-[var(--color-body)]/40"
+                    className="text-[var(--color-accent)] underline decoration-[var(--color-accent)]/30 underline-offset-4 transition-colors hover:decoration-[var(--color-accent)]/55"
                   >
                     All writing
                   </Link>

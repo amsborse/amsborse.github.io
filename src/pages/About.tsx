@@ -8,7 +8,7 @@ export default function About() {
 
       <div className="article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
         <p className="section-label">About</p>
-        <h1 className="mt-4 font-display text-[2.25rem] font-medium tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
+        <h1 className="mt-4 font-display text-[2.25rem] font-semibold tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
           {bio.pageTitle}
         </h1>
         {bio.intro.map((paragraph, i) => (

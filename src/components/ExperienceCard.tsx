@@ -11,7 +11,7 @@ export function ExperienceCard({ entry }: { entry: ExperienceEntry }) {
 
         <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
           <div>
-            <h3 className="font-display text-[1.2rem] font-medium tracking-tight text-[var(--color-ink)]">
+            <h3 className="font-display text-[1.2rem] font-semibold tracking-tight text-[var(--color-ink)]">
               {entry.role}
             </h3>
             <p className="mt-1 text-sm text-[var(--color-body)]">{entry.company}</p>

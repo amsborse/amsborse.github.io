@@ -4,11 +4,11 @@ import { contentPaths, links, site, socialNav } from "@/content";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-[var(--color-border)]/90 bg-gradient-to-b from-[var(--color-surface)] via-[var(--color-surface-mid)]/40 to-[var(--color-surface-mid)]/90">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-10">
+    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)]">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
           <div>
-            <p className="font-display text-lg text-[var(--color-ink)]">{site.name}</p>
+            <p className="font-display text-lg font-semibold text-[var(--color-ink)]">{site.name}</p>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--color-ink-muted)]">
               {site.footerTagline}
             </p>
@@ -18,13 +18,13 @@ export function Footer() {
               <p className="section-label">On this site</p>
               <Link
                 to="/contact"
-                className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-ink-soft)]"
+                className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
               >
                 Contact
               </Link>
               <Link
                 to="/writing"
-                className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-ink-soft)]"
+                className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
               >
                 Writing
               </Link>
@@ -35,7 +35,7 @@ export function Footer() {
                 <a
                   key={key}
                   href={links.social[key]}
-                  className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-ink-soft)]"
+                  className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
                 >
                   {label}
                 </a>
@@ -43,12 +43,11 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <p className="mt-14 border-t border-[var(--color-border)] pt-8 text-[0.6875rem] leading-relaxed text-[var(--color-ink-muted)]">
-          © {year} {site.name}. Edit copy in{" "}
-          <code className="rounded bg-white/[0.04] px-1 py-0.5 font-mono text-[0.65rem]">{contentPaths.config}</code>{" "}
-          and posts in{" "}
-          <code className="rounded bg-white/[0.04] px-1 py-0.5 font-mono text-[0.65rem]">{contentPaths.posts}</code>.
+        <p className="mt-14 text-[0.8125rem] leading-relaxed text-[var(--color-ink-muted)]">
+          Edit copy in <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">{contentPaths.config}</code> · Posts in{" "}
+          <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">{contentPaths.posts}</code>
         </p>
+        <p className="mt-6 text-[0.75rem] text-[var(--color-ink-muted)]">© {year} {site.name}</p>
       </div>
     </footer>
   );
