@@ -4,7 +4,7 @@ import { contentPaths, links, site, socialNav } from "@/content";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+    <footer className="border-t border-[var(--color-border)]/90 bg-gradient-to-b from-[var(--color-surface)] via-[var(--color-surface-mid)]/40 to-[var(--color-surface-mid)]/90">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
           <div>

@@ -16,7 +16,7 @@ export function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/88 backdrop-blur-xl backdrop-saturate-150">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)]/90 bg-[var(--color-surface)]/78 backdrop-blur-2xl backdrop-saturate-[1.15] shadow-[inset_0_-1px_0_0_rgba(212,184,150,0.06)]">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-10">
         <NavLink
           to="/"
