@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-display: var(--font-serif);
+  /* Warm ivory + champagne on deep plum/indigo */
+  --color-ink: #f4efe6;
+  --color-ink-soft: #e8e0d4;
+  --color-body: #b9b0a3;
+  --color-ink-muted: #7d766c;
+  --color-surface: #0c0a10;
+  --color-surface-elevated: #14111c;
+  --color-surface-wash: #181324;
+  --color-plum: #1e1628;
+  --color-indigo-deep: #12182a;
+  --color-border: rgba(228, 210, 175, 0.07);
+  --color-border-strong: rgba(228, 210, 175, 0.12);
+  --color-accent: #c4a574;
+  --color-accent-dim: #9a7b52;
+  --color-accent-soft: rgba(196, 165, 116, 0.12);
+  --color-glow: rgba(196, 165, 116, 0.04);
+  --ease-out-luxe: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-slow: 700ms;
+  --article-measure: 38rem;
+  /* Slightly wider, calmer measure for long-form reading pages */
+  --article-measure-reading: 40rem;
+  --color-reading-canvas: #0a080d;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply relative bg-[var(--color-surface)] text-[var(--color-ink)] antialiased font-sans;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Fixed ambient wash — no animation, very subtle plum/indigo */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 85% 55% at 0% -10%, rgba(88, 52, 120, 0.14), transparent 55%),
+      radial-gradient(ellipse 70% 45% at 100% 110%, rgba(42, 52, 108, 0.12), transparent 50%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(30, 22, 40, 0.35), transparent 65%);
+    transition: opacity 0.4s ease;
+  }
+
+  /* Reading routes: less competing glow behind the solid reading canvas */
+  body:has(.article-reading)::before,
+  body:has(.writing-index)::before {
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before {
+      transition: none;
+    }
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection {
+    @apply bg-[var(--color-accent-soft)] text-[var(--color-ink)];
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-[var(--color-accent)]/55;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-[var(--color-ink-muted)];
+  }
+
+  /** Premium surface: hairline border + soft depth + champagne inner highlight */
+  .premium-card {
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-border);
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+    box-shadow:
+      0 0 0 1px rgba(196, 165, 116, 0.05),
+      0 1px 2px rgba(0, 0, 0, 0.2),
+      0 28px 56px -32px rgba(0, 0, 0, 0.65);
+    transition:
+      border-color var(--duration-slow) var(--ease-out-luxe),
+      box-shadow var(--duration-slow) var(--ease-out-luxe);
+  }
+
+  .premium-card:hover {
+    border-color: rgba(196, 165, 116, 0.14);
+    box-shadow:
+      0 0 0 1px rgba(196, 165, 116, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.25),
+      0 32px 64px -28px rgba(0, 0, 0, 0.7);
+  }
+
+  .premium-panel {
+    @apply border border-[var(--color-border)] bg-[var(--color-surface-elevated)]/55;
+    box-shadow:
+      inset 0 1px 0 rgba(196, 165, 116, 0.06),
+      0 24px 48px -36px rgba(0, 0, 0, 0.55);
+  }
+
+  .motion-link {
+    transition: color var(--duration-slow) var(--ease-out-luxe);
+  }
+
+  .parallax-layer {
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-layer {
+      transform: none !important;
+      will-change: auto;
+    }
+
+    .premium-card {
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .motion-link {
+      transition-duration: 0.15s;
+    }
+
+    .reading-progress-fill {
+      transition: none !important;
+    }
+  }
+
+  /** Writing index + articles: calmer canvas than the homepage */
+  .article-reading,
+  .writing-index {
+    background-color: var(--color-reading-canvas);
+  }
+
+  .article-reading .prose-article {
+    max-width: min(var(--article-measure-reading), 92vw);
+    @apply text-[1.0625rem] leading-[1.88] tracking-[0.006em] text-[var(--color-body)];
+  }
+
+  .article-reading .prose-article h2 {
+    @apply mt-12 mb-3 font-medium text-[var(--color-ink-soft)]/95;
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
+  }
+
+  .article-reading .prose-article h3 {
+    @apply mt-9 mb-2.5 font-medium text-[var(--color-body)];
+    font-size: 1.02rem;
+    letter-spacing: -0.015em;
+  }
+
+  .article-reading .prose-article a {
+    @apply underline-offset-[6px];
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .toc-reading-link {
+    transition: color 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .article-reading .prose-article a {
+      transition: none;
+    }
+
+    .toc-reading-link {
+      transition: none !important;
+    }
+  }
+
+  .reading-progress-fill {
+    /* No width transition — bar tracks scroll exactly, avoids distracting motion */
+    transition: none;
+  }
+
+  .prose-article {
+    max-width: min(var(--article-measure), 92vw);
+    @apply mx-auto text-[1.0625rem] leading-[1.82] tracking-[0.01em] text-[var(--color-body)];
+  }
+
+  .prose-article h2 {
+    @apply mt-[2.75rem] mb-[0.85rem] scroll-mt-28 text-[1.2rem] font-semibold leading-snug tracking-tight text-[var(--color-ink-soft)];
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+  }
+
+  .prose-article h3 {
+    @apply mt-10 mb-3 scroll-mt-28 text-[1.05rem] font-semibold leading-snug tracking-tight text-[var(--color-ink-soft)];
+    letter-spacing: -0.015em;
+  }
+
+  .prose-article p {
+    @apply mb-[1.35rem];
+  }
+
+  .prose-article a {
+    @apply text-[var(--color-accent)] underline decoration-[var(--color-accent)]/25 underline-offset-[5px] transition-colors duration-500;
+    transition-timing-function: var(--ease-out-luxe);
+  }
+
+  .prose-article a:hover {
+    @apply decoration-[var(--color-accent)]/65;
+  }
+
+  .prose-article ul,
+  .prose-article ol {
+    @apply mb-6 space-y-2.5 pl-[1.15rem];
+  }
+
+  .prose-article li {
+    @apply pl-1 text-[var(--color-body)] marker:text-[var(--color-ink-muted)];
+  }
+
+  .prose-article ul {
+    list-style-type: disc;
+  }
+
+  .prose-article blockquote {
+    @apply my-10 border-l-[3px] border-[var(--color-accent)]/40 py-1 pl-6 pr-2 text-[1.02rem] leading-[1.75] text-[var(--color-ink-muted)] italic;
+  }
+
+  .prose-article pre {
+    @apply my-8 overflow-x-auto rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface-elevated)] px-4 py-3.5 text-[0.875rem] leading-relaxed;
+  }
+
+  .prose-article code {
+    @apply rounded bg-white/[0.06] px-1.5 py-0.5 text-[0.88em] text-[var(--color-ink-soft)];
+  }
+
+  .prose-article pre code {
+    @apply bg-transparent p-0 text-[var(--color-body)];
+  }
+
+  .prose-article hr {
+    @apply my-14 border-0 border-t border-[var(--color-border)];
+  }
+
+  .prose-article table {
+    @apply my-8 w-full border-collapse text-[0.9375rem];
+  }
+
+  .prose-article th,
+  .prose-article td {
+    @apply border border-[var(--color-border)] px-3 py-2.5 text-left;
+  }
+
+  .prose-article th {
+    @apply bg-white/[0.03] text-[var(--color-ink-soft)] font-medium;
+  }
+
+  .callout {
+    @apply my-10 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-5 py-4 text-[var(--color-body)] leading-relaxed;
+  }
+
+  .callout-quote {
+    @apply border-l-[3px] border-l-[var(--color-accent)]/50 bg-[var(--color-accent-soft)];
+  }
+
+  .font-display {
+    font-family: var(--font-serif), Georgia, ui-serif, serif;
+  }
+
+  .article-shell {
+    @apply mx-auto max-w-[min(72rem,100%)] px-4 sm:px-6 lg:px-10;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
