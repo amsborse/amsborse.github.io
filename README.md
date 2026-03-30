@@ -1,6 +1,25 @@
 # Akshay Borse — personal site
 
-A static portfolio and writing site built with **React**, **Vite**, and **Tailwind CSS v4**. Editable copy lives in **`src/content/*.ts`**; articles are **`src/content/posts/*.md`**. There is **no backend** — the production build is plain HTML, JS, and CSS in **`dist/`**, suitable for **GitHub Pages** or any static host.
+A static portfolio and writing site built with **React**, **Vite**, and **Tailwind CSS v4**. **Editable copy lives in `src/data/*.ts`**; article bodies are **`src/content/articles/*.md`**. Global styles are **`src/styles/index.css`**. There is **no backend** — the production build is plain HTML, JS, and CSS in **`dist/`**, suitable for **GitHub Pages** or any static host.
+
+## Where to edit content (quick reference)
+
+| What | File |
+|------|------|
+| **Profile** — name, headlines, subheadline, short bio, SEO, hero/footer lines, CTAs, optional artist–yogi line | `src/data/profile.ts` |
+| **Homepage** — credibility copy, section blurbs, highlight stats, hero quick links | `src/data/home.ts` |
+| **About page** | `src/data/about.ts` |
+| **Projects** | `src/data/projects.ts` |
+| **Experience / jobs** | `src/data/experience.ts` |
+| **Résumé page** — skills, achievements, PDF link | `src/data/resume.ts` |
+| **Navigation** | `src/data/navigation.ts` |
+| **Social links, email, site URL** | `src/data/socials.ts` |
+| **Contact page copy** | `src/data/contact.ts` |
+| **Writing: post order** | `src/data/articles.ts` |
+| **Writing: markdown posts** | `src/content/articles/*.md` |
+| **UI “where to edit” hints** | `src/data/paths.ts` |
+
+Import site-wide data: `import { site, projects, … } from '@/data'`. Article loaders: `import { getAllPosts, … } from '@/utils/loadArticles'`.
 
 ## Prerequisites
 
@@ -25,34 +44,13 @@ Open the URL shown in the terminal (usually `http://localhost:5173`).
 
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
 
-## Content model (`src/content/`)
+## Articles (markdown)
 
-| File | What to edit |
-|------|----------------|
-| `profile.ts` | Name, titles, tagline, SEO description, hero/footer one-liners |
-| `links.ts` | **Site URL** (canonical / Open Graph), email, social URLs |
-| `home.ts` | Homepage credibility copy, section blurbs, highlight stats |
-| `bio.ts` | About page |
-| `contact.ts` | Contact intro, social row |
-| `experience.ts` | Work history |
-| `projects.ts` | Projects + category labels |
-| `resume.ts` | Résumé sections |
-| `nav.ts` | Top navigation |
-| `articles.ts` | Order of posts (slugs) |
-| `paths.ts` | “Where to edit” strings in the UI |
-| `types.ts` | TypeScript shapes |
-| `posts/*.md` | Article bodies + YAML frontmatter |
-| `loadPosts.ts` | Markdown loader (rarely edited) |
+1. Add `your-slug.md` under **`src/content/articles/`**.
+2. Add **`your-slug`** to **`articleOrder`** in **`src/data/articles.ts`** (or it is listed after ordered slugs).
+3. Frontmatter supports: **`title`**, **`description`**, **`date`**, **`tags`**, **`featured`**, **`readingMinutes`**, optional **`slug`** (should match the filename slug).
 
-Import: `import { site, … } from '@/content'`.
-
-### New article checklist
-
-1. Add `your-slug.md` under `src/content/posts/`.
-2. Add the slug to `articleOrder` in `src/content/articles.ts` (or it is appended after ordered slugs).
-3. Frontmatter: `title`, `description`, `date`, `tags`, `featured`.
-
-Optional HTML in Markdown: `<div class="callout callout-quote">…</div>` (styled in `src/index.css`).
+Optional HTML in Markdown: `<div class="callout callout-quote">…</div>` (styled in `src/styles/index.css`).
 
 ## Build output
 
@@ -97,7 +95,7 @@ Locally, **`npm run build`** must succeed ( **`scripts/verify-dist.mjs`** checks
 Browsers require module scripts to be served as JavaScript. **`application/octet-stream`** usually means one of:
 
 1. **The URL still points at source**, e.g. **`/src/main.tsx`** — GitHub Pages does not compile Vite; it serves that file as a generic binary, so the MIME type is wrong. **Fix:** deploy **`dist/`** from **`npm run build`**, not the repo-root `index.html`. View source: you must see **`/assets/index-….js`**, not **`/src/main.tsx`**.
-2. **Wrong `base` for a project site** — if the site is at **`https://user.github.io/repo/`** but the HTML references **`/assets/...`** (root), the browser requests a missing URL and you can get odd responses. **Fix:** set **`VITE_BASE=/repo/`** in **`.env.production`** and **`links.siteUrl`** accordingly, then rebuild.
+2. **Wrong `base` for a project site** — if the site is at **`https://user.github.io/repo/`** but the HTML references **`/assets/...`** (root), the browser requests a missing URL and you can get odd responses. **Fix:** set **`VITE_BASE=/repo/`** in **`.env.production`** and **`links.siteUrl`** in **`src/data/socials.ts`** accordingly, then rebuild.
 
 The production build also strips **`crossorigin`** from emitted `<script>` / `<link>` tags so static hosts are less likely to mishandle module loads.
 
@@ -109,7 +107,7 @@ The production build also strips **`crossorigin`** from emitted `<script>` / `<l
 ### After deploy
 
 - Site URL for a **user site** repo `username.github.io`: **`https://username.github.io/`** (root path).
-- In **`src/content/links.ts`**, set **`siteUrl`** to that URL (no trailing slash) so canonical and Open Graph URLs match production.
+- In **`src/data/socials.ts`**, set **`siteUrl`** to that URL (no trailing slash) so canonical and Open Graph URLs match production.
 
 ## Deploying to a **project** repo instead (`/repo-name/`)
 
@@ -123,7 +121,7 @@ If the same app is built for **`https://amsborse.github.io/my-portfolio/`** (pro
 
    Use your **exact** repository name, with leading and trailing slashes.
 
-2. **`src/content/links.ts`** — set **`siteUrl`** to `https://amsborse.github.io/my-portfolio` (no trailing slash).
+2. **`src/data/socials.ts`** — set **`siteUrl`** to `https://amsborse.github.io/my-portfolio` (no trailing slash).
 
 3. Rebuild and deploy. **React Router** already uses **`import.meta.env.BASE_URL`** (`App.tsx`); **`index.html`** uses **`%BASE_URL%favicon.svg`** so the favicon resolves under the subpath.
 
@@ -137,7 +135,7 @@ The app uses **`BrowserRouter`** with **`basename`** derived from Vite’s base.
 
 ## SEO
 
-The **`Seo`** component sets `document.title`, meta description, canonical link, and basic Open Graph / Twitter tags. The canonical base comes from **`links.siteUrl`** (exposed as **`site.url`**).
+The **`Seo`** component sets `document.title`, meta description, canonical link, and basic Open Graph / Twitter tags. The canonical base comes from **`links.siteUrl`** in **`src/data/socials.ts`** (exposed as **`site.url`**).
 
 ## License
 

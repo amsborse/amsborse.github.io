@@ -1,11 +1,14 @@
+/**
+ * EDIT HERE: Work history — each entry is a role with bullets (achievements).
+ */
+
 import type { ExperienceEntry } from "./types";
 
-/** Work history — shown on Experience and referenced from Résumé. */
 export const experience: ExperienceEntry[] = [
   {
     id: "acme-platform",
     company: "Acme Platform (placeholder)",
-    role: "Senior Software Engineer",
+    title: "Senior Software Engineer",
     location: "Remote",
     start: "2022",
     end: "Present",
@@ -20,7 +23,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "northwind-labs",
     company: "Northwind Labs (placeholder)",
-    role: "Software Engineer → Senior Software Engineer",
+    title: "Software Engineer → Senior Software Engineer",
     location: "San Francisco, CA",
     start: "2018",
     end: "2022",
@@ -35,7 +38,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "starter-co",
     company: "Starter Co (placeholder)",
-    role: "Software Engineer",
+    title: "Software Engineer",
     location: "Austin, TX",
     start: "2015",
     end: "2018",

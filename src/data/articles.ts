@@ -1,7 +1,8 @@
 /**
- * Writing — order of posts in listings (newest-first is typical; adjust as you like).
- * Post bodies and frontmatter live in `posts/<slug>.md`. Add a new slug here when you add a file.
+ * EDIT HERE: Display order for writing posts (by slug = markdown filename without `.md`).
+ * Add each new article’s slug here; files live in `src/content/articles/*.md`.
  */
+
 export const articleOrder = [
   "designing-for-reliability",
   "notes-on-api-design",

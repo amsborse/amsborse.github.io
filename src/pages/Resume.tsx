@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { resume } from "@/content";
+import { resume } from "@/data";
+
+function resumeDownloadHref(path: string): string {
+  const t = path.trim();
+  if (t.startsWith("http")) return t;
+  const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+  const rest = t.startsWith("/") ? t.slice(1) : t;
+  return `${base}${rest}`;
+}
 
 export default function ResumePage() {
+  const hasResumeFile = Boolean(resume.downloadUrl?.trim());
+
   return (
     <>
       <Seo
@@ -23,6 +33,18 @@ export default function ResumePage() {
           </Link>{" "}
           page.
         </p>
+
+        {hasResumeFile ? (
+          <p className="mt-6">
+            <a
+              href={resumeDownloadHref(resume.downloadUrl)}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--color-gold)_32%,var(--color-accent)_18%)] bg-[var(--color-accent)] px-5 text-sm font-medium text-[var(--color-surface-elevated)] shadow-sm transition-[color,background-color,border-color,box-shadow] duration-300 [transition-timing-function:var(--ease-out-luxe)] hover:bg-[var(--color-accent-bright)]"
+              {...(resume.downloadUrl.trim().startsWith("http") ? {} : { download: true })}
+            >
+              {resume.downloadLabel}
+            </a>
+          </p>
+        ) : null}
 
         <div className="mt-12 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] p-8 shadow-sm sm:p-10">
           <h2 className="section-label">Executive summary</h2>

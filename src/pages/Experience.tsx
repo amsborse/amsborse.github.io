@@ -1,6 +1,6 @@
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { Seo } from "@/components/Seo";
-import { contentPaths, experience } from "@/content";
+import { contentPaths, experience } from "@/data";
 
 export default function ExperiencePage() {
   return (

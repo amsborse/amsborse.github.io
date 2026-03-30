@@ -7,6 +7,8 @@ export type FrontData = {
   tags?: string[];
   featured?: boolean;
   readingMinutes?: number;
+  /** Optional; URL slug is always the filename — if set, should match the file slug. */
+  slug?: string;
 };
 
 export function parseFrontmatter(raw: string): { data: FrontData; body: string } {
@@ -47,6 +49,7 @@ export function parseFrontmatter(raw: string): { data: FrontData; body: string }
     if (key === "title") data.title = val;
     else if (key === "description") data.description = val;
     else if (key === "date") data.date = val;
+    else if (key === "slug") data.slug = val;
   }
 
   return { data, body: m[2] };

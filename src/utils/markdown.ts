@@ -75,6 +75,9 @@ export type ParsedPost = {
 
 export function parsePostMarkdown(raw: string, slug: string): ParsedPost {
   const { data, body: content } = parseFrontmatter(raw);
+  if (import.meta.env.DEV && data.slug != null && data.slug !== slug) {
+    console.warn(`[writing] Frontmatter slug "${data.slug}" does not match file slug "${slug}".`);
+  }
   const title = data.title ?? "Untitled";
   const description = data.description ?? "";
   const date = data.date ?? "";

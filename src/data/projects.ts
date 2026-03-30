@@ -1,3 +1,8 @@
+/**
+ * EDIT HERE: Project portfolio — categories and project cards.
+ * Set `featured: true` on up to a few items to show on the home page.
+ */
+
 import type { Project, ProjectCategoryDef } from "./types";
 
 export const projectCategories: ProjectCategoryDef[] = [
@@ -7,11 +12,10 @@ export const projectCategories: ProjectCategoryDef[] = [
   { id: "tooling", label: "Tooling" },
 ];
 
-/** Projects — featured items surface on the home page. */
 export const projects: Project[] = [
   {
     id: "finance-spend-analyzer",
-    name: "Finance Spend Analyzer (placeholder)",
+    title: "Finance Spend Analyzer (placeholder)",
     featured: true,
     category: "product",
     summary:
@@ -28,7 +32,7 @@ export const projects: Project[] = [
   },
   {
     id: "ai-experiments",
-    name: "AI Product Experiments (placeholder)",
+    title: "AI Product Experiments (placeholder)",
     featured: true,
     category: "ai",
     summary:
@@ -42,7 +46,7 @@ export const projects: Project[] = [
   },
   {
     id: "distributed-job-runner",
-    name: "Distributed Job Runner (placeholder)",
+    title: "Distributed Job Runner (placeholder)",
     featured: true,
     category: "systems",
     summary:
@@ -56,7 +60,7 @@ export const projects: Project[] = [
   },
   {
     id: "api-design-kit",
-    name: "API Design Kit (placeholder)",
+    title: "API Design Kit (placeholder)",
     featured: false,
     category: "tooling",
     summary:

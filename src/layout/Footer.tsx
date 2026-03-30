@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { contentPaths, links, site, socialNav } from "@/content";
+import { contentPaths, links, site, socialNav } from "@/data";
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface-alt)]">
+    <footer className="border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-section-sage)_55%,var(--color-surface-alt)_45%)]">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
           <div>
@@ -16,16 +16,10 @@ export function Footer() {
           <div className="flex flex-col gap-6 sm:flex-row sm:justify-between lg:justify-end lg:gap-16">
             <div className="flex flex-col gap-2.5">
               <p className="section-label">On this site</p>
-              <Link
-                to="/contact"
-                className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
-              >
+              <Link to="/contact" className="link-editorial link-editorial--from-body text-sm font-medium">
                 Contact
               </Link>
-              <Link
-                to="/writing"
-                className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
-              >
+              <Link to="/writing" className="link-editorial link-editorial--from-body text-sm font-medium">
                 Writing
               </Link>
             </div>
@@ -35,7 +29,7 @@ export function Footer() {
                 <a
                   key={key}
                   href={links.social[key]}
-                  className="text-sm text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
+                  className="link-editorial link-editorial--from-body text-sm font-medium"
                 >
                   {label}
                 </a>
@@ -44,8 +38,8 @@ export function Footer() {
           </div>
         </div>
         <p className="mt-14 text-[0.8125rem] leading-relaxed text-[var(--color-ink-muted)]">
-          Edit copy in <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">{contentPaths.config}</code> · Posts in{" "}
-          <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">{contentPaths.posts}</code>
+          Edit copy in <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">{contentPaths.dataFolder}</code> · Articles in{" "}
+          <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">{contentPaths.articlesFolder}</code>
         </p>
         <p className="mt-6 text-[0.75rem] text-[var(--color-ink-muted)]">© {year} {site.name}</p>
       </div>

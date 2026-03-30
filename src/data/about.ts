@@ -1,7 +1,8 @@
 /**
- * About page — all body copy. Each string in `intro` is a paragraph.
+ * EDIT HERE: About page — title, intro paragraphs, values, and “what I like building”.
  */
-export const bio = {
+
+export const about = {
   pageTitle: "Who I am",
   seoDescription: "Background, values, and how Akshay Borse approaches engineering and writing.",
   intro: [
@@ -17,6 +18,5 @@ export const bio = {
   buildingHeading: "What I like building",
   building:
     "Data-heavy APIs, internal platforms, and the glue between product intent and infrastructure reality. I am drawn to teams that respect craft, debate tradeoffs openly, and treat on-call as a learning loop—not a punishment.",
-  /** Optional closing line (uses profile.name + profile.headline from site). */
   showQuickReference: true,
 } as const;

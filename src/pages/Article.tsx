@@ -2,8 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Seo } from "@/components/Seo";
 import { TableOfContents } from "@/components/TableOfContents";
-import { getPostBySlug } from "@/content/loadPosts";
-import { site } from "@/content";
+import { site } from "@/data";
+import { getPostBySlug } from "@/utils/loadArticles";
 import NotFoundPage from "@/pages/NotFound";
 
 export default function Article() {

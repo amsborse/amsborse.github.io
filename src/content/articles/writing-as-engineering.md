@@ -4,6 +4,8 @@ description: "Clear writing is not decoration—it is a reliability tool for tea
 date: "2025-04-30"
 tags: ["writing", "culture", "leadership"]
 featured: true
+readingMinutes: 4
+slug: "writing-as-engineering"
 ---
 
 Engineering organizations run on decisions. Decisions run on shared context. Writing is how you scale context without scaling meetings.

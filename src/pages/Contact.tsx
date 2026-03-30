@@ -1,5 +1,5 @@
 import { Seo } from "@/components/Seo";
-import { contactPage, links, site } from "@/content";
+import { contactPage, links, site } from "@/data";
 
 export default function ContactPage() {
   return (

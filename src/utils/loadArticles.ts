@@ -1,7 +1,7 @@
-import { articleOrder } from "./articles";
+import { articleOrder } from "@/data/articles";
 import { parsePostMarkdown, type ParsedPost } from "@/utils/markdown";
 
-const rawModules = import.meta.glob<string>("./posts/*.md", {
+const rawModules = import.meta.glob<string>("../content/articles/*.md", {
   query: "?raw",
   import: "default",
   eager: true,

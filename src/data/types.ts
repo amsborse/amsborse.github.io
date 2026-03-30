@@ -1,13 +1,18 @@
-/** Shared content model types — edit data in the sibling *.ts files, not here, unless you add fields. */
+/**
+ * Data shapes for the portfolio. Edit values in the other `src/data/*.ts` files.
+ * Only change this file when adding or renaming fields.
+ */
 
 export type ExperienceEntry = {
   id: string;
   company: string;
-  role: string;
+  /** Job title (e.g. Senior Software Engineer). */
+  title: string;
   location: string;
   start: string;
   end: string;
   summary: string;
+  /** Bullet points — impact and scope. */
   achievements: string[];
 };
 
@@ -15,7 +20,8 @@ export type ProjectCategory = "systems" | "product" | "ai" | "tooling";
 
 export type Project = {
   id: string;
-  name: string;
+  /** Display title. */
+  title: string;
   featured: boolean;
   category: ProjectCategory;
   summary: string;

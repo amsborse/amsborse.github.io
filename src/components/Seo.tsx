@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { site } from "@/content";
+import { site } from "@/data";
 
 type SeoProps = {
   title: string;

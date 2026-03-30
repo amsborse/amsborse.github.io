@@ -1,10 +1,12 @@
+/**
+ * EDIT HERE: Site URL, email, and all external profile links (GitHub, LinkedIn, Medium, Substack, etc.).
+ * Add more keys to `social` and list them in `socialNav` if you want them in the footer.
+ */
+
 import type { SocialLinks } from "./types";
 
-/**
- * URLs & email — canonical site URL and outbound links.
- */
 export const links = {
-  /** Public site URL (no trailing slash) — used for canonical & Open Graph. */
+  /** Public site URL (no trailing slash) — canonical & Open Graph. */
   siteUrl: "https://amsborse.github.io",
   email: "hello@example.com",
   social: {
@@ -15,7 +17,7 @@ export const links = {
   } satisfies SocialLinks,
 } as const;
 
-/** Footer / elsewhere: ordered list of networks (href from `links.social[key]`). */
+/** Footer / contact: order and labels (href comes from `links.social[key]`). */
 export const socialNav: { key: keyof SocialLinks; label: string }[] = [
   { key: "github", label: "GitHub" },
   { key: "linkedin", label: "LinkedIn" },

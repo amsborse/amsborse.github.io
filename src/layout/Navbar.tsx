@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { navItems, site } from "@/content";
+import { navItems, site } from "@/data";
 
 function linkClass(isActive: boolean) {
   return [
-    "py-2 text-[0.8125rem] tracking-[0.03em] transition-colors duration-300 ease-out",
-    isActive
-      ? "font-semibold text-[var(--color-ink)]"
-      : "font-normal text-[var(--color-ink-muted)] hover:text-[var(--color-accent)]",
+    "nav-item py-2 text-[0.8125rem] tracking-[0.03em]",
+    isActive ? "nav-item--active" : "font-normal text-[var(--color-ink-muted)]",
   ].join(" ");
 }
 
@@ -16,7 +14,7 @@ export function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/90 backdrop-blur-md backdrop-saturate-150">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface-elevated)_92%,transparent)] backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--color-surface-elevated)_88%,transparent)]">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-10">
         <NavLink
           to="/"

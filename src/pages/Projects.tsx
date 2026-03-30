@@ -6,7 +6,7 @@ import {
   projectCategories,
   projects,
   type ProjectCategory,
-} from "@/content";
+} from "@/data";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");

@@ -1,6 +1,9 @@
+/**
+ * EDIT HERE: Top navigation — `to` must match routes in `App.tsx`.
+ */
+
 import type { NavItem } from "./types";
 
-/** Top navigation — paths must match React Router routes in `App.tsx`. */
 export const navItems: NavItem[] = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
