@@ -301,6 +301,35 @@ export default function Home() {
           </p>
         </Reveal>
       </section>
+
+      <section className="home-section home-section--tint-sage relative overflow-hidden border-t border-[var(--color-border)]">
+        <Reveal className="article-shell max-w-6xl py-24 sm:py-28 lg:py-36" delayMs={20}>
+          <header className="mb-14 max-w-2xl">
+            <p className="section-label">Resume</p>
+            <h2 className="mt-6 font-display text-[1.9rem] font-semibold tracking-[-0.028em] text-[var(--color-ink)] sm:text-[2.15rem] lg:text-[2.4rem]">
+              Curriculum Vitae
+            </h2>
+            <p className="mt-7 text-base leading-[1.75] text-[var(--color-ink-muted)] sm:text-[1.0625rem]">
+              View my complete career timeline, core skills, and download the print-ready LaTeX PDF.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a
+                href="/resume.pdf"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--color-gold)_32%,var(--color-accent)_18%)] bg-[var(--color-accent)] px-5 text-sm font-medium text-[var(--color-surface-elevated)] shadow-sm transition-[color,background-color,border-color,box-shadow] duration-300 [transition-timing-function:var(--ease-out-luxe)] hover:bg-[var(--color-accent-bright)]"
+                download="Akshay_Borse_Resume.pdf"
+              >
+                Download LaTeX PDF
+              </a>
+              <Link
+                to="/resume"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-5 text-sm font-medium text-[var(--color-ink)] shadow-sm transition-colors hover:border-[var(--color-border-strong)]"
+              >
+                View Full Resume →
+              </Link>
+            </div>
+          </header>
+        </Reveal>
+      </section>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
 import { resume } from "@/data";
@@ -12,6 +13,7 @@ function resumeDownloadHref(path: string): string {
 
 export default function ResumePage() {
   const hasResumeFile = Boolean(resume.downloadUrl?.trim());
+  const [showPreview, setShowPreview] = useState(true);
 
   return (
     <>
@@ -35,7 +37,7 @@ export default function ResumePage() {
         </p>
 
         {hasResumeFile ? (
-          <p className="mt-6">
+          <p className="mt-6 flex flex-wrap gap-3">
             <a
               href={resumeDownloadHref(resume.downloadUrl)}
               className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--color-gold)_32%,var(--color-accent)_18%)] bg-[var(--color-accent)] px-5 text-sm font-medium text-[var(--color-surface-elevated)] shadow-sm transition-[color,background-color,border-color,box-shadow] duration-300 [transition-timing-function:var(--ease-out-luxe)] hover:bg-[var(--color-accent-bright)]"
@@ -43,6 +45,12 @@ export default function ResumePage() {
             >
               {resume.downloadLabel}
             </a>
+            <button
+              onClick={() => setShowPreview(!showPreview)}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-5 text-sm font-medium text-[var(--color-ink)] shadow-sm transition-colors hover:border-[var(--color-border-strong)]"
+            >
+              {showPreview ? "Hide PDF Preview" : "Show PDF Preview"}
+            </button>
           </p>
         ) : null}
 
@@ -90,6 +98,21 @@ export default function ResumePage() {
             </li>
           ))}
         </ul>
+
+        {hasResumeFile && showPreview && (
+          <div className="mt-14">
+            <h2 className="font-display text-xl font-medium tracking-tight text-[var(--color-ink)] sm:text-2xl mb-4">
+              PDF Document
+            </h2>
+            <div className="overflow-hidden rounded-lg border border-[var(--color-border)] bg-white shadow-sm" style={{ height: "800px" }}>
+              <iframe
+                src={resumeDownloadHref(resume.downloadUrl) + "#toolbar=0"}
+                title="Akshay Borse - Resume PDF Preview"
+                className="w-full h-full border-none"
+              />
+            </div>
+          </div>
+        )}
 
         <div className="mt-14 flex flex-wrap gap-4">
           <Link

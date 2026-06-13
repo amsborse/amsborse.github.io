@@ -5,27 +5,28 @@
 
 export const resume = {
   executiveSummary:
-    "Backend-focused engineer with a track record of shipping reliable systems, tightening observability, and partnering with product on pragmatic tradeoffs. I write to clarify thinking and raise the bar for how teams build.",
+    "Backend Engineer with 6+ years of experience building scalable, cloud-native systems. I’ve led high-impact projects—like an order optimization service that improved customer experience and cut operational costs by 25%. Skilled in microservices, infra-automation, and driving cross-team initiatives. Proactively led on-call reviews, design discussions, and knowledge-sharing sessions to improve system health and team alignment.",
 
   skills: {
-    languages: ["TypeScript", "Go", "Python", "SQL"],
-    systems: ["Distributed systems", "REST / gRPC", "PostgreSQL", "Redis", "Kafka (conceptual)"],
-    practices: ["SLOs & incident response", "Code review", "Technical writing", "Mentoring"],
+    languages: ["C#", ".NET", "Java", "Python", "TypeScript", "SQL", "HTML/CSS"],
+    systems: ["Distributed systems", "REST / gRPC", "Microservices", "Docker", "AWS (ECS, DynamoDB, Lambda, SageMaker, Bedrock)", "Azure (Functions, Cosmos DB, Event Hub)"],
+    practices: ["SLOs & incident response", "Logging & metrics optimization", "Prompt Engineering", "Technical writing", "Mentoring"],
   },
 
   achievements: [
-    "Owned critical paths for billing and metering at scale (placeholder).",
-    "Drove cross-team reliability improvements via tracing and actionable dashboards (placeholder).",
-    "Published technical essays on systems thinking and API design (see Writing).",
+    "Designed a microservice bootstrap library that standardized service creation across Amazon teams—cutting setup time from weeks to hours and saving 40–50 weeks of developer time.",
+    "Architected and deployed backend integration infrastructure for Amazon SageMaker quantile regression model, driving statistically significant annualized ~$28MM profit gain.",
+    "Developed agentic risk detection and adaptive protection capabilities in Microsoft Purview to identify and flag high-risk agents based on behavioral patterns.",
+    "Received Amazon Just Do It Award for developing an Automated Service Creation tool that deploys microservices on AWS within an hour.",
   ],
 
   focusAreas: [
-    "Reliable backends under real-world load",
-    "Developer experience adjacent to infrastructure",
-    "Clear communication across engineering and product",
+    "Reliable backends & cloud architecture under real-world load",
+    "Agentic risk & AI application integration (RAG, LLMs)",
+    "Observability, logging, and infrastructure automation",
   ],
 
   /** Example: `/resume.pdf` (file in `public/`) or `https://...` */
-  downloadUrl: "",
+  downloadUrl: "/resume.pdf",
   downloadLabel: "Download PDF",
 };

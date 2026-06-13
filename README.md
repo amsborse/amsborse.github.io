@@ -15,11 +15,12 @@ A static portfolio and writing site built with **React**, **Vite**, and **Tailwi
 | **Navigation** | `src/data/navigation.ts` |
 | **Social links, email, site URL** | `src/data/socials.ts` |
 | **Contact page copy** | `src/data/contact.ts` |
-| **Writing: post order** | `src/data/articles.ts` |
-| **Writing: markdown posts** | `src/content/articles/*.md` |
+| **Article list order** | `src/data/articleIndex.ts` (`articleOrder`) |
+| **Article bodies (Markdown)** | `src/content/articles/*.md` |
+| **Article loading (code)** | `src/lib/articles.ts` |
 | **UI “where to edit” hints** | `src/data/paths.ts` |
 
-Import site-wide data: `import { site, projects, … } from '@/data'`. Article loaders: `import { getAllPosts, … } from '@/utils/loadArticles'`.
+Import site-wide data: `import { site, projects, … } from '@/data'`. Article API: `import { getAllArticles, getArticleBySlug, … } from '@/lib/articles'`.
 
 ## Prerequisites
 
@@ -41,14 +42,74 @@ Open the URL shown in the terminal (usually `http://localhost:5173`).
 | `npm run build` | Typecheck + production build + `dist/404.html` + verify `dist/` |
 | `npm run build:docs` | Same as **`build`**, then copy **`dist/` → `docs/`** for “Deploy from branch → /docs” |
 | `npm run preview` | Serve `dist/` locally (same paths as production) |
+| `npm run import:medium` | Run Medium HTML import (see below) — pass folder path as argument |
 
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
 
-## Articles (markdown)
+## Author guide: articles (hosted Markdown)
 
-1. Add `your-slug.md` under **`src/content/articles/`**.
-2. Add **`your-slug`** to **`articleOrder`** in **`src/data/articles.ts`** (or it is listed after ordered slugs).
-3. Frontmatter supports: **`title`**, **`description`**, **`date`**, **`tags`**, **`featured`**, **`readingMinutes`**, optional **`slug`** (should match the filename slug).
+**Where content lives** — Only **`src/content/articles/*.md`**. Layout, typography, and reading UI are in **`src/components/writing/`** and **`src/styles/index.css`** (`prose-article`, `.article-reading`). Do not put article prose in React components.
+
+**Routes** — **`/articles`** lists posts; **`/articles/:slug`** renders one post. Legacy **`/writing/:slug`** redirects to **`/articles/:slug`**. The **`/writing`** page is Medium stats + links (not the full article reader).
+
+### Add a new article by hand
+
+1. Create **`src/content/articles/your-slug.md`** with YAML frontmatter and the body below the second `---`.
+2. Add **`your-slug`** to **`articleOrder`** in **`src/data/articleIndex.ts`** (or omit it; unordered files still appear after the ordered list).
+3. Frontmatter fields supported:
+
+| Field | Notes |
+|--------|--------|
+| `title` | Required for display |
+| `slug` | Optional; should match filename without `.md` |
+| `date` | ISO `YYYY-MM-DD` |
+| `description` | Card + SEO |
+| `tags` | `["tag1", "tag2"]` |
+| `featured` | `true` / `false` |
+| `readingMinutes` | Number; if omitted, estimated from word count |
+| `readTime` | Display string, e.g. `"12 min"` (overrides default label) |
+| `source` | e.g. `"Medium"` |
+| `canonicalUrl` | Original URL if migrated |
+| `coverImage` | URL string (reserved for future hero) |
+| `draft` | `true` hides the post in **production** builds (still visible in `npm run dev`) |
+
+### Import from Medium HTML export
+
+1. Download your Medium export (ZIP) and extract it. The **`posts`** folder contains one **`.html`** file per story.
+2. From the repo root:
+
+```bash
+node scripts/import-medium-html.js "C:/path/to/medium-export/posts"
+```
+
+Optional:
+
+- **`--update-index`** — append each new slug to **`articleIndex.ts`** (skips drafts).
+- **`--only partial`** — import only files whose **derived slug** contains that substring (good for testing one post).
+
+Example (test one):
+
+```bash
+node scripts/import-medium-html.js "C:/path/to/posts" --only 2cc62e77903e
+```
+
+The script **does not rewrite your wording** — it strips Medium wrappers and converts HTML to Markdown via **Turndown**. You should review the `.md` file once (especially headings and images).
+
+### Preview locally
+
+```bash
+npm run dev
+```
+
+Open **`/articles`** and the article URL shown in the terminal.
+
+### How rendering works
+
+- **`src/lib/articles.ts`** eagerly loads all `*.md` via Vite’s `import.meta.glob`, parses frontmatter, and renders Markdown to HTML with **marked**.
+- **`getAllArticles()`**, **`getArticleBySlug(slug)`**, **`getFeaturedArticles()`**, **`getArticleMetadata()`** are the public API.
+- Table of contents is built from `##` / `###` / `####` headings in the Markdown source.
+
+## Articles (markdown) — legacy note
 
 Optional HTML in Markdown: `<div class="callout callout-quote">…</div>` (styled in `src/styles/index.css`).
 
