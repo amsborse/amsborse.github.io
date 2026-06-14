@@ -11,5 +11,6 @@ export const navItems: NavItem[] = [
   { to: "/projects", label: "Projects" },
   { to: "/writing", label: "Writing" },
   { to: "/resume", label: "Resume" },
+  { to: "/motion", label: "Motion" },
   { to: "/contact", label: "Contact" },
 ];

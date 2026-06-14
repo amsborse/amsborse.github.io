@@ -2,8 +2,64 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
+import { useTilt } from "@/hooks/useTilt";
 import { contentPaths } from "@/data";
 import { getAllPosts, getFeaturedPosts } from "@/utils/loadArticles";
+
+function FeaturedWritingCard({ post, i }: { post: any; i: number }) {
+  const tiltRef = useTilt<HTMLLIElement>({
+    maxRotation: 3,
+    scale: 1.01,
+    perspective: 1200,
+  });
+
+  return (
+    <li
+      ref={tiltRef}
+      className="reveal-stagger-item"
+      style={{ "--reveal-index": i } as CSSProperties}
+    >
+      <Link
+        to={`/writing/${post.slug}`}
+        className="writing-entry-card group block px-6 py-7 sm:px-8 sm:py-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl"
+      >
+        <div className="writing-entry-card__inner">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-10">
+            <div className="flex shrink-0 flex-col sm:w-32">
+              <span className="writing-entry-card__eyebrow">Featured</span>
+              <time
+                className="mt-3 block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]"
+                dateTime={post.date}
+              >
+                {post.date}
+              </time>
+              <p className="mt-2 font-mono text-[0.6875rem] text-[var(--color-gold-muted)]">
+                {post.readingMinutes} min
+              </p>
+              <span className="writing-entry-card__read">
+                Read
+                <span className="writing-entry-card__read-arrow" aria-hidden>
+                  →
+                </span>
+              </span>
+            </div>
+            <div className="min-w-0 flex-1 sm:pl-2">
+              <h3 className="font-display text-[1.2rem] font-semibold leading-snug text-[var(--color-ink)] transition-colors duration-300 group-hover:text-[var(--color-accent)] sm:text-[1.28rem]">
+                {post.title}
+              </h3>
+              <p className="mt-3 text-sm leading-[1.72] text-[var(--color-body)] sm:text-[0.9375rem]">
+                {post.description}
+              </p>
+              <p className="mt-4 font-mono text-[0.6875rem] text-[var(--color-ink-muted)]">
+                {post.tags.join(" · ")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+}
 
 export default function WritingPage() {
   const all = getAllPosts();
@@ -40,52 +96,9 @@ export default function WritingPage() {
           <h2 className="section-label">Featured</h2>
         </Reveal>
         <Reveal className="mt-8" stagger staggerMs={72}>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-5">
             {featured.map((post, i) => (
-              <li
-                key={post.slug}
-                className="reveal-stagger-item"
-                style={{ "--reveal-index": i } as CSSProperties}
-              >
-                <Link
-                  to={`/writing/${post.slug}`}
-                  className="writing-entry-card group block px-6 py-7 sm:px-8 sm:py-8"
-                >
-                  <div className="writing-entry-card__inner">
-                    <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-10">
-                      <div className="flex shrink-0 flex-col sm:w-32">
-                        <span className="writing-entry-card__eyebrow">Featured</span>
-                        <time
-                          className="mt-3 block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]"
-                          dateTime={post.date}
-                        >
-                          {post.date}
-                        </time>
-                        <p className="mt-2 font-mono text-[0.6875rem] text-[var(--color-gold-muted)]">
-                          {post.readingMinutes} min
-                        </p>
-                        <span className="writing-entry-card__read">
-                          Read
-                          <span className="writing-entry-card__read-arrow" aria-hidden>
-                            →
-                          </span>
-                        </span>
-                      </div>
-                      <div className="min-w-0 flex-1 sm:pl-2">
-                        <h3 className="font-display text-[1.2rem] font-semibold leading-snug text-[var(--color-ink)] transition-colors duration-300 group-hover:text-[var(--color-accent)] sm:text-[1.28rem]">
-                          {post.title}
-                        </h3>
-                        <p className="mt-3 text-sm leading-[1.72] text-[var(--color-body)] sm:text-[0.9375rem]">
-                          {post.description}
-                        </p>
-                        <p className="mt-4 font-mono text-[0.6875rem] text-[var(--color-ink-muted)]">
-                          {post.tags.join(" · ")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </li>
+              <FeaturedWritingCard key={post.slug} post={post} i={i} />
             ))}
           </ul>
         </Reveal>

@@ -9,6 +9,7 @@ import NotFoundPage from "@/pages/NotFound";
 import Projects from "@/pages/Projects";
 import Resume from "@/pages/Resume";
 import Writing from "@/pages/Writing";
+import MotionLab from "@/pages/MotionLab";
 
 const Article = lazy(() => import("@/pages/Article"));
 
@@ -43,6 +44,7 @@ export default function App() {
             }
           />
           <Route path="resume" element={<Resume />} />
+          <Route path="motion" element={<MotionLab />} />
           <Route path="contact" element={<Contact />} />
           <Route path="404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
