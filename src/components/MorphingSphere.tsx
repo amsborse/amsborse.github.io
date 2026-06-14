@@ -380,9 +380,11 @@ export function MorphingSphere() {
     };
 
     const draw = () => {
-      // Memory Echo System (draw transparent trailing clearing field to leave faint particle paths)
-      ctx.fillStyle = "rgba(7, 8, 13, 0.16)";
+      // Fade out previous frame contents transparently to prevent grey box/imprint build-up
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.22)";
       ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "source-over";
 
       // Smoothly interpolate rotation to match mouse coordinates or auto-spin
       if (mouseRef.current.isDragging) {
