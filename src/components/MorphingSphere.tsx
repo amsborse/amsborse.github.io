@@ -613,14 +613,16 @@ export function MorphingSphere() {
   }, [shape]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-[400px] sm:h-[480px]">
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full cursor-grab active:cursor-grabbing max-w-[500px]"
-      />
+    <div className="flex flex-col items-center w-full gap-5">
+      <div className="w-full h-[320px] sm:h-[380px] flex items-center justify-center relative">
+        <canvas
+          ref={canvasRef}
+          className="w-full h-full cursor-grab active:cursor-grabbing max-w-[500px]"
+        />
+      </div>
       
       {/* Morph Controls */}
-      <div className="absolute bottom-4 flex flex-wrap justify-center gap-1.5 z-20 bg-[var(--color-surface)]/60 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-[var(--color-border)] shadow-md max-w-[95%]">
+      <div className="flex flex-wrap justify-center gap-1.5 z-20 bg-[var(--color-surface)]/60 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-[var(--color-border)] shadow-md max-w-[95%]">
         {(["sphere", "torus", "wave", "cube", "pyramid", "galaxy", "fermat", "doubleHelix", "saturn", "mobius", "infinity", "vortex", "hourglass", "blackhole", "supernova", "conical"] as ShapeType[]).map((type) => (
           <button
             key={type}
