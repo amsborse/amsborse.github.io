@@ -380,7 +380,9 @@ export function MorphingSphere() {
     };
 
     const draw = () => {
-      ctx.clearRect(0, 0, width, height);
+      // Memory Echo System (draw transparent trailing clearing field to leave faint particle paths)
+      ctx.fillStyle = "rgba(7, 8, 13, 0.16)";
+      ctx.fillRect(0, 0, width, height);
 
       // Smoothly interpolate rotation to match mouse coordinates or auto-spin
       if (mouseRef.current.isDragging) {
@@ -444,14 +446,11 @@ export function MorphingSphere() {
         const scale = fov / (fov + z2);
         const screenX = cx + x1 * scale;
         const screenY = cy + y2 * scale;
-        const radius = Math.max(0.5, (z2 + 200) / 75) * scale; // size based on depth
+        
+        // Add subtle breathing pulse to radius on the fly
+        const pulse = Math.sin(now * 0.0025 + p.id * 0.15) * 0.2 + 0.95;
+        const radius = Math.max(0.5, (z2 + 200) / 80) * scale * pulse;
         const alpha = Math.max(0.08, Math.min(0.85, (z2 + 180) / 360));
-
-        // Add coordinate to trail history (limit to 3 frames to save memory/rendering)
-        p.trail.push({ x: screenX, y: screenY, alpha });
-        if (p.trail.length > 3) {
-          p.trail.shift();
-        }
 
         return {
           sx: screenX,
@@ -459,92 +458,33 @@ export function MorphingSphere() {
           depth: z2,
           radius,
           color: p.color,
-          shapeType: p.shapeType,
-          trail: [...p.trail],
-          id: p.id,
+          alpha,
         };
       });
 
       // Sort by depth (back to front) for painters algorithm
       projected.sort((a, b) => b.depth - a.depth);
 
-      // Draw projected points and their trails
+      // Draw projected points as glowing circles
       projected.forEach((p) => {
-        // 1. Draw Trails first (only for 50% of particles to optimize draw call overhead)
-        if (p.id % 2 === 0) {
-          p.trail.forEach((t, idx) => {
-            const trailAlpha = t.alpha * 0.14 * (idx + 1) / p.trail.length;
-            if (trailAlpha <= 0) return;
-            
-            ctx.beginPath();
-            ctx.globalAlpha = trailAlpha;
-            ctx.fillStyle = p.color;
-
-            const size = p.radius * (idx + 1) / p.trail.length;
-
-            if (p.shapeType === "circle") {
-              ctx.arc(t.x, t.y, size, 0, Math.PI * 2);
-            } else if (p.shapeType === "square") {
-              ctx.rect(t.x - size, t.y - size, size * 2, size * 2);
-            } else if (p.shapeType === "triangle") {
-              const tr = size * 1.25;
-              ctx.moveTo(t.x, t.y - tr);
-              ctx.lineTo(t.x + tr * 0.86, t.y + tr * 0.5);
-              ctx.lineTo(t.x - tr * 0.86, t.y + tr * 0.5);
-              ctx.closePath();
-            } else if (p.shapeType === "star") {
-              // Simple fast diamond star line drawing (avoid expensive quadratic curves)
-              ctx.moveTo(t.x, t.y - size * 1.35);
-              ctx.lineTo(t.x + size * 0.55, t.y);
-              ctx.lineTo(t.x, t.y + size * 1.35);
-              ctx.lineTo(t.x - size * 0.55, t.y);
-              ctx.closePath();
-            }
-            ctx.fill();
-          });
-        }
-
-        // 2. Draw Faux Glow (underneath main particle, 10x faster than ctx.shadowBlur)
-        const mainAlpha = Math.max(0.08, Math.min(0.85, (p.depth + 180) / 360));
-        if (p.depth < 0) {
-          ctx.beginPath();
-          ctx.globalAlpha = mainAlpha * 0.22;
-          ctx.fillStyle = p.color;
-          if (p.shapeType === "circle") {
-            ctx.arc(p.sx, p.sy, p.radius * 2.2, 0, Math.PI * 2);
-          } else {
-            ctx.rect(p.sx - p.radius * 1.5, p.sy - p.radius * 1.5, p.radius * 3, p.radius * 3);
-          }
-          ctx.fill();
-        }
-
-        // 3. Draw main particle
         ctx.beginPath();
-        ctx.globalAlpha = mainAlpha;
+        ctx.arc(p.sx, p.sy, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-
-        if (p.shapeType === "circle") {
-          ctx.arc(p.sx, p.sy, p.radius, 0, Math.PI * 2);
-        } else if (p.shapeType === "square") {
-          ctx.rect(p.sx - p.radius, p.sy - p.radius, p.radius * 2, p.radius * 2);
-        } else if (p.shapeType === "triangle") {
-          const tr = p.radius * 1.25;
-          ctx.moveTo(p.sx, p.sy - tr);
-          ctx.lineTo(p.sx + tr * 0.86, p.sy + tr * 0.5);
-          ctx.lineTo(p.sx - tr * 0.86, p.sy + tr * 0.5);
-          ctx.closePath();
-        } else if (p.shapeType === "star") {
-          // Simple fast diamond star line drawing
-          ctx.moveTo(p.sx, p.sy - p.radius * 1.35);
-          ctx.lineTo(p.sx + p.radius * 0.55, p.sy);
-          ctx.lineTo(p.sx, p.sy + p.radius * 1.35);
-          ctx.lineTo(p.sx - p.radius * 0.55, p.sy);
-          ctx.closePath();
+        ctx.globalAlpha = p.alpha;
+        
+        // Match Home page shadowBlur glow exactly
+        if (p.depth < -20) {
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = p.color;
+        } else {
+          ctx.shadowBlur = 0;
         }
+        
         ctx.fill();
       });
 
       ctx.globalAlpha = 1.0;
+      ctx.shadowBlur = 0;
 
       // Draw light structural rings/links between nearest elements for Torus/Sphere
       if (shape !== "wave") {
