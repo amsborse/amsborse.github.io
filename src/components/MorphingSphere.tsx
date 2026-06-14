@@ -380,11 +380,8 @@ export function MorphingSphere() {
     };
 
     const draw = () => {
-      // Fade out previous frame contents transparently to prevent grey box/imprint build-up
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0, 0, 0, 0.22)";
-      ctx.fillRect(0, 0, width, height);
-      ctx.globalCompositeOperation = "source-over";
+      // Clear canvas completely to prevent any ghosting or imprints on the background
+      ctx.clearRect(0, 0, width, height);
 
       // Smoothly interpolate rotation to match mouse coordinates or auto-spin
       if (mouseRef.current.isDragging) {
@@ -454,6 +451,12 @@ export function MorphingSphere() {
         const radius = Math.max(0.5, (z2 + 200) / 80) * scale * pulse;
         const alpha = Math.max(0.08, Math.min(0.85, (z2 + 180) / 360));
 
+        // Add coordinate to trail history (limit to 4 frames)
+        p.trail.push({ x: screenX, y: screenY, alpha });
+        if (p.trail.length > 4) {
+          p.trail.shift();
+        }
+
         return {
           sx: screenX,
           sy: screenY,
@@ -461,14 +464,31 @@ export function MorphingSphere() {
           radius,
           color: p.color,
           alpha,
+          trail: [...p.trail],
+          id: p.id,
         };
       });
 
       // Sort by depth (back to front) for painters algorithm
       projected.sort((a, b) => b.depth - a.depth);
 
-      // Draw projected points as glowing circles
+      // Draw projected points and their trails
       projected.forEach((p) => {
+        // 1. Draw trails first (only for 50% of particles to optimize draw call overhead)
+        if (p.id % 2 === 0) {
+          p.trail.forEach((t, idx) => {
+            const trailAlpha = t.alpha * 0.12 * ((idx + 1) / p.trail.length);
+            if (trailAlpha <= 0) return;
+            
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, p.radius * 0.82 * ((idx + 1) / p.trail.length), 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = trailAlpha;
+            ctx.fill();
+          });
+        }
+
+        // 2. Draw main particle circle
         ctx.beginPath();
         ctx.arc(p.sx, p.sy, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
@@ -476,7 +496,7 @@ export function MorphingSphere() {
         
         // Match Home page shadowBlur glow exactly
         if (p.depth < -20) {
-          ctx.shadowBlur = 6;
+          ctx.shadowBlur = 8;
           ctx.shadowColor = p.color;
         } else {
           ctx.shadowBlur = 0;
