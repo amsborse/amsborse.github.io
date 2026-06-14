@@ -364,7 +364,7 @@ export default function Home() {
     <>
       <Seo title={site.title} description={site.description} path="/" />
 
-      <div className="min-h-screen bg-gradient-to-br from-[#030408] via-[#070b19] to-[#0c122b] text-slate-300 relative overflow-hidden flex flex-col pt-16">
+      <div className="min-h-screen text-slate-300 relative overflow-hidden flex flex-col pt-16">
         
         {/* Glowing visual backdrop patches */}
         <div className="absolute top-[10%] left-[20%] w-[35vw] h-[35vw] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.08)_0%,transparent_75%)] pointer-events-none" />

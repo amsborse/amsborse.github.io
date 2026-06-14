@@ -126,7 +126,7 @@ export default function MotionLab() {
         path="/motion"
       />
 
-      <div className="min-h-screen bg-[var(--color-bg)] text-[#f1f3f7] relative overflow-hidden pb-32 pt-20">
+      <div className="min-h-screen text-[#f1f3f7] relative overflow-hidden pb-32 pt-20">
         {/* Futuristic grids */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(24,58,111,0.04)_1.5px,transparent_1.5px),linear-gradient(90deg,rgba(24,58,111,0.04)_1.5px,transparent_1.5px)] bg-[size:40px_40px] pointer-events-none" />
         <div className="absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-[var(--color-accent)]/10 to-transparent blur-[120px] pointer-events-none" />
