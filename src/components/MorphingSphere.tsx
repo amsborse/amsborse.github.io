@@ -51,13 +51,12 @@ export function MorphingSphere() {
     const points: Point3D[] = [];
     const count = 450;
     
-    // Neon Cosmic Theme colors (Vibrant Cyan, Purple, Gold, Pink, Emerald)
+    // Palette mapping to Cyan, Indigo, Violet, Gold from Home page
     const colors = [
-      "#38bdf8", // Neon Cyan
-      "#a855f7", // Neon Purple
-      "#ffd700", // Cosmic Gold
-      "#ec4899", // Nebula Pink
-      "#10b981", // Emerald Glow
+      "#38bdf8", // Cyan
+      "#818cf8", // Indigo
+      "#a855f7", // Violet
+      "#f59e0b", // Gold
     ];
 
     const shapes: ("circle" | "square" | "triangle" | "star")[] = ["circle", "square", "triangle", "star"];
@@ -429,10 +428,10 @@ export function MorphingSphere() {
           ty = p.targetY + Math.sin(progress * Math.PI * 1.5 + p.id * 0.1) * 8;
         }
 
-        // Snappy interpolation to targets (morphing speed increased from 0.065 to 0.155)
-        p.x += (tx - p.x) * 0.155;
-        p.y += (ty - p.y) * 0.155;
-        p.z += (tz - p.z) * 0.155;
+        // Target interpolation matched to Home page (0.065)
+        p.x += (tx - p.x) * 0.065;
+        p.y += (ty - p.y) * 0.065;
+        p.z += (tz - p.z) * 0.065;
 
         // Apply 3D rotation (Y-axis, then X-axis)
         let x1 = p.x * cosY - p.z * sinY;
