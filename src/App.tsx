@@ -11,6 +11,9 @@ import Resume from "@/pages/Resume";
 import Writing from "@/pages/Writing";
 import MotionLab from "@/pages/MotionLab";
 
+import { Canvas } from "@react-three/fiber";
+import Scene from "@/components/canvas/Scene";
+
 const Article = lazy(() => import("@/pages/Article"));
 
 function basename(): string | undefined {
@@ -21,8 +24,14 @@ function basename(): string | undefined {
 
 export default function App() {
   return (
-    <BrowserRouter basename={basename()}>
-      <Routes>
+    <>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: '#050505' }}>
+        <Canvas>
+          <Scene />
+        </Canvas>
+      </div>
+      <BrowserRouter basename={basename()}>
+        <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
@@ -51,5 +60,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
