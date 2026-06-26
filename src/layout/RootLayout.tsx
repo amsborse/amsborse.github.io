@@ -1,15 +1,46 @@
+import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { InteractiveParticles } from "@/components/InteractiveParticles";
 // import { AetherCoordinator } from "@/components/AetherCoordinator";
+import Lenis from "lenis";
+import { useStore } from "@/store/useStore";
+import { useMouseVelocity } from "@/hooks/useMouseVelocity";
 
 export function RootLayout() {
   const location = useLocation();
+  const setScrollProgress = useStore((state) => state.setScrollProgress);
+  useMouseVelocity();
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+    });
+
+    lenis.on('scroll', (e: any) => {
+      setScrollProgress(e.progress);
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, [setScrollProgress]);
 
   return (
-    <div className="flex min-h-screen flex-col relative overflow-hidden">
+    <div className="flex min-h-screen flex-col relative overflow-hidden" style={{ background: 'transparent' }}>
       <InteractiveParticles />
       {/* <AetherCoordinator /> */}
       <a

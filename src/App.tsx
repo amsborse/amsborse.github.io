@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RootLayout } from "@/layout/RootLayout";
 import Home from "@/pages/Home";
 
+import { Canvas } from "@react-three/fiber";
+import Scene from "@/components/canvas/Scene";
+
 /**
  * Lazy-loaded page chunks — only downloaded when the user navigates to them.
  * Home is eagerly loaded since it's the landing page.
@@ -40,8 +43,14 @@ function basename(): string | undefined {
 
 export default function App() {
   return (
-    <BrowserRouter basename={basename()}>
-      <Routes>
+    <>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: '#050505' }}>
+        <Canvas>
+          <Scene />
+        </Canvas>
+      </div>
+      <BrowserRouter basename={basename()}>
+        <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<Suspense fallback={<PageSkeleton />}><About /></Suspense>} />
@@ -65,5 +74,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
