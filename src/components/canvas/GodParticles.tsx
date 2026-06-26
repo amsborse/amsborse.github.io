@@ -32,6 +32,7 @@ export default function GodParticles({ count = 2000 }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
+          args={[particlesPosition, 3]}
           count={particlesPosition.length / 3}
           array={particlesPosition}
           itemSize={3}
