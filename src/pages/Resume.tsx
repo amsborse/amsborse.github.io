@@ -378,15 +378,22 @@ body.morphed .recognition li{font-size:10pt;margin-bottom:8px;line-height:1.6}
 /* Summary */
 .summary-text{font-size:9pt;line-height:1.5;color:var(--text);transition:all 0.4s}
 body.morphed .summary-text{font-size:10.5pt;line-height:1.7;color:var(--text)}
-/* Morph button */
-.morph-btn{position:fixed;top:100px;right:28px;z-index:1000;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;display:flex;align-items:center;justify-content:center;transition:all 0.3s var(--spring);animation:btn-float 3s ease-in-out infinite, btn-pulse 2s infinite, btn-grad 4s ease infinite;background-size:200% 200%}
-.morph-btn:hover{transform:scale(1.12);box-shadow:0 6px 28px rgba(99,102,241,0.5)}
-.morph-btn svg{width:24px;height:24px;stroke:white;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.morph-btn .tooltip{position:absolute;bottom:120%;right:0;background:var(--text);color:white;font-size:8pt;padding:6px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateY(6px);transition:all 0.3s;pointer-events:none}
-.morph-btn:hover .tooltip{opacity:1;transform:translateY(0)}
-@keyframes btn-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes btn-grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes btn-pulse{0%{box-shadow:0 0 0 0 var(--btn-pulse-color),0 4px 20px rgba(99,102,241,0.25)}70%{box-shadow:0 0 0 16px rgba(99,102,241,0),0 4px 20px rgba(99,102,241,0.25)}100%{box-shadow:0 0 0 0 rgba(99,102,241,0),0 4px 20px rgba(99,102,241,0.25)}}
+/* Morph button styles replaced with premium toggle pill */
+.mode-toggle-container{position:fixed;bottom:28px;right:28px;z-index:1000;display:flex;align-items:center;gap:10px;animation:toggle-fade-in 0.6s var(--spring) forwards}
+@keyframes toggle-fade-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.mode-toggle-pill{display:flex;background:rgba(255,255,255,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.06);border-radius:9999px;padding:3px;box-shadow:0 4px 24px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.5);position:relative;transition:all 0.4s var(--smooth)}
+body.morphed .mode-toggle-pill{background:rgba(13,17,28,0.5);border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.05)}
+.toggle-option{background:transparent;border:none;cursor:pointer;padding:8px 16px;font-size:8.5pt;font-weight:600;color:var(--text-light);border-radius:9999px;display:flex;align-items:center;gap:6px;transition:all 0.3s var(--smooth);position:relative;z-index:1}
+.toggle-option .icon{font-size:10pt;transition:transform 0.3s var(--spring)}
+.toggle-option:hover .icon{transform:scale(1.15) rotate(5deg)}
+.toggle-option.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 2px 10px rgba(99,102,241,0.25)}
+.toggle-option:not(.active):hover{color:var(--text);background:rgba(0,0,0,0.03)}
+body.morphed .toggle-option:not(.active):hover{color:var(--text);background:rgba(255,255,255,0.05)}
+.theme-btn-pill{width:38px;height:38px;border-radius:50%;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:rgba(255,255,255,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,0.06);display:none;align-items:center;justify-content:center;font-size:14px;transition:all 0.3s var(--spring)}
+.theme-btn-pill.visible{display:flex;animation:scale-up-theme 0.3s var(--spring) forwards}
+@keyframes scale-up-theme{from{transform:scale(0)}to{transform:scale(1)}}
+body.morphed .theme-btn-pill{background:rgba(13,17,28,0.5);border-color:rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.3);color:#fff}
+.theme-btn-pill:hover{transform:scale(1.12) rotate(15deg);border-color:var(--accent);box-shadow:0 0 15px rgba(99,102,241,0.25)}
 body.morphed .section{opacity:0;transform:translateY(16px);animation:section-reveal 0.5s var(--smooth) forwards}
 body.morphed .section:nth-child(1){animation-delay:0.1s}
 body.morphed .section:nth-child(2){animation-delay:0.2s}
@@ -434,16 +441,8 @@ body.morphed .impact{background-size:100% 2px}
  DARK MODE (additive--only affects the interactive "morphed"
  view; paper/PDF default and print are untouched)
  ============================================================ */
-.theme-btn{position:fixed;top:162px;right:28px;z-index:1000;width:56px;height:56px;border-radius:50%;
- border:none;cursor:pointer;background:rgba(255,255,255,0.92);box-shadow:0 4px 20px rgba(0,0,0,0.15);
- color:#1a1a2e;display:none;align-items:center;justify-content:center;font-size:21px;
- transition:transform 0.3s var(--spring),background 0.3s,color 0.3s}
-body.morphed .theme-btn{display:flex}
-.theme-btn:hover{transform:scale(1.12)}
-.theme-btn .tooltip{position:absolute;bottom:120%;right:0;background:var(--text);color:#fff;font-size:8pt;
- padding:6px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateY(6px);
- transition:all 0.3s;pointer-events:none}
-.theme-btn:hover .tooltip{opacity:1;transform:translateY(0)}
+
+
 /* re-map the palette: most elements reference these vars, so they recolor automatically */
 body.morphed.dark{
 --paper:rgba(13,17,28,0.55);--bg:#07080d;--text:#f8fafc;--text-light:#94a3b8;
@@ -479,12 +478,12 @@ body.morphed.dark .hover-popup.locked{background:rgba(27,30,54,.97)!important;co
  border-color:var(--accent);box-shadow:0 16px 64px rgba(139,123,255,.30);}
 body.morphed.dark.focus-mode .resume-container::after{background:rgba(4,4,12,.5);}
 body.morphed.dark.focus-mode li.popup-parent{background:rgba(27,30,54,.95);box-shadow:0 8px 32px rgba(139,123,255,.25);}
-body.morphed.dark .theme-btn{background:rgba(27,30,54,.92);color:#ffd770;border:1px solid rgba(255,255,255,.12);}
+body.morphed.dark .theme-btn-pill{background:rgba(27,30,54,.92);color:#ffd770;border:1px solid rgba(255,255,255,.12);}
 body.morphed.dark ::selection{background:rgba(139,123,255,.4);color:#fff;}
 /* keep résumé content above the glow layer (container is z-index:1 by default; buttons stay at 1000) */
 body.morphed.dark .resume-container{z-index:1;}
 @media print{
-.morph-btn,.theme-btn,.stats-bar,.tech-tags,.skill-bars,.hover-popup,.morphed-only{display:none!important}
+.mode-toggle-container,.theme-btn-pill,.stats-bar,.tech-tags,.skill-bars,.hover-popup,.morphed-only{display:none!important}
 body,.resume-container{background:#fff!important;box-shadow:none!important;border-radius:0!important;margin:0!important;max-width:100%!important;padding:0.5in!important}
 }` }} />
 
@@ -517,38 +516,32 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
         )}
         <div className="resume-content-view">
           <div className="resume-container" style={{ position: "relative" }}>
-            {/* Floating Morphing Buttons */}
-            <div className="no-print">
-              <button 
-                className="morph-btn"
-                onClick={() => setMorphed(!morphed)}
-                title={morphed ? "Switch to PDF View" : "Switch to Interactive Mode"}
-                aria-label={morphed ? "Switch to PDF View" : "Switch to Interactive Mode"}
-              >
-                {morphed ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="16" y1="13" x2="8" y2="13" />
-                    <line x1="16" y1="17" x2="8" y2="17" />
-                    <polyline points="10 9 9 9 8 9" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
-                  </svg>
-                )}
-                <span className="tooltip">{morphed ? "📄 PDF View" : "✨ Interactive"}</span>
-              </button>
+            {/* Mode & Theme Selection Bar */}
+            <div className="no-print mode-toggle-container">
+              <div className="mode-toggle-pill">
+                <button
+                  className={`toggle-option ${!morphed ? 'active' : ''}`}
+                  onClick={() => setMorphed(false)}
+                >
+                  <span className="icon">📄</span>
+                  <span className="label">PDF View</span>
+                </button>
+                <button
+                  className={`toggle-option ${morphed ? 'active' : ''}`}
+                  onClick={() => setMorphed(true)}
+                >
+                  <span className="icon">✨</span>
+                  <span className="label">Interactive</span>
+                </button>
+              </div>
 
               <button 
-                className="theme-btn"
+                className={`theme-btn-pill ${morphed ? 'visible' : ''}`}
                 onClick={() => setDarkMode(!darkMode)}
                 title="Toggle Theme"
                 aria-label="Toggle Theme"
               >
                 {darkMode ? "☀️" : "🌙"}
-                <span className="tooltip">{darkMode ? "Light Theme" : "Dark Theme"}</span>
               </button>
             </div>
 
