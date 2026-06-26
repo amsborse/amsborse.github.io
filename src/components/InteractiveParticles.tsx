@@ -15,7 +15,11 @@ interface Particle {
   offsetY: number;    // mouse attraction offset y
 }
 
-export function InteractiveParticles() {
+interface InteractiveParticlesProps {
+  intensity?: "normal" | "intense";
+}
+
+export function InteractiveParticles({ intensity = "normal" }: InteractiveParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false, isClicked: false, clickTime: 0 });
   const scrollRef = useRef({ lastScrollY: 0, velocity: 0 });
@@ -70,7 +74,9 @@ export function InteractiveParticles() {
     };
 
     const initParticles = () => {
-      const count = Math.min(Math.floor(width * 0.09), 110);
+      const isIntense = intensity === "intense";
+      const baseCount = isIntense ? Math.floor(width * 0.18) : Math.floor(width * 0.09);
+      const count = Math.min(baseCount, isIntense ? 240 : 110);
       particles = [];
 
       for (let i = 0; i < count; i++) {
@@ -80,16 +86,16 @@ export function InteractiveParticles() {
         let colorArray = colors.mid;
         let baseVy = -(Math.random() * 0.15 + 0.15); // float upwards
 
-        if (rand < 0.5) {
+        if (rand < 0.4) {
           // Background
           depth = 0.35;
           radius = Math.random() * 0.5 + 0.6;
           colorArray = colors.bg;
           baseVy = -(Math.random() * 0.08 + 0.08);
-        } else if (rand > 0.88) {
+        } else if (rand > (isIntense ? 0.78 : 0.88)) {
           // Foreground
           depth = 1.3;
-          radius = Math.random() * 1.2 + 2.0;
+          radius = Math.random() * (isIntense ? 1.8 : 1.2) + 2.0;
           colorArray = colors.fg;
           baseVy = -(Math.random() * 0.25 + 0.25);
         }
@@ -227,13 +233,15 @@ export function InteractiveParticles() {
           
           if (Math.abs(p1.depth - p2.depth) > 0.4) continue;
 
+          const isIntense = intensity === "intense";
           const dx = p1.visualX - p2.visualX;
           const dy = p1.visualY - p2.visualY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxLinkDist = p1.depth > 0.8 ? 120 : 85;
+          const baseMaxDist = p1.depth > 0.8 ? 120 : 85;
+          const maxLinkDist = isIntense ? baseMaxDist * 1.35 : baseMaxDist;
 
           if (dist < maxLinkDist) {
-            const alpha = ((maxLinkDist - dist) / maxLinkDist) * (p1.depth > 0.8 ? 0.55 : 0.35);
+            const alpha = ((maxLinkDist - dist) / maxLinkDist) * (p1.depth > 0.8 ? (isIntense ? 0.75 : 0.55) : (isIntense ? 0.55 : 0.35));
             
             ctx.strokeStyle = p1.depth > 0.8 
               ? `rgba(56, 189, 248, ${alpha})`
@@ -247,15 +255,17 @@ export function InteractiveParticles() {
         }
 
         // Draw connections to mouse cursor
+        const isIntense = intensity === "intense";
+        const maxMouseDist = isIntense ? 200 : 140;
         if (mouseRef.current.active && p1.depth > 0.6) {
           const mdx = mouseRef.current.x - p1.visualX;
           const mdy = mouseRef.current.y - p1.visualY;
           const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
-          if (mdist < 140) {
-            const alpha = ((140 - mdist) / 140) * 0.58 * p1.depth;
+          if (mdist < maxMouseDist) {
+            const alpha = ((maxMouseDist - mdist) / maxMouseDist) * (isIntense ? 0.8 : 0.58) * p1.depth;
             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-            ctx.lineWidth = 0.85;
+            ctx.lineWidth = isIntense ? 1.25 : 0.85;
             ctx.beginPath();
             ctx.moveTo(p1.visualX, p1.visualY);
             ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
@@ -344,13 +354,13 @@ export function InteractiveParticles() {
       mediaQuery.removeEventListener("change", handleMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [intensity]);
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ mixBlendMode: "screen", opacity: 0.85 }}
+      style={{ mixBlendMode: "screen", opacity: intensity === "intense" ? 0.95 : 0.85 }}
     />
   );
 }

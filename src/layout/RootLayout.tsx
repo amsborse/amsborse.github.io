@@ -8,6 +8,8 @@ import { InteractiveParticles } from "@/components/InteractiveParticles";
 import Lenis from "lenis";
 import { useStore } from "@/store/useStore";
 import { useMouseVelocity } from "@/hooks/useMouseVelocity";
+import { Canvas } from "@react-three/fiber";
+import Scene from "@/components/canvas/Scene";
 
 export function RootLayout() {
   const location = useLocation();
@@ -39,9 +41,18 @@ export function RootLayout() {
     };
   }, [setScrollProgress]);
 
+  const isHome = location.pathname === "/";
+
   return (
     <div className="flex min-h-screen flex-col relative overflow-hidden" style={{ background: 'transparent' }}>
-      <InteractiveParticles />
+      <InteractiveParticles intensity={isHome ? "intense" : "normal"} />
+      {isHome && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: '#050505' }}>
+          <Canvas>
+            <Scene />
+          </Canvas>
+        </div>
+      )}
       {/* <AetherCoordinator /> */}
       <a
         href="#main"

@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RootLayout } from "@/layout/RootLayout";
 import Home from "@/pages/Home";
 
-import { Canvas } from "@react-three/fiber";
-import Scene from "@/components/canvas/Scene";
 
 /**
  * Lazy-loaded page chunks — only downloaded when the user navigates to them.
@@ -44,11 +42,6 @@ function basename(): string | undefined {
 export default function App() {
   return (
     <>
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: '#050505' }}>
-        <Canvas>
-          <Scene />
-        </Canvas>
-      </div>
       <BrowserRouter basename={basename()}>
         <Routes>
         <Route element={<RootLayout />}>
