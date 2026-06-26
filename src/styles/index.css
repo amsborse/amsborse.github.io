@@ -1006,4 +1006,897 @@
     white-space: nowrap;
     border-width: 0;
   }
+
+  .classic-resume-shell {
+    --resume-morph-ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --resume-morph-duration: 2.2s;
+    min-height: 100vh;
+    padding: 6.25rem 0.75rem 3rem;
+    background:
+      radial-gradient(ellipse 70% 42% at 18% 0%, rgba(56, 189, 248, 0.1), transparent 55%),
+      radial-gradient(ellipse 60% 42% at 88% 14%, rgba(139, 92, 246, 0.1), transparent 58%);
+    transition:
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed {
+    background:
+      radial-gradient(ellipse 70% 48% at 16% 0%, rgba(56, 189, 248, 0.18), transparent 58%),
+      radial-gradient(ellipse 62% 45% at 88% 12%, rgba(245, 158, 11, 0.12), transparent 54%),
+      radial-gradient(ellipse 70% 45% at 50% 105%, rgba(139, 92, 246, 0.1), transparent 58%);
+    padding-bottom: 4rem;
+  }
+
+  .classic-resume-morph-button {
+    position: sticky;
+    top: 5.1rem;
+    z-index: 60;
+    display: flex;
+    width: max-content;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 1.35rem 1rem auto;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    box-shadow:
+      0 14px 34px rgba(79, 70, 229, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    color: #fff;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    padding: 0.65rem 1rem 0.65rem 0.75rem;
+    transition:
+      box-shadow 0.3s var(--ease-out-luxe),
+      transform 0.3s var(--ease-out-luxe),
+      background 0.3s var(--ease-out-luxe);
+  }
+
+  .classic-resume-morph-button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 18px 42px rgba(79, 70, 229, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  }
+
+  .classic-resume-morph-button[aria-pressed="true"] {
+    background: linear-gradient(135deg, #111827, #475569);
+  }
+
+  .classic-resume-morph-icon {
+    display: inline-grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .classic-resume-morph-icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .classic-resume-paper {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0;
+    width: min(8.5in, calc(100vw - 1.5rem));
+    max-height: 2200px;
+    min-height: 11in;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0.28in 0.49in 0.18in;
+    border: 1px solid #111;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    line-height: 1.05;
+    text-rendering: geometricPrecision;
+    transition:
+      grid-template-columns var(--resume-morph-duration) var(--resume-morph-ease),
+      gap var(--resume-morph-duration) var(--resume-morph-ease),
+      width var(--resume-morph-duration) var(--resume-morph-ease),
+      max-width var(--resume-morph-duration) var(--resume-morph-ease),
+      min-height var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      border-radius var(--resume-morph-duration) var(--resume-morph-ease),
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      box-shadow var(--resume-morph-duration) var(--resume-morph-ease),
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      opacity var(--resume-morph-duration) var(--resume-morph-ease),
+      transform var(--resume-morph-duration) var(--resume-morph-ease),
+      filter var(--resume-morph-duration) var(--resume-morph-ease),
+      max-height var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-paper {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0.9rem;
+    width: min(1160px, calc(100vw - 2rem));
+    max-height: 4200px;
+    min-height: 0;
+    padding: clamp(1rem, 2vw, 1.35rem);
+    border-color: rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    background:
+      linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(3, 7, 18, 0.88)),
+      radial-gradient(ellipse 65% 40% at 18% 0%, rgba(56, 189, 248, 0.12), transparent 60%),
+      radial-gradient(ellipse 55% 42% at 90% 15%, rgba(245, 158, 11, 0.1), transparent 58%);
+    box-shadow:
+      24px 24px 60px rgba(0, 0, 0, 0.38),
+      -12px -12px 30px rgba(255, 255, 255, 0.025),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: var(--color-body);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+
+  .classic-resume-paper * {
+    box-sizing: border-box;
+  }
+
+  .classic-resume-paper > * {
+    grid-column: 1 / -1;
+  }
+
+  .classic-resume-paper a {
+    color: #05c;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .classic-resume-header {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 2px;
+    padding: 0;
+    border: 0 solid transparent;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: center;
+    transition:
+      min-height var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      border-radius var(--resume-morph-duration) var(--resume-morph-ease),
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      box-shadow var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-header {
+    grid-column: 1 / -1;
+    min-height: 14rem;
+    margin-bottom: 0;
+    padding: clamp(1.15rem, 3vw, 2rem);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    background:
+      linear-gradient(145deg, rgba(20, 26, 45, 0.78), rgba(9, 12, 22, 0.86)),
+      radial-gradient(ellipse 60% 100% at 12% 0%, rgba(56, 189, 248, 0.14), transparent 72%);
+    box-shadow:
+      18px 18px 42px rgba(0, 0, 0, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    text-align: left;
+  }
+
+  .classic-resume-header h1 {
+    margin: 0 0 2px;
+    color: #000;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.05;
+    transition:
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-family var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      line-height var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-header h1 {
+    color: var(--color-ink);
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    letter-spacing: 0;
+    line-height: 0.9;
+  }
+
+  .classic-resume-header p {
+    margin: 0;
+    color: #000;
+    font-size: 11px;
+    line-height: 1.05;
+    transition:
+      max-width var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      line-height var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-header p {
+    max-width: 45rem;
+    margin-top: 1rem;
+    color: var(--color-body);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .classic-resume-section {
+    margin: 0;
+    transition:
+      grid-template-columns var(--resume-morph-duration) var(--resume-morph-ease),
+      gap var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      border-radius var(--resume-morph-duration) var(--resume-morph-ease),
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      box-shadow var(--resume-morph-duration) var(--resume-morph-ease),
+      opacity var(--resume-morph-duration) var(--resume-morph-ease),
+      transform var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-section-summary,
+  .classic-section-experience {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .classic-resume-shell--morphed .classic-resume-section {
+    align-self: start;
+    margin-top: 0;
+    padding: 1.1rem 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(20, 26, 45, 0.76), rgba(10, 13, 24, 0.88));
+    box-shadow:
+      12px 12px 30px rgba(0, 0, 0, 0.3),
+      -8px -8px 22px rgba(255, 255, 255, 0.018),
+      inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    transform: translateY(0);
+  }
+
+  .classic-resume-shell--morphed .classic-section-summary {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 0.65fr) repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .classic-resume-shell--morphed .classic-section-summary h2 {
+    align-self: center;
+    margin-bottom: 0;
+    border-bottom: 0;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(1.45rem, 3vw, 2.6rem);
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: none;
+  }
+
+  .classic-resume-shell--morphed .classic-section-experience {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .classic-resume-shell--morphed .classic-section-education {
+    grid-column: 1 / 5;
+  }
+
+  .classic-resume-shell--morphed .classic-section-projects {
+    grid-column: 5 / 9;
+  }
+
+  .classic-resume-shell--morphed .classic-section-achievement {
+    grid-column: 9 / -1;
+  }
+
+  .classic-resume-section h2 {
+    margin: 0;
+    border-bottom: 2px solid #000;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.02;
+    text-transform: uppercase;
+    transition:
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      letter-spacing var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-section h2 {
+    margin-bottom: 0.85rem;
+    border-bottom-color: rgba(99, 102, 241, 0.22);
+    color: var(--color-gold);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    padding-bottom: 0.45rem;
+  }
+
+  .classic-resume-section p {
+    margin: 0 0 1px;
+    border: 0 solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: #000;
+    font-size: 11px;
+    line-height: 1.06;
+    transition:
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      border-radius var(--resume-morph-duration) var(--resume-morph-ease),
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      line-height var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-section p {
+    color: var(--color-body);
+    font-size: 0.94rem;
+    line-height: 1.58;
+  }
+
+  .classic-resume-shell--morphed .classic-section-summary p {
+    min-height: 8rem;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.045);
+    color: var(--color-ink);
+    font-size: clamp(0.84rem, 1.2vw, 0.96rem);
+    line-height: 1.5;
+    padding: 0.85rem 0.95rem;
+  }
+
+  .classic-role {
+    margin: 0 0 3px;
+    transition:
+      min-height var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      border-radius var(--resume-morph-duration) var(--resume-morph-ease),
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      box-shadow var(--resume-morph-duration) var(--resume-morph-ease),
+      transform var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-role {
+    margin-bottom: 0;
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.045);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      5px 5px 14px rgba(0, 0, 0, 0.18);
+  }
+
+  .classic-resume-shell--morphed .classic-role--microsoft,
+  .classic-resume-shell--morphed .classic-role--amazon {
+    min-height: 10rem;
+  }
+
+  .classic-resume-shell--morphed .classic-role--microsoft,
+  .classic-resume-shell--morphed .classic-role--amazon {
+    grid-column: 1 / -1;
+  }
+
+  .classic-resume-shell--morphed .classic-role--liquiron,
+  .classic-resume-shell--morphed .classic-role--persistent {
+    min-height: 11rem;
+  }
+
+  .classic-role h3,
+  .classic-inline-heading {
+    margin: 0;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.2px;
+    font-weight: 800;
+    line-height: 1.05;
+    transition:
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      line-height var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-role h3,
+  .classic-resume-shell--morphed .classic-inline-heading {
+    color: var(--color-ink);
+    font-size: 0.96rem;
+    line-height: 1.32;
+  }
+
+  .classic-role:not(:first-child) h3 {
+    border-top: 2px solid #000;
+    padding-top: 1px;
+  }
+
+  .classic-resume-shell--morphed .classic-role:not(:first-child) h3 {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .classic-stack {
+    color: #555 !important;
+    font-size: 10.4px !important;
+    line-height: 1.05 !important;
+    transition:
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      line-height var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-stack {
+    margin-top: 0.25rem !important;
+    color: var(--color-accent) !important;
+    font-size: 0.77rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .classic-resume-paper ul {
+    margin: 0 0 1px 28px;
+    padding: 0;
+    color: #000;
+    font-size: 10.65px;
+    line-height: 1.08;
+    transition:
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      line-height var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-paper ul {
+    margin: 0.55rem 0 0 1.1rem;
+    color: var(--color-body);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .classic-resume-paper li {
+    max-height: 7rem;
+    min-height: 0;
+    margin: 0 0 1px;
+    border: 0 solid transparent;
+    border-radius: 0;
+    background: transparent;
+    padding-left: 2px;
+    opacity: 1;
+    overflow: hidden;
+    transform: translateX(0);
+    transition:
+      max-height var(--resume-morph-duration) var(--resume-morph-ease),
+      min-height var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      border-color var(--resume-morph-duration) var(--resume-morph-ease),
+      padding var(--resume-morph-duration) var(--resume-morph-ease),
+      border-radius var(--resume-morph-duration) var(--resume-morph-ease),
+      box-shadow var(--resume-morph-duration) var(--resume-morph-ease),
+      background var(--resume-morph-duration) var(--resume-morph-ease),
+      opacity var(--resume-morph-duration) var(--resume-morph-ease),
+      transform var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-paper li[data-metric]::before {
+    content: attr(data-metric);
+    display: block;
+    max-height: 0;
+    margin: 0;
+    color: transparent;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 0;
+    font-weight: 750;
+    line-height: 0.88;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      max-height var(--resume-morph-duration) var(--resume-morph-ease),
+      color var(--resume-morph-duration) var(--resume-morph-ease),
+      font-size var(--resume-morph-duration) var(--resume-morph-ease),
+      margin var(--resume-morph-duration) var(--resume-morph-ease),
+      opacity var(--resume-morph-duration) var(--resume-morph-ease);
+  }
+
+  .classic-resume-shell--morphed .classic-resume-paper li {
+    margin-bottom: 0.34rem;
+    padding-left: 0.18rem;
+  }
+
+  .classic-resume-shell--morphed .classic-resume-paper li[data-metric] {
+    position: relative;
+    min-height: 8.25rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 16px;
+    background:
+      radial-gradient(circle at 92% 8%, rgba(56, 189, 248, 0.18), transparent 32%),
+      rgba(255, 255, 255, 0.045);
+    box-shadow:
+      8px 8px 22px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    list-style: none;
+    padding: 0.95rem;
+  }
+
+  .classic-resume-shell--morphed .classic-resume-paper li[data-metric]::before {
+    max-height: 5rem;
+    margin-bottom: 0.45rem;
+    color: var(--color-ink);
+    font-size: clamp(2.1rem, 5vw, 4.25rem);
+    opacity: 1;
+  }
+
+  .classic-resume-shell--morphed .classic-role--amazon li:nth-child(n + 7) {
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateX(1rem);
+  }
+
+  .classic-resume-shell--morphed .classic-role:not(.classic-role--amazon) li:nth-child(n + 4) {
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateX(1rem);
+  }
+
+  .classic-resume-shell--morphed .classic-section-projects li,
+  .classic-resume-shell--morphed .classic-section-achievement li,
+  .classic-resume-shell--morphed .classic-section-education li {
+    margin: 0.45rem 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.045);
+    padding: 0.7rem 0.75rem;
+    list-style-position: inside;
+  }
+
+  .classic-resume-footer {
+    margin-top: 30px;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .classic-resume-shell--morphed .classic-resume-footer {
+    grid-column: 1 / -1;
+    margin-top: 0.4rem;
+    color: var(--color-body);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 760px) {
+    .classic-resume-shell {
+      padding-top: 5.25rem;
+    }
+
+    .classic-resume-paper {
+      padding: 0.2in 0.2in 0.24in;
+      font-size: 10.4px;
+    }
+
+    .classic-resume-header h1 {
+      font-size: 18px;
+    }
+
+    .classic-resume-paper ul {
+      margin-left: 22px;
+    }
+
+    .classic-resume-morph-button {
+      top: 4.85rem;
+      margin-right: 0.9rem;
+    }
+
+    .classic-resume-shell--morphed .classic-resume-paper {
+      width: min(100%, calc(100vw - 1rem));
+      padding: 1rem;
+      border-radius: 14px;
+      grid-template-columns: 1fr;
+    }
+
+    .classic-resume-shell--morphed .classic-resume-header,
+    .classic-resume-shell--morphed .classic-section-summary,
+    .classic-resume-shell--morphed .classic-section-experience,
+    .classic-resume-shell--morphed .classic-section-education,
+    .classic-resume-shell--morphed .classic-section-projects,
+    .classic-resume-shell--morphed .classic-section-achievement,
+    .classic-resume-shell--morphed .classic-resume-footer {
+      grid-column: 1 / -1;
+    }
+
+    .classic-resume-shell--morphed .classic-resume-header {
+      min-height: 12rem;
+    }
+
+    .classic-resume-shell--morphed .classic-section-summary,
+    .classic-resume-shell--morphed .classic-section-experience {
+      grid-template-columns: 1fr;
+    }
+
+    .classic-resume-shell--morphed .classic-section-summary p {
+      min-height: auto;
+    }
+
+    .classic-resume-shell--morphed .classic-resume-paper li[data-metric] {
+      min-height: auto;
+    }
+  }
+
+  @media print {
+    .classic-resume-shell {
+      padding: 0;
+      background: #fff;
+    }
+
+    .classic-resume-paper {
+      width: auto;
+      min-height: auto;
+      margin: 0;
+      padding: 0.28in 0.49in 0.18in;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .classic-resume-morph-button,
+    .classic-resume-paper li[data-metric]::before {
+      display: none !important;
+    }
+
+    header,
+    footer {
+      display: none !important;
+    }
+
+    @page {
+      size: letter;
+      margin: 0;
+    }
+  }
+
+  /* Premium Segmented Mode Selector */
+  .resume-mode-tabs {
+    position: sticky;
+    top: 5.1rem;
+    z-index: 60;
+    display: flex;
+    gap: 0.25rem;
+    width: max-content;
+    margin: 0 1.35rem 1.25rem auto;
+    padding: 0.25rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  .resume-mode-tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.25s var(--ease-out-luxe);
+  }
+
+  .resume-mode-tab:hover {
+    color: var(--color-ink);
+  }
+
+  .resume-mode-tab--active {
+    color: #fff;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  }
+
+  .resume-mode-tab--active-clay {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  }
+
+  .resume-mode-tab--active-latex {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+  }
+
+  .resume-mode-tab svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.2;
+  }
+
+  /* LaTeX Code Viewer Layout */
+  .latex-viewer-container {
+    width: min(8.5in, calc(100vw - 1.5rem));
+    margin: 0 auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(8, 10, 18, 0.95));
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+  }
+
+  .latex-viewer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .latex-viewer-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  .latex-viewer-title-badge {
+    padding: 0.15rem 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background: rgba(14, 165, 233, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(14, 165, 233, 0.25);
+  }
+
+  .latex-viewer-actions {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .latex-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: all 0.2s var(--ease-out-luxe);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-ink-soft);
+  }
+
+  .latex-action-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .latex-action-btn--primary {
+    background: rgba(14, 165, 233, 0.1);
+    color: #38bdf8;
+    border-color: rgba(14, 165, 233, 0.25);
+  }
+
+  .latex-action-btn--primary:hover {
+    background: rgba(14, 165, 233, 0.18);
+    color: #38bdf8;
+    border-color: rgba(14, 165, 233, 0.4);
+  }
+
+  .latex-code-viewport {
+    position: relative;
+    display: flex;
+    max-height: 700px;
+    overflow-y: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    padding: 1.25rem 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .latex-line-numbers {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding-right: 1rem;
+    padding-left: 1.25rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.25);
+    user-select: none;
+  }
+
+  .latex-code-content {
+    flex: 1;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    white-space: pre;
+    overflow-x: auto;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* LaTeX Syntax Highlight */
+  .ltx-comment { color: #6b7280; font-style: italic; }
+  .ltx-cmd { color: #38bdf8; font-weight: 600; }
+  .ltx-arg { color: #fb7185; }
+  .ltx-opt { color: #fbbf24; }
+  .ltx-env { color: #c084fc; font-weight: 600; }
+
+  @media (max-width: 760px) {
+    .latex-viewer-container {
+      width: min(100%, calc(100vw - 1rem));
+      border-radius: 12px;
+    }
+    .latex-viewer-header {
+      padding: 0.75rem 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .latex-viewer-actions {
+      width: 100%;
+    }
+    .latex-action-btn {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
+  @media print {
+    .resume-mode-tabs,
+    .latex-viewer-container {
+      display: none !important;
+    }
+  }
 }

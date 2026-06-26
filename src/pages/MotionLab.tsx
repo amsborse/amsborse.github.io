@@ -54,6 +54,24 @@ export default function MotionLab() {
         s.vy += 0.22; // gravity
         s.alpha -= s.decay;
 
+        // Boundary collision detection (walls & floor bounce with energy loss)
+        if (s.x - s.size < 0) {
+          s.x = s.size;
+          s.vx = -s.vx * 0.55;
+        } else if (s.x + s.size > width) {
+          s.x = width - s.size;
+          s.vx = -s.vx * 0.55;
+        }
+
+        if (s.y - s.size < 0) {
+          s.y = s.size;
+          s.vy = -s.vy * 0.55;
+        } else if (s.y + s.size > height) {
+          s.y = height - s.size;
+          s.vy = -s.vy * 0.55;
+          s.vx *= 0.75; // ground friction
+        }
+
         if (s.alpha <= 0) {
           sparks.splice(i, 1);
           continue;

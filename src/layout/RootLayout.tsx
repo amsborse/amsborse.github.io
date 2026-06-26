@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { InteractiveParticles } from "@/components/InteractiveParticles";
-import { AetherCoordinator } from "@/components/AetherCoordinator";
+// import { AetherCoordinator } from "@/components/AetherCoordinator";
 
 export function RootLayout() {
   const location = useLocation();
@@ -11,7 +11,7 @@ export function RootLayout() {
   return (
     <div className="flex min-h-screen flex-col relative overflow-hidden">
       <InteractiveParticles />
-      <AetherCoordinator />
+      {/* <AetherCoordinator /> */}
       <a
         href="#main"
         className="absolute left-[-9999px] top-4 z-[100] rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm text-[var(--color-ink)] shadow-sm focus:left-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30"

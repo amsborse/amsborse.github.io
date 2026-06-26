@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => ({
   // Root GitHub Pages user site: https://amsborse.github.io/ — assets at /assets/*
   base: resolveBase(mode),
   server: {
-    port: 5173,
+    port: 5151,
     strictPort: false,
   },
   plugins: [react(), tailwindcss(), stripHtmlCrossorigin()],
