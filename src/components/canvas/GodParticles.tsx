@@ -4,6 +4,7 @@ import * as THREE from 'three';
 
 export default function GodParticles({ count = 2000 }) {
   const pointsRef = useRef<THREE.Points>(null);
+  const introScaleRef = useRef(0);
 
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -21,7 +22,13 @@ export default function GodParticles({ count = 2000 }) {
   }, [count]);
 
   useFrame((state, delta) => {
+    // Smoothly scale up from 0 to 1 on load
+    if (introScaleRef.current < 1.0) {
+      introScaleRef.current = THREE.MathUtils.damp(introScaleRef.current, 1.0, 0.8, delta);
+    }
+
     if (pointsRef.current) {
+      pointsRef.current.scale.setScalar(introScaleRef.current);
       pointsRef.current.rotation.y -= delta * 0.05;
       pointsRef.current.rotation.x -= delta * 0.02;
     }

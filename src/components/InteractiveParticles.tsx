@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Particle {
   x: number;          // relative baseline x coordinate
@@ -23,6 +23,11 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false, isClicked: false, clickTime: 0 });
   const scrollRef = useRef({ lastScrollY: 0, velocity: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -360,7 +365,11 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ mixBlendMode: "screen", opacity: intensity === "intense" ? 0.95 : 0.85 }}
+      style={{ 
+        mixBlendMode: "screen", 
+        opacity: mounted ? (intensity === "intense" ? 0.95 : 0.85) : 0,
+        transition: "opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1)"
+      }}
     />
   );
 }

@@ -99,6 +99,7 @@ export default function GodSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const scrollProgress = useStore((state) => state.scrollProgress);
+  const introScaleRef = useRef(0);
 
   const uniforms = useMemo(
     () => ({
@@ -109,7 +110,13 @@ export default function GodSphere() {
   );
 
   useFrame((state, delta) => {
+    // Smoothly scale up from 0 to 1 on load
+    if (introScaleRef.current < 1.0) {
+      introScaleRef.current = THREE.MathUtils.damp(introScaleRef.current, 1.0, 1.2, delta);
+    }
+
     if (meshRef.current) {
+      meshRef.current.scale.setScalar(introScaleRef.current);
       meshRef.current.rotation.y += delta * 0.1;
       meshRef.current.rotation.z += delta * 0.05;
     }
