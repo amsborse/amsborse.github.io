@@ -38,12 +38,14 @@ if (compiled) {
 } else {
   console.warn("\n[WARNING] No local LaTeX compiler (tectonic or pdflatex) found in PATH.");
   console.warn("To compile the resume from LaTeX source, install tectonic or pdflatex.");
-  
+
   // As a fallback, ensure resume.pdf exists by copying the existing PDF if available
   if (existsSync(existingPdf) && !existsSync(outputPdf)) {
     console.log(`Using existing ${existingPdf} as fallback for ${outputPdf}`);
     copyFileSync(existingPdf, outputPdf);
   } else if (!existsSync(outputPdf)) {
-    console.warn("No fallback PDF found. Please manually place a compiled PDF at public/resume.pdf");
+    console.warn(
+      "No fallback PDF found. Please manually place a compiled PDF at public/resume.pdf"
+    );
   }
 }

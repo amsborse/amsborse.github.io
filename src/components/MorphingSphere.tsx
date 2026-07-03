@@ -50,7 +50,7 @@ export function MorphingSphere() {
   useEffect(() => {
     const points: Point3D[] = [];
     const count = 450;
-    
+
     // Palette mapping to Cyan, Indigo, Violet, Gold from Home page
     const colors = [
       "#38bdf8", // Cyan
@@ -59,7 +59,12 @@ export function MorphingSphere() {
       "#f59e0b", // Gold
     ];
 
-    const shapes: ("circle" | "square" | "triangle" | "star")[] = ["circle", "square", "triangle", "star"];
+    const shapes: ("circle" | "square" | "triangle" | "star")[] = [
+      "circle",
+      "square",
+      "triangle",
+      "star",
+    ];
 
     for (let i = 0; i < count; i++) {
       points.push({
@@ -101,7 +106,7 @@ export function MorphingSphere() {
       }
     } else if (type === "torus") {
       const R = 110; // ring radius
-      const r = 45;  // tube radius
+      const r = 45; // tube radius
       const uCount = Math.floor(Math.sqrt(count));
       const vCount = Math.ceil(count / uCount);
 
@@ -155,7 +160,7 @@ export function MorphingSphere() {
         const currentWidth = (1 - hPct) * baseWidth;
         const pointsInLayer = Math.max(4, Math.floor(((1 - hPct) / (layers / 2)) * count));
         const sidePoints = Math.ceil(Math.sqrt(pointsInLayer));
-        
+
         for (let r = 0; r < sidePoints; r++) {
           for (let c = 0; c < sidePoints; c++) {
             if (idx >= count) break;
@@ -229,7 +234,7 @@ export function MorphingSphere() {
           points[i].targetZ = Math.sin(phi) * rad;
         } else {
           const theta = (i / (count - sphereCount)) * Math.PI * 2;
-          const ringRadius = 75 + ((i % 5) * 16) + Math.random() * 4;
+          const ringRadius = 75 + (i % 5) * 16 + Math.random() * 4;
           points[i].targetX = Math.cos(theta) * ringRadius;
           points[i].targetY = (Math.random() - 0.5) * 4;
           points[i].targetZ = Math.sin(theta) * ringRadius;
@@ -250,9 +255,9 @@ export function MorphingSphere() {
         const t = (i / count) * Math.PI * 2;
         const scale = 150 / (3 - Math.cos(2 * t));
         const baseX = scale * Math.cos(t);
-        const baseY = scale * Math.sin(2 * t) / 2;
+        const baseY = (scale * Math.sin(2 * t)) / 2;
         const baseZ = Math.sin(t) * 40;
-        
+
         // Add random scatter offset to create volumetric loop
         const scatterAngle = Math.random() * Math.PI * 2;
         const scatterRadius = Math.random() * 10;
@@ -309,7 +314,7 @@ export function MorphingSphere() {
       // Dense core exploding into symmetric spikes
       const coreCount = Math.floor(count * 0.35);
       // Precompute 12 direction vectors
-      const directions: {x: number, y: number, z: number}[] = [];
+      const directions: { x: number; y: number; z: number }[] = [];
       for (let j = 0; j < 12; j++) {
         const y = 1 - (j / 11) * 2;
         const rad = Math.sqrt(1 - y * y);
@@ -317,7 +322,7 @@ export function MorphingSphere() {
         directions.push({
           x: Math.cos(theta) * rad,
           y: y,
-          z: Math.sin(theta) * rad
+          z: Math.sin(theta) * rad,
         });
       }
 
@@ -342,7 +347,7 @@ export function MorphingSphere() {
       for (let i = 0; i < count; i++) {
         const pct = i / count;
         const y = (pct - 0.5) * 220;
-        const r = (pct * 140) + 15;
+        const r = pct * 140 + 15;
         const theta = pct * 14 * Math.PI;
         points[i].targetX = Math.cos(theta) * r;
         points[i].targetY = y;
@@ -406,7 +411,7 @@ export function MorphingSphere() {
       // Swirl physics variables during shape transitions (snappy 450ms transition)
       const now = Date.now();
       const morphTime = now - morphStartRef.current;
-      const morphDuration = 450; 
+      const morphDuration = 450;
       const isMorphing = morphTime < morphDuration;
       const progress = isMorphing ? morphTime / morphDuration : 1.0;
       const swirlFactor = isMorphing ? Math.sin(progress * Math.PI) * 0.35 : 0;
@@ -435,17 +440,17 @@ export function MorphingSphere() {
         p.z += (tz - p.z) * 0.065;
 
         // Apply 3D rotation (Y-axis, then X-axis)
-        let x1 = p.x * cosY - p.z * sinY;
-        let z1 = p.z * cosY + p.x * sinY;
+        const x1 = p.x * cosY - p.z * sinY;
+        const z1 = p.z * cosY + p.x * sinY;
 
-        let y2 = p.y * cosX - z1 * sinX;
-        let z2 = z1 * cosX + p.y * sinX;
+        const y2 = p.y * cosX - z1 * sinX;
+        const z2 = z1 * cosX + p.y * sinX;
 
         // Perspective scale factor
         const scale = fov / (fov + z2);
         const screenX = cx + x1 * scale;
         const screenY = cy + y2 * scale;
-        
+
         // Add subtle breathing pulse to radius on the fly
         const pulse = Math.sin(now * 0.0025 + p.id * 0.15) * 0.2 + 0.95;
         const radius = Math.max(0.5, (z2 + 200) / 80) * scale * pulse;
@@ -479,7 +484,7 @@ export function MorphingSphere() {
           p.trail.forEach((t, idx) => {
             const trailAlpha = t.alpha * 0.12 * ((idx + 1) / p.trail.length);
             if (trailAlpha <= 0) return;
-            
+
             ctx.beginPath();
             ctx.arc(t.x, t.y, p.radius * 0.82 * ((idx + 1) / p.trail.length), 0, Math.PI * 2);
             ctx.fillStyle = p.color;
@@ -493,7 +498,7 @@ export function MorphingSphere() {
         ctx.arc(p.sx, p.sy, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = p.alpha;
-        
+
         // Match Home page shadowBlur glow exactly
         if (p.depth < -20) {
           ctx.shadowBlur = 8;
@@ -501,7 +506,7 @@ export function MorphingSphere() {
         } else {
           ctx.shadowBlur = 0;
         }
-        
+
         ctx.fill();
       });
 
@@ -581,10 +586,29 @@ export function MorphingSphere() {
           className="w-full h-full cursor-grab active:cursor-grabbing max-w-[500px]"
         />
       </div>
-      
+
       {/* Morph Controls */}
       <div className="flex flex-wrap justify-center gap-1.5 z-20 bg-[var(--color-surface)]/60 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-[var(--color-border)] shadow-md max-w-[95%]">
-        {(["sphere", "torus", "wave", "cube", "pyramid", "galaxy", "fermat", "doubleHelix", "saturn", "mobius", "infinity", "vortex", "hourglass", "blackhole", "supernova", "conical"] as ShapeType[]).map((type) => (
+        {(
+          [
+            "sphere",
+            "torus",
+            "wave",
+            "cube",
+            "pyramid",
+            "galaxy",
+            "fermat",
+            "doubleHelix",
+            "saturn",
+            "mobius",
+            "infinity",
+            "vortex",
+            "hourglass",
+            "blackhole",
+            "supernova",
+            "conical",
+          ] as ShapeType[]
+        ).map((type) => (
           <button
             key={type}
             onClick={() => handleMorph(type)}

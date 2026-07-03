@@ -20,11 +20,11 @@ function extractToc(markdownBody: string): TocItem[] {
     const h3 = /^###\s+(.+)$/.exec(line);
     if (h2) {
       const text = h2[1].trim();
-      let id = slugifyHeading(text, usedIds);
+      const id = slugifyHeading(text, usedIds);
       toc.push({ id, text, level: 2 });
     } else if (h3) {
       const text = h3[1].trim();
-      let id = slugifyHeading(text, usedIds);
+      const id = slugifyHeading(text, usedIds);
       toc.push({ id, text, level: 3 });
     }
   }
@@ -32,12 +32,13 @@ function extractToc(markdownBody: string): TocItem[] {
 }
 
 function slugifyHeading(text: string, used: Set<string>): string {
-  const base = text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "") || "section";
+  const base =
+    text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "") || "section";
   let id = base;
   let n = 2;
   while (used.has(id)) {

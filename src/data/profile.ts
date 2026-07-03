@@ -11,15 +11,13 @@ export const profile = {
   title: "Akshay Borse — Engineer & Writer",
 
   /** Short line often shown next to your name in listings (e.g. footer quick reference). */
-  headline:
-    "Engineer · Systems · Writing — craft, clarity, and long horizons",
+  headline: "Engineer · Systems · Writing — craft, clarity, and long horizons",
 
   /**
    * Primary hero headline (main H1 line)—specific and memorable, not a job title.
    * Your name appears below as a second line.
    */
-  heroStatement:
-    "Clarity under load—in architecture, in language, in practice.",
+  heroStatement: "Clarity under load—in architecture, in language, in practice.",
 
   /**
    * Main supporting paragraph on the hero (after soul line).
@@ -46,7 +44,8 @@ export const profile = {
     "The same discipline I bring to diagrams and APIs—edges, constraints, room to breathe—I bring to how I think and write.",
 
   /** Footer one-liner under your name. */
-  footerIntro: "Engineering with attention, writing with patience, and taste that stays under the surface.",
+  footerIntro:
+    "Engineering with attention, writing with patience, and taste that stays under the surface.",
 
   /**
    * Optional extra line on About — quiet, human, non-doctrinal (shown when non-empty).

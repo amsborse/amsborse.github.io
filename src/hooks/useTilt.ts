@@ -3,21 +3,14 @@ import { useEffect, useRef, type RefObject } from "react";
 interface TiltOptions {
   maxRotation?: number; // max tilt degrees (default: 8)
   perspective?: number; // 3D depth perception (default: 1000)
-  scale?: number;       // scale up on hover (default: 1.02)
-  speed?: number;       // transition speed in ms (default: 400)
+  scale?: number; // scale up on hover (default: 1.02)
+  speed?: number; // transition speed in ms (default: 400)
 }
 
-export function useTilt<T extends HTMLElement>(
-  options: TiltOptions = {}
-): RefObject<T | null> {
+export function useTilt<T extends HTMLElement>(options: TiltOptions = {}): RefObject<T | null> {
   const elementRef = useRef<T>(null);
 
-  const {
-    maxRotation = 8,
-    perspective = 1000,
-    scale = 1.02,
-    speed = 400,
-  } = options;
+  const { maxRotation = 8, perspective = 1000, scale = 1.02, speed = 400 } = options;
 
   useEffect(() => {
     const el = elementRef.current;

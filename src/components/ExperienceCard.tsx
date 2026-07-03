@@ -37,7 +37,10 @@ export function ExperienceCard({ entry }: { entry: ExperienceEntry }) {
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--color-body)]">
               {entry.achievements.map((a) => (
                 <li key={a} className="flex gap-3">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]/45" aria-hidden />
+                  <span
+                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]/45"
+                    aria-hidden
+                  />
                   {a}
                 </li>
               ))}

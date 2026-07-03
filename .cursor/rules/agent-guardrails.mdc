@@ -1,0 +1,28 @@
+---
+description: Repo-wide guardrails for AI agents and contributors
+alwaysApply: true
+---
+
+# Agent guardrails
+
+Read `AGENTS.md` before non-trivial changes.
+
+## Required verification
+
+```bash
+npm run validate        # after most code changes
+npm run test:e2e        # after pages, routing, layout, or resume changes
+```
+
+## Do not
+
+- Weaken `vitest.config.ts` coverage thresholds to make CI pass
+- Commit `dist/`, `coverage/`, `test-results/`, or scratch resume HTML
+- Remove **GodSphere** from Aether Lab (`src/components/canvas/GodSphere.tsx`, `AnomalyMatrix.tsx`)
+- Use `--no-verify` unless you understand what hooks skipped
+
+## Prefer
+
+- Small, focused diffs — one fix or feature per commit
+- Match surrounding code style (Prettier + ESLint already configured)
+- Route path for algorithms page is `/algorithm` (singular), not `/algorithms`

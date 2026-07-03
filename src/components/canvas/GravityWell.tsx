@@ -1,19 +1,19 @@
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, PerspectiveCamera } from '@react-three/drei';
-import * as THREE from 'three';
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Environment, PerspectiveCamera } from "@react-three/drei";
+import * as THREE from "three";
 
 interface GravityWellProps {
   particleCount?: number;
   diskSpeed?: number;
-  colorTheme?: 'indigo' | 'amber' | 'emerald';
+  colorTheme?: "indigo" | "amber" | "emerald";
   autoColor?: boolean;
 }
 
 function AccretionDisk({
   particleCount = 2000,
   diskSpeed = 1.0,
-  colorTheme = 'indigo',
+  colorTheme = "indigo",
   autoColor = false,
 }: GravityWellProps) {
   const pointsRef = useRef<THREE.Points>(null);
@@ -21,20 +21,20 @@ function AccretionDisk({
 
   const colors = useMemo(() => {
     switch (colorTheme) {
-      case 'amber':
+      case "amber":
         return {
-          core: new THREE.Color('#f59e0b'),
-          outer: new THREE.Color('#d97706'),
+          core: new THREE.Color("#f59e0b"),
+          outer: new THREE.Color("#d97706"),
         };
-      case 'emerald':
+      case "emerald":
         return {
-          core: new THREE.Color('#10b981'),
-          outer: new THREE.Color('#059669'),
+          core: new THREE.Color("#10b981"),
+          outer: new THREE.Color("#059669"),
         };
       default: // indigo
         return {
-          core: new THREE.Color('#06b6d4'),
-          outer: new THREE.Color('#4f46e5'),
+          core: new THREE.Color("#06b6d4"),
+          outer: new THREE.Color("#4f46e5"),
         };
     }
   }, [colorTheme]);
@@ -49,15 +49,15 @@ function AccretionDisk({
       // Logarithmic spiral math: r = a * e^(b*theta)
       const theta = Math.random() * Math.PI * 8; // 4 rotations
       const r = 1.2 + Math.pow(Math.random(), 1.5) * 4.5; // accretion disk boundary
-      
+
       const angle = theta + (i % 2 === 0 ? 0 : Math.PI); // 2 spiral arms
-      
+
       pos[i * 3] = r * Math.cos(angle);
       pos[i * 3 + 1] = (Math.random() - 0.5) * 0.15 * (5.5 - r); // thinner towards edge
       pos[i * 3 + 2] = r * Math.sin(angle);
 
       spds[i] = (2.0 / Math.sqrt(r)) * diskSpeed; // Keplerian rotation velocity: slower further out
-      
+
       rnds[i * 3] = Math.random();
       rnds[i * 3 + 1] = Math.random();
       rnds[i * 3 + 2] = Math.random();
@@ -128,10 +128,7 @@ function AccretionDisk({
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <shaderMaterial
         ref={shaderMaterialRef}
@@ -152,7 +149,7 @@ function AccretionDisk({
 export default function GravityWell({
   particleCount = 2000,
   diskSpeed = 1.0,
-  colorTheme = 'indigo',
+  colorTheme = "indigo",
   autoColor = false,
 }: GravityWellProps) {
   return (

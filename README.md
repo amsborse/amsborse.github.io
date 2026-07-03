@@ -4,21 +4,21 @@ A static portfolio and writing site built with **React**, **Vite**, and **Tailwi
 
 ## Where to edit content (quick reference)
 
-| What | File |
-|------|------|
-| **Profile** — name, headlines, subheadline, short bio, SEO, hero/footer lines, CTAs, optional artist–yogi line | `src/data/profile.ts` |
-| **Homepage** — credibility copy, section blurbs, highlight stats, hero quick links | `src/data/home.ts` |
-| **About page** | `src/data/about.ts` |
-| **Projects** | `src/data/projects.ts` |
-| **Experience / jobs** | `src/data/experience.ts` |
-| **Résumé page** — skills, achievements, PDF link | `src/data/resume.ts` |
-| **Navigation** | `src/data/navigation.ts` |
-| **Social links, email, site URL** | `src/data/socials.ts` |
-| **Contact page copy** | `src/data/contact.ts` |
-| **Article list order** | `src/data/articleIndex.ts` (`articleOrder`) |
-| **Article bodies (Markdown)** | `src/content/articles/*.md` |
-| **Article loading (code)** | `src/lib/articles.ts` |
-| **UI “where to edit” hints** | `src/data/paths.ts` |
+| What                                                                                                           | File                                        |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| **Profile** — name, headlines, subheadline, short bio, SEO, hero/footer lines, CTAs, optional artist–yogi line | `src/data/profile.ts`                       |
+| **Homepage** — credibility copy, section blurbs, highlight stats, hero quick links                             | `src/data/home.ts`                          |
+| **About page**                                                                                                 | `src/data/about.ts`                         |
+| **Projects**                                                                                                   | `src/data/projects.ts`                      |
+| **Experience / jobs**                                                                                          | `src/data/experience.ts`                    |
+| **Résumé page** — skills, achievements, PDF link                                                               | `src/data/resume.ts`                        |
+| **Navigation**                                                                                                 | `src/data/navigation.ts`                    |
+| **Social links, email, site URL**                                                                              | `src/data/socials.ts`                       |
+| **Contact page copy**                                                                                          | `src/data/contact.ts`                       |
+| **Article list order**                                                                                         | `src/data/articleIndex.ts` (`articleOrder`) |
+| **Article bodies (Markdown)**                                                                                  | `src/content/articles/*.md`                 |
+| **Article loading (code)**                                                                                     | `src/lib/articles.ts`                       |
+| **UI “where to edit” hints**                                                                                   | `src/data/paths.ts`                         |
 
 Import site-wide data: `import { site, projects, … } from '@/data'`. Article API: `import { getAllArticles, getArticleBySlug, … } from '@/lib/articles'`.
 
@@ -36,13 +36,21 @@ npm run dev
 
 Open the URL shown in the terminal (usually `http://localhost:5173`).
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Vite dev server with HMR |
-| `npm run build` | Typecheck + production build + `dist/404.html` + verify `dist/` |
-| `npm run build:docs` | Same as **`build`**, then copy **`dist/` → `docs/`** for “Deploy from branch → /docs” |
-| `npm run preview` | Serve `dist/` locally (same paths as production) |
-| `npm run import:medium` | Run Medium HTML import (see below) — pass folder path as argument |
+| Script                  | Description                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------- |
+| `npm run dev`           | Vite dev server with HMR                                                              |
+| `npm run build`         | Typecheck + production build + `dist/404.html` + verify `dist/`                       |
+| `npm run build:docs`    | Same as **`build`**, then copy **`dist/` → `docs/`** for “Deploy from branch → /docs” |
+| `npm run preview`       | Serve `dist/` locally (same paths as production)                                      |
+| `npm run validate`      | Full quality gate: typecheck, lint, format, unit coverage, build                      |
+| `npm run test`          | Unit tests (Vitest)                                                                   |
+| `npm run test:coverage` | Unit tests + HTML coverage report in `coverage/`                                      |
+| `npm run test:e2e`      | Playwright smoke and interaction tests                                                |
+| `npm run lint`          | ESLint                                                                                |
+| `npm run format`        | Prettier write                                                                        |
+| `npm run import:medium` | Run Medium HTML import (see below) — pass folder path as argument                     |
+
+**Quality & agent guardrails** — See [`AGENTS.md`](AGENTS.md). Husky runs checks on commit/push. CI runs on every push/PR (`.github/workflows/ci.yml`). Enable branch protection: [`.github/BRANCH_PROTECTION.md`](.github/BRANCH_PROTECTION.md).
 
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
 
@@ -58,20 +66,20 @@ After changing routes or assets, use **`npm run preview`** to confirm behavior b
 2. Add **`your-slug`** to **`articleOrder`** in **`src/data/articleIndex.ts`** (or omit it; unordered files still appear after the ordered list).
 3. Frontmatter fields supported:
 
-| Field | Notes |
-|--------|--------|
-| `title` | Required for display |
-| `slug` | Optional; should match filename without `.md` |
-| `date` | ISO `YYYY-MM-DD` |
-| `description` | Card + SEO |
-| `tags` | `["tag1", "tag2"]` |
-| `featured` | `true` / `false` |
-| `readingMinutes` | Number; if omitted, estimated from word count |
-| `readTime` | Display string, e.g. `"12 min"` (overrides default label) |
-| `source` | e.g. `"Medium"` |
-| `canonicalUrl` | Original URL if migrated |
-| `coverImage` | URL string (reserved for future hero) |
-| `draft` | `true` hides the post in **production** builds (still visible in `npm run dev`) |
+| Field            | Notes                                                                           |
+| ---------------- | ------------------------------------------------------------------------------- |
+| `title`          | Required for display                                                            |
+| `slug`           | Optional; should match filename without `.md`                                   |
+| `date`           | ISO `YYYY-MM-DD`                                                                |
+| `description`    | Card + SEO                                                                      |
+| `tags`           | `["tag1", "tag2"]`                                                              |
+| `featured`       | `true` / `false`                                                                |
+| `readingMinutes` | Number; if omitted, estimated from word count                                   |
+| `readTime`       | Display string, e.g. `"12 min"` (overrides default label)                       |
+| `source`         | e.g. `"Medium"`                                                                 |
+| `canonicalUrl`   | Original URL if migrated                                                        |
+| `coverImage`     | URL string (reserved for future hero)                                           |
+| `draft`          | `true` hides the post in **production** builds (still visible in `npm run dev`) |
 
 ### Import from Medium HTML export
 
@@ -140,9 +148,10 @@ That almost always means the live site is **not** serving the **Vite build** in 
 
 **Fix (pick one):**
 
-**A — GitHub Actions (recommended)**  
-1. **Settings → Pages → Source:** **GitHub Actions** (not “Deploy from a branch”).  
-2. Push **`main`** / **`master`** so **`.github/workflows/deploy.yml`** runs and uploads **`dist/`**.  
+**A — GitHub Actions (recommended)**
+
+1. **Settings → Pages → Source:** **GitHub Actions** (not “Deploy from a branch”).
+2. Push **`main`** / **`master`** so **`.github/workflows/deploy.yml`** runs and uploads **`dist/`**.
 3. Hard-refresh the site. View source: you must see **`src="/assets/index-….js"`**, not **`/src/main.tsx`**.
 
 **B — Deploy from a branch (no Actions)**  

@@ -9,8 +9,21 @@ export const resume = {
 
   skills: {
     languages: ["C#", ".NET", "Java", "Python", "TypeScript", "SQL", "HTML/CSS"],
-    systems: ["Distributed systems", "REST / gRPC", "Microservices", "Docker", "AWS (ECS, DynamoDB, Lambda, SageMaker, Bedrock)", "Azure (Functions, Cosmos DB, Event Hub)"],
-    practices: ["SLOs & incident response", "Logging & metrics optimization", "Prompt Engineering", "Technical writing", "Mentoring"],
+    systems: [
+      "Distributed systems",
+      "REST / gRPC",
+      "Microservices",
+      "Docker",
+      "AWS (ECS, DynamoDB, Lambda, SageMaker, Bedrock)",
+      "Azure (Functions, Cosmos DB, Event Hub)",
+    ],
+    practices: [
+      "SLOs & incident response",
+      "Logging & metrics optimization",
+      "Prompt Engineering",
+      "Technical writing",
+      "Mentoring",
+    ],
   },
 
   achievements: [

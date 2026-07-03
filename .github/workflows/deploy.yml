@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Quality gate
+        run: npm run validate
+
       - name: Setup Tectonic LaTeX Compiler
         uses: wtfjoke/setup-tectonic@v3
         with:

@@ -21,5 +21,5 @@ fs.rmSync(docs, { recursive: true, force: true });
 fs.mkdirSync(docs, { recursive: true });
 fs.cpSync(dist, docs, { recursive: true });
 console.log(
-  "sync-docs: copied dist/ → docs/. In GitHub: Settings → Pages → Branch + /docs, then commit and push docs/.",
+  "sync-docs: copied dist/ → docs/. In GitHub: Settings → Pages → Branch + /docs, then commit and push docs/."
 );

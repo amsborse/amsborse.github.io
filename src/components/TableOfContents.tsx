@@ -37,13 +37,18 @@ export function TableOfContents({ items, variant = "minimal" }: TableOfContentsP
   }
 
   return (
-    <nav className="border-l border-[var(--color-border-strong)] pl-5" aria-label="Table of contents">
+    <nav
+      className="border-l border-[var(--color-border-strong)] pl-5"
+      aria-label="Table of contents"
+    >
       <p className="section-label mb-4">Contents</p>
       <ul className="space-y-2.5 text-[0.8125rem] leading-snug">
         {items.map((item) => (
           <li
             key={item.id}
-            className={item.level === 3 ? "ml-1 pl-3 text-[0.8rem] text-[var(--color-ink-muted)]/90" : ""}
+            className={
+              item.level === 3 ? "ml-1 pl-3 text-[0.8rem] text-[var(--color-ink-muted)]/90" : ""
+            }
           >
             <a
               href={`#${item.id}`}

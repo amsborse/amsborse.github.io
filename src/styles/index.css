@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-    sans-serif;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --font-display: var(--font-serif);
 
@@ -44,14 +44,11 @@
   --stagger-ms: 72ms;
 
   --shadow-card:
-    0 1px 0 rgba(255, 255, 255, 0.03),
-    0 4px 16px -8px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 16px -8px rgba(0, 0, 0, 0.8),
     0 10px 28px -12px rgba(56, 189, 248, 0.06);
   --shadow-card-hover:
-    0 1px 0 rgba(255, 255, 255, 0.06),
-    0 8px 20px -6px rgba(0, 0, 0, 0.9),
-    0 26px 52px -18px rgba(56, 189, 248, 0.14),
-    0 0 0 1px rgba(245, 158, 11, 0.16);
+    0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 20px -6px rgba(0, 0, 0, 0.9),
+    0 26px 52px -18px rgba(56, 189, 248, 0.14), 0 0 0 1px rgba(245, 158, 11, 0.16);
 
   --article-measure: 38rem;
   --article-measure-reading: 40rem;
@@ -79,7 +76,10 @@
 
   body {
     @apply relative text-[var(--color-body)] antialiased font-sans bg-[var(--color-bg)];
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    font-feature-settings:
+      "kern" 1,
+      "liga" 1,
+      "calt" 1;
     text-rendering: optimizeLegibility;
     line-height: 1.65;
   }
@@ -95,7 +95,9 @@
     background-image:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
-    background-size: 120px 120px, 180px 180px;
+    background-size:
+      120px 120px,
+      180px 180px;
     mix-blend-mode: overlay;
   }
 
@@ -378,16 +380,33 @@
 
   .home-hero__wash {
     background:
-      linear-gradient(165deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-surface) 88%, var(--color-accent) 12%) 38%, var(--color-bg) 72%),
+      linear-gradient(
+        165deg,
+        var(--color-bg) 0%,
+        color-mix(in srgb, var(--color-surface) 88%, var(--color-accent) 12%) 38%,
+        var(--color-bg) 72%
+      ),
       radial-gradient(ellipse 120% 80% at 15% 20%, var(--hero-mesh-b), transparent 55%),
       radial-gradient(ellipse 100% 70% at 85% 10%, var(--hero-mesh-a), transparent 58%);
   }
 
   .home-hero__mesh {
     background:
-      radial-gradient(ellipse 55% 45% at 72% 38%, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 70%),
-      radial-gradient(ellipse 50% 40% at 28% 62%, color-mix(in srgb, var(--color-gold) 6%, transparent), transparent 68%),
-      radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-ink) 3%, transparent), transparent 62%);
+      radial-gradient(
+        ellipse 55% 45% at 72% 38%,
+        color-mix(in srgb, var(--color-accent) 7%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 50% 40% at 28% 62%,
+        color-mix(in srgb, var(--color-gold) 6%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        circle at 50% 50%,
+        color-mix(in srgb, var(--color-ink) 3%, transparent),
+        transparent 62%
+      );
     filter: blur(0.5px);
   }
 
@@ -528,8 +547,16 @@
     border-radius: 0.625rem;
     border: 1px solid var(--color-border);
     background:
-      linear-gradient(135deg, color-mix(in srgb, var(--color-gold-faint) 40%, transparent) 0%, transparent 42%),
-      linear-gradient(180deg, var(--color-surface-elevated) 0%, color-mix(in srgb, var(--color-surface) 95%, var(--color-accent) 5%) 100%);
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-gold-faint) 40%, transparent) 0%,
+        transparent 42%
+      ),
+      linear-gradient(
+        180deg,
+        var(--color-surface-elevated) 0%,
+        color-mix(in srgb, var(--color-surface) 95%, var(--color-accent) 5%) 100%
+      );
     box-shadow: var(--shadow-card);
     transition:
       border-color var(--duration-micro) var(--ease-out-luxe),
@@ -641,7 +668,11 @@
     position: relative;
     border-radius: 0.625rem;
     border: 1px solid var(--color-border);
-    background: linear-gradient(165deg, var(--color-surface-elevated) 0%, var(--color-surface) 100%);
+    background: linear-gradient(
+      165deg,
+      var(--color-surface-elevated) 0%,
+      var(--color-surface) 100%
+    );
     box-shadow: var(--shadow-card);
     transition:
       border-color var(--duration-micro) var(--ease-out-luxe),
@@ -685,7 +716,11 @@
   .premium-panel {
     border-radius: 0.625rem;
     border: 1px solid var(--color-border);
-    background: linear-gradient(180deg, var(--color-surface-elevated) 0%, var(--color-surface) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-surface-elevated) 0%,
+      var(--color-surface) 100%
+    );
     box-shadow: var(--shadow-card);
     transition:
       border-color var(--duration-micro) var(--ease-out-luxe),
@@ -776,7 +811,13 @@
     bottom: 0.2rem;
     height: 2px;
     border-radius: 999px;
-    background: linear-gradient(90deg, transparent, var(--color-accent) 40%, var(--color-accent-bright) 60%, transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-accent) 40%,
+      var(--color-accent-bright) 60%,
+      transparent
+    );
     transform: scaleX(0);
     transform-origin: center;
     opacity: 0;
@@ -793,7 +834,13 @@
     .nav-item:hover::after {
       transform: scaleX(0.55);
       opacity: 0.55;
-      background: linear-gradient(90deg, transparent, var(--color-gold) 35%, var(--color-gold-muted) 65%, transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--color-gold) 35%,
+        var(--color-gold-muted) 65%,
+        transparent
+      );
     }
   }
 
@@ -827,11 +874,15 @@
     }
 
     .premium-card {
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     .premium-panel {
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     .premium-panel--lift:hover {
@@ -859,8 +910,16 @@
   .writing-index--editorial {
     position: relative;
     background:
-      radial-gradient(ellipse 85% 60% at 0% -5%, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 50%),
-      radial-gradient(ellipse 70% 50% at 100% 15%, color-mix(in srgb, var(--color-gold) 5%, transparent), transparent 48%),
+      radial-gradient(
+        ellipse 85% 60% at 0% -5%,
+        color-mix(in srgb, var(--color-accent) 7%, transparent),
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at 100% 15%,
+        color-mix(in srgb, var(--color-gold) 5%, transparent),
+        transparent 48%
+      ),
       var(--color-reading-canvas);
   }
 
@@ -883,7 +942,9 @@
 
   .article-reading .prose-article a {
     @apply underline-offset-[6px];
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
   }
 
   .toc-reading-link {
@@ -1867,11 +1928,24 @@
   }
 
   /* LaTeX Syntax Highlight */
-  .ltx-comment { color: #6b7280; font-style: italic; }
-  .ltx-cmd { color: #38bdf8; font-weight: 600; }
-  .ltx-arg { color: #fb7185; }
-  .ltx-opt { color: #fbbf24; }
-  .ltx-env { color: #c084fc; font-weight: 600; }
+  .ltx-comment {
+    color: #6b7280;
+    font-style: italic;
+  }
+  .ltx-cmd {
+    color: #38bdf8;
+    font-weight: 600;
+  }
+  .ltx-arg {
+    color: #fb7185;
+  }
+  .ltx-opt {
+    color: #fbbf24;
+  }
+  .ltx-env {
+    color: #c084fc;
+    font-weight: 600;
+  }
 
   @media (max-width: 760px) {
     .latex-viewer-container {

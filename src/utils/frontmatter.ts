@@ -12,13 +12,14 @@ export type FrontData = {
 };
 
 export function parseFrontmatter(raw: string): { data: FrontData; body: string } {
-  let text = raw.trim();
+  let text = raw;
   if (text.charCodeAt(0) === 0xfeff) {
     text = text.slice(1);
   }
+  text = text.trim();
   // No /m flag: ^ and $ must be start/end of file so body can't steal the match.
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(text);
-  if (!m) return { data: {}, body: raw };
+  if (!m) return { data: {}, body: text };
 
   const data: FrontData = {};
   for (const line of m[1].split(/\r?\n/)) {
@@ -30,9 +31,7 @@ export function parseFrontmatter(raw: string): { data: FrontData; body: string }
 
     if (key === "tags") {
       const inner = /^\[(.*)\]$/.exec(val);
-      data.tags = inner
-        ? inner[1].split(",").map((s) => s.trim().replace(/^["']|["']$/g, ""))
-        : [];
+      data.tags = inner ? inner[1].split(",").map((s) => s.trim().replace(/^["']|["']$/g, "")) : [];
       continue;
     }
     if (key === "featured") {

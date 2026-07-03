@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useStore } from '@/store/useStore';
+import { useEffect, useRef } from "react";
+import { useStore } from "@/store/useStore";
 
 export function useMouseVelocity() {
   const setMouseVelocity = useStore((state) => state.setMouseVelocity);
@@ -26,7 +26,7 @@ export function useMouseVelocity() {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [setMouseVelocity]);
 }

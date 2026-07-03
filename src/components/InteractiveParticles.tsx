@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 
 interface Particle {
-  x: number;          // relative baseline x coordinate
-  y: number;          // relative baseline y coordinate
+  x: number; // relative baseline x coordinate
+  y: number; // relative baseline y coordinate
   vx: number;
   vy: number;
   radius: number;
   color: string;
-  depth: number;      // 3D layer depth: background (0.3), midground (0.7), foreground (1.2)
-  angle: number;      // angle for horizontal sine wobble
+  depth: number; // 3D layer depth: background (0.3), midground (0.7), foreground (1.2)
+  angle: number; // angle for horizontal sine wobble
   angleSpeed: number; // speed of horizontal wobble
   wobbleIntensity: number;
-  offsetX: number;    // mouse attraction offset x
-  offsetY: number;    // mouse attraction offset y
+  offsetX: number; // mouse attraction offset x
+  offsetY: number; // mouse attraction offset y
 }
 
 interface InteractiveParticlesProps {
@@ -77,18 +77,18 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     // Neon Cosmic Theme colors (Cyan, Purple, Gold)
     const colors = {
       bg: [
-        "rgba(56, 189, 248, 0.16)",   // Neon Cyan faint
-        "rgba(168, 85, 247, 0.14)",   // Neon Purple faint
+        "rgba(56, 189, 248, 0.16)", // Neon Cyan faint
+        "rgba(168, 85, 247, 0.14)", // Neon Purple faint
       ],
       mid: [
-        "rgba(56, 189, 248, 0.35)",   // Neon Cyan medium
-        "rgba(245, 158, 11, 0.3)",    // Cosmic Gold medium
-        "rgba(168, 85, 247, 0.28)",   // Purple medium
+        "rgba(56, 189, 248, 0.35)", // Neon Cyan medium
+        "rgba(245, 158, 11, 0.3)", // Cosmic Gold medium
+        "rgba(168, 85, 247, 0.28)", // Purple medium
       ],
       fg: [
-        "rgba(56, 189, 248, 0.72)",   // Neon Cyan bright
-        "rgba(245, 158, 11, 0.65)",   // Cosmic Gold bright
-        "rgba(236, 72, 153, 0.65)",   // Nebula Pink bright
+        "rgba(56, 189, 248, 0.72)", // Neon Cyan bright
+        "rgba(245, 158, 11, 0.65)", // Cosmic Gold bright
+        "rgba(236, 72, 153, 0.65)", // Nebula Pink bright
       ],
     };
 
@@ -101,9 +101,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       if (nextWidth < 1 || nextHeight < 1) return;
 
       const sizeChanged =
-        Math.abs(nextWidth - width) > 0.5 ||
-        Math.abs(nextHeight - height) > 0.5 ||
-        dpr !== lastDpr;
+        Math.abs(nextWidth - width) > 0.5 || Math.abs(nextHeight - height) > 0.5 || dpr !== lastDpr;
 
       if (!sizeChanged && particles.length > 0) return;
 
@@ -183,7 +181,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       const currentScrollY = window.scrollY;
       const scrollDiff = currentScrollY - scrollRef.current.lastScrollY;
       scrollRef.current.lastScrollY = currentScrollY;
-      
+
       scrollRef.current.velocity = scrollRef.current.velocity * 0.92 + scrollDiff * 0.08;
       const velocityImpact = Math.min(Math.max(scrollRef.current.velocity * 0.22, -15), 15);
 
@@ -195,7 +193,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
       const renderedParticles = particles.map((p) => {
         if (!isReducedMotion) {
-          const activeVy = p.vy - (velocityImpact * p.depth * 0.08);
+          const activeVy = p.vy - velocityImpact * p.depth * 0.08;
           p.y += activeVy;
           p.x += p.vx + Math.sin(p.angle) * p.wobbleIntensity;
           p.angle += p.angleSpeed;
@@ -218,12 +216,12 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         }
 
         // Apply scroll-parallax vertical offset to visual coordinate
-        const visualY = p.y - (currentScrollY * p.depth * 0.12);
+        const visualY = p.y - currentScrollY * p.depth * 0.12;
 
         let wrappedVisualY = visualY;
         const padding = 150;
         const wrapHeight = height + padding * 2;
-        wrappedVisualY = ((visualY + padding) % wrapHeight + wrapHeight) % wrapHeight - padding;
+        wrappedVisualY = ((((visualY + padding) % wrapHeight) + wrapHeight) % wrapHeight) - padding;
 
         // Apply magnetic mouse attraction when clicked, or gentle repulsion when not clicked
         if (mouseRef.current.active && !isReducedMotion) {
@@ -231,7 +229,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
             // Target coordinate relative to pointer
             const targetOffsetX = mouseRef.current.x - p.x;
             const targetOffsetY = mouseRef.current.y - wrappedVisualY;
-            
+
             // Move offset towards target with speed building up gradually over time
             p.offsetX += (targetOffsetX - p.offsetX) * attractionStrength * p.depth;
             p.offsetY += (targetOffsetY - p.offsetY) * attractionStrength * p.depth;
@@ -273,7 +271,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         ctx.beginPath();
         ctx.arc(p.visualX, p.visualY, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        
+
         if (p.depth > 0.6) {
           ctx.shadowBlur = 8;
           ctx.shadowColor = p.color;
@@ -290,7 +288,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         const p1 = renderedParticles[i];
         for (let j = i + 1; j < renderedParticles.length; j++) {
           const p2 = renderedParticles[j];
-          
+
           if (Math.abs(p1.depth - p2.depth) > 0.4) continue;
 
           const isIntense = intensity === "intense";
@@ -301,12 +299,13 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           const maxLinkDist = isIntense ? baseMaxDist * 1.35 : baseMaxDist;
 
           if (dist < maxLinkDist) {
-            const alpha = ((maxLinkDist - dist) / maxLinkDist) * (p1.depth > 0.8 ? (isIntense ? 0.75 : 0.55) : (isIntense ? 0.55 : 0.35));
-            
-            ctx.strokeStyle = p1.depth > 0.8 
-              ? `rgba(56, 189, 248, ${alpha})`
-              : `rgba(245, 158, 11, ${alpha})`;
-            
+            const alpha =
+              ((maxLinkDist - dist) / maxLinkDist) *
+              (p1.depth > 0.8 ? (isIntense ? 0.75 : 0.55) : isIntense ? 0.55 : 0.35);
+
+            ctx.strokeStyle =
+              p1.depth > 0.8 ? `rgba(56, 189, 248, ${alpha})` : `rgba(245, 158, 11, ${alpha})`;
+
             ctx.beginPath();
             ctx.moveTo(p1.visualX, p1.visualY);
             ctx.lineTo(p2.visualX, p2.visualY);
@@ -323,7 +322,8 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
           if (mdist < maxMouseDist) {
-            const alpha = ((maxMouseDist - mdist) / maxMouseDist) * (isIntense ? 0.8 : 0.58) * p1.depth;
+            const alpha =
+              ((maxMouseDist - mdist) / maxMouseDist) * (isIntense ? 0.8 : 0.58) * p1.depth;
             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
             ctx.lineWidth = isIntense ? 1.25 : 0.85;
             ctx.beginPath();
@@ -396,7 +396,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     document.addEventListener("mouseleave", handleMouseLeave, { capture: true });
     window.addEventListener("mousedown", handleMouseDown, { capture: true, passive: true });
     window.addEventListener("mouseup", handleMouseUp, { capture: true, passive: true });
-    
+
     // Touch listeners
     window.addEventListener("touchstart", handleTouchStart, { capture: true, passive: true });
     window.addEventListener("touchmove", handleTouchMove, { capture: true, passive: true });
@@ -415,11 +415,11 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       document.removeEventListener("mouseleave", handleMouseLeave, { capture: true });
       window.removeEventListener("mousedown", handleMouseDown, { capture: true });
       window.removeEventListener("mouseup", handleMouseUp, { capture: true });
-      
+
       window.removeEventListener("touchstart", handleTouchStart, { capture: true });
       window.removeEventListener("touchmove", handleTouchMove, { capture: true });
       window.removeEventListener("touchend", handleTouchEnd, { capture: true });
-      
+
       mediaQuery.removeEventListener("change", handleMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
@@ -429,10 +429,10 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ 
-        mixBlendMode: "screen", 
+      style={{
+        mixBlendMode: "screen",
         opacity: mounted ? (intensity === "intense" ? 0.95 : 0.85) : 0,
-        transition: "opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1)"
+        transition: "opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     />
   );

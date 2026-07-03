@@ -69,7 +69,12 @@ function slugFromUrl(url) {
   try {
     const u = new URL(url);
     const last = u.pathname.split("/").filter(Boolean).pop() ?? "post";
-    return last.replace(/[^a-zA-Z0-9_-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "post";
+    return (
+      last
+        .replace(/[^a-zA-Z0-9_-]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "") || "post"
+    );
   } catch {
     return "post";
   }
@@ -141,7 +146,8 @@ for (let r = 1; r < rows.length; r++) {
     presentations,
     views,
     reads,
-    ctrViewsPerPresentations: Number.parseFloat(String(row[C.ctrViewsPerPresentations] ?? "0")) || 0,
+    ctrViewsPerPresentations:
+      Number.parseFloat(String(row[C.ctrViewsPerPresentations] ?? "0")) || 0,
     readViewRatio: Number.parseFloat(String(row[C.readViewRatio] ?? "0")) || 0,
     readsPerPresentation: Number.parseFloat(String(row[C.readsPerPresentation] ?? "0")) || 0,
     ctrAlt: Number.parseFloat(String(row[C.ctrAlt] ?? "0")) || 0,

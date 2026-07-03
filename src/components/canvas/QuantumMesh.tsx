@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface QuantumMeshProps {
   nodeCount?: number;
@@ -12,8 +12,8 @@ interface QuantumMeshProps {
 export default function QuantumMesh({
   nodeCount = 140,
   linkDistance = 120,
-  nodeColor = 'rgba(147, 51, 234, 0.8)',
-  lineColor = 'rgba(147, 51, 234, 0.15)',
+  nodeColor = "rgba(147, 51, 234, 0.8)",
+  lineColor = "rgba(147, 51, 234, 0.15)",
   speed = 1.0,
   autoColor = false,
 }: QuantumMeshProps) {
@@ -23,7 +23,7 @@ export default function QuantumMesh({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationId: number;
@@ -51,7 +51,7 @@ export default function QuantumMesh({
 
       // Dynamically calculate node target based on area density (e.g., 1 node per 12,000 pixels)
       const targetCount = Math.max(80, Math.min(280, Math.floor((width * height) / 12000)));
-      
+
       // Scale nodes array size to match the target count dynamically without resetting
       while (nodes.length < targetCount) {
         nodes.push(createNode(width, height));
@@ -62,7 +62,7 @@ export default function QuantumMesh({
     };
 
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
@@ -76,8 +76,8 @@ export default function QuantumMesh({
       mouseRef.current = { x: -1000, y: -1000 };
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
@@ -100,7 +100,9 @@ export default function QuantumMesh({
           const dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
           if (dist < linkDistance) {
             const alpha = (1 - dist / linkDistance) * 0.45;
-            ctx.strokeStyle = autoColor ? `hsla(${hueOffset}, 85%, 60%, ${alpha})` : activeLineColor.replace(/[\d.]+\)$/, `${alpha})`);
+            ctx.strokeStyle = autoColor
+              ? `hsla(${hueOffset}, 85%, 60%, ${alpha})`
+              : activeLineColor.replace(/[\d.]+\)$/, `${alpha})`);
             ctx.lineWidth = 1.0; // thicker lines
             ctx.beginPath();
             ctx.moveTo(n1.x, n1.y);
@@ -113,7 +115,9 @@ export default function QuantumMesh({
         const mouseDist = Math.hypot(n1.x - mouseRef.current.x, n1.y - mouseRef.current.y);
         if (mouseDist < linkDistance * 1.6) {
           const alpha = (1 - mouseDist / (linkDistance * 1.6)) * 0.7;
-          ctx.strokeStyle = autoColor ? `hsla(${hueOffset}, 85%, 65%, ${alpha})` : activeLineColor.replace(/[\d.]+\)$/, `${alpha})`);
+          ctx.strokeStyle = autoColor
+            ? `hsla(${hueOffset}, 85%, 65%, ${alpha})`
+            : activeLineColor.replace(/[\d.]+\)$/, `${alpha})`);
           ctx.lineWidth = 1.5;
           ctx.beginPath();
           ctx.moveTo(n1.x, n1.y);
@@ -125,7 +129,9 @@ export default function QuantumMesh({
       // Draw and update nodes
       for (const node of nodes) {
         // Glowing Aura Ring around node
-        ctx.strokeStyle = autoColor ? `hsla(${hueOffset}, 85%, 60%, 0.25)` : activeLineColor.replace(/[\d.]+\)$/, '0.25)');
+        ctx.strokeStyle = autoColor
+          ? `hsla(${hueOffset}, 85%, 60%, 0.25)`
+          : activeLineColor.replace(/[\d.]+\)$/, "0.25)");
         ctx.lineWidth = 1.0;
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius * 2.8, 0, Math.PI * 2);
@@ -171,9 +177,9 @@ export default function QuantumMesh({
     draw();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationId);
     };
   }, [nodeCount, linkDistance, nodeColor, lineColor, speed, autoColor]);

@@ -1,7 +1,7 @@
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
+import * as THREE from "three";
 
 interface ProjectMonolithProps {
   position: [number, number, number];
@@ -10,7 +10,12 @@ interface ProjectMonolithProps {
   index: number;
 }
 
-export default function ProjectMonolith({ position, title, category, index }: ProjectMonolithProps) {
+export default function ProjectMonolith({
+  position,
+  title,
+  category,
+  index,
+}: ProjectMonolithProps) {
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -18,7 +23,7 @@ export default function ProjectMonolith({ position, title, category, index }: Pr
     if (groupRef.current) {
       // Subtle hovering physics
       groupRef.current.position.y += Math.sin(state.clock.elapsedTime * 1.5 + index) * 0.001;
-      
+
       // Keep monoliths oriented roughly towards the center but slightly angled
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5 + index) * 0.05;
     }
@@ -29,11 +34,7 @@ export default function ProjectMonolith({ position, title, category, index }: Pr
       {/* The solid, brutalist monolith body */}
       <mesh ref={meshRef} castShadow receiveShadow position={[0, 0, 0]}>
         <boxGeometry args={[4, 2.5, 0.5]} />
-        <meshStandardMaterial 
-          color="#0a0c10" 
-          roughness={0.1} 
-          metalness={0.9} 
-        />
+        <meshStandardMaterial color="#0a0c10" roughness={0.1} metalness={0.9} />
       </mesh>
 
       {/* Embedded solid typography on the monolith face */}

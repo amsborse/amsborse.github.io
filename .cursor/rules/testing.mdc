@@ -1,0 +1,12 @@
+---
+description: Testing and coverage requirements
+globs: tests/**/*,src/utils/**/*
+alwaysApply: false
+---
+
+# Testing
+
+- Unit tests: `tests/unit/` — **99% line coverage** on `src/utils/frontmatter.ts` and `src/utils/markdown.ts`.
+- E2E: `tests/e2e/portfolio.spec.ts` — smoke every route; assert real content, not generic `h1` on 404.
+- Add unit tests when changing pure utils; add e2e when changing user-visible flows.
+- Coverage report: `npm run test:coverage` → open `coverage/index.html`.

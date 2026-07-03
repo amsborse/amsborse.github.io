@@ -17,12 +17,12 @@ export function RootLayout() {
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
     });
 
-    lenis.on('scroll', (e: any) => {
+    lenis.on("scroll", (e: any) => {
       setScrollProgress(e.progress);
     });
 
@@ -41,7 +41,10 @@ export function RootLayout() {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="flex min-h-screen flex-col relative overflow-hidden" style={{ background: 'transparent' }}>
+    <div
+      className="flex min-h-screen flex-col relative overflow-hidden"
+      style={{ background: "transparent" }}
+    >
       <InteractiveParticles intensity="intense" />
       {isHome && (
         <div className="pointer-events-none fixed inset-0 -z-10 bg-[#050505]" aria-hidden />

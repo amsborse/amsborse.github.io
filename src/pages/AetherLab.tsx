@@ -1,40 +1,40 @@
-import { useState } from 'react';
-import { Seo } from '@/components/Seo';
-import AnomalyMatrix from '@/components/canvas/AnomalyMatrix';
-import QuantumMesh from '@/components/canvas/QuantumMesh';
-import GravityWell from '@/components/canvas/GravityWell';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { Seo } from "@/components/Seo";
+import AnomalyMatrix from "@/components/canvas/AnomalyMatrix";
+import QuantumMesh from "@/components/canvas/QuantumMesh";
+import GravityWell from "@/components/canvas/GravityWell";
+import { motion } from "framer-motion";
 
-type SceneType = 'anomaly' | 'gravity' | 'neural';
+type SceneType = "anomaly" | "gravity" | "neural";
 
 export default function AetherLab() {
-  const [activeScene, setActiveScene] = useState<SceneType>('anomaly');
+  const [activeScene, setActiveScene] = useState<SceneType>("anomaly");
   const [autoColor, setAutoColor] = useState(false);
 
   // Parameters for Anomaly Matrix
   const [sphereSpeed, setSphereSpeed] = useState(1.0);
   const [sphereScale, setSphereScale] = useState(1.0);
-  const [anomalyColor, setAnomalyColor] = useState<'indigo' | 'amber' | 'emerald'>('indigo');
+  const [anomalyColor, setAnomalyColor] = useState<"indigo" | "amber" | "emerald">("indigo");
   // Parameters for Gravity Well Accretion Disk
   const [gravityParticles, setGravityParticles] = useState(2200);
   const [diskSpeed, setDiskSpeed] = useState(1.0);
-  const [gravityColor, setGravityColor] = useState<'indigo' | 'amber' | 'emerald'>('indigo');
+  const [gravityColor, setGravityColor] = useState<"indigo" | "amber" | "emerald">("indigo");
 
   // Parameters for Quantum Neural Mesh
   const [nodeCount, setNodeCount] = useState(140);
   const [linkDistance, setLinkDistance] = useState(120);
-  const [meshColor, setMeshColor] = useState<'purple' | 'blue' | 'green'>('purple');
+  const [meshColor, setMeshColor] = useState<"purple" | "blue" | "green">("purple");
   const [meshSpeed, setMeshSpeed] = useState(1.0);
 
   // Resolve color strings
   const getMeshColors = () => {
     switch (meshColor) {
-      case 'blue':
-        return { node: 'rgba(59, 130, 246, 0.8)', line: 'rgba(59, 130, 246, 0.15)' };
-      case 'green':
-        return { node: 'rgba(16, 185, 129, 0.8)', line: 'rgba(16, 185, 129, 0.15)' };
+      case "blue":
+        return { node: "rgba(59, 130, 246, 0.8)", line: "rgba(59, 130, 246, 0.15)" };
+      case "green":
+        return { node: "rgba(16, 185, 129, 0.8)", line: "rgba(16, 185, 129, 0.15)" };
       default:
-        return { node: 'rgba(147, 51, 234, 0.8)', line: 'rgba(147, 51, 234, 0.15)' };
+        return { node: "rgba(147, 51, 234, 0.8)", line: "rgba(147, 51, 234, 0.15)" };
     }
   };
 
@@ -61,24 +61,25 @@ export default function AetherLab() {
               Aether Lab
             </h1>
             <p className="mt-3 text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Explore and configure the generative mechanics that power our cosmic aesthetic. Adjust speed, particle density, and physics models in real-time.
+              Explore and configure the generative mechanics that power our cosmic aesthetic. Adjust
+              speed, particle density, and physics models in real-time.
             </p>
           </header>
 
           {/* Navigation Tabs */}
           <div className="flex flex-wrap gap-2 border-b border-white/5 pb-4 mb-8">
             {[
-              { id: 'anomaly', label: 'Anomaly Matrix (3D)' },
-              { id: 'gravity', label: 'Gravity Well (3D)' },
-              { id: 'neural', label: 'Quantum Neural Mesh' },
+              { id: "anomaly", label: "Anomaly Matrix (3D)" },
+              { id: "gravity", label: "Gravity Well (3D)" },
+              { id: "neural", label: "Quantum Neural Mesh" },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveScene(tab.id as SceneType)}
                 className={`px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
                   activeScene === tab.id
-                    ? 'bg-white/10 text-white border border-white/15'
-                    : 'text-slate-500 hover:text-slate-350'
+                    ? "bg-white/10 text-white border border-white/15"
+                    : "text-slate-500 hover:text-slate-350"
                 }`}
               >
                 {tab.label}
@@ -89,7 +90,7 @@ export default function AetherLab() {
           <div className="grid lg:grid-cols-12 gap-8 items-start">
             {/* Viewport Container */}
             <div className="lg:col-span-8 h-[450px] sm:h-[550px] relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black/40">
-              {activeScene === 'anomaly' && (
+              {activeScene === "anomaly" && (
                 <AnomalyMatrix
                   sphereSpeed={sphereSpeed}
                   sphereScale={sphereScale}
@@ -97,7 +98,7 @@ export default function AetherLab() {
                   autoColor={autoColor}
                 />
               )}
-              {activeScene === 'gravity' && (
+              {activeScene === "gravity" && (
                 <GravityWell
                   particleCount={gravityParticles}
                   diskSpeed={diskSpeed}
@@ -105,7 +106,7 @@ export default function AetherLab() {
                   autoColor={autoColor}
                 />
               )}
-              {activeScene === 'neural' && (
+              {activeScene === "neural" && (
                 <QuantumMesh
                   nodeCount={nodeCount}
                   linkDistance={linkDistance}
@@ -123,7 +124,7 @@ export default function AetherLab() {
                 <span className="text-[0.625rem] font-mono uppercase text-slate-500 tracking-wider block mb-4">
                   Global Modifiers
                 </span>
-                
+
                 {/* Auto Spectrum Shift Switch */}
                 <div className="flex items-center justify-between p-3 rounded-lg border border-white/5 bg-white/[0.01]">
                   <div className="flex flex-col">
@@ -133,13 +134,15 @@ export default function AetherLab() {
                   <button
                     onClick={() => setAutoColor(!autoColor)}
                     className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-300 focus:outline-none ${
-                      autoColor ? 'bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]' : 'bg-white/10'
+                      autoColor
+                        ? "bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"
+                        : "bg-white/10"
                     }`}
                     aria-label="Toggle Auto Color Shift"
                   >
                     <span
                       className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform duration-300 ${
-                        autoColor ? 'translate-x-4' : 'translate-x-0.5'
+                        autoColor ? "translate-x-4" : "translate-x-0.5"
                       }`}
                     />
                   </button>
@@ -151,20 +154,22 @@ export default function AetherLab() {
               </span>
 
               {/* Anomaly Matrix Controls */}
-              {activeScene === 'anomaly' && (
+              {activeScene === "anomaly" && (
                 <div className="space-y-6">
                   {!autoColor && (
                     <div>
-                      <label className="text-xs text-slate-400 font-mono block mb-2">Color Theme</label>
+                      <label className="text-xs text-slate-400 font-mono block mb-2">
+                        Color Theme
+                      </label>
                       <div className="flex gap-2">
-                        {(['indigo', 'amber', 'emerald'] as const).map((color) => (
+                        {(["indigo", "amber", "emerald"] as const).map((color) => (
                           <button
                             key={color}
                             onClick={() => setAnomalyColor(color)}
                             className={`flex-1 py-1.5 rounded border text-[10px] uppercase font-mono transition-all ${
                               anomalyColor === color
-                                ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
-                                : 'border-white/5 hover:border-white/10 text-slate-400'
+                                ? "border-indigo-500 bg-indigo-500/10 text-indigo-300"
+                                : "border-white/5 hover:border-white/10 text-slate-400"
                             }`}
                           >
                             {color}
@@ -205,25 +210,26 @@ export default function AetherLab() {
                       className="w-full accent-indigo-500 cursor-pointer"
                     />
                   </div>
-
                 </div>
               )}
 
               {/* Gravity Well Controls */}
-              {activeScene === 'gravity' && (
+              {activeScene === "gravity" && (
                 <div className="space-y-6">
                   {!autoColor && (
                     <div>
-                      <label className="text-xs text-slate-400 font-mono block mb-2">Accretion Disk Color</label>
+                      <label className="text-xs text-slate-400 font-mono block mb-2">
+                        Accretion Disk Color
+                      </label>
                       <div className="flex gap-2">
-                        {(['indigo', 'amber', 'emerald'] as const).map((color) => (
+                        {(["indigo", "amber", "emerald"] as const).map((color) => (
                           <button
                             key={color}
                             onClick={() => setGravityColor(color)}
                             className={`flex-1 py-1.5 rounded border text-[10px] uppercase font-mono transition-all ${
                               gravityColor === color
-                                ? 'border-cyan-500 bg-cyan-500/10 text-cyan-300'
-                                : 'border-white/5 hover:border-white/10 text-slate-400'
+                                ? "border-cyan-500 bg-cyan-500/10 text-cyan-300"
+                                : "border-white/5 hover:border-white/10 text-slate-400"
                             }`}
                           >
                             {color}
@@ -268,20 +274,22 @@ export default function AetherLab() {
               )}
 
               {/* Quantum Neural Mesh Controls */}
-              {activeScene === 'neural' && (
+              {activeScene === "neural" && (
                 <div className="space-y-6">
                   {!autoColor && (
                     <div>
-                      <label className="text-xs text-slate-400 font-mono block mb-2">Link Color</label>
+                      <label className="text-xs text-slate-400 font-mono block mb-2">
+                        Link Color
+                      </label>
                       <div className="flex gap-2">
-                        {(['purple', 'blue', 'green'] as const).map((color) => (
+                        {(["purple", "blue", "green"] as const).map((color) => (
                           <button
                             key={color}
                             onClick={() => setMeshColor(color)}
                             className={`flex-1 py-1.5 rounded border text-[10px] uppercase font-mono transition-all ${
                               meshColor === color
-                                ? 'border-purple-500 bg-purple-500/10 text-purple-300'
-                                : 'border-white/5 hover:border-white/10 text-slate-400'
+                                ? "border-purple-500 bg-purple-500/10 text-purple-300"
+                                : "border-white/5 hover:border-white/10 text-slate-400"
                             }`}
                           >
                             {color}

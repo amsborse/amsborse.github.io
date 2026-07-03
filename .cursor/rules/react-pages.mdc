@@ -1,0 +1,12 @@
+---
+description: Conventions for React pages and layout
+globs: src/pages/**/*,src/layout/**/*
+alwaysApply: false
+---
+
+# Page & layout changes
+
+- Run `npm run test:e2e` after editing routes, nav, or page shells.
+- SEO: use existing `<Seo />` component with `path` matching the route.
+- Lazy-loaded routes live in `src/App.tsx` — keep chunk names stable when possible.
+- Resume page: preserve Interactive/PDF toggle (`button.toggle-option`) and `.resume-container`.

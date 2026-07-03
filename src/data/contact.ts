@@ -10,9 +10,21 @@ export const contactPage = {
   emailNote: "Replace with your real address in `src/data/socials.ts` (email field).",
   socialRows: [
     { key: "github" as keyof SocialLinks, label: "GitHub", description: "Code and experiments" },
-    { key: "linkedin" as keyof SocialLinks, label: "LinkedIn", description: "Professional background" },
-    { key: "medium" as keyof SocialLinks, label: "Medium", description: "Essays (if you cross-post)" },
-    { key: "substack" as keyof SocialLinks, label: "Substack", description: "Newsletter / longer notes" },
+    {
+      key: "linkedin" as keyof SocialLinks,
+      label: "LinkedIn",
+      description: "Professional background",
+    },
+    {
+      key: "medium" as keyof SocialLinks,
+      label: "Medium",
+      description: "Essays (if you cross-post)",
+    },
+    {
+      key: "substack" as keyof SocialLinks,
+      label: "Substack",
+      description: "Newsletter / longer notes",
+    },
   ],
   closingLine: "No form, no tracking.",
 } as const;

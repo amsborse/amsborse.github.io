@@ -23,7 +23,9 @@ export function AetherCoordinator() {
 
   // UI States
   const [menuOpen, setMenuOpen] = useState(false);
-  const [singularityState, setSingularityState] = useState<"idle" | "contracting" | "expanding">("idle");
+  const [singularityState, setSingularityState] = useState<"idle" | "contracting" | "expanding">(
+    "idle"
+  );
   const [lastPathname, setLastPathname] = useState(location.pathname);
 
   // Canvas Ref for Zen Sand
@@ -38,14 +40,14 @@ export function AetherCoordinator() {
   // 1. Cosmic Singularity Transition (Bypassed by default to prevent flashes)
   useEffect(() => {
     if (location.pathname === lastPathname) return;
-    
+
     if (singularity) {
       setSingularityState("contracting");
-      
+
       setTimeout(() => {
         setLastPathname(location.pathname);
         setSingularityState("expanding");
-        
+
         setTimeout(() => {
           setSingularityState("idle");
         }, 350);
@@ -124,7 +126,9 @@ export function AetherCoordinator() {
     try {
       if (oscRef.current) oscRef.current.stop();
       if (audioCtxRef.current) audioCtxRef.current.close();
-    } catch (_) {}
+    } catch {
+      /* audio teardown is best-effort */
+    }
     oscRef.current = null;
     gainRef.current = null;
     audioCtxRef.current = null;
@@ -137,12 +141,16 @@ export function AetherCoordinator() {
       if (soundscape && oscRef.current && gainRef.current && audioCtxRef.current) {
         const normX = e.clientX / window.innerWidth;
         const normY = e.clientY / window.innerHeight;
-        
+
         // Map X to low frequency scale (110Hz to 330Hz)
         const targetFreq = 110 + normX * 220;
         // Map Y to filter frequency (lowpass cutoff)
         oscRef.current.frequency.setTargetAtTime(targetFreq, audioCtxRef.current.currentTime, 0.15);
-        gainRef.current.gain.setTargetAtTime(0.02 + (1 - normY) * 0.035, audioCtxRef.current.currentTime, 0.1);
+        gainRef.current.gain.setTargetAtTime(
+          0.02 + (1 - normY) * 0.035,
+          audioCtxRef.current.currentTime,
+          0.1
+        );
       }
 
       // Zen Sand particle spawn
@@ -255,10 +263,39 @@ export function AetherCoordinator() {
         <div className="fixed top-20 right-6 z-30 pointer-events-none hidden lg:flex flex-col items-end gap-2 bg-[#0c0e17]/45 border border-white/5 p-3 rounded-lg backdrop-blur-md">
           <svg className="w-16 h-16 animate-[spin_320s_linear_infinite]" viewBox="0 0 100 100">
             {/* Celestial grid rings */}
-            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(245,158,11,0.22)" strokeWidth="0.5" />
-            <circle cx="50" cy="50" r="32" fill="none" stroke="rgba(56,189,248,0.18)" strokeWidth="0.5" strokeDasharray="3 3" />
-            <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-            <line x1="5" y1="50" x2="95" y2="50" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="rgba(245,158,11,0.22)"
+              strokeWidth="0.5"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="32"
+              fill="none"
+              stroke="rgba(56,189,248,0.18)"
+              strokeWidth="0.5"
+              strokeDasharray="3 3"
+            />
+            <line
+              x1="50"
+              y1="5"
+              x2="50"
+              y2="95"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="0.5"
+            />
+            <line
+              x1="5"
+              y1="50"
+              x2="95"
+              y2="50"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="0.5"
+            />
             {/* Moon crescent */}
             <path
               d="M 50 24 A 12 12 0 0 1 50 48 A 10 12 0 0 0 50 24 Z"
@@ -322,7 +359,7 @@ export function AetherCoordinator() {
               <h4 className="text-xs font-mono text-[var(--color-gold)] uppercase tracking-widest mb-3 border-b border-white/5 pb-2">
                 Aether Coordinates Menu
               </h4>
-              
+
               <ul className="space-y-3.5 text-xs font-sans">
                 <li className="flex justify-between items-center">
                   <span>1. Cosmic Singularity</span>
@@ -382,7 +419,19 @@ export function AetherCoordinator() {
           className="w-11 h-11 bg-[var(--color-surface)] hover:bg-[var(--color-accent-soft)] border border-white/10 rounded-full shadow-lg flex items-center justify-center text-[var(--color-accent)] transition-all duration-300 active:scale-95"
           aria-label="Aether Control Panel"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={menuOpen ? "rotate-45 transition-transform duration-300" : "transition-transform duration-300"}>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className={
+              menuOpen
+                ? "rotate-45 transition-transform duration-300"
+                : "transition-transform duration-300"
+            }
+          >
             <circle cx="12" cy="12" r="3" />
             <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
           </svg>

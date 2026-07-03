@@ -35,8 +35,6 @@ export function GlassPanel({
 }: GlassPanelProps) {
   return (
     // @ts-expect-error — dynamic tag element
-    <Tag className={`${VARIANTS[variant]} ${className}`.trim()}>
-      {children}
-    </Tag>
+    <Tag className={`${VARIANTS[variant]} ${className}`.trim()}>{children}</Tag>
   );
 }

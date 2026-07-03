@@ -163,7 +163,9 @@ function main() {
 
   const inputDir = args[0];
   if (!inputDir || !fs.existsSync(inputDir)) {
-    console.error("Usage: node scripts/import-medium-html.js <posts-folder> [--update-index] [--only partial-slug]");
+    console.error(
+      "Usage: node scripts/import-medium-html.js <posts-folder> [--update-index] [--only partial-slug]"
+    );
     process.exit(1);
   }
 

@@ -1,11 +1,11 @@
-import { Canvas } from '@react-three/fiber';
-import { Environment, PerspectiveCamera } from '@react-three/drei';
-import GodSphere from './GodSphere';
+import { Canvas } from "@react-three/fiber";
+import { Environment, PerspectiveCamera } from "@react-three/drei";
+import GodSphere from "./GodSphere";
 
 interface AnomalyMatrixProps {
   sphereSpeed: number;
   sphereScale: number;
-  colorTheme: 'indigo' | 'amber' | 'emerald';
+  colorTheme: "indigo" | "amber" | "emerald";
   autoColor?: boolean;
 }
 

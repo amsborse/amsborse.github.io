@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { RootLayout } from "@/layout/RootLayout";
 import Home from "@/pages/Home";
 
-
 /**
  * Lazy-loaded page chunks — only downloaded when the user navigates to them.
  * Home is eagerly loaded since it's the landing page.
@@ -46,31 +45,115 @@ export default function App() {
     <>
       <BrowserRouter basename={basename()}>
         <Routes>
-        <Route element={<RootLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<Suspense fallback={<PageSkeleton />}><About /></Suspense>} />
-          <Route path="experience" element={<Suspense fallback={<PageSkeleton />}><Experience /></Suspense>} />
-          <Route path="projects" element={<Suspense fallback={<PageSkeleton />}><Projects /></Suspense>} />
-          <Route path="writing" element={<Suspense fallback={<PageSkeleton />}><Writing /></Suspense>} />
-          <Route
-            path="writing/:slug"
-            element={
-              <Suspense fallback={<PageSkeleton />}>
-                <Article />
-              </Suspense>
-            }
-          />
-          <Route path="resume" element={<Suspense fallback={<PageSkeleton />}><Resume /></Suspense>} />
-          <Route path="motion" element={<Suspense fallback={<PageSkeleton />}><MotionLab /></Suspense>} />
-          <Route path="learning" element={<Suspense fallback={<PageSkeleton />}><Learning /></Suspense>} />
-          <Route path="algorithm" element={<Suspense fallback={<PageSkeleton />}><Algorithms /></Suspense>} />
-          <Route path="aether-lab" element={<Suspense fallback={<PageSkeleton />}><AetherLab /></Suspense>} />
-          <Route path="contact" element={<Suspense fallback={<PageSkeleton />}><Contact /></Suspense>} />
-          <Route path="404" element={<Suspense fallback={<PageSkeleton />}><NotFoundPage /></Suspense>} />
-          <Route path="*" element={<Suspense fallback={<PageSkeleton />}><NotFoundPage /></Suspense>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route element={<RootLayout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="about"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <About />
+                </Suspense>
+              }
+            />
+            <Route
+              path="experience"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Experience />
+                </Suspense>
+              }
+            />
+            <Route
+              path="projects"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Projects />
+                </Suspense>
+              }
+            />
+            <Route
+              path="writing"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Writing />
+                </Suspense>
+              }
+            />
+            <Route
+              path="writing/:slug"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Article />
+                </Suspense>
+              }
+            />
+            <Route
+              path="resume"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Resume />
+                </Suspense>
+              }
+            />
+            <Route
+              path="motion"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <MotionLab />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Learning />
+                </Suspense>
+              }
+            />
+            <Route
+              path="algorithm"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Algorithms />
+                </Suspense>
+              }
+            />
+            <Route
+              path="aether-lab"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <AetherLab />
+                </Suspense>
+              }
+            />
+            <Route
+              path="contact"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <Contact />
+                </Suspense>
+              }
+            />
+            <Route
+              path="404"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <NotFoundPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <NotFoundPage />
+                </Suspense>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

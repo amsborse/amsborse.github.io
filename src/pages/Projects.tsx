@@ -2,11 +2,7 @@ import { useMemo, useState } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Seo } from "@/components/Seo";
-import {
-  projectCategories,
-  projects,
-  type ProjectCategory,
-} from "@/data";
+import { projectCategories, projects, type ProjectCategory } from "@/data";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");

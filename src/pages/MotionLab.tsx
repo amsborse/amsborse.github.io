@@ -45,7 +45,7 @@ export default function MotionLab() {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-      
+
       const sparks = sparksRef.current;
       for (let i = sparks.length - 1; i >= 0; i--) {
         const s = sparks[i];
@@ -160,7 +160,8 @@ export default function MotionLab() {
               Motion Lab
             </h1>
             <p className="mt-4 text-sm max-w-lg mx-auto text-slate-400 leading-relaxed font-sans">
-              Interact with the physical laws of our system. Ignite the particle core below, or rotate and morph the celestial grid structure.
+              Interact with the physical laws of our system. Ignite the particle core below, or
+              rotate and morph the celestial grid structure.
             </p>
           </header>
 
@@ -171,14 +172,15 @@ export default function MotionLab() {
                 ref={canvasRef}
                 className="absolute inset-0 w-full h-full pointer-events-none z-0"
               />
-              
+
               <div className="relative z-10">
                 <span className="text-[0.6rem] font-mono uppercase text-slate-500 tracking-wider block mb-2">
                   System Parameter // Emitter
                 </span>
                 <h3 className="text-lg font-semibold text-white">Dynamic Particle Core</h3>
                 <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Click the button below to release energy waves. The particle system simulates gravity, velocity vectors, and exponential fading decay.
+                  Click the button below to release energy waves. The particle system simulates
+                  gravity, velocity vectors, and exponential fading decay.
                 </p>
               </div>
 
@@ -203,7 +205,8 @@ export default function MotionLab() {
                 </span>
                 <h3 className="text-lg font-semibold text-white">Celestial Grid Structure</h3>
                 <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Hover and drag to rotate the matrix coordinates. Toggle states below to morph the structure between sphere, torus, and wave coordinate maps.
+                  Hover and drag to rotate the matrix coordinates. Toggle states below to morph the
+                  structure between sphere, torus, and wave coordinate maps.
                 </p>
               </div>
 

@@ -35,9 +35,7 @@ function BuildingCard({ text }: { text: string }) {
   return (
     <div ref={tiltRef} className="mt-6">
       <div className="premium-card p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl">
-        <p className="text-sm sm:text-base leading-relaxed text-[var(--color-body)]">
-          {text}
-        </p>
+        <p className="text-sm sm:text-base leading-relaxed text-[var(--color-body)]">{text}</p>
       </div>
     </div>
   );

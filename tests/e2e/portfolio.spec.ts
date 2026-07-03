@@ -5,15 +5,17 @@ import { test, expect } from "@playwright/test";
 // =============================================================================
 
 const PAGES = [
-  { path: "/", title: "Home", selector: "header" },
+  { path: "/", title: "Home", selector: "h1" },
   { path: "/about", title: "About", selector: "h1" },
   { path: "/experience", title: "Experience", selector: "h1" },
   { path: "/projects", title: "Projects", selector: "h2" },
   { path: "/writing", title: "Writing", selector: "h1" },
-  { path: "/resume", title: "Resume", selector: "article" },
+  { path: "/resume", title: "Resume", selector: ".resume-container" },
   { path: "/contact", title: "Contact", selector: "h1" },
   { path: "/motion", title: "Motion Lab", selector: "h1" },
-  { path: "/algorithms", title: "Algorithm", selector: "h1" },
+  { path: "/algorithm", title: "Algorithm", selector: "h1:has-text('Algorithm Visualizer')" },
+  { path: "/aether-lab", title: "Aether Lab", selector: "h1" },
+  { path: "/learning", title: "Learning", selector: "h1" },
 ];
 
 for (const page of PAGES) {
@@ -27,7 +29,7 @@ for (const page of PAGES) {
     await expect(p.locator(page.selector).first()).toBeVisible({ timeout: 10_000 });
 
     // No critical JS errors
-    expect(errors.filter(e => !e.includes("ResizeObserver"))).toHaveLength(0);
+    expect(errors.filter((e) => !e.includes("ResizeObserver"))).toHaveLength(0);
   });
 }
 
@@ -60,7 +62,7 @@ test("Navigation: 404 page renders for unknown routes", async ({ page }) => {
 // =============================================================================
 
 test("Algorithms: page loads with theme dropdown", async ({ page }) => {
-  await page.goto("/algorithms", { waitUntil: "networkidle" });
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
 
   // Title is visible
   await expect(page.locator("h1")).toContainText("Algorithm Visualizer");
@@ -74,7 +76,7 @@ test("Algorithms: can switch themes without errors", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (err) => errors.push(err.message));
 
-  await page.goto("/algorithms", { waitUntil: "networkidle" });
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
 
   const themeSelect = page.locator("select").first();
 
@@ -84,11 +86,11 @@ test("Algorithms: can switch themes without errors", async ({ page }) => {
     await page.waitForTimeout(300); // allow transition
   }
 
-  expect(errors.filter(e => !e.includes("ResizeObserver"))).toHaveLength(0);
+  expect(errors.filter((e) => !e.includes("ResizeObserver"))).toHaveLength(0);
 });
 
 test("Algorithms: can switch visualization modes", async ({ page }) => {
-  await page.goto("/algorithms", { waitUntil: "networkidle" });
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
 
   // Find the vis mode dropdown (second select)
   const selects = page.locator("select");
@@ -101,7 +103,7 @@ test("Algorithms: can switch visualization modes", async ({ page }) => {
 });
 
 test("Algorithms: generate and reset buttons work", async ({ page }) => {
-  await page.goto("/algorithms", { waitUntil: "networkidle" });
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
 
   // Click Generate
   const generateBtn = page.locator("button", { hasText: "Generate" });
@@ -115,7 +117,7 @@ test("Algorithms: generate and reset buttons work", async ({ page }) => {
 });
 
 test("Algorithms: algorithm dossier updates when switching algorithms", async ({ page }) => {
-  await page.goto("/algorithms", { waitUntil: "networkidle" });
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
 
   // Click on "Selection Sort" button
   const selectionBtn = page.locator("button", { hasText: "Selection Sort" });
@@ -151,18 +153,17 @@ test("MotionLab: ignite button works and counter increments", async ({ page }) =
 // 5. RESUME — Morph toggle works
 // =============================================================================
 
-test("Resume: morph button toggles layout", async ({ page }) => {
+test("Resume: interactive mode toggle works", async ({ page }) => {
   await page.goto("/resume", { waitUntil: "networkidle" });
 
-  const morphBtn = page.locator("button.classic-resume-morph-button");
-  await expect(morphBtn).toBeVisible();
+  const interactiveBtn = page.locator("button.toggle-option", { hasText: "Interactive" });
+  await expect(interactiveBtn).toBeVisible();
 
-  // Click to morph
-  await morphBtn.click();
+  await interactiveBtn.click();
   await page.waitForTimeout(300);
 
-  // Click again to toggle back
-  await morphBtn.click();
+  const pdfBtn = page.locator("button.toggle-option", { hasText: "PDF View" });
+  await pdfBtn.click();
   await page.waitForTimeout(300);
 });
 
@@ -183,6 +184,6 @@ test("Performance: Algorithms page lazy loads correctly", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
   // Navigate to Algorithms — should lazy load
-  await page.goto("/algorithms", { waitUntil: "networkidle" });
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
   await expect(page.locator("h1")).toContainText("Algorithm Visualizer");
 });

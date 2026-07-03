@@ -34,7 +34,7 @@ export function usePrefersReducedMotion(): boolean {
   const [reduced, setReduced] = useState(() =>
     typeof window !== "undefined"
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : false,
+      : false
   );
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export function usePrefersReducedMotion(): boolean {
 /** Parallax only on md+ and when user has not requested reduced motion. */
 export function useParallaxEnabled(): boolean {
   const [wide, setWide] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(min-width: 768px)").matches : false,
+    typeof window !== "undefined" ? window.matchMedia("(min-width: 768px)").matches : false
   );
   const reduced = usePrefersReducedMotion();
 

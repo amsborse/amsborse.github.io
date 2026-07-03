@@ -1,0 +1,17 @@
+dist
+coverage
+docs
+node_modules
+package-lock.json
+test-results
+playwright-report
+public/resume.pdf
+cleaned_resume.html
+extracted_resume.html
+scripts/patch_resume.cjs
+scripts/patch_resume.js
+scripts/start_replacement.txt
+tmp_resume
+public/resume.aux
+public/resume.log
+public/resume.out

@@ -15,7 +15,7 @@ function verifyHtmlFile(relativePath, label) {
 
   if (html.includes("/src/main")) {
     console.error(
-      `verify-dist: ${label} still references dev entry (/src/main). Vite did not transform HTML.`,
+      `verify-dist: ${label} still references dev entry (/src/main). Vite did not transform HTML.`
     );
     process.exit(1);
   }
@@ -34,7 +34,7 @@ function verifyHtmlFile(relativePath, label) {
     const hasBuiltChunk = /\/assets\/[^"']+\.js["']/.test(html);
     if (!hasBuiltChunk) {
       console.error(
-        `verify-dist: ${label} references source scripts — production must load hashed /assets/*.js only.`,
+        `verify-dist: ${label} references source scripts — production must load hashed /assets/*.js only.`
       );
       process.exit(1);
     }

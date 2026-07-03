@@ -69,7 +69,12 @@ function slugFromUrl(url) {
   try {
     const u = new URL(url);
     const last = u.pathname.split("/").filter(Boolean).pop() ?? "post";
-    return last.replace(/[^a-zA-Z0-9_-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "post";
+    return (
+      last
+        .replace(/[^a-zA-Z0-9_-]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "") || "post"
+    );
   } catch {
     return "post";
   }
@@ -156,7 +161,9 @@ for (const rec of records) {
   lines.push("  {");
   lines.push(`    id: ${JSON.stringify(rec.id)},`);
   lines.push(`    title: ${JSON.stringify(rec.title)},`);
-  lines.push(`    publication: ${rec.publication === null ? "null" : JSON.stringify(rec.publication)},`);
+  lines.push(
+    `    publication: ${rec.publication === null ? "null" : JSON.stringify(rec.publication)},`
+  );
   lines.push(`    url: ${JSON.stringify(rec.url)},`);
   lines.push(`    date: ${JSON.stringify(rec.date)},`);
   lines.push(`    readingMinutes: ${rec.readingMinutes},`);

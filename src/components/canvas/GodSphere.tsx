@@ -1,7 +1,7 @@
-import { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import { useStore } from '@/store/useStore';
+import { useRef, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import { useStore } from "@/store/useStore";
 
 const vertexShader = `
   uniform float uTime;
@@ -96,7 +96,7 @@ const fragmentShader = `
 interface GodSphereProps {
   speed?: number;
   scale?: number;
-  colorTheme?: 'indigo' | 'amber' | 'emerald';
+  colorTheme?: "indigo" | "amber" | "emerald";
   scrollOverride?: number;
   autoColor?: boolean;
 }
@@ -104,7 +104,7 @@ interface GodSphereProps {
 export default function GodSphere({
   speed = 1.0,
   scale = 1.0,
-  colorTheme = 'indigo',
+  colorTheme = "indigo",
   scrollOverride,
   autoColor = false,
 }: GodSphereProps) {
@@ -116,20 +116,20 @@ export default function GodSphere({
 
   const colors = useMemo(() => {
     switch (colorTheme) {
-      case 'amber':
+      case "amber":
         return {
-          core: new THREE.Color('#d97706'),
-          scroll: new THREE.Color('#ea580c'),
+          core: new THREE.Color("#d97706"),
+          scroll: new THREE.Color("#ea580c"),
         };
-      case 'emerald':
+      case "emerald":
         return {
-          core: new THREE.Color('#059669'),
-          scroll: new THREE.Color('#10b981'),
+          core: new THREE.Color("#059669"),
+          scroll: new THREE.Color("#10b981"),
         };
       default: // indigo
         return {
-          core: new THREE.Color('#06b6d4'), // electric blue
-          scroll: new THREE.Color('#a855f7'), // purple/crimson
+          core: new THREE.Color("#06b6d4"), // electric blue
+          scroll: new THREE.Color("#a855f7"), // purple/crimson
         };
     }
   }, [colorTheme]);

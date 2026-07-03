@@ -1,4 +1,3 @@
-
 # Medium Performance Analysis — Invisible Thinking Loops
 
 ## Big Picture

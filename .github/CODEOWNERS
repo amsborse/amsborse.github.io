@@ -1,0 +1,15 @@
+# Require review from repo owner on sensitive changes.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+* @amsborse
+
+/.github/ @amsborse
+/package.json @amsborse
+/package-lock.json @amsborse
+/playwright.config.ts @amsborse
+/vitest.config.ts @amsborse
+/eslint.config.js @amsborse
+
+/src/App.tsx @amsborse
+/src/pages/Resume.tsx @amsborse
+/src/layout/ @amsborse

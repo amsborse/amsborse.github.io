@@ -49,7 +49,10 @@ function SocialCard() {
                   </span>
                   <p className="mt-0.5 text-xs text-[var(--color-ink-muted)]">{row.description}</p>
                 </div>
-                <span className="font-mono text-xs text-[var(--color-ink-muted)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" aria-hidden>
+                <span
+                  className="font-mono text-xs text-[var(--color-ink-muted)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  aria-hidden
+                >
                   ↗
                 </span>
               </a>
@@ -80,7 +83,9 @@ export default function ContactPage() {
         <EmailCard />
         <SocialCard />
 
-        <p className="mt-12 text-sm text-[var(--color-ink-muted)] italic">{contactPage.closingLine}</p>
+        <p className="mt-12 text-sm text-[var(--color-ink-muted)] italic">
+          {contactPage.closingLine}
+        </p>
       </div>
     </>
   );
