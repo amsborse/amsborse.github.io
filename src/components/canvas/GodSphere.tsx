@@ -74,16 +74,14 @@ const vertexShader = `
 const fragmentShader = `
   uniform float uTime;
   uniform float uScroll;
+  uniform vec3 uCoreColor;
+  uniform vec3 uScrollColor;
   varying vec2 vUv;
   varying vec3 vNormal;
 
   void main() {
-    vec3 baseColor = vec3(0.05, 0.05, 0.1);
-    vec3 coreColor = vec3(0.1, 0.4, 0.9); // Electric blue
-    vec3 scrollColor = vec3(0.8, 0.2, 0.5); // Crimson
-    
     // Mix color based on scroll
-    vec3 finalColor = mix(coreColor, scrollColor, min(uScroll * 2.0, 1.0));
+    vec3 finalColor = mix(uCoreColor, uScrollColor, min(uScroll * 2.0, 1.0));
     
     // Rim lighting
     float intensity = pow(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 2.0);
@@ -95,16 +93,53 @@ const fragmentShader = `
   }
 `;
 
-export default function GodSphere() {
+interface GodSphereProps {
+  speed?: number;
+  scale?: number;
+  colorTheme?: 'indigo' | 'amber' | 'emerald';
+  scrollOverride?: number;
+  autoColor?: boolean;
+}
+
+export default function GodSphere({
+  speed = 1.0,
+  scale = 1.0,
+  colorTheme = 'indigo',
+  scrollOverride,
+  autoColor = false,
+}: GodSphereProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const scrollProgress = useStore((state) => state.scrollProgress);
+  const scrollProgressStore = useStore((state) => state.scrollProgress);
+  const scrollProgress = scrollOverride !== undefined ? scrollOverride : scrollProgressStore;
   const introScaleRef = useRef(0);
+
+  const colors = useMemo(() => {
+    switch (colorTheme) {
+      case 'amber':
+        return {
+          core: new THREE.Color('#d97706'),
+          scroll: new THREE.Color('#ea580c'),
+        };
+      case 'emerald':
+        return {
+          core: new THREE.Color('#059669'),
+          scroll: new THREE.Color('#10b981'),
+        };
+      default: // indigo
+        return {
+          core: new THREE.Color('#06b6d4'), // electric blue
+          scroll: new THREE.Color('#a855f7'), // purple/crimson
+        };
+    }
+  }, [colorTheme]);
 
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
       uScroll: { value: 0 },
+      uCoreColor: { value: colors.core.clone() },
+      uScrollColor: { value: colors.scroll.clone() },
     }),
     []
   );
@@ -116,12 +151,21 @@ export default function GodSphere() {
     }
 
     if (meshRef.current) {
-      meshRef.current.scale.setScalar(introScaleRef.current);
-      meshRef.current.rotation.y += delta * 0.1;
-      meshRef.current.rotation.z += delta * 0.05;
+      meshRef.current.scale.setScalar(introScaleRef.current * scale);
+      meshRef.current.rotation.y += delta * 0.1 * speed;
+      meshRef.current.rotation.z += delta * 0.05 * speed;
     }
     if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value += delta;
+      materialRef.current.uniforms.uTime.value += delta * speed;
+      if (autoColor) {
+        const hue = (state.clock.getElapsedTime() * 0.08) % 1;
+        const cycleColor = new THREE.Color().setHSL(hue, 0.85, 0.55);
+        materialRef.current.uniforms.uCoreColor.value.copy(cycleColor);
+        materialRef.current.uniforms.uScrollColor.value.copy(cycleColor);
+      } else {
+        materialRef.current.uniforms.uCoreColor.value.copy(colors.core);
+        materialRef.current.uniforms.uScrollColor.value.copy(colors.scroll);
+      }
       // Smoothly interpolate scroll uniform to avoid jumping
       materialRef.current.uniforms.uScroll.value = THREE.MathUtils.lerp(
         materialRef.current.uniforms.uScroll.value,

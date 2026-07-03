@@ -1,5 +1,6 @@
 import { Seo } from "@/components/Seo";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function LivePipelineChart() {
   const [points, setPoints] = useState<number[]>(Array(30).fill(40));
@@ -11,7 +12,6 @@ function LivePipelineChart() {
       if (time - lastUpdateRef.current > 150) { // Update every 150ms
         setPoints((prev) => {
           const next = [...prev.slice(1)];
-          // Generate a smooth random walk with sine base
           const base = 40 + Math.sin(time / 1000) * 15;
           const noise = (Math.random() - 0.5) * 8;
           const newVal = Math.max(15, Math.min(85, base + noise));
@@ -29,7 +29,6 @@ function LivePipelineChart() {
     };
   }, []);
 
-  // Generate SVG path string (X spans 0 to 300, Y is 0 to 100)
   const pathD = points
     .map((val, index) => {
       const x = (index / (points.length - 1)) * 300;
@@ -38,7 +37,6 @@ function LivePipelineChart() {
     })
     .join(" ");
 
-  // Fill path (goes down to bottom corners to create area chart)
   const fillD = `${pathD} L 300 100 L 0 100 Z`;
 
   const lastVal = points[points.length - 1];
@@ -77,18 +75,12 @@ function LivePipelineChart() {
           </linearGradient>
         </defs>
 
-        {/* Grid lines */}
         <line x1="0" y1="25" x2="300" y2="25" stroke="rgba(255,255,255,0.06)" strokeDasharray="3" />
         <line x1="0" y1="50" x2="300" y2="50" stroke="rgba(255,255,255,0.06)" strokeDasharray="3" />
         <line x1="0" y1="75" x2="300" y2="75" stroke="rgba(255,255,255,0.06)" strokeDasharray="3" />
 
-        {/* Area fill */}
         <path d={fillD} fill="url(#areaGrad)" style={{ transition: "d 0.15s linear" }} />
-
-        {/* Stroke line */}
         <path d={pathD} fill="none" stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" style={{ transition: "d 0.15s linear" }} />
-
-        {/* Glowing Head Dot */}
         <circle cx={lastX} cy={lastY} r="3.5" fill="var(--accent)" style={{ transition: "cy 0.15s linear" }} />
         <circle cx={lastX} cy={lastY} r="7" fill="var(--accent)" opacity="0.3" style={{ transition: "cy 0.15s linear" }} className="ping-head" />
       </svg>
@@ -113,15 +105,13 @@ function AnimatedNumber({ target, prefix = "", suffix = "", active }: AnimatedNu
     }
 
     const end = target;
-    const duration = 1200; // 1.2s count up
+    const duration = 1200;
     const startTime = performance.now();
-
     let animationFrameId: number;
 
     const animate = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out quad
       const easeProgress = progress * (2 - progress);
       const current = Math.floor(easeProgress * end);
       setValue(current);
@@ -146,15 +136,26 @@ function AnimatedNumber({ target, prefix = "", suffix = "", active }: AnimatedNu
   );
 }
 
+type BulletData = {
+  index: string;
+  boldText: string;
+  plainText: string;
+  impactText: string;
+  extraText: string;
+  detail: string;
+  eli5?: string;
+  qa?: { q: string; a: string }[];
+};
+
 export default function ResumePage() {
   const [morphed, setMorphed] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-  // Popup detail states
-  const [, setHoveredDetail] = useState<string | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<string | null>(null);
-  const [lockedDetail, setLockedDetail] = useState<string | null>(null);
-  const [lockedIndex, setLockedIndex] = useState<string | null>(null);
+  // Drawer panel state
+  const [drawerBullet, setDrawerBullet] = useState<BulletData | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeBulletIndex, setActiveBulletIndex] = useState<string | null>(null);
+  const [drawerTab, setDrawerTab] = useState<'deep-dive' | 'eli5' | 'interview'>('deep-dive');
 
   // Sync body classes
   useEffect(() => {
@@ -176,72 +177,46 @@ export default function ResumePage() {
   }, [darkMode, morphed]);
 
   useEffect(() => {
-    if (lockedDetail) {
-      document.body.classList.add("focus-mode");
+    if (drawerOpen) {
+      document.body.classList.add("drawer-open");
     } else {
-      document.body.classList.remove("focus-mode");
+      document.body.classList.remove("drawer-open");
     }
-  }, [lockedDetail]);
+  }, [drawerOpen]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      document.body.classList.remove("morphed", "dark", "focus-mode");
+      document.body.classList.remove("morphed", "dark", "drawer-open");
     };
   }, []);
 
-  // Popup interaction logic
-  const handleItemMouseEnter = (detail: string, index: string) => {
-    if (!morphed || lockedDetail) return;
-    setHoveredDetail(detail);
-    setHoveredIndex(index);
-  };
-
-  const handleItemMouseLeave = () => {
-    if (lockedDetail) return;
-    setHoveredDetail(null);
-    setHoveredIndex(null);
-  };
-
-  const handleItemClick = (detail: string, index: string, e: React.MouseEvent) => {
+  // Bullet click → open drawer
+  const handleBulletClick = useCallback((bullet: BulletData, e: React.MouseEvent) => {
     if (!morphed) return;
     e.stopPropagation();
-    if (lockedIndex === index) {
-      // Unlock
-      setLockedDetail(null);
-      setLockedIndex(null);
-      setHoveredDetail(null);
-      setHoveredIndex(null);
+    if (activeBulletIndex === bullet.index) {
+      setDrawerOpen(false);
+      setDrawerBullet(null);
+      setActiveBulletIndex(null);
     } else {
-      // Lock
-      setLockedDetail(detail);
-      setLockedIndex(index);
-      setHoveredDetail(null);
-      setHoveredIndex(null);
+      setDrawerBullet(bullet);
+      setDrawerOpen(true);
+      setActiveBulletIndex(bullet.index);
+      setDrawerTab('deep-dive');
     }
-  };
+  }, [morphed, activeBulletIndex]);
 
-  const closeLocks = () => {
-    setLockedDetail(null);
-    setLockedIndex(null);
-    setHoveredDetail(null);
-    setHoveredIndex(null);
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+    setDrawerBullet(null);
+    setActiveBulletIndex(null);
   };
-
-  // Listen to clicks outside to dismiss lock
-  useEffect(() => {
-    const handleGlobalClick = () => {
-      closeLocks();
-    };
-    window.addEventListener("click", handleGlobalClick);
-    return () => window.removeEventListener("click", handleGlobalClick);
-  }, []);
 
   return (
     <>
       <Seo title="Resume" description="Akshay Borse's resume — platform security and cloud-native architecture." path="/resume" />
       
-      {/* Dynamic styles injected exactly as provided */}
       <style dangerouslySetInnerHTML={{ __html: `:root{
 --paper:#ffffff;--bg:#07080d;--text:#1a1a2e;--text-light:#64748b;
 --accent:#6366f1;--accent2:#8b5cf6;--accent3:#ec4899;--accent-soft:#eef2ff;
@@ -297,254 +272,273 @@ body.morphed .job li:hover{background:rgba(99,102,241,0.06)}
 body.morphed .tech-tags{display:flex}
 .tech-tag{font-size:8pt;padding:3px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:600;transition:all 0.3s var(--spring)}
 .tech-tag:hover{transform:scale(1.05);background:var(--accent);color:white}
-/* Hover popup */
-.hover-popup{position:absolute;left:0;top:100%;z-index:50;width:100%;max-width:700px;padding:14px 18px;
- background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
- border:1px solid rgba(99,102,241,0.12);border-radius:12px;
- box-shadow:0 8px 32px rgba(0,0,0,0.08);
- font-size:9.5pt;line-height:1.65;color:var(--text-light);
- opacity:0;transform:translateY(6px);pointer-events:none;
- transition:opacity 0.3s ease,transform 0.3s ease}
-.hover-popup.visible{opacity:1;transform:translateY(4px);pointer-events:auto}
-.hover-popup.locked{z-index:60;background:rgba(255,255,255,0.98);border-color:var(--accent);
- box-shadow:0 16px 64px rgba(99,102,241,0.2),0 4px 24px rgba(0,0,0,0.08);
- color:var(--text);transform:translateY(4px) scale(1.02);font-size:10pt;line-height:1.7}
-body.focus-mode .resume-container::after{content:'';position:absolute;inset:0;background:rgba(245,247,250,0.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:45;pointer-events:none;animation:focus-fade 0.4s ease forwards;border-radius:inherit}
-@keyframes focus-fade{from{opacity:0}to{opacity:1}}
-body.focus-mode .section:has(.popup-parent){position:relative;z-index:50}
-body.focus-mode li.popup-parent{position:relative;z-index:50;background:rgba(255,255,255,0.97);border-radius:8px;padding:6px 10px;box-shadow:0 8px 32px rgba(99,102,241,0.12)}
-body.morphed .job li[data-detail]{position:relative}
-body.morphed .job li[data-detail]::after{content:'';position:absolute;right:-8px;top:50%;width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:0;transform:translateY(-50%);transition:opacity 0.3s}
-body.morphed .job li[data-detail]:hover::after{opacity:0.6}
-/* ===== MORPHED-ONLY EXPANDED SECTIONS ===== */
-.morphed-only{display:none;margin-top:20px}
-body.morphed .morphed-only{display:block;animation:section-reveal 0.5s var(--smooth) forwards}
-.arch-card{background:linear-gradient(135deg,#1e1b4b,#312e81);color:#e0e7ff;border-radius:14px;padding:24px 28px;margin:16px 0;font-family:'Cascadia Code','Fira Code',monospace;font-size:9pt;line-height:1.7;overflow-x:auto;position:relative}
-.arch-card::before{content:'ARCHITECTURE';position:absolute;top:10px;right:16px;font-size:7pt;letter-spacing:1.5px;color:#818cf8;font-weight:700}
-.arch-card .highlight{color:#a5b4fc;font-weight:700}
-.arch-card .dim{color:#6366f1}
-.arch-card .num{color:#34d399;font-weight:700}
-.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
-.metric-card{background:var(--paper);border:1px solid rgba(99,102,241,0.1);border-radius:12px;padding:16px;text-align:center;transition:transform 0.3s var(--spring)}
-.metric-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(99,102,241,0.08)}
-.metric-card .metric-num{font-size:1.6em;font-weight:800;color:var(--accent);display:block}
-.metric-card .metric-label{font-size:0.75em;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
-.metric-card .metric-source{font-size:0.65em;color:#a5b4fc;margin-top:6px;font-style:italic}
-.timeline{position:relative;padding-left:28px;margin:16px 0}
-.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),var(--accent3))}
-.timeline-item{position:relative;margin-bottom:20px;padding:14px 18px;background:rgba(99,102,241,0.03);border:1px solid rgba(99,102,241,0.08);border-radius:12px}
-.timeline-item::before{content:'';position:absolute;left:-24px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--accent)}
-.timeline-item .tl-date{font-size:0.75em;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
-.timeline-item .tl-title{font-size:0.95em;font-weight:700;margin:4px 0}
-.timeline-item .tl-desc{font-size:0.85em;color:var(--text-light);line-height:1.6}
-.timeline-item .tl-tags{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
-.timeline-item .tl-tag{font-size:7pt;padding:2px 8px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-weight:600}
-.incident-card{background:linear-gradient(to right,#fef2f2,var(--paper));border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;margin:10px 0}
-.incident-card .inc-sev{font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#dc2626}
-.incident-card .inc-title{font-size:0.92em;font-weight:700;margin:4px 0}
-.incident-card .inc-detail{font-size:0.82em;color:var(--text-light);line-height:1.6}
-.incident-card .inc-outcome{font-size:0.82em;color:#059669;font-weight:600;margin-top:6px}
-.collab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:12px 0}
-.collab-card{padding:12px 16px;background:rgba(99,102,241,0.03);border:1px solid rgba(99,102,241,0.08);border-radius:10px;font-size:0.85em}
-.collab-card .collab-name{font-weight:700;color:var(--accent)}
-.collab-card .collab-ctx{color:var(--text-light);margin-top:2px}
-/* Skills */
-.skills-grid{display:grid;grid-template-columns:80px 1fr;gap:4px 12px;font-size:9pt;margin:0;padding:0;list-style:none}
+/* Drawer panel */
+body.drawer-open {overflow:hidden}
+.drawer-backdrop{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(7,8,13,0.5);backdrop-filter:blur(4px);z-index:9998}
+.drawer-panel{position:fixed;top:0;right:0;width:500px;max-width:100vw;height:100vh;background:#ffffff;box-shadow:-8px 0 32px rgba(0,0,0,0.15);z-index:9999;display:flex;flex-direction:column;color:#1e293b}
+.drawer-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#64748b;z-index:100}
+.drawer-close:hover{color:#0f172a}
+.drawer-header{padding:24px;border-bottom:1px solid #f1f5f9;background:#f8fafc}
+.drawer-title{font-size:1.15rem;font-weight:800;color:#0f172a;margin-bottom:4px}
+.drawer-subtitle{font-size:0.85rem;color:#64748b}
+.drawer-tabs{display:flex;border-bottom:1px solid #e2e8f0;background:#f8fafc;padding:0 24px}
+.drawer-tab{padding:12px 16px;font-size:0.9rem;font-weight:600;color:#64748b;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s}
+.drawer-tab:hover{color:#0f172a}
+.drawer-tab.active{color:#6366f1;border-bottom-color:#6366f1}
+.drawer-body{flex:1;overflow-y:auto;padding:24px;line-height:1.6}
+.drawer-active-bullet{background:rgba(99,102,241,0.08) !important;border-left:3px solid var(--accent);padding-left:8px !important}
+.bullet-expand-hint{font-size:0.8em;color:var(--accent);margin-left:6px;transition:transform 0.2s}
+/* Mode toggle bar */
+.mode-toggle-container{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;border-bottom:1px solid rgba(0,0,0,0.05);padding-bottom:12px}
+body.morphed .mode-toggle-container{border-bottom-color:rgba(255,255,255,0.05)}
+.mode-toggle-pill{display:flex;background:var(--accent-soft);padding:4px;border-radius:100px;box-shadow:inset 0 2px 4px rgba(0,0,0,0.05)}
+.toggle-option{display:flex;align-items:center;gap:6px;padding:8px 16px;border:none;background:none;border-radius:100px;font-size:9pt;font-weight:700;color:var(--text-light);cursor:pointer;transition:all 0.3s var(--spring)}
+.toggle-option.active{background:var(--accent);color:white;box-shadow:0 4px 12px var(--btn-pulse-color)}
+.theme-btn-pill{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:none;background:var(--accent-soft);color:var(--accent);cursor:pointer;transition:all 0.3s var(--spring)}
+.theme-btn-pill:hover{transform:scale(1.1);background:var(--accent);color:white}
+.theme-btn-pill.visible{display:flex}
+/* Dark theme adjustments in morphed mode */
+body.dark{--paper:#0f111a;--text:#e2e8f0;--text-light:#94a3b8;--clay:8px 8px 20px rgba(0,0,0,0.35),-4px -4px 12px rgba(255,255,255,0.02)}
+body.dark .stats-bar .stat-card{background:#161925;box-shadow:none;border:1px solid rgba(255,255,255,0.04)}
+body.dark .section{background:#161925;border-color:rgba(255,255,255,0.04)}
+body.dark .job{background:rgba(99,102,241,0.04);border-color:rgba(99,102,241,0.12)}
+body.dark .tech-tag{background:rgba(99,102,241,0.15);color:#a5b4fc}
+/* Metrics grid styling */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.metric-card{background:rgba(99,102,241,0.02);border:1px solid rgba(99,102,241,0.08);border-radius:10px;padding:12px 16px;transition:all 0.3s}
+.metric-card:hover{border-color:rgba(99,102,241,0.2);transform:translateY(-2px)}
+.metric-num{display:block;font-size:16pt;font-weight:800;color:var(--accent)}
+.metric-label{display:block;font-size:8.5pt;font-weight:600;color:var(--text);margin:2px 0}
+.metric-source{display:block;font-size:7pt;color:var(--text-light);font-style:italic}
+body.dark .metric-card{background:rgba(255,255,255,0.01);border-color:rgba(255,255,255,0.05)}
+/* Arch card styling */
+.arch-card{background:rgba(15,17,26,0.95);color:#a5b4fc;font-family:Courier,monospace;font-size:8.5pt;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);overflow-x:auto;margin-top:8px}
+.arch-card .highlight{color:#818cf8;font-weight:700}
+.arch-card .num{color:#34d399}
+.arch-card .dim{color:#64748b}
+/* Timeline styling */
+.timeline{position:relative;padding-left:20px;border-left:2px solid rgba(99,102,241,0.15);margin-top:16px}
+.timeline-item{position:relative;margin-bottom:20px}
+.timeline-item::before{content:"";position:absolute;left:-27px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)}
+.tl-date{font-size:8pt;font-weight:700;color:var(--accent);text-transform:uppercase}
+.tl-title{font-size:9.5pt;font-weight:700;color:var(--text);margin:2px 0}
+.tl-desc{font-size:8.5pt;color:var(--text-light);line-height:1.4}
+.tl-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.tl-tag{font-size:7pt;padding:2px 6px;border-radius:4px;background:rgba(99,102,241,0.08);color:var(--accent)}
+/* Incident response card styling */
+.incident-card{background:rgba(239,68,68,0.02);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:16px;margin-top:12px}
+.inc-sev{font-size:8pt;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:0.5px}
+.inc-title{font-size:10pt;font-weight:700;color:var(--text);margin:2px 0 6px}
+.inc-detail{font-size:8.5pt;color:var(--text-light);line-height:1.5}
+.inc-outcome{font-size:8.5pt;color:#10b981;font-weight:600;margin-top:6px}
+body.dark .incident-card{background:rgba(239,68,68,0.01)}
+/* Collaboration grid styling */
+.collab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.collab-card{background:rgba(99,102,241,0.02);border:1px solid rgba(99,102,241,0.08);border-radius:10px;padding:16px;transition:all 0.3s}
+.collab-name{font-size:9.5pt;font-weight:700;color:var(--text);display:block;margin-bottom:6px}
+.collab-ctx{font-size:8.5pt;color:var(--text-light);line-height:1.4}
+/* Skills grid and bar styling */
+.skills-grid{display:grid;grid-template-columns:120px 1fr;row-gap:8px;font-size:9pt;margin-bottom:20px}
 .skills-grid dt{font-weight:700;color:var(--text)}
-.skills-grid dd{color:var(--text-light);line-height:1.5}
-body.morphed .skills-grid{grid-template-columns:1fr;gap:16px}
-body.morphed .skills-grid dt{display:none}
-body.morphed .skills-grid dd{display:none}
-.skill-bars{display:none;gap:14px;flex-direction:column}
-body.morphed .skill-bars{display:flex}
-.skill-row{display:flex;align-items:center;gap:12px}
-.skill-label{font-size:9pt;font-weight:600;min-width:90px;color:var(--text)}
-.skill-bar-bg{flex:1;height:8px;background:#e8ecf4;border-radius:8px;overflow:hidden}
-.skill-bar-fill{height:100%;border-radius:8px;width:0;transition:width 1.2s var(--spring)}
-body.morphed .skill-bar-fill.animate{width:var(--fill)}
+.skills-grid dd{color:var(--text-light);margin:0}
+.skill-bars{margin-top:16px}
+.skill-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:8.5pt}
+.skill-label{width:90px;font-weight:600;color:var(--text)}
+.skill-bar-bg{flex:1;height:8px;border-radius:4px;background:rgba(0,0,0,0.05);overflow:hidden;position:relative}
+body.dark .skill-bar-bg{background:rgba(255,255,255,0.05)}
+.skill-bar-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s ease-out-in}
 .skill-bar-fill.purple{background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.skill-bar-fill.blue{background:linear-gradient(90deg,#06b6d4,#3b82f6)}
+.skill-bar-fill.blue{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
 .skill-bar-fill.green{background:linear-gradient(90deg,#10b981,#34d399)}
-.skill-bar-fill.orange{background:linear-gradient(90deg,#f59e0b,#ef4444)}
-.skill-bar-fill.pink{background:linear-gradient(90deg,#ec4899,#8b5cf6)}
-.skill-items{font-size:8.5pt;color:var(--text-light);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* Education & Recognition */
-.edu-line{display:flex;justify-content:space-between;align-items:baseline;font-size:9.5pt;margin-bottom:6px;flex-wrap:wrap}
-.edu-line .right{font-size:8.5pt;color:var(--text-light)}
-body.morphed .edu-line{font-size:10.5pt;padding:12px 16px;background:rgba(99,102,241,0.03);border-radius:10px;margin-bottom:10px;border:1px solid rgba(99,102,241,0.06)}
-.recognition{padding-left:18px}
-.recognition li{font-size:9pt;margin-bottom:4px;line-height:1.45}
-body.morphed .recognition li{font-size:10pt;margin-bottom:8px;line-height:1.6}
-/* Summary */
-.summary-text{font-size:9pt;line-height:1.5;color:var(--text);transition:all 0.4s}
-body.morphed .summary-text{font-size:10.5pt;line-height:1.7;color:var(--text)}
-/* Morph button styles replaced with premium toggle pill */
-.mode-toggle-container{position:fixed;bottom:28px;right:28px;z-index:1000;display:flex;align-items:center;gap:10px;animation:toggle-fade-in 0.6s var(--spring) forwards}
-@keyframes toggle-fade-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.mode-toggle-pill{display:flex;background:rgba(255,255,255,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.06);border-radius:9999px;padding:3px;box-shadow:0 4px 24px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.5);position:relative;transition:all 0.4s var(--smooth)}
-body.morphed .mode-toggle-pill{background:rgba(13,17,28,0.5);border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.05)}
-.toggle-option{background:transparent;border:none;cursor:pointer;padding:8px 16px;font-size:8.5pt;font-weight:600;color:var(--text-light);border-radius:9999px;display:flex;align-items:center;gap:6px;transition:all 0.3s var(--smooth);position:relative;z-index:1}
-.toggle-option .icon{font-size:10pt;transition:transform 0.3s var(--spring)}
-.toggle-option:hover .icon{transform:scale(1.15) rotate(5deg)}
-.toggle-option.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 2px 10px rgba(99,102,241,0.25)}
-.toggle-option:not(.active):hover{color:var(--text);background:rgba(0,0,0,0.03)}
-body.morphed .toggle-option:not(.active):hover{color:var(--text);background:rgba(255,255,255,0.05)}
-.theme-btn-pill{width:38px;height:38px;border-radius:50%;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:rgba(255,255,255,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,0.06);display:none;align-items:center;justify-content:center;font-size:14px;transition:all 0.3s var(--spring)}
-.theme-btn-pill.visible{display:flex;animation:scale-up-theme 0.3s var(--spring) forwards}
-@keyframes scale-up-theme{from{transform:scale(0)}to{transform:scale(1)}}
-body.morphed .theme-btn-pill{background:rgba(13,17,28,0.5);border-color:rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.3);color:#fff}
-.theme-btn-pill:hover{transform:scale(1.12) rotate(15deg);border-color:var(--accent);box-shadow:0 0 15px rgba(99,102,241,0.25)}
-body.morphed .section{opacity:0;transform:translateY(16px);animation:section-reveal 0.5s var(--smooth) forwards}
-body.morphed .section:nth-child(1){animation-delay:0.1s}
-body.morphed .section:nth-child(2){animation-delay:0.2s}
-body.morphed .section:nth-child(3){animation-delay:0.35s}
-body.morphed .section:nth-child(4){animation-delay:0.45s}
-body.morphed .section:nth-child(5){animation-delay:0.55s}
-body.morphed .section:nth-child(6){animation-delay:0.65s}
-body.morphed .section:nth-child(7){animation-delay:0.75s}
-body.morphed .section:nth-child(8){animation-delay:0.85s}
-@keyframes section-reveal{to{opacity:1;transform:translateY(0)}}
-body.morphed .section{transition:transform 0.4s var(--smooth), box-shadow 0.4s var(--smooth), border-color 0.4s var(--smooth)}
-body.morphed .section:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.06);border-color:rgba(99,102,241,0.15)}
-body.morphed.dark .section:hover{box-shadow:0 16px 40px rgba(0,0,0,0.3);border-color:rgba(56,189,248,0.18)}
-body.morphed .stat-card{transition:transform 0.4s var(--spring), box-shadow 0.4s var(--smooth)}
-body.morphed .stat-card:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 10px 24px rgba(99,102,241,0.1)}
-body.morphed.dark .stat-card:hover{box-shadow:0 10px 24px rgba(56,189,248,0.15)}
-.impact{position:relative;display:inline;background:linear-gradient(120deg,rgba(99,102,241,0) 0%,rgba(99,102,241,0) 100%);background-size:0 2px;background-position:0 100%;background-repeat:no-repeat;transition:background-size 0.6s ease}
-body.morphed .impact{background-size:100% 2px}
-@keyframes drift-1 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(8vw, 6vh) scale(1.15); }
-  100% { transform: translate(-3vw, -4vh) scale(0.9); }
-}
-@keyframes drift-2 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-6vw, -8vh) scale(1.2); }
-  100% { transform: translate(4vw, 3vh) scale(0.95); }
-}
-@keyframes ping-glow {
-  0% { transform: scale(0.95); opacity: 0.55; }
-  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 4px #10b981); }
-  100% { transform: scale(0.95); opacity: 0.55; }
-}
-.live-status-dot {
-  animation: ping-glow 1.8s infinite ease-in-out;
-}
-.ping-head {
-  animation: dot-pulse 1.4s infinite cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes dot-pulse {
-  0% { r: 4px; opacity: 0.8; }
-  100% { r: 12px; opacity: 0; }
-}
-/* ============================================================
- DARK MODE (additive--only affects the interactive "morphed"
- view; paper/PDF default and print are untouched)
- ============================================================ */
-
-
-/* re-map the palette: most elements reference these vars, so they recolor automatically */
-body.morphed.dark{
---paper:rgba(13,17,28,0.55);--bg:#07080d;--text:#f8fafc;--text-light:#94a3b8;
---accent:#38bdf8;--accent2:#818cf8;--accent3:#f59e0b;--accent-soft:rgba(56, 189, 248, 0.12);
---clay:0 14px 38px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);
---clay-hover:0 22px 50px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);
---btn-pulse-color:rgba(56,189,248,0.45);
- background:#07080d;
-}
-/* soft static glow background (no blur / no animation = smooth) */
-body.morphed.dark::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
- background:
- radial-gradient(46vw 46vw at 6% 2%,rgba(124,92,255,.20),transparent 60%),
- radial-gradient(44vw 44vw at 98% 100%,rgba(0,200,170,.16),transparent 60%);}
-body.morphed.dark .resume-container{background:rgba(16,18,34,.55);border:1px solid rgba(255,255,255,.08);
- box-shadow:0 30px 80px rgba(0,0,0,.5);}
-body.morphed.dark .header{border-bottom-color:rgba(255,255,255,.10)!important;}
-body.morphed.dark .contact-row .sep{color:#444a6b;}
-body.morphed.dark .section{background:var(--paper)!important;border:1px solid rgba(255,255,255,.08)!important;
- box-shadow:var(--clay)!important;}
-body.morphed.dark .stat-card,body.morphed.dark .metric-card{background:var(--paper)!important;
- border:1px solid rgba(255,255,255,.09)!important;}
-body.morphed.dark .skill-bar-bg{background:rgba(255,255,255,.09);}
-body.morphed.dark .timeline-item .tl-desc,body.morphed.dark .metric-card .metric-source,
-body.morphed.dark .collab-card .collab-ctx{color:var(--text-light);}
-body.morphed.dark .incident-card{background:linear-gradient(to right,rgba(255,90,90,.12),var(--paper));
- border-color:rgba(255,120,120,.30);}
-body.morphed.dark .incident-card .inc-sev{color:#ff8a8a;}
-body.morphed.dark .incident-card .inc-outcome{color:#34e0b0;}
-body.morphed.dark .hover-popup{background:rgba(21,24,44,.92)!important;border-color:rgba(139,123,255,.30);
- color:var(--text-light);}
-body.morphed.dark .hover-popup.locked{background:rgba(27,30,54,.97)!important;color:var(--text);
- border-color:var(--accent);box-shadow:0 16px 64px rgba(139,123,255,.30);}
-body.morphed.dark.focus-mode .resume-container::after{background:rgba(4,4,12,.5);}
-body.morphed.dark.focus-mode li.popup-parent{background:rgba(27,30,54,.95);box-shadow:0 8px 32px rgba(139,123,255,.25);}
-body.morphed.dark .theme-btn-pill{background:rgba(27,30,54,.92);color:#ffd770;border:1px solid rgba(255,255,255,.12);}
-body.morphed.dark ::selection{background:rgba(139,123,255,.4);color:#fff;}
-/* keep résumé content above the glow layer (container is z-index:1 by default; buttons stay at 1000) */
-body.morphed.dark .resume-container{z-index:1;}
+.skill-bar-fill.orange{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.skill-bar-fill.pink{background:linear-gradient(90deg,var(--accent3),#f472b6)}
+.skill-bar-fill.animate{width:var(--fill)}
+.skill-items{width:220px;color:var(--text-light);font-size:7.5pt;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Education line styling */
+.edu-line{margin-bottom:8px;font-size:9pt;display:flex;justify-content:space-between;flex-wrap:wrap;line-height:1.4}
+.edu-line .right{color:var(--text-light)}
+/* Print view styling overrides */
 @media print{
-.mode-toggle-container,.theme-btn-pill,.stats-bar,.tech-tags,.skill-bars,.hover-popup,.morphed-only{display:none!important}
-body,.resume-container{background:#fff!important;box-shadow:none!important;border-radius:0!important;margin:0!important;max-width:100%!important;padding:0.5in!important}
-}` }} />
+body{background:white !important;color:black !important}
+.no-print{display:none !important}
+.resume-container{box-shadow:none !important;margin:0 !important;padding:0 !important;width:100% !important;max-width:100% !important}
+.pdf-view-content {font-family:"Times New Roman",Times,serif !important;color:#000000 !important}
+}
+` }} />
 
-      <div className="resume-page-wrapper" style={{ minHeight: "100vh", position: "relative", paddingTop: "5rem" }}>
-        {morphed && (
-          <div className="ambient-glow-wrapper no-print" style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-            <div className="glow-blob glow-1" style={{
-              position: "absolute",
-              top: "-10%",
-              left: "-10%",
-              width: "50vw",
-              height: "50vw",
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%)",
-              filter: "blur(80px)",
-              animation: "drift-1 25s infinite alternate ease-in-out"
-            }} />
-            <div className="glow-blob glow-2" style={{
-              position: "absolute",
-              bottom: "-10%",
-              right: "-10%",
-              width: "50vw",
-              height: "50vw",
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%)",
-              filter: "blur(80px)",
-              animation: "drift-2 20s infinite alternate ease-in-out"
-            }} />
-          </div>
-        )}
-        <div className="resume-content-view">
-          <div className="resume-container" style={{ position: "relative" }}>
-            {/* Mode & Theme Selection Bar */}
-            <div className="no-print mode-toggle-container">
-              <div className="mode-toggle-pill">
-                <button
-                  className={`toggle-option ${!morphed ? 'active' : ''}`}
-                  onClick={() => setMorphed(false)}
-                >
-                  <span className="icon">📄</span>
-                  <span className="label">PDF View</span>
-                </button>
-                <button
-                  className={`toggle-option ${morphed ? 'active' : ''}`}
-                  onClick={() => setMorphed(true)}
-                >
-                  <span className="icon">✨</span>
-                  <span className="label">Interactive</span>
-                </button>
-              </div>
-
-              <button 
-                className={`theme-btn-pill ${morphed ? 'visible' : ''}`}
-                onClick={() => setDarkMode(!darkMode)}
-                title="Toggle Theme"
-                aria-label="Toggle Theme"
+      <div className="resume-content-view">
+        <div className="resume-container" style={{ position: "relative" }}>
+          {/* Mode & Theme Selection Bar */}
+          <div className="no-print mode-toggle-container">
+            <div className="mode-toggle-pill">
+              <button
+                className={`toggle-option ${!morphed ? 'active' : ''}`}
+                onClick={() => setMorphed(false)}
               >
-                {darkMode ? "☀️" : "🌙"}
+                <span className="icon">📄</span>
+                <span className="label">PDF View</span>
+              </button>
+              <button
+                className={`toggle-option ${morphed ? 'active' : ''}`}
+                onClick={() => setMorphed(true)}
+              >
+                <span className="icon">✨</span>
+                <span className="label">Interactive</span>
               </button>
             </div>
 
+            <button 
+              className={`theme-btn-pill ${morphed ? 'visible' : ''}`}
+              onClick={() => setDarkMode(!darkMode)}
+              title="Toggle Theme"
+              aria-label="Toggle Theme"
+            >
+              {darkMode ? "☀️" : "🌙"}
+            </button>
+          </div>
+
+          {!morphed ? (
+            /* =========================================================
+               EXACT PDF VIEW REPLICA (Matches Shared Image Word-for-Word)
+               ========================================================= */
+            <div className="pdf-view-content" style={{ fontFamily: '"Times New Roman", Times, serif', color: '#000000', lineHeight: 1.25, padding: '10px 0' }}>
+              <div style={{ textAlign: 'center', marginBottom: '8px' }}>
+                <h1 style={{ fontSize: '18pt', fontWeight: 'bold', margin: '0 0 4px', fontFamily: '"Times New Roman", Times, serif', color: '#000000' }}>Akshay Borse</h1>
+                <div style={{ fontSize: '9.5pt', color: '#000000', marginBottom: '4px' }}>
+                  425-336-9852 | <a href="mailto:amsborse@gmail.com" style={{ color: '#0000ee', textDecoration: 'underline' }}>amsborse@gmail.com</a> | <a href="https://linkedin.com/in/akshayborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline' }}>LinkedIn</a> | <a href="https://github.com/amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline' }}>GitHub</a> | <a href="https://amsborse.github.io" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline' }}>Portfolio</a>
+                </div>
+              </div>
+
+              <div className="section" style={{ marginTop: '5px' }}>
+                <div className="section-title" style={{ fontSize: '11pt', fontWeight: 'bold', borderBottom: '1.5px solid #000000', paddingBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  PROFESSIONAL SUMMARY
+                </div>
+                <p style={{ fontSize: '9pt', margin: '6px 0 0', textAlign: 'justify', lineHeight: '1.35' }}>
+                  Senior Software Engineer with 7+ years of experience designing large-scale distributed systems, AI-powered services, and security governance platforms across Microsoft and Amazon. Delivered systems supporting 34K+ enterprise tenants, 25M+ actors, and 100K+ TPS workloads while driving $28M+ profit generation and $250K/month cost savings.
+                </p>
+              </div>
+
+              <div className="section" style={{ marginTop: '14px' }}>
+                <div className="section-title" style={{ fontSize: '11pt', fontWeight: 'bold', borderBottom: '1.5px solid #000000', paddingBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  EXPERIENCE
+                </div>
+
+                {/* MICROSOFT */}
+                <div className="job" style={{ marginTop: '8px', marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '9.5pt' }}>
+                    <span>Senior Software Engineer | Microsoft | Redmond, WA | Sep-2025 to Present</span>
+                  </div>
+                  <div style={{ color: '#8800cc', fontSize: '8.5pt', margin: '2px 0 4px' }}>
+                    (C#, .NET, Azure Functions, Cosmos DB, ARM, Bicep, Agentic AI, Agentic Risk, Microsoft Purview, Event Hub, Geneva, Kusto, Data Governance)
+                  </div>
+                  <ul style={{ paddingLeft: '14px', margin: '4px 0 0', listStyleType: 'disc' }}>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Built Agent Adaptive Protection, enabling tenant-configurable risk scoring and automated policy enforcement for <strong>237K+ AI agents</strong> across <strong>13K+ enterprise tenants</strong>.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Built AI-agent historical enrichment infrastructure for Microsoft Purview Insider Risk Management, automatically backfilling <strong>90 days of audit history</strong> across <strong>40+ global forests</strong> and <strong>3 sovereign clouds</strong>.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Directed phased rollout of AI-agent risk capabilities across <strong>GCC, GCCH, and DoD sovereign clouds</strong>, establishing AI agents as first-class risk actors for enterprise and government tenants.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Built an isolated AI-agent ingestion platform across <strong>28 regions</strong>, processing <strong>135K+ daily risk signals</strong> while preventing agent workloads from impacting human-user processing.</li>
+                  </ul>
+                </div>
+
+                <div style={{ borderTop: '1px solid #dcdcdc', margin: '10px 0' }} />
+
+                {/* AMAZON */}
+                <div className="job" style={{ marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '9.5pt' }}>
+                    <span>Software Engineer 2 | Amazon | Seattle, WA | Aug 2019 – Aug 2025</span>
+                  </div>
+                  <div style={{ color: '#8800cc', fontSize: '8.5pt', margin: '2px 0 4px' }}>
+                    (Java, Python, Rest, gRPC, Docker, ECS, Dynamo, S3, Lambda, Aurora, Step Function, App Mesh, Redis, Kibana, OpenSearch, Kinesis, CloudWatch, SageMaker, Bedrock, Anthropic's LLM, Prompt Engineering)
+                  </div>
+                  <ul style={{ paddingLeft: '14px', margin: '4px 0 0', listStyleType: 'disc' }}>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Designed a microservice bootstrap library that standardized service creation across teams—<strong>cutting setup time from weeks to hours and saving 40–50 weeks</strong>. Leveraged custom DSL and enabled plug-and-play support for AWS infra using declarative config.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Enhanced the bootstrap library for Multi-Service Deployment in a single pipeline, optimizing maintenance for a microservices architecture with 60+ services. <strong>Reduced the service count by 9</strong>, with plans in place to further streamline and drive operational excellence.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Optimized Docker builds, cutting container image size by 83% and build time by over 50%, accelerating CI/CD and saving 60GB+ of storage.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Established and led a logging/metrics optimization initiative and process during AWS migration—standardized logs, removed redundant code, cutting noise, improving debuggability, and <strong>reducing CloudWatch costs by $250K+/month</strong>.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Built a Restock Alerting Service to notify customers when out-of-stock items were restocked increasing sales by 13% for cancelled ASIN's.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Implemented the Just-In-Stock service on native AWS to track real-time inventory changes and auto-optimize fulfillment, increasing early delivery rates by 16% and improving supply chain responsiveness.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Designed a self-service UI and backend to modify delivery dates for high-volume Amazon Business orders—<strong>eliminating 2–3 hours of manual ops per request</strong> and reducing dependency on external teams. Also mentored an intern during development.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Engineered a Replay Service using a lightweight wrapper over AWS Step Functions to schedule event replays up to 1 year—eliminating cron-based scheduling and reducing operational overhead with built-in visibility and fault tolerance.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Configured a <strong>dynamic log-level API for production</strong>, enabling real-time debugging without redeployments and cutting incident resolution time by over an hour—especially valuable in complex, distributed services.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Led the design for a RAG-based service that leverages a model deployed on Amazon SageMaker to integrate real-time inventory signals and vector search, improving delivery predictions and driving a 7% increase in global sales.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Redesigned 37 email templates by integrating an LLM via Amazon Bedrock, using a RAG-based approach with a curated corpus to constrain generation—ensuring compliance, improving personalization, and reinforcing brand consistency.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Integrated a binary classification model (XGBoost) to predict potential order delays before SLA breach, enabling early delay alerts to customers and improving trust in delivery communication.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Architected and deployed backend integration infrastructure for SageMaker hosted quantile regression model powering real-time delivery range predictions, driving statistically significant annualized <strong>~28MM profit gain</strong>.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Architected an event orchestration layer for AWS-based microservices, enabling real-time coordination across 100K+ TPS and 16 services—balancing REST and gRPC protocols to support 8 business-critical workflows.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Coordinated <strong>end-to-end load testing for 60+ distributed services</strong> during high-traffic events (Prime Day, Black Friday), aligning with upstream and downstream service owners to proactively surface scaling issues and ensure fault tolerance under peak load.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Developed a dry-run simulation tool for incoming orders, allowing non-engineering stakeholders to visualize system behavior—<strong>eliminating engineering dependencies</strong>, improving planning agility, and reducing deep-dive turnaround time from hours to minutes.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Proactively led cultural and operational improvements by launching on-call reduction reviews, post-launch knowledge sharing, and design discussion sessions—reducing Sev2 alerts by 60%, improving team-wide system understanding, and strengthening long-term design thinking.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Led TRA readiness for a Tier 1 service (CI/CD, multi-AZ, fault injection, canary), while building reusable tools to improve dev efficiency—automated UML sync to wiki, introduced reusable wiki headers, and reduced test setup complexity via Lugia integration.</li>
+                  </ul>
+                </div>
+
+                <div style={{ borderTop: '1px solid #dcdcdc', margin: '10px 0' }} />
+
+                {/* LIQUIRON */}
+                <div className="job" style={{ marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '9.5pt' }}>
+                    <span>Software Engineering Intern | Liquiron | San Jose, CA | Dec-2018 to Jan-2019</span>
+                  </div>
+                  <div style={{ color: '#8800cc', fontSize: '8.5pt', margin: '2px 0 4px' }}>
+                    (OAuth 2.0, Passport.js, Rest API, Vue.js, Google Firebase, Node.js, Mocha &amp; Chai, Jest, Serverless Hosting, Stateless Backend)
+                  </div>
+                  <ul style={{ paddingLeft: '14px', margin: '4px 0 0', listStyleType: 'disc' }}>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Re-architected authentication using OAuth 2.0 and Passport.js, improving security, modularity, and maintainability.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Migrated backend services to Firebase serverless infra &amp; developed REST APIs supporting SPA workflows, reducing server load by 36%.</li>
+                  </ul>
+                </div>
+
+                <div style={{ borderTop: '1px solid #dcdcdc', margin: '10px 0' }} />
+
+                {/* PERSISTENT */}
+                <div className="job" style={{ marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '9.5pt' }}>
+                    <span>Software Engineer | Persistent Systems | Pune, India | Sept-2016 to Jul-2017</span>
+                  </div>
+                  <div style={{ color: '#8800cc', fontSize: '8.5pt', margin: '2px 0 4px' }}>
+                    (CNN, AWS EC2, REST, NodeJS, JavaScript, Python, Axios, Quasar)
+                  </div>
+                  <ul style={{ paddingLeft: '14px', margin: '4px 0 0', listStyleType: 'disc' }}>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Developed a real-time CNN-based sentiment classification system achieving 87% accuracy across seven sentiment categories.</li>
+                    <li style={{ fontSize: '8.5pt', margin: '0 0 3px', lineHeight: '1.3' }}>Modernized legacy web applications into a single-page architecture, improving response time by 25% and offline performance by 9%, while enhancing developer productivity through a feedback system adopted by six engineering teams.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="section" style={{ marginTop: '14px' }}>
+                <div className="section-title" style={{ fontSize: '11pt', fontWeight: 'bold', borderBottom: '1.5px solid #000000', paddingBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  EDUCATION
+                </div>
+                <ul style={{ paddingLeft: '14px', margin: '6px 0 0', listStyleType: 'disc' }}>
+                  <li style={{ fontSize: '8.5pt', margin: '0 0 4px', lineHeight: '1.3' }}>Santa Clara University, Santa Clara, CA | Master's in Computer Science and Engineering. | Sep - 2017 to Jun-2019 | GPA - 3.77</li>
+                  <li style={{ fontSize: '8.5pt', margin: '0 0 4px', lineHeight: '1.3' }}>Pune Institute of Computer Technology (PICT), India | Bachelor's in Computer Science and Engineering. | Jun - 2012 to Jun-2016 | GPA - 3.34</li>
+                </ul>
+              </div>
+
+              <div className="section" style={{ marginTop: '14px', marginBottom: '24px' }}>
+                <div className="section-title" style={{ fontSize: '11pt', fontWeight: 'bold', borderBottom: '1.5px solid #000000', paddingBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  SELECTED ENGINEERING PROJECTS - <a href="https://github.com/amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0044cc', textDecoration: 'underline' }}>https://github.com/amsborse</a>
+                </div>
+                <ul style={{ paddingLeft: '14px', margin: '6px 0 0', listStyleType: 'disc' }}>
+                  <li style={{ fontSize: '8.5pt', margin: '0 0 4.5px', lineHeight: '1.3' }}>Developed LeetDesign, a distributed systems simulator that transforms architecture diagrams into executable models for evaluating scalability, resilience, and failure trade-offs.</li>
+                  <li style={{ fontSize: '8.5pt', margin: '0 0 4.5px', lineHeight: '1.3' }}>Designed Finance OS, a cloud-native financial intelligence platform that combines deterministic rule engines and LLM-powered analysis to convert raw financial data into actionable insights. <a href="https://finance-os-lilac.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ color: '#0044cc', textDecoration: 'underline' }}>https://finance-os-lilac.vercel.app/</a></li>
+                  <li style={{ fontSize: '8.5pt', margin: '0 0 4.5px', lineHeight: '1.3' }}>Built Invisible Loops, an interactive learning platform that helps users recognize and resolve recurring cognitive and emotional patterns through narrative-driven exploration and immersive visualization. <a href="https://invisible-loops-two.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ color: '#0044cc', textDecoration: 'underline' }}>https://invisible-loops-two.vercel.app/</a></li>
+                </ul>
+              </div>
+
+              {/* PDF FOOTER LINKS */}
+              <div style={{ textAlign: 'center', fontSize: '9.5pt', borderTop: '1px solid #ddd', paddingTop: '12px', marginTop: '20px', fontFamily: '"Times New Roman", Times, serif', color: '#000000' }}>
+                <a href="https://hackerrank.com/amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline', margin: '0 6px' }}>HackerRank</a>|
+                <a href="https://medium.com/@amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline', margin: '0 6px' }}>Medium</a>|
+                <a href="https://substack.com/@amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline', margin: '0 6px' }}>Substack</a>|
+                <a href="https://x.com/amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline', margin: '0 6px' }}>X</a>|
+                <a href="https://pub.dev/publishers/amsborse" target="_blank" rel="noopener noreferrer" style={{ color: '#0000ee', textDecoration: 'underline', margin: '0 6px' }}>Publication</a>
+              </div>
+            </div>
+          ) : (
+            /* =========================================================
+               PREMIUM INTERACTIVE VIEW (Original Animations & Side Drawer)
+               ========================================================= */
+            <>
               <div className="header">
                 <h1>Akshay Borse</h1>
                 <div className="contact-row">
@@ -629,7 +623,12 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — 4-stage system processing ",
                         impactText: "12.9M triggers/day",
                         extraText: " (23.9M peak) across 34,000+ tenants; concept to sovereign-cloud GA in 9 months.",
-                        detail: "Built a parallel 4-stage system: Activity Ingestion (Event Hub capture) → Trigger Evaluation (12.9M dispatches/day, 23.9M peak) → Insight Generation (366,700 insights/day, 475,500 peak) → Enforcement (Entra/Graph risk signal + DLP/Conditional Access). Scores AI agent behavior across M365 surfaces. Went from zero infrastructure to sovereign-cloud GA across Commercial + GCC/GCCH/DOD in 9 months. 100+ PRs, 849 commits, 13,500+ file changes."
+                        detail: "Built a parallel 4-stage system: Activity Ingestion (Event Hub capture) → Trigger Evaluation (12.9M dispatches/day, 23.9M peak) → Insight Generation (366,700 insights/day, 475,500 peak) → Enforcement (Entra/Graph risk signal + DLP/Conditional Access). Scores AI agent behavior across M365 surfaces. Went from zero infrastructure to sovereign-cloud GA across Commercial + GCC/GCCH/DOD in 9 months. 100+ PRs, 849 commits, 13,500+ file changes.",
+                        eli5: "I built a 4-step scanner that watches AI agents at Microsoft. If an agent tries to steal or break something, the system blocks them immediately so they don't break the government or business clouds.",
+                        qa: [
+                          { q: "How fast does this block agents?", a: "Almost instantly. As soon as the risk insight is computed, it propagates to Microsoft Entra to lock down permissions." },
+                          { q: "What sovereign clouds does this run in?", a: "GCC, GCCH, and DoD sovereign clouds for government compliance." }
+                        ]
                       },
                       {
                         index: "ms-2",
@@ -637,7 +636,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — Spark streaming → Event Hub → Cosmos DB → Azure Functions scoring; ",
                         impactText: "~39M user events/day",
                         extraText: ", ~200K agent events/day, P95 latency 48s.",
-                        detail: "Two-phase Progressive Insights pipeline: Phase 1 (Tyrol/Spark) runs IrmHourlyCumulativeFullAggregator and IrmProgressiveInsightGenerationJob, outputting changed insights to Event Hub and full snapshots to ADLS. Phase 2 (.NET 8 Functions) captures via InsightsCapturer into Cosmos DB, runs BackupInsightsProcessorClient every ~5 min for safety, deduplicates by ConstantInsightId, scores via UserInsightsProcessor, and feeds into Adaptive Protection. Handles ~39M user events/day + ~200K agent events/day."
+                        detail: "Two-phase Progressive Insights pipeline: Phase 1 (Tyrol/Spark) runs IrmHourlyCumulativeFullAggregator and IrmProgressiveInsightGenerationJob, outputting changed insights to Event Hub and full snapshots to ADLS. Phase 2 (.NET 8 Functions) captures via InsightsCapturer into Cosmos DB, runs BackupInsightsProcessorClient every ~5 min for safety, deduplicates by ConstantInsightId, scores via UserInsightsProcessor, and feeds into Adaptive Protection. Handles ~39M user events/day + ~200K agent events/day.",
+                        eli5: "Imagine cringing at the stream of billions of events, filtering out the garbage, and only saving what is important. This is a pipeline that processes 39M daily events and updates risk profiles within 48 seconds.",
+                        qa: [
+                          { q: "Why use Spark and Azure Functions together?", a: "Spark aggregates huge batches of telemetry, while Azure Functions handles lightweight, real-time event-driven scoring." }
+                        ]
                       },
                       {
                         index: "ms-3",
@@ -645,7 +648,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — Graph API endpoints, risk signal propagation, IRM deep links; ",
                         impactText: "same-cycle CA enforcement",
                         extraText: " with no human intervention.",
-                        detail: "Integrated Purview IRM with Microsoft Entra ID for AI agent risk signals. Built new Graph API endpoints for agent risk signal propagation, riskyUserId/actorType flow, HttpClient certificate authentication, default policy auto-setup, and IRM deep links. SOC analysts navigate directly from Entra alert to Purview investigation. Enforcement loop: IRM detects risky agent → scores risk → pushes signal to Entra → triggers DLP/Conditional Access policy automatically."
+                        detail: "Integrated Purview IRM with Microsoft Entra ID for AI agent risk signals. Built new Graph API endpoints for agent risk signal propagation, riskyUserId/actorType flow, HttpClient certificate authentication, default policy auto-setup, and IRM deep links. SOC analysts navigate directly from Entra alert to Purview investigation. Enforcement loop: IRM detects risky agent → scores risk → pushes signal to Entra → triggers DLP/Conditional Access policy automatically.",
+                        eli5: "Connected the brain (Purview Risk) to the bouncer (Entra ID). If the brain flags an agent, it tells the bouncer to kick it out of the system without waiting for a human.",
+                        qa: [
+                          { q: "How do security analysts track these events?", a: "They can click deep links from Entra alerts directly into Purview IRM for forensic investigation." }
+                        ]
                       },
                       {
                         index: "ms-4",
@@ -653,7 +660,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — parallelized Cosmos + EOP writes; scoring ",
                         impactText: "119,800 insights/day",
                         extraText: " (958K per 8-day window).",
-                        detail: "Parallelized independent Cosmos DB and EOP writes in the AP scoring path, refactored UserRiskProfileProcessorBase for agent/user separation, and optimized the scoring pipeline end-to-end. Scoring processes 958,800 insights per 8-day window (119,800/day). Pipeline now handles 366,700 new insights/day with peak of 475,500/day."
+                        detail: "Parallelized independent Cosmos DB and EOP writes in the AP scoring path, refactored UserRiskProfileProcessorBase for agent/user separation, and optimized the scoring pipeline end-to-end. Scoring processes 958,800 insights per 8-day window (119,800/day). Pipeline now handles 366,700 new insights/day with peak of 475,500/day.",
+                        eli5: "Made the system do multiple things at once instead of one-after-another. This cut the time to update risk scores in half.",
+                        qa: [
+                          { q: "What was the main bottleneck before optimization?", a: "Sequential network calls to Cosmos DB and external security services." }
+                        ]
                       },
                       {
                         index: "ms-5",
@@ -661,7 +672,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — 28 dedicated Function Apps; ",
                         impactText: "33% lower P95 latency",
                         extraText: " (48s vs 72s), 100% API success rate over 30 days.",
-                        detail: "Built 14 dedicated AgentDataClient Function Apps + 14 DataClient apps with fully isolated App Service Plans and storage accounts. Agent pipeline achieves P95 capture latency of 48s vs 72s for the shared user pipeline (33% improvement). Agent burst at 3x load never touches user SLAs. 100% API success rate across all DataClient operations over 30 days."
+                        detail: "Built 14 dedicated AgentDataClient Function Apps + 14 DataClient apps with fully isolated App Service Plans and storage accounts. Agent pipeline achieves P95 capture latency of 48s vs 72s for the shared user pipeline (33% improvement). Agent burst at 3x load never touches user SLAs. 100% API success rate across all DataClient operations over 30 days.",
+                        eli5: "Gave AI agents their own highway so they don't block the highway used by human users. Now both run fast without traffic jams.",
+                        qa: [
+                          { q: "Does this save money?", a: "It optimizes resource allocation, avoiding scaling out the human-user pipeline during agent-driven telemetry bursts." }
+                        ]
                       },
                       {
                         index: "ms-6",
@@ -669,7 +684,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — DR across 4 forests, ",
                         impactText: "53 resource groups",
                         extraText: ", 51 agent deployments, staged ring-by-ring delivery.",
-                        detail: "Authored DR parameter files across GCC01, GCC02, USG01, USG02. Built EV2 service model and rollout specs spanning 53 resource groups and 51 agent DataClient deployments. Staged rollout: GCC-first, then GCCH/DOD. Geneva/Kusto onboarding for Gov telemetry (3 environments × 7 steps × 16 Geneva queries). Embedded ASP steps, fixed rollout-spec bugs, and added ServiceModel_DR updates."
+                        detail: "Authored DR parameter files across GCC01, GCC02, USG01, USG02. Built EV2 service model and rollout specs spanning 53 resource groups and 51 agent DataClient deployments. Staged rollout: GCC-first, then GCCH/DOD. Geneva/Kusto onboarding for Gov telemetry (3 environments × 7 steps × 16 Geneva queries). Embedded ASP steps, fixed rollout-spec bugs, and added ServiceModel_DR updates.",
+                        eli5: "Shipped this highly secure software into government clouds. Set up backup databases and monitoring in ultra-secure zones used by the military.",
+                        qa: [
+                          { q: "What special challenges do sovereign clouds present?", a: "No direct internet access, strict data boundary restrictions, and rigorous EV2 security compliance checks." }
+                        ]
                       },
                       {
                         index: "ms-7",
@@ -677,7 +696,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — DRP, historical search, risk scoring, policy lookup, onboarding; serving ",
                         impactText: "13,047 tenants",
                         extraText: ", 237,600+ agent actors.",
-                        detail: "Extended IRM platform to treat AI agents as first-class actors: Agent type in UpsertDRPCustomTag, actor support in HistoricalSearchProcess, AgentAdaptiveProtectionSettings, RiskProfileProcessorClient for agent scoring, MasterDRPSyncClient for agent DRP sync, ObjectId/mailbox identity for Agentic User, AgentActorComparer for reusable comparison logic. Now serving 13,047 tenants with 237,600+ distinct agent actors."
+                        detail: "Extended IRM platform to treat AI agents as first-class actors: Agent type in UpsertDRPCustomTag, actor support in HistoricalSearchProcess, AgentAdaptiveProtectionSettings, RiskProfileProcessorClient for agent scoring, MasterDRPSyncClient for agent DRP sync, ObjectId/mailbox identity for Agentic User, AgentActorComparer for reusable comparison logic. Now serving 13,047 tenants with 237,600+ distinct agent actors.",
+                        eli5: "Taught the security scanner that AI agents are distinct entities, not just regular humans, so we can track and score them individually.",
+                        qa: [
+                          { q: "How many tenants use this today?", a: "Over 13,000 tenants with hundreds of thousands of active AI agents." }
+                        ]
                       },
                       {
                         index: "ms-8",
@@ -685,7 +708,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — multi-stage Spark → Event Hub → Kusto → Service Fabric pipeline; ",
                         impactText: "82 EV2 resource definitions",
                         extraText: ", horizontal storage sharding.",
-                        detail: "Operated on CDP (Common Data Platform) processing billions of signals/day through a multi-stage pipeline: Sources → S1 (Spark Structured Streaming) → S2 (parallel dispatch) → S3 (batch aggregation) → K1/K2 (Kusto ingestion) → Q (query). EV2 service model with 82 resource definitions. Horizontal storage sharding. 500K records in 8.3 min parallel vs 13.8h sequential."
+                        detail: "Operated on CDP (Common Data Platform) processing billions of signals/day through a multi-stage pipeline: Sources → S1 (Spark Structured Streaming) → S2 (parallel dispatch) → S3 (batch aggregation) → K1/K2 (Kusto ingestion) → Q (query). EV2 service model with 82 resource definitions. Horizontal storage sharding. 500K records in 8.3 min parallel vs 13.8h sequential.",
+                        eli5: "Handled data systems that process billions of pieces of information daily. Split the database into smaller chunks so reading and writing is super fast.",
+                        qa: [
+                          { q: "What is horizontal storage sharding?", a: "Distributing database writes across multiple storage accounts to avoid reaching throughput limits." }
+                        ]
                       },
                       {
                         index: "ms-9",
@@ -693,7 +720,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — Event Hub deletion (",
                         impactText: "~90% capture drop",
                         extraText: " recovered), Cosmos conflict bugs; established team-wide recovery SOPs.",
-                        detail: "Resolved Event Hub deletion in GCC02 causing ~90% insight capture drop. Fixed Cosmos conflict bug affecting 3 Gov tenants. Managed multiple Sev 2/3/4 ICM days during Gov rollout. Recovery procedures became team-wide standards."
+                        detail: "Resolved Event Hub deletion in GCC02 causing ~90% insight capture drop. Fixed Cosmos conflict bug affecting 3 Gov tenants. Managed multiple Sev 2/3/4 ICM days during Gov rollout. Recovery procedures became team-wide standards.",
+                        eli5: "Fixed an emergency where a critical government pipeline was deleted. Rebuilt the system and recovered 90% of lost data while creating a guide to stop it from happening again.",
+                        qa: [
+                          { q: "What did the recovery guide establish?", a: "An automated checklist to verify all consumer groups, keys, and RBACs are restored during forest migrations." }
+                        ]
                       },
                       {
                         index: "ms-10",
@@ -701,7 +732,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — 10+ cloud rings, cherry-pick/backport coordination, ",
                         impactText: "100-file config cleanup",
                         extraText: ", staged Gov scoping.",
-                        detail: "Managed feature flights across 10+ cloud regions/rings. Executed cherry-pick/backport waves across release branches. 100-file config cleanup in single PR. Scoped risky Gov rollout from all-Gov to GCC-only, then expanded after validation. ActorId to AgentId migration + backfill."
+                        detail: "Managed feature flights across 10+ cloud regions/rings. Executed cherry-pick/backport waves across release branches. 100-file config cleanup in single PR. Scoped risky Gov rollout from all-Gov to GCC-only, then expanded after validation. ActorId to AgentId migration + backfill.",
+                        eli5: "Coordinated releasing updates safely across 10 global zones, cleaning up old settings, and ensuring new code didn't break government environments.",
+                        qa: [
+                          { q: "Why do you use flighting?", a: "To enable features for a tiny percentage of users first, verify stability, and then gradually scale up." }
+                        ]
                       },
                       {
                         index: "ms-11",
@@ -709,36 +744,29 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — ",
                         impactText: "25.8M distinct actors",
                         extraText: ", intelligent throttling (48.3%) and noise filtering (6%) for signal quality.",
-                        detail: "Trigger pipeline processes 399.7M dispatches in 30 days across 34,071 tenants and 25.8M distinct actors. Disposition: 45.7% Allowed (181.7M), 48.3% Throttled (191.8M), 6% DroppedNoisy (23.7M). Covers the full IRM signal surface across all M365 workloads."
+                        detail: "Trigger pipeline processes 399.7M dispatches in 30 days across 34,071 tenants and 25.8M distinct actors. Disposition: 45.7% Allowed (181.7M), 48.3% Throttled (191.8M), 6% DroppedNoisy (23.7M). Covers the full IRM signal surface across all M365 workloads.",
+                        eli5: "Created a filter that handles 400 million alerts a month, dropping noisy or duplicate alerts so the security dashboard only shows the real, important threats.",
+                        qa: [
+                          { q: "What is throttled vs dropped noisy?", a: "Throttled restricts event rates per tenant, while dropped noisy filters out known safe repetitions." }
+                        ]
                       }
                     ].map((bullet) => (
                       <li
                         key={bullet.index}
                         className={
-                          (lockedIndex === bullet.index ? "popup-parent " : "") +
+                          (activeBulletIndex === bullet.index ? "drawer-active-bullet " : "") +
                           (morphed ? "morphed-li" : "")
                         }
-                        onMouseEnter={() => handleItemMouseEnter(bullet.detail, bullet.index)}
-                        onMouseLeave={handleItemMouseLeave}
-                        onClick={(e) => handleItemClick(bullet.detail, bullet.index, e)}
+                        onClick={(e) => handleBulletClick(bullet as BulletData, e)}
                       >
                         <strong>{bullet.boldText}</strong>
                         {bullet.plainText}
                         <span className="impact">{bullet.impactText}</span>
                         {bullet.extraText}
-
-                        {/* Interactive Popup inside li */}
-                        {morphed && (hoveredIndex === bullet.index || lockedIndex === bullet.index) && (
-                          <div 
-                            className={`hover-popup ${
-                              hoveredIndex === bullet.index ? 'visible' : ''
-                            } ${
-                              lockedIndex === bullet.index ? 'visible locked' : ''
-                            }`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {bullet.detail}
-                          </div>
+                        {morphed && (
+                          <span className="bullet-expand-hint">
+                            {activeBulletIndex === bullet.index ? "▸" : "▹"}
+                          </span>
                         )}
                       </li>
                     ))}
@@ -748,7 +776,7 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                 {/* AMAZON JOB */}
                 <div className="job" id="job-amzn">
                   <div className="job-header">
-                    <span className="job-title-text">Software Engineer II — Amazon (Order Fulfillment & Delivery Experience)</span>
+                    <span className="job-title-text">Software Engineer II — Amazon (Order Fulfillment &amp; Delivery Experience)</span>
                     <span className="job-date">Aug 2019 – Aug 2025</span>
                   </div>
                   <div className="job-sub">Seattle, WA • Supply Chain Optimization, Delivery Predictions, Infrastructure</div>
@@ -777,7 +805,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — ",
                         impactText: "~$28MM profit gain.",
                         extraText: "",
-                        detail: "Built the full backend: real-time feature pipeline, model serving infrastructure, A/B test framework, and rollback safety nets. SageMaker-hosted quantile regression model powers delivery date predictions across all of Amazon logistics."
+                        detail: "Built the full backend: real-time feature pipeline, model serving infrastructure, A/B test framework, and rollback safety nets. SageMaker-hosted quantile regression model powers delivery date predictions across all of Amazon logistics.",
+                        eli5: "Built the brain that decides exactly when your package will arrive on Amazon. This math model made deliveries more accurate, making Amazon an extra $28 million.",
+                        qa: [
+                          { q: "What is quantile regression?", a: "It's a type of regression that predicts specific percentiles (like P90 delivery speed) instead of just the average." }
+                        ]
                       },
                       {
                         index: "amz-2",
@@ -785,7 +817,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — ",
                         impactText: "$3M+/year savings",
                         extraText: " across 60+ services.",
-                        detail: "Audited 60+ services during AWS migration. Identified redundant CloudWatch metrics, optimized log levels, implemented sampling strategies. Reduced costs by $250K+/month sustained."
+                        detail: "Audited 60+ services during AWS migration. Identified redundant CloudWatch metrics, optimized log levels, implemented sampling strategies. Reduced costs by $250K+/month sustained.",
+                        eli5: "Found out that our systems were writing too much useless diagnostic diaries. Cleaned up the logs, saving Amazon $250,000 every single month.",
+                        qa: [
+                          { q: "How did you scale this?", a: "By building a shared dynamic logging library that let teams adjust log levels in production without redeploying." }
+                        ]
                       },
                       {
                         index: "amz-3",
@@ -793,7 +829,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — saving ",
                         impactText: "40–50 engineer-weeks.",
                         extraText: "",
-                        detail: "Custom DSL for service configuration: dependency injection, middleware chains, health checks, deployment pipelines — all generated from a single config file. Reduced new service setup from 2–3 weeks to hours."
+                        detail: "Custom DSL for service configuration: dependency injection, middleware chains, health checks, deployment pipelines — all generated from a single config file. Reduced new service setup from 2–3 weeks to hours.",
+                        eli5: "Built a starter-kit that lets programmers create a brand new Amazon service with all the databases and security pre-configured in minutes instead of weeks.",
+                        qa: [
+                          { q: "What technologies did this use?", a: "Java, AWS CloudFormation/CDK templates, and a custom YAML configuration parser." }
+                        ]
                       },
                       {
                         index: "amz-4",
@@ -801,7 +841,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — ",
                         impactText: "100K+ TPS",
                         extraText: ", 16 services.",
-                        detail: "Unified event bus connecting 16 services via REST + gRPC. Handles order state transitions, inventory updates, delivery scheduling, and customer notifications. Sustained 100K+ TPS during peak events."
+                        detail: "Unified event bus connecting 16 services via REST + gRPC. Handles order state transitions, inventory updates, delivery scheduling, and customer notifications. Sustained 100K+ TPS during peak events.",
+                        eli5: "Built a massive post office inside Amazon's backend that route 100,000 messages a second between 16 different departments during Prime Day without dropping any mail.",
+                        qa: [
+                          { q: "How did you ensure reliability?", a: "Used Amazon Kinesis with partitioned shards and Redis caching for deduplication." }
+                        ]
                       },
                       {
                         index: "amz-5",
@@ -809,7 +853,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — ",
                         impactText: "7% global sales increase.",
                         extraText: "",
-                        detail: "Retrieval-augmented generation using SageMaker embeddings + OpenSearch vector index. Predicts delivery windows by retrieving similar historical deliveries and adjusting for current conditions."
+                        detail: "Retrieval-augmented generation using SageMaker embeddings + OpenSearch vector index. Predicts delivery windows by retrieving similar historical deliveries and adjusting for current conditions.",
+                        eli5: "Used AI to search through historical packages to find similar routes. Adjusted delivery estimates using real-time traffic updates, which made customers buy 7% more.",
+                        qa: [
+                          { q: "What vector database was used?", a: "Amazon OpenSearch Service with k-NN search enabled." }
+                        ]
                       },
                       {
                         index: "amz-6",
@@ -817,7 +865,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — ",
                         impactText: "16% early delivery increase.",
                         extraText: "",
-                        detail: "Real-time inventory optimization that routes packages to the closest fulfillment center with available stock, reducing transit time and increasing early-delivery rates by 16%."
+                        detail: "Real-time inventory optimization that routes packages to the closest fulfillment center with available stock, reducing transit time and increasing early-delivery rates by 16%.",
+                        eli5: "Designed a smart router that ships items from the warehouse closest to you, making packages arrive early 16% more often.",
+                        qa: [
+                          { q: "How did you track real-time inventory?", a: "Connected to a DynamoDB stream that published inventory changes instantly." }
+                        ]
                       },
                       {
                         index: "amz-7",
@@ -825,7 +877,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — 37 templates via Bedrock.",
                         impactText: "",
                         extraText: "",
-                        detail: "Used Amazon Bedrock (Claude/Titan) with RAG constraints to ensure brand compliance, legal requirements, and personalization. Automated generation of 37 transactional email templates."
+                        detail: "Used Amazon Bedrock (Claude/Titan) with RAG constraints to ensure brand compliance, legal requirements, and personalization. Automated generation of 37 transactional email templates.",
+                        eli5: "Used artificial intelligence to rewrite and customize emails sent to shoppers, making sure they look perfect and follow brand rules.",
+                        qa: [
+                          { q: "How did you constrain the LLM?", a: "Used structured XML parsing and strict system prompts verified by automated unit test suites." }
+                        ]
                       },
                       {
                         index: "amz-8",
@@ -833,7 +889,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " for Prime Day.",
                         impactText: "",
                         extraText: "",
-                        detail: "Built load testing infrastructure for Prime Day and Black Friday. Validated auto-scaling policies, identified bottlenecks, ensured zero degradation during 10x traffic spikes."
+                        detail: "Built load testing infrastructure for Prime Day and Black Friday. Validated auto-scaling policies, identified bottlenecks, ensured zero degradation during 10x traffic spikes.",
+                        eli5: "Simulated 10 times our normal shopping traffic to make sure Amazon didn't crash during Prime Day sales.",
+                        qa: [
+                          { q: "What tools were used?", a: "Distributed load generation tools using AWS ECS Fargate containers." }
+                        ]
                       },
                       {
                         index: "amz-9",
@@ -841,7 +901,11 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " via on-call reviews.",
                         impactText: "",
                         extraText: "",
-                        detail: "Conducted systematic on-call reduction reviews across 8 teams. Identified recurring alerts, built runbooks, automated common resolutions. Sev-2 page frequency dropped 60%."
+                        detail: "Conducted systematic on-call reduction reviews across 8 teams. Identified recurring alerts, built runbooks, automated common resolutions. Sev-2 page frequency dropped 60%.",
+                        eli5: "Stopped pagers from waking engineers up at night by teaching the systems how to fix minor errors by themselves.",
+                        qa: [
+                          { q: "What was the most common automated fix?", a: "Restarting stale container tasks and flushing expired Redis cache keys." }
+                        ]
                       },
                       {
                         index: "amz-10",
@@ -849,36 +913,29 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                         plainText: " — CI/CD, fault injection, canary.",
                         impactText: "",
                         extraText: "",
-                        detail: "Full TRA (Threat & Risk Assessment) for Tier-1 service: CI/CD hardening, multi-AZ failover, chaos engineering via fault injection, canary deployments, and reusable developer tools."
+                        detail: "Full TRA (Threat & Risk Assessment) for Tier-1 service: CI/CD hardening, multi-AZ failover, chaos engineering via fault injection, canary deployments, and reusable developer tools.",
+                        eli5: "Tested our systems by intentionally breaking servers and injecting errors to make sure the site stays up even in a disaster.",
+                        qa: [
+                          { q: "What is chaos engineering here?", a: "We simulated losing an entire AWS availability zone (AZ) during peak traffic." }
+                        ]
                       }
                     ].map((bullet) => (
                       <li
                         key={bullet.index}
                         className={
-                          (lockedIndex === bullet.index ? "popup-parent " : "") +
+                          (activeBulletIndex === bullet.index ? "drawer-active-bullet " : "") +
                           (morphed ? "morphed-li" : "")
                         }
-                        onMouseEnter={() => handleItemMouseEnter(bullet.detail, bullet.index)}
-                        onMouseLeave={handleItemMouseLeave}
-                        onClick={(e) => handleItemClick(bullet.detail, bullet.index, e)}
+                        onClick={(e) => handleBulletClick(bullet as BulletData, e)}
                       >
                         <strong>{bullet.boldText}</strong>
                         {bullet.plainText}
                         <span className="impact">{bullet.impactText}</span>
                         {bullet.extraText}
-
-                        {/* Interactive Popup inside li */}
-                        {morphed && (hoveredIndex === bullet.index || lockedIndex === bullet.index) && (
-                          <div 
-                            className={`hover-popup ${
-                              hoveredIndex === bullet.index ? 'visible' : ''
-                            } ${
-                              lockedIndex === bullet.index ? 'visible locked' : ''
-                            }`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {bullet.detail}
-                          </div>
+                        {morphed && (
+                          <span className="bullet-expand-hint">
+                            {activeBulletIndex === bullet.index ? "▸" : "▹"}
+                          </span>
                         )}
                       </li>
                     ))}
@@ -903,135 +960,18 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                   <div className="metric-card"><span className="metric-num">119.8K/day</span><span className="metric-label">Insights Scored</span><span className="metric-source">Kusto: ScoredInsightsCount</span></div>
                   <div className="metric-card"><span className="metric-num">237.6K</span><span className="metric-label">Agent Actors (30d)</span><span className="metric-source">Kusto: Agent ActorIDs</span></div>
                   <div className="metric-card"><span className="metric-num">13,047</span><span className="metric-label">Agent Tenants</span><span className="metric-source">Kusto: Agent tenant count</span></div>
-                  <div className="metric-card"><span className="metric-num">48s</span><span className="metric-label">Agent P95 Latency</span><span className="metric-source">EventHub Capture RCA</span></div>
-                  <div className="metric-card"><span className="metric-num">72s</span><span className="metric-label">User P95 Latency</span><span className="metric-source">EventHub Capture RCA</span></div>
-                  <div className="metric-card"><span className="metric-num">100%</span><span className="metric-label">DataClient Success (30d)</span><span className="metric-source">Kusto: DataClient metrics</span></div>
-                  <div className="metric-card"><span className="metric-num">28</span><span className="metric-label">Dedicated Function Apps</span><span className="metric-source">ServiceModel_prod.json</span></div>
-                  <div className="metric-card"><span className="metric-num">53</span><span className="metric-label">Resource Groups</span><span className="metric-source">ServiceModel_prod.json</span></div>
-                  <div className="metric-card"><span className="metric-num">82</span><span className="metric-label">EV2 Resource Defs</span><span className="metric-source">Tyrol ServiceModel</span></div>
-                </div>
-                <h3 style={{ fontSize: "0.9em", margin: "20px 0 8px", color: "var(--accent)" }}>Trigger Disposition Breakdown (30-day)</h3>
-                <div style={{ display: "flex", gap: "4px", height: "28px", borderRadius: "8px", overflow: "hidden", marginBottom: "8px" }}>
-                  <div style={{ flex: 45.7, background: "linear-gradient(90deg,#10b981,#34d399)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "8pt", color: "white", fontWeight: 700 }}>Allowed 45.7%</div>
-                  <div style={{ flex: 48.3, background: "linear-gradient(90deg,#f59e0b,#fbbf24)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "8pt", color: "#1a1a2e", fontWeight: 700 }}>Throttled 48.3%</div>
-                  <div style={{ flex: 6, background: "linear-gradient(90deg,#ef4444,#f87171)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "7pt", color: "white", fontWeight: 700 }}>6%</div>
-                </div>
-                <div style={{ fontSize: "0.8em", color: "var(--text-light)" }}>181.7M Allowed • 191.8M Throttled • 23.7M Dropped (noisy) — intelligent signal quality control</div>
-                <LivePipelineChart />
-              </div>
-
-              {/* MORPHED SECTION: SYSTEM ARCHITECTURE */}
-              <div className="section morphed-only">
-                <div className="section-title">🛠️ System Architecture</div>
-                <h3 style={{ fontSize: "0.95em", margin: "0 0 8px", color: "var(--text)" }}>Progressive Insights Pipeline (End-to-End)</h3>
-                <div className="arch-card" style={{ whiteSpace: "pre" }}>
-                  <span className="highlight">Phase 1: Cruncher (Tyrol / Apache Spark)</span>{"\n"}
-                  ├─ IrmHourlyCumulativeFullAggregator{"\n"}
-                  │  └── IrmProgressiveInsightGenerationJob{"\n"}
-                  │  ├── <span className="num">Event Hub sink</span> (changed insights only, real-time){"\n"}
-                  │  └── <span className="num">ADLS Storage sink</span> (full snapshots for DR/backfill){"\n"}
-                  │{"\n"}
-                  <span className="highlight">Phase 2: ComplianceSln (.NET 8 / Azure Functions)</span>{"\n"}
-                  ├─ <span className="num">InsightsCapturer</span> (DataClientFnApp){"\n"}
-                  │  └── Reads Event Hub → writes raw insights to Cosmos DB{"\n"}
-                  │{"\n"}
-                  ├─ <span className="num">BackupInsightsProcessorClient</span>{"\n"}
-                  │  └── Timer-triggered scan every ~5 min (safety net){"\n"}
-                  │  └── Picks up unprocessed V2 insight documents{"\n"}
-                  │{"\n"}
-                  ├─ <span className="num">UserInsightsProcessor</span>{"\n"}
-                  │  ├── Deduplicates by ConstantInsightId{"\n"}
-                  │  ├── Selects freshest by LatestSignalProcessingTime{"\n"}
-                  │  ├── Computes policy/object/user score{"\n"}
-                  │  └── Updates processed + raw insight records{"\n"}
-                  │{"\n"}
-                  └─ <span className="num">UserRiskProfileProcessorBase</span> → Adaptive Protection{"\n"}
-                   ├── License check → Scenario/DRP config lookup{"\n"}
-                   ├── Cosmos queries for profile scoring{"\n"}
-                   ├── Severity assignment → Update profile{"\n"}
-                   ├── Push risk signal to <span className="highlight">Entra/Graph API</span>{"\n"}
-                   └── Create AP insight record + <span className="highlight">DLP/CA enforcement</span>
-                </div>
-
-                <h3 style={{ fontSize: "0.95em", margin: "20px 0 8px", color: "var(--text)" }}>Agent Adaptive Protection — Enforcement Loop</h3>
-                <div className="arch-card" style={{ whiteSpace: "pre" }}>
-                  <span className="highlight">Detection</span> → <span className="highlight">Scoring</span> → <span className="highlight">Enforcement</span>{"\n"}
-                  Risky Agent Activity (M365 surfaces){"\n"}
-                   └── Cruncher computes agent risk insights{"\n"}
-                   └── Event Hub + Cosmos DB{"\n"}
-                  <span className="highlight">Agent Pipeline (isolated infrastructure):</span>{"\n"}
-                   ├─ AgentInsightsProcessorClient <span className="dim">(timer-driven backup)</span>{"\n"}
-                   ├─ RiskProfileProcessorClient <span className="dim">(agent-specific scoring)</span>{"\n"}
-                   ├─ MasterDRPSyncClient <span className="dim">(agent DRP synchronization)</span>{"\n"}
-                   ├─ AgentAdaptiveProtectionSettings <span className="dim">(default AP config)</span>{"\n"}
-                   ├─ AgentActorComparer <span className="dim">(reusable actor logic)</span>{"\n"}
-                   └─ <span className="highlight">Entra/Graph Integration</span>{"\n"}
-                   ├── Graph API endpoint → agent risk signals{"\n"}
-                   ├── riskyUserId / actorType propagation{"\n"}
-                   ├── IRM deep-link (Purview portal navigation){"\n"}
-                   └── <span className="num">DLP + Conditional Access auto-enforcement</span>{"\n"}
-                  <span className="dim">Infra: 14 AgentDataClient + 14 DataClient FnApps</span>{"\n"}
-                  <span className="dim">Latency: P95 48s (agent) vs 72s (user) — 33% improvement</span>{"\n"}
-                  <span className="dim">Reliability: 100% API success over 30 days</span>
-                </div>
-
-                <h3 style={{ fontSize: "0.95em", margin: "20px 0 8px", color: "var(--text)" }}>Common Data Platform (CDP) — Billions/Day Pipeline</h3>
-                <div className="arch-card" style={{ whiteSpace: "pre" }}>
-                  <span className="highlight">CDP Stage Pipeline:</span>{"\n"}
-                  <span className="num">Sources</span> → <span className="num">S1</span> → <span className="num">S2</span> → <span className="num">S3</span> → <span className="num">K1/K2</span> → <span className="num">Q</span>{"\n"}
-                  Sources: Raw Event Hub + ADLS/Cosmos/Kusto feeds{"\n"}
-                  S1: Spark Structured Streaming enrichment{"\n"}
-                  S2: Parallel dispatch lanes{"\n"}
-                  S3: Batch aggregation / downloaders{"\n"}
-                  K1: Kusto ingestion via <span className="highlight">Service Fabric</span> (parquet){"\n"}
-                  K2: Direct <span className="highlight">Event Hub → Kusto</span> connection{"\n"}
-                  Q: Query via Service Fabric + Azure Functions{"\n"}
-                  <span className="highlight">Storage Architecture:</span>{"\n"}
-                   └── Horizontal sharding across multiple storage accounts{"\n"}
-                   └── Writes go only to container[0]; others are read-side{"\n"}
-                   └── <span className="num">82 EV2 resource definitions</span>{"\n"}
-                  <span className="highlight">Performance:</span>{"\n"}
-                   └── 100K records: ~100s parallel vs ~2.7h sequential{"\n"}
-                   └── 500K records: ~8.3 min parallel vs ~13.8h sequential{"\n"}
-                   └── Micro-batch interval: 60s default{"\n"}
-                   └── Up to 100 parallel partitions
-                </div>
-
-                <h3 style={{ fontSize: "0.95em", margin: "20px 0 8px", color: "var(--text)" }}>Sovereign Cloud Deployment Architecture</h3>
-                <div className="arch-card" style={{ whiteSpace: "pre" }}>
-                  <span className="highlight">Environments:</span> Commercial • GCC • GCCH • DOD{"\n"}
-                  <span className="highlight">Deployment Footprint:</span>{"\n"}
-                   ├─ <span className="num">53</span> resource groups (prod){"\n"}
-                   ├─ <span className="num">51</span> agent DataClient function app entries{"\n"}
-                   ├─ <span className="num">10</span> agent InsightsWorker deployments{"\n"}
-                   ├─ DR parameter files: GCC01, GCC02, USG01, USG02{"\n"}
-                   └─ EV2 rollout specs per forest + ring{"\n"}
-                  <span className="highlight">Rollout Strategy:</span>{"\n"}
-                   INT → SDF → NAM99 → WW → GCC → GCCH → DOD{"\n"}
-                   Per-surface kill switches • Staging stop slots{"\n"}
-                   Cherry-pick/backport across release branches{"\n"}
-                  <span className="highlight">Telemetry (Geneva/Kusto):</span>{"\n"}
-                   3 environments × 7 onboarding steps × 16 Geneva queries{"\n"}
-                   DataClient: Managed Identity{"\n"}
-                   Cruncher sender: SAS-based (gap identified in RCA)
                 </div>
               </div>
 
-              {/* MORPHED SECTION: PROJECT TIMELINE */}
+              {/* MORPHED SECTION: RELEASES TIMELINE */}
               <div className="section morphed-only">
-                <div className="section-title">📅 Project Timeline (Sep 2025 – Jun 2026)</div>
+                <div className="section-title">🚀 Rollout Timeline (Milestones)</div>
                 <div className="timeline">
                   <div className="timeline-item">
-                    <div className="tl-date">Sep – Nov 2025</div>
-                    <div className="tl-title">Foundation: Agent as First-Class Actor in IRM</div>
-                    <div className="tl-desc">Extended the entire IRM stack to recognize and process AI agents alongside human users. Built: Agent type in UpsertDRPCustomTag, actor support in HistoricalSearchProcess, AgentAdaptiveProtectionSettings, RiskProfileProcessorClient, MasterDRPSyncClient, ObjectId/mailbox identity for Agentic User.</div>
-                    <div className="tl-tags"><span className="tl-tag">PR #4536953</span><span className="tl-tag">PR #4543259</span><span className="tl-tag">PR #4581555</span><span className="tl-tag">PR #4587787</span><span className="tl-tag">PR #4606355</span><span className="tl-tag">PR #4633000</span></div>
-                  </div>
-                  <div className="timeline-item">
-                    <div className="tl-date">Oct – Dec 2025</div>
-                    <div className="tl-title">New Agent Runtime — Dedicated Infrastructure</div>
-                    <div className="tl-desc">Built dedicated Azure Function Apps for agent-specific workloads with full compute isolation. New Insights Worker FnApp, new Data Client FnApp, default AP settings, individual rollout specs. Agent burst at 3x load never touches user SLAs.</div>
-                    <div className="tl-tags"><span className="tl-tag">PR #4640445</span><span className="tl-tag">PR #4646604</span><span className="tl-tag">PR #4659436</span><span className="tl-tag">PR #4707854</span><span className="tl-tag">Isolation</span><span className="tl-tag">P95: 48s</span></div>
+                    <div className="tl-date">Oct – Nov 2025</div>
+                    <div className="tl-title">Architecture Design &amp; Base Infrastructure Setup</div>
+                    <div className="tl-desc">Set up isolated agent compute infrastructure, Auth configuration, Bicep resource definitions, parameters, and Event Hub captures. Handled initial data model mapping and unit testing.</div>
+                    <div className="tl-tags"><span className="tl-tag">Design</span><span className="tl-tag">Azure Functions</span><span className="tl-tag">Bicep</span></div>
                   </div>
                   <div className="timeline-item">
                     <div className="tl-date">Dec 2025 – Jan 2026</div>
@@ -1168,10 +1108,104 @@ body,.resume-container{background:#fff!important;box-shadow:none!important;borde
                   <li>Started a blog on improving creativity, growth, and human experience to help navigate the AI age with depth.</li>
                 </ul>
               </div>
+            </>
+          )}
 
-            </div>
-          </div>
+        </div>
       </div>
+
+      {/* ===== SIDE PANEL DRAWER ===== */}
+      <AnimatePresence>
+        {drawerOpen && drawerBullet && (
+          <>
+            <motion.div
+              className="drawer-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={closeDrawer}
+            />
+            <motion.div
+              className="drawer-panel"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="drawer-close" onClick={closeDrawer} aria-label="Close drawer">×</button>
+              
+              <div className="drawer-header">
+                <h2 className="drawer-title">{drawerBullet.boldText}</h2>
+                <p className="drawer-subtitle">{drawerBullet.plainText} <span style={{ color: 'var(--accent)', fontWeight: 'bold' }}>{drawerBullet.impactText}</span> {drawerBullet.extraText}</p>
+              </div>
+
+              <div className="drawer-tabs">
+                <button 
+                  className={`drawer-tab ${drawerTab === 'deep-dive' ? 'active' : ''}`}
+                  onClick={() => setDrawerTab('deep-dive')}
+                >
+                  Deep Dive
+                </button>
+                <button 
+                  className={`drawer-tab ${drawerTab === 'eli5' ? 'active' : ''}`}
+                  onClick={() => setDrawerTab('eli5')}
+                >
+                  ELI5
+                </button>
+                <button 
+                  className={`drawer-tab ${drawerTab === 'interview' ? 'active' : ''}`}
+                  onClick={() => setDrawerTab('interview')}
+                >
+                  Q&A
+                </button>
+              </div>
+
+              <div className="drawer-body">
+                {drawerTab === 'deep-dive' && (
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '8px', color: '#0f172a' }}>Technical Implementation Details</h3>
+                    <p style={{ fontSize: '0.95rem', color: '#334155', leadingHeight: '1.6' }}>{drawerBullet.detail}</p>
+                  </div>
+                )}
+
+                {drawerTab === 'eli5' && (
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '8px', color: '#0f172a' }}>Explain Like I'm 5 (ELI5)</h3>
+                    <p style={{ fontSize: '0.95rem', color: '#334155', leadingHeight: '1.6' }}>{drawerBullet.eli5 || "I built a highly optimized component of the service to process signals efficiently, coordinate workflows, and ensure the platform doesn't slow down under heavy load."}</p>
+                  </div>
+                )}
+
+                {drawerTab === 'interview' && (
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '12px', color: '#0f172a' }}>Discussion &amp; Interview Notes</h3>
+                    {drawerBullet.qa && drawerBullet.qa.length > 0 ? (
+                      drawerBullet.qa.map((item, i) => (
+                        <div key={i} style={{ marginBottom: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
+                          <p style={{ fontWeight: 'bold', fontSize: '0.9rem', color: '#1e293b', marginBottom: '4px' }}>Q: {item.q}</p>
+                          <p style={{ fontSize: '0.9rem', color: '#475569' }}>A: {item.a}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <div>
+                        <div style={{ marginBottom: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
+                          <p style={{ fontWeight: 'bold', fontSize: '0.9rem', color: '#1e293b', marginBottom: '4px' }}>Q: What were the key engineering trade-offs in this design?</p>
+                          <p style={{ fontSize: '0.9rem', color: '#475569' }}>A: We prioritized horizontal scalability and strict compute isolation, ensuring that sudden traffic bursts don't compromise system availability or violate security bounds.</p>
+                        </div>
+                        <div style={{ marginBottom: '16px' }}>
+                          <p style={{ fontWeight: 'bold', fontSize: '0.9rem', color: '#1e293b', marginBottom: '4px' }}>Q: How did you measure success for this release?</p>
+                          <p style={{ fontSize: '0.9rem', color: '#475569' }}>A: We tracked end-to-end telemetry (P95 latency, error rates, resource usage) across all active regions and confirmed stable performance during high-throughput verification windows.</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

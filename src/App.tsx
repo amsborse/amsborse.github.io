@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { RootLayout } from "@/layout/RootLayout";
 import Home from "@/pages/Home";
 
@@ -17,6 +17,8 @@ const Article = lazy(() => import("@/pages/Article"));
 const Resume = lazy(() => import("@/pages/Resume"));
 const MotionLab = lazy(() => import("@/pages/MotionLab"));
 const Algorithms = lazy(() => import("@/pages/Algorithms"));
+const Learning = lazy(() => import("@/pages/Learning"));
+const AetherLab = lazy(() => import("@/pages/AetherLab"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
 /** Shared loading skeleton for all lazy-loaded pages. */
@@ -60,7 +62,9 @@ export default function App() {
           />
           <Route path="resume" element={<Suspense fallback={<PageSkeleton />}><Resume /></Suspense>} />
           <Route path="motion" element={<Suspense fallback={<PageSkeleton />}><MotionLab /></Suspense>} />
-          <Route path="algorithms" element={<Suspense fallback={<PageSkeleton />}><Algorithms /></Suspense>} />
+          <Route path="learning" element={<Suspense fallback={<PageSkeleton />}><Learning /></Suspense>} />
+          <Route path="algorithm" element={<Suspense fallback={<PageSkeleton />}><Algorithms /></Suspense>} />
+          <Route path="aether-lab" element={<Suspense fallback={<PageSkeleton />}><AetherLab /></Suspense>} />
           <Route path="contact" element={<Suspense fallback={<PageSkeleton />}><Contact /></Suspense>} />
           <Route path="404" element={<Suspense fallback={<PageSkeleton />}><NotFoundPage /></Suspense>} />
           <Route path="*" element={<Suspense fallback={<PageSkeleton />}><NotFoundPage /></Suspense>} />

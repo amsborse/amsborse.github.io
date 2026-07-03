@@ -1,0 +1,74 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #e8e8e8;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13.3px;
+  line-height: 1.08;
+}
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 24px auto;
+  background: #fff;
+  padding: 0.27in 0.5in 0.36in;
+  box-shadow: 0 8px 30px rgba(0,0,0,.18);
+}
+.resume-header { text-align: center; margin-bottom: 5px; }
+h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 25px;
+  line-height: 1;
+  margin: 0 0 5px;
+}
+.contact { margin: 0; font-size: 13.5px; font-weight: 700; }
+.links-bottom { display: none; }
+a { color: #0066cc; text-decoration: underline; font-weight: 700; }
+.pipe { margin: 0 4px; color: #000; }
+section { margin: 0; }
+h2 {
+  font-size: 16px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 4px 0 2px;
+  border-bottom: 1.25px solid #000;
+  font-weight: 800;
+}
+h3 {
+  font-size: 13.8px;
+  line-height: 1.05;
+  margin: 0;
+  font-weight: 800;
+  border-top: 1px solid #000;
+  padding-top: 2px;
+}
+section h2 + .role h3 { border-top: 0; padding-top: 0; }
+p { margin: 0 0 1px; }
+.stack { color: #565656; font-size: 13.1px; }
+ul { margin: 0 0 2px 31px; padding: 0; }
+li { padding-left: 2px; margin: 0 0 2px; }
+strong { font-weight: 800; }
+.print-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  border: 0;
+  padding: 11px 15px;
+  border-radius: 999px;
+  color: #fff;
+  background: #111;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+@media print {
+  body { background: #fff; }
+  .page { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 0.27in 0.5in 0.36in; }
+  .print-btn { display: none; }
+  @page { size: letter; margin: 0; }
+}
+@media (max-width: 850px) {
+  .page { width: 100%; margin: 0; padding: 18px; box-shadow: none; }
+  body { background: #fff; }
+}

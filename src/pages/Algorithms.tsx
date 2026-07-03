@@ -14,7 +14,7 @@ type Spill = { id: number; index: number; heightPct: number; };
 
 const THEMES = {
   glassmorphism: {
-    pageBg: "bg-[#0b0c13] text-[#f1f3f7] font-sans",
+    pageBg: "bg-transparent text-[#f1f3f7] font-sans",
     heading: "text-transparent bg-clip-text bg-gradient-to-r from-white via-[#e2e8f0] to-[#94a3b8] font-display font-semibold drop-shadow-sm",
     subheading: "text-[0.6875rem] font-mono tracking-[0.25em] uppercase text-[var(--color-gold)]",
     panelBg: "premium-panel bg-white/5 border border-white/10 rounded-2xl",
@@ -748,7 +748,7 @@ export default function Algorithms() {
       <Seo
         title="Algorithms Visualizer — Akshay Borse"
         description="Interactive visualization of common sorting algorithms, bringing abstract concepts into the physical realm."
-        path="/algorithms"
+        path="/learning/algorithm"
       />
 
       <div className={`min-h-screen relative overflow-x-hidden pb-32 pt-20 transition-colors duration-500 ${theme.pageBg}`}>

@@ -1,7 +1,7 @@
 \documentclass[10pt,letterpaper]{article}
 
 % ---------- Packages ----------
-\usepackage[margin=0.45in]{geometry}
+\usepackage[margin=0.4in]{geometry}
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
@@ -23,20 +23,21 @@
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{2pt}
-\setstretch{0.94}
+\setlength{\parskip}{1.5pt}
+\setstretch{0.92}
 \renewcommand{\familydefault}{\sfdefault}
 
 \titleformat{\section}
   {\large\bfseries\color{dark}\uppercase}
   {}{0pt}{}[\vspace{-5pt}\color{rulegray}\titlerule]
-\titlespacing*{\section}{0pt}{7pt}{4pt}
+\titlespacing*{\section}{0pt}{6pt}{3pt}
 
 \newcommand{\resumeItem}[1]{\item \small{#1}}
 \newcommand{\role}[4]{
+  \vspace{1.5pt}
   \textbf{#1} $|$ #2 $|$ #3 $|$ #4\\[-2pt]
 }
-\newcommand{\tech}[1]{\small\textit{(#1)}\vspace{1pt}}
+\newcommand{\tech}[1]{\small\textit{(#1)}\vspace{1.5pt}}
 
 \setlist[itemize]{leftmargin=13pt, topsep=1pt, itemsep=1pt, parsep=0pt, partopsep=0pt}
 
@@ -44,71 +45,72 @@
 
 % ---------- Header ----------
 \begin{center}
-    {\LARGE \textbf{Akshay Borse}}\\[3pt]
+    {\LARGE \textbf{Akshay Borse}}\\[2pt]
     \small
-    425-336-9852 $|$
-    \href{mailto:amsborse@gmail.com}{amsborse@gmail.com} $|$
-    \href{https://www.linkedin.com/in/}{LinkedIn} $|$
-    \href{https://github.com/amsborse}{GitHub} $|$
-    HackerRank $|$ Medium $|$ Substack $|$ X $|$ Publication
+    425-336-9852 $|$ \href{mailto:amsborse@gmail.com}{amsborse@gmail.com} $|$ \href{https://linkedin.com/in/akshayborse}{LinkedIn} $|$ \href{https://github.com/amsborse}{GitHub} $|$ \href{https://amsborse.github.io}{Portfolio}
 \end{center}
 \vspace{-8pt}
 
 % ---------- Summary ----------
 \section{Professional Summary}
 \small
-Backend Engineer with 6+ years of experience building scalable, cloud-native systems. I’ve led high-impact projects—like an order optimization service that improved customer experience and cut operational costs by 25\%. Skilled in microservices, infra-automation, and driving cross-team initiatives. Proactively led on-call reviews, design discussions, and knowledge-sharing sessions to improve system health and team alignment.
-
-Beyond engineering, I’m driven by a curiosity for how cultures evolve, what helps societies thrive, and how we can use technology—especially in the age of AI—to reduce disparity and elevate human experience. I write about creativity, growth, and what it means to be human in a rapidly changing world.
+Senior Software Engineer with 7+ years of experience designing large-scale distributed systems, AI-powered services, and security governance platforms across Microsoft and Amazon. Delivered systems supporting 34K+ enterprise tenants, 25M+ actors, and 100K+ TPS workloads while driving \$28M+ profit generation and \$250K/month cost savings.
 
 % ---------- Experience ----------
 \section{Experience}
 
 \role{Senior Software Engineer}{Microsoft}{Redmond, WA}{Sep-2025 to Present}
-\tech{C\#, .NET, Azure Functions, Cosmos DB, ARM, Bicep, Agentic AI, Agentic Risk, Microsoft Purview, Event Hub, Geneva, Kusto}
+\tech{C\#, .NET, Azure Functions, Cosmos DB, ARM, Bicep, Agentic AI, Agentic Risk, Microsoft Purview, Event Hub, Geneva, Kusto, Data Governance}
 \begin{itemize}
-    \resumeItem{Developing agentic risk detection capabilities in Microsoft Purview to identify and flag high-risk agents based on behavioral patterns and action history, enhancing data governance and insider threat detection.}
-    \resumeItem{Implemented adaptive protection mechanisms in Microsoft Purview by enabling tenant-configurable risk models for digital agents, agentic users, and embodied agents—allowing granular classification and dynamic enforcement of security policies based on behavioral context.}
+    \resumeItem{Built Agent Adaptive Protection, enabling tenant-configurable risk scoring and automated policy enforcement for \textbf{237K+ AI agents} across \textbf{13K+ enterprise tenants}.}
+    \resumeItem{Built AI-agent historical enrichment infrastructure for Microsoft Purview Insider Risk Management, automatically backfilling \textbf{90 days of audit history} across \textbf{40+ global forests} and \textbf{3 sovereign clouds}.}
+    \resumeItem{Directed phased rollout of AI-agent risk capabilities across GCC, GCCH, and DoD sovereign clouds, establishing AI agents as first-class risk actors for enterprise and government tenants.}
+    \resumeItem{Built an isolated AI-agent ingestion platform across 28 regions, processing \textbf{135K+ daily risk signals} while preventing agent workloads from impacting human-user processing.}
 \end{itemize}
+
+\vspace{2pt}
+\hrule
+\vspace{2pt}
 
 \role{Software Engineer 2}{Amazon}{Seattle, WA}{Aug 2019 -- Aug 2025}
 \tech{Java, Python, Rest, gRPC, Docker, ECS, Dynamo, S3, Lambda, Aurora, Step Function, App Mesh, Redis, Kibana, OpenSearch, Kinesis, CloudWatch, SageMaker, Bedrock, Anthropic’s LLM, Prompt Engineering}
 \begin{itemize}
-    \resumeItem{Designed a microservice bootstrap library that standardized service creation across teams—cutting setup time from weeks to hours and saving 40–50 weeks. Leveraged custom DSL and enabled plug-and-play support for AWS infra using declarative config.}
-    \resumeItem{Enhanced the bootstrap library for Multi-Service Deployment in a single pipeline, optimizing maintenance for a microservices architecture with 60+ services. Reduced the service count by 9, with plans in place to further streamline and drive operational excellence.}
+    \resumeItem{Designed a microservice bootstrap library that standardized service creation across teams---\textbf{cutting setup time from weeks to hours and saving 40--50 weeks}. Leveraged custom DSL and enabled plug-and-play support for AWS infra using declarative config.}
+    \resumeItem{Enhanced the bootstrap library for Multi-Service Deployment in a single pipeline, optimizing maintenance for a microservices architecture with 60+ services. \textbf{Reduced the service count by 9}, with plans in place to further streamline and drive operational excellence.}
     \resumeItem{Optimized Docker builds, cutting container image size by 83\% and build time by over 50\%, accelerating CI/CD and saving 60GB+ of storage.}
-    \resumeItem{Established and led a logging/metrics optimization initiative and process during AWS migration—standardized logs, removed redundant code, cutting noise, improving debuggability, and reducing CloudWatch costs by \$250K+/month.}
+    \resumeItem{Established and led a logging/metrics optimization initiative and process during AWS migration---standardized logs, removed redundant code, cutting noise, improving debuggability, and \textbf{reducing CloudWatch costs by \$250K+/month}.}
     \resumeItem{Built a Restock Alerting Service to notify customers when out-of-stock items were restocked increasing sales by 13\% for cancelled ASIN’s.}
     \resumeItem{Implemented the Just-In-Stock service on native AWS to track real-time inventory changes and auto-optimize fulfillment, increasing early delivery rates by 16\% and improving supply chain responsiveness.}
-    \resumeItem{Designed a self-service UI and backend to modify delivery dates for high-volume Amazon Business orders—eliminating 2–3 hours of manual ops per request and reducing dependency on external teams. Also mentored an intern during development.}
-    \resumeItem{Engineered a Replay Service using a lightweight wrapper over AWS Step Functions to schedule event replays up to 1 year—eliminating cron-based scheduling and reducing operational overhead with built-in visibility and fault tolerance.}
-    \resumeItem{Configured a dynamic log-level API for production, enabling real-time debugging without redeployments and cutting incident resolution time by over an hour—especially valuable in complex, distributed services.}
-    \resumeItem{Led the design for a RAG-based service that leverages a model deployed on Amazon SageMaker to integrate real-time inventory signals and vector search, improving delivery predictions and driving a 7\% increase in global sales.}
-    \resumeItem{Redesigned 37 email templates by integrating an LLM via Amazon Bedrock, using a RAG-based approach with a curated corpus to constrain generation—ensuring compliance, improving personalization, and reinforcing brand consistency.}
+    \resumeItem{Designed a self-service UI and backend to modify delivery dates for high-volume Amazon Business orders---\textbf{eliminating 2–3 hours of manual ops per request} and reducing dependency on external teams. Also mentored an intern during development.}
+    \resumeItem{Engineered a Replay Service using a lightweight wrapper over AWS Step Functions to schedule event replays up to 1 year---eliminating cron-based scheduling and reducing operational overhead with built-in visibility and fault tolerance.}
+    \resumeItem{Configured a \textbf{dynamic log-level API for production}, enabling real-time debugging without redeployments and cutting incident resolution time by over an hour---especially valuable in complex, distributed services.}
+    \resumeItem{Led the design for a RAG-based service that leverages a model deployed on Amazon SageMaker to integrate real-time inventory signals and vector search, improving delivery predictions and driving a \textbf{7\% increase in global sales}.}
+    \resumeItem{Redesigned 37 email templates by integrating an LLM via Amazon Bedrock, using a RAG-based approach with a curated corpus to constrain generation---ensuring compliance, improving personalization, and reinforcing brand consistency.}
     \resumeItem{Integrated a binary classification model (XGBoost) to predict potential order delays before SLA breach, enabling early delay alerts to customers and improving trust in delivery communication.}
-    \resumeItem{Architected and deployed backend integration infrastructure for SageMaker hosted quantile regression model powering real-time delivery range predictions, driving statistically significant annualized \textasciitilde{}28MM profit gain.}
-    \resumeItem{Architected an event orchestration layer for AWS-based microservices, enabling real-time coordination across 100K+ TPS and 16 services—balancing REST and gRPC protocols to support 8 business-critical workflows.}
-    \resumeItem{Coordinated end-to-end load testing for 60+ distributed services during high-traffic events (Prime Day, Black Friday), aligning with upstream and downstream service owners to proactively surface scaling issues and ensure fault tolerance under peak load.}
-    \resumeItem{Developed a dry-run simulation tool for incoming orders, allowing non-engineering stakeholders to visualize system behavior—eliminating engineering dependencies, improving planning agility, and reducing deep-dive turnaround time from hours to minutes.}
-    \resumeItem{Proactively led cultural and operational improvements by launching on-call reduction reviews, post-launch knowledge sharing, and design discussion sessions—reducing Sev2 alerts by 60\%, improving team-wide system understanding, and strengthening long-term design thinking.}
-    \resumeItem{Led TRA readiness for a Tier 1 service (CI/CD, multi-AZ, fault injection, canary), while building reusable tools to improve dev efficiency—automated UML sync to wiki, introduced reusable wiki headers, and reduced test setup complexity via Lugia integration.}
+    \resumeItem{Architected and deployed backend integration infrastructure for SageMaker hosted quantile regression model powering real-time delivery range predictions, driving statistically significant annualized \textbf{\textasciitilde{}28MM profit gain}.}
+    \resumeItem{Architected an event orchestration layer for AWS-based microservices, enabling real-time coordination across 100K+ TPS and 16 services---balancing REST and gRPC protocols to support 8 business-critical workflows.}
+    \resumeItem{Coordinated \textbf{end-to-end load testing for 60+ distributed services} during high-traffic events (Prime Day, Black Friday), aligning with upstream and downstream service owners to proactively surface scaling issues and ensure fault tolerance under peak load.}
+    \resumeItem{Developed a dry-run simulation tool for incoming orders, allowing non-engineering stakeholders to visualize system behavior---\textbf{eliminating engineering dependencies, improving planning agility, and reducing deep-dive turnaround time from hours to minutes}.}
+    \resumeItem{Proactively led cultural and operational improvements by launching on-call reduction reviews, post-launch knowledge sharing, and design discussion sessions---reducing Sev2 alerts by 60\%, improving team-wide system understanding, and strengthening long-term design thinking.}
+    \resumeItem{Led TRA readiness for a Tier 1 service (CI/CD, multi-AZ, fault injection, canary), while building reusable tools to improve dev efficiency---automated UML sync to wiki, introduced reusable wiki headers, and reduced test setup complexity via Lugia integration.}
 \end{itemize}
+
+\vspace{2pt}
+\hrule
+\vspace{2pt}
 
 \role{Software Engineer}{Liquiron}{San Jose, CA}{Dec-2018 to Jan-2019}
 \tech{OAuth 2.0, Passport.js, Rest API, Vue.js, Google Firebase, Node.js, Mocha \& Chai, Jest, Serverless Hosting, Stateless Backend}
 \begin{itemize}
-    \resumeItem{Streamlined backend authentication architecture using OAuth 2.0 and Passport.js, improving code modularity, security, and maintainability.}
-    \resumeItem{Migrated 2 backend services to Google Firebase, enabling serverless deployment and eliminating local server dependencies.}
-    \resumeItem{Designed 4 Rest APIs to support 10 front-end features in a SPA environment, optimizing request handling and reducing server load by 36\%.}
+    \resumeItem{Re-architected authentication using OAuth 2.0 and Passport.js, improving security, modularity, and maintainability.}
+    \resumeItem{Migrated backend services to Firebase serverless infra \& developed REST APIs supporting SPA workflows, reducing server load by 36\%.}
 \end{itemize}
 
 \role{Software Engineer}{Persistent Systems}{Pune, India}{Sept-2016 to Jul-2017}
 \tech{CNN, AWS EC2, REST, NodeJS, JavaScript, Python, Axios, Quasar}
 \begin{itemize}
-    \resumeItem{Developed a real-time CNN classifier to classify videos and images by 7 sentiments, with 87\% accuracy and efficient sentiment analysis.}
-    \resumeItem{Streamlined website into a single-page application, boosting response time by 25\% and simplifying testing and maintenance.}
-    \resumeItem{Cached Fonts, JS, CSS, images using Google workbox thus improving the server response by 9\% under unreliable networks.}
-    \resumeItem{Improved a feedback system for reporting bugs \& defects in new interface functionality, which was adopted by 6 teams across the organization.}
+    \resumeItem{Developed a real-time \textbf{CNN-based sentiment classification system} achieving 87\% accuracy across seven sentiment categories.}
+    \resumeItem{\textbf{Modernized legacy web applications into a single-page architecture}, improving response time by 25\% and offline performance by 9\%, while enhancing developer productivity through a feedback system adopted by six engineering teams.}
 \end{itemize}
 
 % ---------- Education ----------
@@ -119,19 +121,17 @@ Beyond engineering, I’m driven by a curiosity for how cultures evolve, what he
 \end{itemize}
 
 % ---------- Projects ----------
-\section{Projects - \href{https://github.com/amsborse}{https://github.com/amsborse}}
+\section{Selected Engineering Projects - \href{https://github.com/amsborse}{https://github.com/amsborse}}
 \begin{itemize}
-    \resumeItem{Hero Recommendation System for DotA 2 - Used 50,000 matches for training and 10,000 for testing. Used DotA-2 API to extract the data.}
-    \resumeItem{Natural Language to SQL Query Generator - Independent of database schema. Accuracy 85\% out of 10K test set.}
-    \resumeItem{Face \& Motion Recognition - PCA with L2-norm maximization, Face Accuracy – 99\%. Edge detection, Keras CNN, Motion Accuracy - 77\%.}
+    \resumeItem{Developed LeetDesign, a distributed systems simulator that transforms architecture diagrams into executable models for evaluating scalability, resilience, and failure trade-offs.}
+    \resumeItem{Designed Finance OS, a cloud-native financial intelligence platform that combines deterministic rule engines and LLM-powered analysis to convert raw financial data into actionable insights. \href{https://finance-os-lilac.vercel.app/}{https://finance-os-lilac.vercel.app/}}
+    \resumeItem{Built Invisible Loops, an interactive learning platform that helps users recognize and resolve recurring cognitive and emotional patterns through narrative-driven exploration and immersive visualization. \href{https://invisible-loops-two.vercel.app/}{https://invisible-loops-two.vercel.app/}}
 \end{itemize}
 
-% ---------- Achievements ----------
-\section{Achievement}
-\begin{itemize}
-    \resumeItem{Started my blog on improving creativity, growth and human experience – to help navigate the AI age with originality \& depth.}
-    \resumeItem{Received Just Do It Award for developing an Automated Service Creation tool that deploys micro services on AWS within an hour.}
-    \resumeItem{Won a prize for the most innovative project at the ‘Bronco Hackathon’ at Santa Clara University.}
-\end{itemize}
+\vfill
+\begin{center}
+    \small
+    \href{https://hackerrank.com}{HackerRank} $|$ \href{https://medium.com}{Medium} $|$ \href{https://substack.com}{Substack} $|$ \href{https://x.com}{X} $|$ \href{https://amsborse.github.io}{Publication}
+\end{center}
 
 \end{document}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshay Borse Resume</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page" id="resume">
+    <header class="resume-header">
+      <h1>Akshay Borse</h1>
+      <p class="contact">
+        <span>425-336-9852</span><span class="pipe">|</span>
+        <a href="mailto:amsborse@gmail.com">amsborse@gmail.com</a><span class="pipe">|</span>
+        <a href="#">LinkedIn</a><span class="pipe">|</span>
+        <a href="#">GitHub</a>
+      </p>
+      <p class="contact links-bottom">
+        <a href="#">HackerRank</a><span class="pipe">|</span>
+        <a href="#">Medium</a><span class="pipe">|</span>
+        <a href="#">Substack</a><span class="pipe">|</span>
+        <a href="#">X</a><span class="pipe">|</span>
+        <a href="#">Publication</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Professional Summary</h2>
+      <p>Backend Engineer with 6+ years of experience building scalable, cloud-native systems. I’ve led high-impact projects—like an order optimization service that improved customer experience and cut operational costs by 25%. Skilled in microservices, infra-automation, and driving cross-team initiatives.</p>
+      <p>Proactively led on-call reviews, design discussions, and knowledge-sharing sessions to improve system health and team alignment.</p>
+      <p>Beyond engineering, I’m driven by a curiosity for how cultures evolve, what helps societies thrive, and how we can use technology—especially in the age of AI—to reduce disparity and elevate human experience. I write about creativity, growth, and what it means to be human in a rapidly changing world.</p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <article class="role">
+        <h3>Senior Software Engineer | Microsoft | Redmond, WA | Sep-2025 to Present</h3>
+        <p class="stack">(C#, .NET, Azure Functions, Cosmos DB, ARM, Bicep, Agentic AI, Agentic Risk, Microsoft Purview, Event Hub, Geneva, Kusto)</p>
+        <ul>
+          <li>Developing agentic risk detection capabilities in Microsoft Purview to identify and flag high-risk agents based on behavioral patterns and action history, enhancing data governance and insider threat detection.</li>
+          <li>Implemented adaptive protection mechanisms in Microsoft Purview by enabling tenant-configurable risk models for digital agents, agentic users, and embodied agents—allowing granular classification and dynamic enforcement of security policies based on behavioral context.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <h3>Software Engineer 2 | Amazon | Seattle, WA | Aug 2019 – Aug 2025</h3>
+        <p class="stack">(Java, Python, Rest, gRPC, Docker, ECS, Dynamo, S3, Lambda, Aurora, Step Function, App Mesh, Redis, Kibana, OpenSearch, Kinesis, CloudWatch, SageMaker, Bedrock, Anthropic’s LLM, Prompt Engineering)</p>
+        <ul>
+          <li>Designed a microservice bootstrap library that standardized service creation across teams—<strong>cutting setup time from weeks to hours and saving 40–50 weeks</strong>. Leveraged custom DSL and enabled plug-and-play support for AWS infra using declarative config.</li>
+          <li>Enhanced the bootstrap library for Multi-Service Deployment in a single pipeline, optimizing maintenance for a microservices architecture with 60+ services. <strong>Reduced the service count by 9</strong>, with plans in place to further streamline and drive operational excellence.</li>
+          <li>Optimized Docker builds, cutting container image size by 83% and build time by over 50%, accelerating CI/CD and saving 60GB+ of storage.</li>
+          <li>Established and led a logging/metrics optimization initiative and process during AWS migration—standardized logs, removed redundant code, cutting noise, improving debuggability, and <strong>reducing CloudWatch costs by $250K+/month</strong>.</li>
+          <li>Built a Restock Alerting Service to notify customers when out-of-stock items were restocked increasing sales by 13% for cancelled ASIN’s.</li>
+          <li>Implemented the Just-In-Stock service on native AWS to track real-time inventory changes and auto-optimize fulfillment, increasing early delivery rates by 16% and improving supply chain responsiveness.</li>
+          <li>Designed a self-service UI and backend to modify delivery dates for high-volume Amazon Business orders—<strong>eliminating 2–3 hours of manual ops per request</strong> and reducing dependency on external teams. Also mentored an intern during development.</li>
+          <li>Engineered a Replay Service using a lightweight wrapper over AWS Step Functions to schedule event replays up to 1 year—eliminating cron-based scheduling and reducing operational overhead with built-in visibility and fault tolerance.</li>
+          <li>Configured a <strong>dynamic log-level API for production</strong>, enabling real-time debugging without redeployments and cutting incident resolution time by over an hour—especially valuable in complex, distributed services.</li>
+          <li>Led the design for a RAG-based service that leverages a model deployed on Amazon SageMaker to integrate real-time inventory signals and vector search, improving delivery predictions and driving a 7% increase in global sales.</li>
+          <li>Redesigned 37 email templates by integrating an LLM via Amazon Bedrock, using a RAG-based approach with a curated corpus to constrain generation—ensuring compliance, improving personalization, and reinforcing brand consistency.</li>
+          <li>Integrated a binary classification model (XGBoost) to predict potential order delays before SLA breach, enabling early delay alerts to customers and improving trust in delivery communication.</li>
+          <li>Architected and deployed backend integration infrastructure for SageMaker hosted quantile regression model powering real-time delivery range predictions, driving statistically significant annualized <strong>~28MM profit gain</strong>.</li>
+          <li>Architected an event orchestration layer for AWS-based microservices, enabling real-time coordination across 100K+ TPS and 16 services—balancing REST and gRPC protocols to support 8 business-critical workflows.</li>
+          <li>Coordinated <strong>end-to-end load testing for 60+ distributed services</strong> during high-traffic events, aligning with upstream and downstream service owners to proactively surface scaling issues and ensure fault tolerance under peak load.</li>
+          <li>Developed a dry-run simulation tool for incoming orders, allowing non-engineering stakeholders to visualize system behavior—<strong>eliminating engineering dependencies</strong>, improving planning agility, and reducing deep-dive turnaround time from hours to minutes.</li>
+          <li>Proactively led cultural and operational improvements by launching on-call reduction reviews, post-launch knowledge sharing, and design discussion sessions—reducing Sev2 alerts by 60%, improving team-wide system understanding, and strengthening long-term design thinking.</li>
+          <li>Led TRA readiness for a Tier 1 service (CI/CD, multi-AZ, fault injection, canary), while building reusable tools to improve dev efficiency—automated UML sync to wiki, introduced reusable wiki headers, and reduced test setup complexity via Lugia integration.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <h3>Software Engineer | Liquiron | San Jose, CA | Dec-2018 to Jan-2019</h3>
+        <p class="stack">(OAuth 2.0, Passport.js, Rest API, Vue.js, Google Firebase, Node.js, Mocha & Chai, Jest, Serverless Hosting, Stateless Backend)</p>
+        <ul>
+          <li>Streamlined backend authentication architecture using OAuth 2.0 and Passport.js, improving code modularity, security, and maintainability.</li>
+          <li>Migrated 2 backend services to Google Firebase, enabling serverless deployment and eliminating local server dependencies.</li>
+          <li>Designed 4 Rest APIs to support 10 front-end features in a SPA environment, optimizing request handling and reducing server load by 36%.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <h3>Software Engineer | Persistent Systems | Pune, India | Sept-2016 to Jul-2017</h3>
+        <p class="stack">(CNN, AWS EC2, REST, NodeJS, JavaScript, Python, Axios, Quasar)</p>
+        <ul>
+          <li>Developed a real-time CNN classifier to classify videos and images by 7 sentiments, with 87% accuracy and efficient sentiment analysis.</li>
+          <li>Streamlined website into a single-page application, boosting response time by 25% and simplifying testing and maintenance.</li>
+          <li>Cached Fonts, JS, CSS, images using Google workbox thus improving the server response by 9% under unreliable networks.</li>
+          <li>Improved a feedback system for reporting bugs & defects in new interface functionality, which was adopted by 6 teams across the organization.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul>
+        <li>Santa Clara University, Santa Clara, CA | Master’s in Computer Science and Engineering. | Sep - 2017 to Jun-2019 | GPA - 3.77</li>
+        <li>Pune Institute of Computer Technology (PICT), India | Bachelor’s in Computer Science and Engineering. | Jun - 2012 to Jun-2016 | GPA - 3.34</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Projects - <a href="https://github.com/amsborse">https://github.com/amsborse</a></h2>
+      <ul>
+        <li>Hero Recommendation System for DotA 2 - Used 50,000 matches for training and 10,000 for testing. Used DotA-2 API to extract the data.</li>
+        <li>Natural Language to SQL Query Generator - Independent of database schema. Accuracy 85% out of 10K test set.</li>
+        <li>Face & Motion Recognition - PCA with L2-norm maximization, Face Accuracy – 99%. Edge detection, Keras CNN, Motion Accuracy - 77%.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Achievement</h2>
+      <ul>
+        <li>Started my blog on improving creativity, growth and human experience – to help navigate the AI age with originality & depth.</li>
+        <li>Received Just Do It Award for developing an Automated Service Creation tool that deploys micro services on AWS within an hour.</li>
+        <li>Won a prize for the most innovative project at the ‘Bronco Hackathon’ at Santa Clara University.</li>
+      </ul>
+    </section>
+  </main>
+
+  <button class="print-btn" id="printBtn">Print / Save PDF</button>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Seo } from '@/components/Seo';
 import { useStore } from '@/store/useStore';
+import { ConfigPanel } from '@/components/ConfigPanel';
 
 export default function Home() {
   const scrollProgress = useStore((state) => state.scrollProgress);
@@ -8,6 +9,8 @@ export default function Home() {
   return (
     <>
       <Seo title="Akshay | Cosmic Intelligence" description="Cinematic God-Tier Portfolio" path="/" />
+
+      <ConfigPanel />
 
       <div className="relative w-full text-white selection:bg-white/20">
         
