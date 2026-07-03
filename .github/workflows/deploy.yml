@@ -39,7 +39,7 @@ jobs:
         run: npm run validate
 
       - name: Setup Tectonic LaTeX Compiler
-        uses: wtfjoke/setup-tectonic@v3
+        uses: wtfjoke/setup-tectonic@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
