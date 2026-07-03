@@ -15,9 +15,6 @@ export default function AetherLab() {
   const [sphereSpeed, setSphereSpeed] = useState(1.0);
   const [sphereScale, setSphereScale] = useState(1.0);
   const [anomalyColor, setAnomalyColor] = useState<'indigo' | 'amber' | 'emerald'>('indigo');
-  const [anomalyParticles, setAnomalyParticles] = useState(1500);
-  const [anomalySpeed, setAnomalySpeed] = useState(1.0);
-
   // Parameters for Gravity Well Accretion Disk
   const [gravityParticles, setGravityParticles] = useState(2200);
   const [diskSpeed, setDiskSpeed] = useState(1.0);
@@ -97,8 +94,6 @@ export default function AetherLab() {
                   sphereSpeed={sphereSpeed}
                   sphereScale={sphereScale}
                   colorTheme={anomalyColor}
-                  particleCount={anomalyParticles}
-                  particleSpeed={anomalySpeed}
                   autoColor={autoColor}
                 />
               )}
@@ -211,37 +206,6 @@ export default function AetherLab() {
                     />
                   </div>
 
-                  <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
-                      <span>Particle density</span>
-                      <span>{anomalyParticles}</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="200"
-                      max="3000"
-                      step="100"
-                      value={anomalyParticles}
-                      onChange={(e) => setAnomalyParticles(parseInt(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer"
-                    />
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
-                      <span>Orbit speed</span>
-                      <span>{anomalySpeed.toFixed(2)}x</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0.1"
-                      max="2.5"
-                      step="0.1"
-                      value={anomalySpeed}
-                      onChange={(e) => setAnomalySpeed(parseFloat(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer"
-                    />
-                  </div>
                 </div>
               )}
 

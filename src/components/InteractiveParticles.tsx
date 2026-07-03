@@ -45,9 +45,34 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     mediaQuery.addEventListener("change", handleMotionChange);
 
     let animationFrameId: number;
+    let resizeFrameId = 0;
     let width = 0;
     let height = 0;
+    let lastDpr = window.devicePixelRatio || 1;
+    let viewportScale = 1;
     let particles: Particle[] = [];
+
+    // Calibrate density against a 1920×1080 reference so the mesh stays equally rich on large displays.
+    const REFERENCE_AREA = 1920 * 1080;
+    const INTENSE_PARTICLES_AT_REFERENCE = 240;
+    const NORMAL_PARTICLES_AT_REFERENCE = 110;
+
+    const getViewportScale = () => {
+      const area = Math.max(width * height, 1);
+      return Math.sqrt(area / REFERENCE_AREA);
+    };
+
+    const getParticleCount = () => {
+      const isIntense = intensity === "intense";
+      const area = Math.max(width * height, 1);
+      const areaScale = area / REFERENCE_AREA;
+      const target = Math.round(
+        (isIntense ? INTENSE_PARTICLES_AT_REFERENCE : NORMAL_PARTICLES_AT_REFERENCE) * areaScale
+      );
+      const min = isIntense ? 120 : 60;
+      const max = isIntense ? 900 : 420;
+      return Math.min(max, Math.max(min, target));
+    };
 
     // Neon Cosmic Theme colors (Cyan, Purple, Gold)
     const colors = {
@@ -70,18 +95,40 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      width = rect.width;
-      height = rect.height;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
+      const nextWidth = rect.width;
+      const nextHeight = rect.height;
+
+      if (nextWidth < 1 || nextHeight < 1) return;
+
+      const sizeChanged =
+        Math.abs(nextWidth - width) > 0.5 ||
+        Math.abs(nextHeight - height) > 0.5 ||
+        dpr !== lastDpr;
+
+      if (!sizeChanged && particles.length > 0) return;
+
+      width = nextWidth;
+      height = nextHeight;
+      lastDpr = dpr;
+
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      viewportScale = getViewportScale();
       initParticles();
+    };
+
+    const scheduleResize = () => {
+      if (resizeFrameId) cancelAnimationFrame(resizeFrameId);
+      resizeFrameId = requestAnimationFrame(() => {
+        resizeFrameId = 0;
+        resize();
+      });
     };
 
     const initParticles = () => {
       const isIntense = intensity === "intense";
-      const baseCount = isIntense ? Math.floor(width * 0.18) : Math.floor(width * 0.09);
-      const count = Math.min(baseCount, isIntense ? 240 : 110);
+      const count = getParticleCount();
       particles = [];
 
       for (let i = 0; i < count; i++) {
@@ -123,7 +170,15 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     };
 
     const draw = () => {
-      ctx.clearRect(0, 0, width, height);
+      if (width < 1 || height < 1) {
+        animationFrameId = requestAnimationFrame(draw);
+        return;
+      }
+
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
 
       const currentScrollY = window.scrollY;
       const scrollDiff = currentScrollY - scrollRef.current.lastScrollY;
@@ -191,7 +246,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
             const dx = mouseRef.current.x - currentX;
             const dy = mouseRef.current.y - currentY;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 140;
+            const maxDist = 140 * viewportScale;
 
             if (dist < maxDist) {
               const force = (maxDist - dist) / maxDist;
@@ -242,7 +297,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           const dx = p1.visualX - p2.visualX;
           const dy = p1.visualY - p2.visualY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const baseMaxDist = p1.depth > 0.8 ? 120 : 85;
+          const baseMaxDist = (p1.depth > 0.8 ? 120 : 85) * viewportScale;
           const maxLinkDist = isIntense ? baseMaxDist * 1.35 : baseMaxDist;
 
           if (dist < maxLinkDist) {
@@ -261,7 +316,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
         // Draw connections to mouse cursor
         const isIntense = intensity === "intense";
-        const maxMouseDist = isIntense ? 200 : 140;
+        const maxMouseDist = (isIntense ? 200 : 140) * viewportScale;
         if (mouseRef.current.active && p1.depth > 0.6) {
           const mdx = mouseRef.current.x - p1.visualX;
           const mdy = mouseRef.current.y - p1.visualY;
@@ -331,7 +386,12 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       mouseRef.current.active = false;
     };
 
-    window.addEventListener("resize", resize);
+    const resizeObserver = new ResizeObserver(scheduleResize);
+    resizeObserver.observe(canvas);
+
+    window.addEventListener("resize", scheduleResize);
+    window.visualViewport?.addEventListener("resize", scheduleResize);
+    window.addEventListener("orientationchange", scheduleResize);
     window.addEventListener("mousemove", handleMouseMove, { capture: true, passive: true });
     document.addEventListener("mouseleave", handleMouseLeave, { capture: true });
     window.addEventListener("mousedown", handleMouseDown, { capture: true, passive: true });
@@ -342,11 +402,15 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     window.addEventListener("touchmove", handleTouchMove, { capture: true, passive: true });
     window.addEventListener("touchend", handleTouchEnd, { capture: true, passive: true });
 
-    resize();
+    scheduleResize();
     draw();
 
     return () => {
-      window.removeEventListener("resize", resize);
+      if (resizeFrameId) cancelAnimationFrame(resizeFrameId);
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", scheduleResize);
+      window.visualViewport?.removeEventListener("resize", scheduleResize);
+      window.removeEventListener("orientationchange", scheduleResize);
       window.removeEventListener("mousemove", handleMouseMove, { capture: true });
       document.removeEventListener("mouseleave", handleMouseLeave, { capture: true });
       window.removeEventListener("mousedown", handleMouseDown, { capture: true });

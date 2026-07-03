@@ -4,12 +4,9 @@ import { motion } from "framer-motion";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { InteractiveParticles } from "@/components/InteractiveParticles";
-// import { AetherCoordinator } from "@/components/AetherCoordinator";
 import Lenis from "lenis";
 import { useStore } from "@/store/useStore";
 import { useMouseVelocity } from "@/hooks/useMouseVelocity";
-import { Canvas } from "@react-three/fiber";
-import Scene from "@/components/canvas/Scene";
 
 export function RootLayout() {
   const location = useLocation();
@@ -47,13 +44,8 @@ export function RootLayout() {
     <div className="flex min-h-screen flex-col relative overflow-hidden" style={{ background: 'transparent' }}>
       <InteractiveParticles intensity="intense" />
       {isHome && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: '#050505' }}>
-          <Canvas>
-            <Scene />
-          </Canvas>
-        </div>
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-[#050505]" aria-hidden />
       )}
-      {/* <AetherCoordinator /> */}
       <a
         href="#main"
         className="absolute left-[-9999px] top-4 z-[100] rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm text-[var(--color-ink)] shadow-sm focus:left-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30"

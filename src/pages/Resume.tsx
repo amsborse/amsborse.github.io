@@ -1166,14 +1166,14 @@ body{background:white !important;color:black !important}
                 {drawerTab === 'deep-dive' && (
                   <div>
                     <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '8px', color: '#0f172a' }}>Technical Implementation Details</h3>
-                    <p style={{ fontSize: '0.95rem', color: '#334155', leadingHeight: '1.6' }}>{drawerBullet.detail}</p>
+                    <p style={{ fontSize: '0.95rem', color: '#334155', lineHeight: '1.6' }}>{drawerBullet.detail}</p>
                   </div>
                 )}
 
                 {drawerTab === 'eli5' && (
                   <div>
                     <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '8px', color: '#0f172a' }}>Explain Like I'm 5 (ELI5)</h3>
-                    <p style={{ fontSize: '0.95rem', color: '#334155', leadingHeight: '1.6' }}>{drawerBullet.eli5 || "I built a highly optimized component of the service to process signals efficiently, coordinate workflows, and ensure the platform doesn't slow down under heavy load."}</p>
+                    <p style={{ fontSize: '0.95rem', color: '#334155', lineHeight: '1.6' }}>{drawerBullet.eli5 || "I built a highly optimized component of the service to process signals efficiently, coordinate workflows, and ensure the platform doesn't slow down under heavy load."}</p>
                   </div>
                 )}
 
