@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
 import { algorithmsData } from "@/data/algorithmsInfo";
 
@@ -1037,7 +1038,7 @@ export default function Algorithms() {
       <Seo
         title="Algorithms Visualizer — Akshay Borse"
         description="Interactive visualization of common sorting algorithms, bringing abstract concepts into the physical realm."
-        path="/learning/algorithm"
+        path="/algorithm"
       />
 
       <div
@@ -1071,6 +1072,12 @@ export default function Algorithms() {
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <Link
+            to="/learning/algorithm"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 hover:text-indigo-400 transition-colors mb-6"
+          >
+            ← Algorithm Hub
+          </Link>
           <header className="text-center mb-8">
             <p className={theme.subheading}>Logic & Structure // Data Sorting</p>
             <h1 className={theme.heading}>Algorithm Visualizer</h1>

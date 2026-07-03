@@ -13,7 +13,11 @@ const PAGES = [
   { path: "/resume", title: "Resume", selector: ".resume-container" },
   { path: "/contact", title: "Contact", selector: "h1" },
   { path: "/motion", title: "Motion Lab", selector: "h1" },
-  { path: "/algorithm", title: "Algorithm", selector: "h1:has-text('Algorithm Visualizer')" },
+  {
+    path: "/learning/algorithm",
+    title: "Algorithm Hub",
+    selector: "h1:has-text('Algorithm Visualizer Hub')",
+  },
   { path: "/aether-lab", title: "Aether Lab", selector: "h1" },
   { path: "/learning", title: "Learning", selector: "h1" },
 ];
@@ -60,6 +64,14 @@ test("Navigation: 404 page renders for unknown routes", async ({ page }) => {
 // =============================================================================
 // 3. ALGORITHMS PAGE — Core functionality tests
 // =============================================================================
+
+test("Algorithms: sorting sandbox loads from hub", async ({ page }) => {
+  await page.goto("/learning/algorithm", { waitUntil: "networkidle" });
+  await expect(page.locator("h1")).toContainText("Algorithm Visualizer Hub");
+  await page.click('a[href="/algorithm"]');
+  await expect(page).toHaveURL(/\/algorithm/);
+  await expect(page.locator("h1")).toContainText("Algorithm Visualizer");
+});
 
 test("Algorithms: page loads with theme dropdown", async ({ page }) => {
   await page.goto("/algorithm", { waitUntil: "networkidle" });

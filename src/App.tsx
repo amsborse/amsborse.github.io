@@ -17,6 +17,12 @@ const Resume = lazy(() => import("@/pages/Resume"));
 const MotionLab = lazy(() => import("@/pages/MotionLab"));
 const Algorithms = lazy(() => import("@/pages/Algorithms"));
 const Learning = lazy(() => import("@/pages/Learning"));
+const LearningAlgorithmHub = lazy(() => import("@/pages/LearningAlgorithmHub"));
+const AlgorithmSearch = lazy(() => import("@/pages/learning-algorithms/AlgorithmSearch"));
+const AlgorithmGraph = lazy(() => import("@/pages/learning-algorithms/AlgorithmGraph"));
+const AlgorithmDP = lazy(() => import("@/pages/learning-algorithms/AlgorithmDP"));
+const AlgorithmGreedy = lazy(() => import("@/pages/learning-algorithms/AlgorithmGreedy"));
+const AlgorithmTrees = lazy(() => import("@/pages/learning-algorithms/AlgorithmTrees"));
 const AetherLab = lazy(() => import("@/pages/AetherLab"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
@@ -108,6 +114,54 @@ export default function App() {
               element={
                 <Suspense fallback={<PageSkeleton />}>
                   <Learning />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning/algorithm"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <LearningAlgorithmHub />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning/algorithm/search"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <AlgorithmSearch />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning/algorithm/graph"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <AlgorithmGraph />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning/algorithm/dp"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <AlgorithmDP />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning/algorithm/greedy"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <AlgorithmGreedy />
+                </Suspense>
+              }
+            />
+            <Route
+              path="learning/algorithm/trees"
+              element={
+                <Suspense fallback={<PageSkeleton />}>
+                  <AlgorithmTrees />
                 </Suspense>
               }
             />
