@@ -1,12 +1,8 @@
-import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { lazy } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RootLayout } from "@/layout/RootLayout";
 import Home from "@/pages/Home";
 
-/**
- * Lazy-loaded page chunks — only downloaded when the user navigates to them.
- * Home is eagerly loaded since it's the landing page.
- */
 const About = lazy(() => import("@/pages/About"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const Experience = lazy(() => import("@/pages/Experience"));
@@ -17,28 +13,20 @@ const Resume = lazy(() => import("@/pages/Resume"));
 const MotionLab = lazy(() => import("@/pages/MotionLab"));
 const Algorithms = lazy(() => import("@/pages/Algorithms"));
 const Learning = lazy(() => import("@/pages/Learning"));
+const CodingPatterns = lazy(() => import("@/pages/CodingPatterns"));
 const LearningAlgorithmHub = lazy(() => import("@/pages/LearningAlgorithmHub"));
+const SlidingWindow = lazy(() => import("@/pages/learning-algorithms/SlidingWindow"));
 const AlgorithmSearch = lazy(() => import("@/pages/learning-algorithms/AlgorithmSearch"));
 const AlgorithmGraph = lazy(() => import("@/pages/learning-algorithms/AlgorithmGraph"));
 const AlgorithmDP = lazy(() => import("@/pages/learning-algorithms/AlgorithmDP"));
 const AlgorithmGreedy = lazy(() => import("@/pages/learning-algorithms/AlgorithmGreedy"));
 const AlgorithmTrees = lazy(() => import("@/pages/learning-algorithms/AlgorithmTrees"));
+const SystemDesignConcepts = lazy(() => import("@/pages/learning-algorithms/SystemDesignConcepts"));
+const ConsistencyModels = lazy(() => import("@/pages/learning-algorithms/ConsistencyModels"));
+const LoadBalancing = lazy(() => import("@/pages/learning-algorithms/LoadBalancing"));
+const CachingStrategies = lazy(() => import("@/pages/learning-algorithms/CachingStrategies"));
 const AetherLab = lazy(() => import("@/pages/AetherLab"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
-
-/** Shared loading skeleton for all lazy-loaded pages. */
-function PageSkeleton() {
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-6 h-6 border-2 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin" />
-        <span className="text-sm text-[var(--color-ink-muted)] font-mono tracking-wider">
-          Loading…
-        </span>
-      </div>
-    </div>
-  );
-}
 
 function basename(): string | undefined {
   const base = import.meta.env.BASE_URL ?? "/";
@@ -48,166 +36,43 @@ function basename(): string | undefined {
 
 export default function App() {
   return (
-    <>
-      <BrowserRouter basename={basename()}>
-        <Routes>
-          <Route element={<RootLayout />}>
-            <Route index element={<Home />} />
-            <Route
-              path="about"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <About />
-                </Suspense>
-              }
-            />
-            <Route
-              path="experience"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Experience />
-                </Suspense>
-              }
-            />
-            <Route
-              path="projects"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Projects />
-                </Suspense>
-              }
-            />
-            <Route
-              path="writing"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Writing />
-                </Suspense>
-              }
-            />
-            <Route
-              path="writing/:slug"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Article />
-                </Suspense>
-              }
-            />
-            <Route
-              path="resume"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Resume />
-                </Suspense>
-              }
-            />
-            <Route
-              path="motion"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <MotionLab />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Learning />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning/algorithm"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <LearningAlgorithmHub />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning/algorithm/search"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <AlgorithmSearch />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning/algorithm/graph"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <AlgorithmGraph />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning/algorithm/dp"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <AlgorithmDP />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning/algorithm/greedy"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <AlgorithmGreedy />
-                </Suspense>
-              }
-            />
-            <Route
-              path="learning/algorithm/trees"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <AlgorithmTrees />
-                </Suspense>
-              }
-            />
-            <Route
-              path="algorithm"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Algorithms />
-                </Suspense>
-              }
-            />
-            <Route
-              path="aether-lab"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <AetherLab />
-                </Suspense>
-              }
-            />
-            <Route
-              path="contact"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Contact />
-                </Suspense>
-              }
-            />
-            <Route
-              path="404"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <NotFoundPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <NotFoundPage />
-                </Suspense>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter basename={basename()}>
+      <Routes>
+        <Route element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="experience" element={<Experience />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="writing" element={<Writing />} />
+          <Route path="writing/:slug" element={<Article />} />
+          <Route path="resume" element={<Resume />} />
+          <Route path="motion" element={<MotionLab />} />
+          <Route path="learning" element={<Learning />} />
+          <Route path="learning/coding-patterns" element={<CodingPatterns />} />
+          <Route path="learning/coding-patterns/sliding-window" element={<SlidingWindow />} />
+          <Route path="learning/system-design-concepts" element={<SystemDesignConcepts />} />
+          <Route
+            path="learning/system-design-concepts/consistency"
+            element={<ConsistencyModels />}
+          />
+          <Route
+            path="learning/system-design-concepts/load-balancing"
+            element={<LoadBalancing />}
+          />
+          <Route path="learning/system-design-concepts/caching" element={<CachingStrategies />} />
+          <Route path="learning/algorithm" element={<LearningAlgorithmHub />} />
+          <Route path="learning/algorithm/search" element={<AlgorithmSearch />} />
+          <Route path="learning/algorithm/graph" element={<AlgorithmGraph />} />
+          <Route path="learning/algorithm/dp" element={<AlgorithmDP />} />
+          <Route path="learning/algorithm/greedy" element={<AlgorithmGreedy />} />
+          <Route path="learning/algorithm/trees" element={<AlgorithmTrees />} />
+          <Route path="algorithm" element={<Algorithms />} />
+          <Route path="aether-lab" element={<AetherLab />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="404" element={<NotFoundPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

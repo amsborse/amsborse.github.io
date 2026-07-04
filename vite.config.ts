@@ -53,5 +53,33 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/three") || id.includes("@react-three")) {
+            return "three";
+          }
+          if (id.includes("node_modules/framer-motion")) {
+            return "motion";
+          }
+          if (id.includes("node_modules/lenis")) {
+            return "lenis";
+          }
+          if (
+            id.includes("node_modules/react-router") ||
+            id.includes("node_modules/@remix-run/router")
+          ) {
+            return "router";
+          }
+          if (
+            id.includes("node_modules/react-dom") ||
+            id.includes("node_modules/react/jsx-runtime") ||
+            id.includes("node_modules/react/index")
+          ) {
+            return "react-vendor";
+          }
+        },
+      },
+    },
   },
 }));

@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
+import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Seo } from "@/components/Seo";
 import { projectCategories, projects, type ProjectCategory } from "@/data";
+import { FutureProjectsSection } from "@/components/FutureProjectsSection";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");
@@ -23,7 +25,7 @@ export default function ProjectsPage() {
         path="/projects"
       />
 
-      <div className="article-shell max-w-6xl py-16 sm:py-20 lg:py-24">
+      <div className="article-shell max-w-[1440px] py-16 sm:py-20 lg:py-24">
         <SectionHeading
           eyebrow="Portfolio"
           title="Projects"
@@ -64,9 +66,9 @@ export default function ProjectsPage() {
             No projects in this category. Try “All” or another filter.
           </p>
         ) : (
-          <div className="mt-8 flex flex-col gap-16 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:gap-y-20">
-            {featured.map((p) => (
-              <ProjectCard key={p.id} project={p} />
+          <div className={`mt-8 ${HUB_CARD_GRID}`}>
+            {featured.map((p, index) => (
+              <ProjectCard key={p.id} project={p} index={index} />
             ))}
           </div>
         )}
@@ -74,13 +76,15 @@ export default function ProjectsPage() {
         {other.length > 0 ? (
           <>
             <h3 className="section-label mt-20">Other</h3>
-            <div className="mt-8 flex flex-col gap-16 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:gap-y-20">
-              {other.map((p) => (
-                <ProjectCard key={p.id} project={p} />
+            <div className={`mt-8 ${HUB_CARD_GRID}`}>
+              {other.map((p, index) => (
+                <ProjectCard key={p.id} project={p} index={index} />
               ))}
             </div>
           </>
         ) : null}
+
+        <FutureProjectsSection />
       </div>
     </>
   );

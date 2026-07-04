@@ -1,66 +1,52 @@
 import { Seo } from "@/components/Seo";
-import { useTilt } from "@/hooks/useTilt";
+import { ContentInteractiveCard } from "@/components/InteractiveCard";
 import { contactPage, links, site } from "@/data";
 
 function EmailCard() {
-  const tiltRef = useTilt<HTMLDivElement>({
-    maxRotation: 3,
-    scale: 1.01,
-    perspective: 1200,
-  });
-
   return (
-    <div ref={tiltRef} className="mt-10">
-      <div className="premium-card p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl">
-        <p className="section-label">Email</p>
-        <a
-          href={`mailto:${site.email}`}
-          className="mt-4 block w-fit font-display text-xl text-[var(--color-accent)] underline decoration-[var(--color-accent)]/25 underline-offset-4 transition-colors hover:decoration-[var(--color-accent)]/55 sm:text-2xl"
-        >
-          {site.email}
-        </a>
-        <p className="mt-4 text-sm text-[var(--color-body)]">{contactPage.emailNote}</p>
-      </div>
-    </div>
+    <ContentInteractiveCard color="from-sky-500 to-cyan-600" className="mt-10">
+      <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Email</p>
+      <a
+        href={`mailto:${site.email}`}
+        className="mt-3 block w-fit font-display text-lg text-indigo-400 underline decoration-indigo-400/25 underline-offset-4 transition-colors hover:decoration-indigo-400/55 sm:text-xl"
+      >
+        {site.email}
+      </a>
+      <p className="mt-3 text-sm text-slate-400">{contactPage.emailNote}</p>
+    </ContentInteractiveCard>
   );
 }
 
 function SocialCard() {
-  const tiltRef = useTilt<HTMLDivElement>({
-    maxRotation: 2,
-    scale: 1.005,
-    perspective: 1200,
-  });
-
   return (
-    <div ref={tiltRef} className="mt-8">
-      <div className="premium-card p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl">
-        <p className="section-label mb-4">Networks</p>
-        <ul className="divide-y divide-[var(--color-border)]">
-          {contactPage.socialRows.map((row) => (
-            <li key={row.key} className="first:pt-0 last:pb-0">
-              <a
-                href={links.social[row.key]}
-                className="group flex items-start justify-between gap-4 py-4 transition-colors"
-              >
-                <div>
-                  <span className="font-medium text-[var(--color-ink)] group-hover:text-[var(--color-accent)]">
-                    {row.label}
-                  </span>
-                  <p className="mt-0.5 text-xs text-[var(--color-ink-muted)]">{row.description}</p>
-                </div>
-                <span
-                  className="font-mono text-xs text-[var(--color-ink-muted)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
-                  aria-hidden
-                >
-                  ↗
+    <ContentInteractiveCard color="from-pink-500 to-rose-600" className="mt-8">
+      <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
+        Networks
+      </p>
+      <ul className="divide-y divide-white/5">
+        {contactPage.socialRows.map((row) => (
+          <li key={row.key} className="first:pt-0 last:pb-0">
+            <a
+              href={links.social[row.key]}
+              className="group flex items-start justify-between gap-4 py-4 transition-colors"
+            >
+              <div>
+                <span className="font-medium text-white group-hover:text-indigo-400">
+                  {row.label}
                 </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+                <p className="mt-0.5 text-xs text-slate-500">{row.description}</p>
+              </div>
+              <span
+                className="font-mono text-xs text-slate-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                aria-hidden
+              >
+                ↗
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </ContentInteractiveCard>
   );
 }
 

@@ -1,32 +1,35 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Seo } from "@/components/Seo";
-import AnomalyMatrix from "@/components/canvas/AnomalyMatrix";
-import QuantumMesh from "@/components/canvas/QuantumMesh";
-import GravityWell from "@/components/canvas/GravityWell";
-import { motion } from "framer-motion";
+
+const AnomalyMatrix = lazy(() => import("@/components/canvas/AnomalyMatrix"));
+const QuantumMesh = lazy(() => import("@/components/canvas/QuantumMesh"));
+const GravityWell = lazy(() => import("@/components/canvas/GravityWell"));
 
 type SceneType = "anomaly" | "gravity" | "neural";
+
+function SceneFallback() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-black/60">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-400 border-t-transparent" />
+    </div>
+  );
+}
 
 export default function AetherLab() {
   const [activeScene, setActiveScene] = useState<SceneType>("anomaly");
   const [autoColor, setAutoColor] = useState(false);
 
-  // Parameters for Anomaly Matrix
   const [sphereSpeed, setSphereSpeed] = useState(1.0);
   const [sphereScale, setSphereScale] = useState(1.0);
   const [anomalyColor, setAnomalyColor] = useState<"indigo" | "amber" | "emerald">("indigo");
-  // Parameters for Gravity Well Accretion Disk
   const [gravityParticles, setGravityParticles] = useState(2200);
   const [diskSpeed, setDiskSpeed] = useState(1.0);
   const [gravityColor, setGravityColor] = useState<"indigo" | "amber" | "emerald">("indigo");
-
-  // Parameters for Quantum Neural Mesh
   const [nodeCount, setNodeCount] = useState(140);
   const [linkDistance, setLinkDistance] = useState(120);
   const [meshColor, setMeshColor] = useState<"purple" | "blue" | "green">("purple");
   const [meshSpeed, setMeshSpeed] = useState(1.0);
 
-  // Resolve color strings
   const getMeshColors = () => {
     switch (meshColor) {
       case "blue":
@@ -46,28 +49,25 @@ export default function AetherLab() {
         path="/aether-lab"
       />
 
-      <div className="min-h-screen text-[#f1f3f7] relative overflow-hidden pb-20 pt-24 bg-[#050505]">
-        {/* Decorative elements */}
-        <div className="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-indigo-900/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-purple-900/10 blur-[120px] pointer-events-none" />
+      <div className="relative min-h-screen overflow-hidden bg-[#050505] pb-20 pt-24 text-[#f1f3f7]">
+        <div className="pointer-events-none absolute right-[-10%] top-[-10%] h-[50vw] w-[50vw] rounded-full bg-indigo-900/10 blur-[120px]" />
+        <div className="pointer-events-none absolute bottom-[-10%] left-[-10%] h-[50vw] w-[50vw] rounded-full bg-purple-900/10 blur-[120px]" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-          {/* Header */}
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
           <header className="mb-12">
-            <span className="text-[0.6875rem] font-mono tracking-[0.25em] uppercase text-indigo-400 block mb-2">
+            <span className="mb-2 block font-mono text-[0.6875rem] uppercase tracking-[0.25em] text-indigo-400">
               Visual Laboratory // Cosmic Systems Showcase
             </span>
-            <h1 className="text-3xl sm:text-5xl font-display font-semibold tracking-tight">
+            <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-5xl">
               Aether Lab
             </h1>
-            <p className="mt-3 text-sm text-slate-400 max-w-2xl leading-relaxed">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-400">
               Explore and configure the generative mechanics that power our cosmic aesthetic. Adjust
               speed, particle density, and physics models in real-time.
             </p>
           </header>
 
-          {/* Navigation Tabs */}
-          <div className="flex flex-wrap gap-2 border-b border-white/5 pb-4 mb-8">
+          <div className="mb-8 flex flex-wrap gap-2 border-b border-white/5 pb-4">
             {[
               { id: "anomaly", label: "Anomaly Matrix (3D)" },
               { id: "gravity", label: "Gravity Well (3D)" },
@@ -76,9 +76,9 @@ export default function AetherLab() {
               <button
                 key={tab.id}
                 onClick={() => setActiveScene(tab.id as SceneType)}
-                className={`px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
+                className={`rounded-lg px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all duration-300 ${
                   activeScene === tab.id
-                    ? "bg-white/10 text-white border border-white/15"
+                    ? "border border-white/15 bg-white/10 text-white"
                     : "text-slate-500 hover:text-slate-350"
                 }`}
               >
@@ -87,49 +87,48 @@ export default function AetherLab() {
             ))}
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Viewport Container */}
-            <div className="lg:col-span-8 h-[450px] sm:h-[550px] relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black/40">
-              {activeScene === "anomaly" && (
-                <AnomalyMatrix
-                  sphereSpeed={sphereSpeed}
-                  sphereScale={sphereScale}
-                  colorTheme={anomalyColor}
-                  autoColor={autoColor}
-                />
-              )}
-              {activeScene === "gravity" && (
-                <GravityWell
-                  particleCount={gravityParticles}
-                  diskSpeed={diskSpeed}
-                  colorTheme={gravityColor}
-                  autoColor={autoColor}
-                />
-              )}
-              {activeScene === "neural" && (
-                <QuantumMesh
-                  nodeCount={nodeCount}
-                  linkDistance={linkDistance}
-                  nodeColor={getMeshColors().node}
-                  lineColor={getMeshColors().line}
-                  speed={meshSpeed}
-                  autoColor={autoColor}
-                />
-              )}
+          <div className="grid items-start gap-8 lg:grid-cols-12">
+            <div className="relative h-[450px] overflow-hidden rounded-2xl border border-white/15 bg-black/40 shadow-2xl sm:h-[550px] lg:col-span-8">
+              <Suspense fallback={<SceneFallback />}>
+                {activeScene === "anomaly" && (
+                  <AnomalyMatrix
+                    sphereSpeed={sphereSpeed}
+                    sphereScale={sphereScale}
+                    colorTheme={anomalyColor}
+                    autoColor={autoColor}
+                  />
+                )}
+                {activeScene === "gravity" && (
+                  <GravityWell
+                    particleCount={gravityParticles}
+                    diskSpeed={diskSpeed}
+                    colorTheme={gravityColor}
+                    autoColor={autoColor}
+                  />
+                )}
+                {activeScene === "neural" && (
+                  <QuantumMesh
+                    nodeCount={nodeCount}
+                    linkDistance={linkDistance}
+                    nodeColor={getMeshColors().node}
+                    lineColor={getMeshColors().line}
+                    speed={meshSpeed}
+                    autoColor={autoColor}
+                  />
+                )}
+              </Suspense>
             </div>
 
-            {/* Customizer controls */}
-            <div className="lg:col-span-4 bg-white/[0.02] border border-white/10 rounded-2xl p-6 backdrop-blur-xl space-y-6">
+            <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl lg:col-span-4">
               <div>
-                <span className="text-[0.625rem] font-mono uppercase text-slate-500 tracking-wider block mb-4">
+                <span className="mb-4 block font-mono text-[0.625rem] uppercase tracking-wider text-slate-500">
                   Global Modifiers
                 </span>
 
-                {/* Auto Spectrum Shift Switch */}
-                <div className="flex items-center justify-between p-3 rounded-lg border border-white/5 bg-white/[0.01]">
+                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.01] p-3">
                   <div className="flex flex-col">
                     <span className="text-xs font-semibold text-white/90">Spectrum Cycling</span>
-                    <span className="text-[9px] font-mono text-slate-500">Auto-shift hues</span>
+                    <span className="font-mono text-[9px] text-slate-500">Auto-shift hues</span>
                   </div>
                   <button
                     onClick={() => setAutoColor(!autoColor)}
@@ -149,16 +148,15 @@ export default function AetherLab() {
                 </div>
               </div>
 
-              <span className="text-[0.625rem] font-mono uppercase text-slate-500 tracking-wider block mb-2 border-t border-white/5 pt-4">
+              <span className="mb-2 block border-t border-white/5 pt-4 font-mono text-[0.625rem] uppercase tracking-wider text-slate-500">
                 Configuration Panel
               </span>
 
-              {/* Anomaly Matrix Controls */}
               {activeScene === "anomaly" && (
                 <div className="space-y-6">
                   {!autoColor && (
                     <div>
-                      <label className="text-xs text-slate-400 font-mono block mb-2">
+                      <label className="mb-2 block font-mono text-xs text-slate-400">
                         Color Theme
                       </label>
                       <div className="flex gap-2">
@@ -166,10 +164,10 @@ export default function AetherLab() {
                           <button
                             key={color}
                             onClick={() => setAnomalyColor(color)}
-                            className={`flex-1 py-1.5 rounded border text-[10px] uppercase font-mono transition-all ${
+                            className={`flex-1 rounded border py-1.5 font-mono text-[10px] uppercase transition-all ${
                               anomalyColor === color
                                 ? "border-indigo-500 bg-indigo-500/10 text-indigo-300"
-                                : "border-white/5 hover:border-white/10 text-slate-400"
+                                : "border-white/5 text-slate-400 hover:border-white/10"
                             }`}
                           >
                             {color}
@@ -180,7 +178,7 @@ export default function AetherLab() {
                   )}
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Sphere scale</span>
                       <span>{sphereScale.toFixed(2)}x</span>
                     </div>
@@ -191,12 +189,12 @@ export default function AetherLab() {
                       step="0.05"
                       value={sphereScale}
                       onChange={(e) => setSphereScale(parseFloat(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-indigo-500"
                     />
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Deformation speed</span>
                       <span>{sphereSpeed.toFixed(2)}x</span>
                     </div>
@@ -207,18 +205,17 @@ export default function AetherLab() {
                       step="0.1"
                       value={sphereSpeed}
                       onChange={(e) => setSphereSpeed(parseFloat(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-indigo-500"
                     />
                   </div>
                 </div>
               )}
 
-              {/* Gravity Well Controls */}
               {activeScene === "gravity" && (
                 <div className="space-y-6">
                   {!autoColor && (
                     <div>
-                      <label className="text-xs text-slate-400 font-mono block mb-2">
+                      <label className="mb-2 block font-mono text-xs text-slate-400">
                         Accretion Disk Color
                       </label>
                       <div className="flex gap-2">
@@ -226,10 +223,10 @@ export default function AetherLab() {
                           <button
                             key={color}
                             onClick={() => setGravityColor(color)}
-                            className={`flex-1 py-1.5 rounded border text-[10px] uppercase font-mono transition-all ${
+                            className={`flex-1 rounded border py-1.5 font-mono text-[10px] uppercase transition-all ${
                               gravityColor === color
                                 ? "border-cyan-500 bg-cyan-500/10 text-cyan-300"
-                                : "border-white/5 hover:border-white/10 text-slate-400"
+                                : "border-white/5 text-slate-400 hover:border-white/10"
                             }`}
                           >
                             {color}
@@ -240,7 +237,7 @@ export default function AetherLab() {
                   )}
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Vortex speed</span>
                       <span>{diskSpeed.toFixed(2)}x</span>
                     </div>
@@ -251,12 +248,12 @@ export default function AetherLab() {
                       step="0.1"
                       value={diskSpeed}
                       onChange={(e) => setDiskSpeed(parseFloat(e.target.value))}
-                      className="w-full accent-cyan-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-cyan-500"
                     />
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Particle density</span>
                       <span>{gravityParticles}</span>
                     </div>
@@ -267,18 +264,17 @@ export default function AetherLab() {
                       step="100"
                       value={gravityParticles}
                       onChange={(e) => setGravityParticles(parseInt(e.target.value))}
-                      className="w-full accent-cyan-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-cyan-500"
                     />
                   </div>
                 </div>
               )}
 
-              {/* Quantum Neural Mesh Controls */}
               {activeScene === "neural" && (
                 <div className="space-y-6">
                   {!autoColor && (
                     <div>
-                      <label className="text-xs text-slate-400 font-mono block mb-2">
+                      <label className="mb-2 block font-mono text-xs text-slate-400">
                         Link Color
                       </label>
                       <div className="flex gap-2">
@@ -286,10 +282,10 @@ export default function AetherLab() {
                           <button
                             key={color}
                             onClick={() => setMeshColor(color)}
-                            className={`flex-1 py-1.5 rounded border text-[10px] uppercase font-mono transition-all ${
+                            className={`flex-1 rounded border py-1.5 font-mono text-[10px] uppercase transition-all ${
                               meshColor === color
                                 ? "border-purple-500 bg-purple-500/10 text-purple-300"
-                                : "border-white/5 hover:border-white/10 text-slate-400"
+                                : "border-white/5 text-slate-400 hover:border-white/10"
                             }`}
                           >
                             {color}
@@ -300,7 +296,7 @@ export default function AetherLab() {
                   )}
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Node count</span>
                       <span>{nodeCount}</span>
                     </div>
@@ -311,12 +307,12 @@ export default function AetherLab() {
                       step="5"
                       value={nodeCount}
                       onChange={(e) => setNodeCount(parseInt(e.target.value))}
-                      className="w-full accent-purple-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-purple-500"
                     />
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Link reach distance</span>
                       <span>{linkDistance}px</span>
                     </div>
@@ -327,12 +323,12 @@ export default function AetherLab() {
                       step="5"
                       value={linkDistance}
                       onChange={(e) => setLinkDistance(parseInt(e.target.value))}
-                      className="w-full accent-purple-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-purple-500"
                     />
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-xs font-mono text-slate-450 mb-1">
+                    <div className="mb-1 flex justify-between font-mono text-xs text-slate-450">
                       <span>Drift velocity</span>
                       <span>{meshSpeed.toFixed(2)}x</span>
                     </div>
@@ -343,7 +339,7 @@ export default function AetherLab() {
                       step="0.1"
                       value={meshSpeed}
                       onChange={(e) => setMeshSpeed(parseFloat(e.target.value))}
-                      className="w-full accent-purple-500 cursor-pointer"
+                      className="w-full cursor-pointer accent-purple-500"
                     />
                   </div>
                 </div>

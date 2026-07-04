@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { Seo } from "@/components/Seo";
 import { LearningInteractiveCard } from "@/components/learning/LearningInteractiveCard";
 import type { LearningCardTopic } from "@/components/learning/LearningInteractiveCard";
+import { LearningHubLayout } from "@/components/learning/LearningHubLayout";
+import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 
 const TOPICS: LearningCardTopic[] = [
   {
@@ -179,60 +179,227 @@ const TOPICS: LearningCardTopic[] = [
       </svg>
     ),
   },
+  {
+    id: "coding-patterns",
+    title: "Coding Patterns",
+    description:
+      "Master common software design and coding patterns: factory, singleton, observer, strategy, builder, and decorator—with interactive sandboxes to trace call stacks and class structures.",
+    icon: "🧩",
+    status: "active",
+    path: "/learning/coding-patterns",
+    tags: ["Design Patterns", "Clean Code", "OOP & FP"],
+    color: "from-blue-500 to-cyan-600",
+    renderPortalVisual: () => (
+      /* Animated Code Terminal SVG simulating typing code */
+      <svg className="w-full h-full p-4" viewBox="0 0 200 200" fill="none">
+        <style>
+          {`
+            @keyframes type-line-1 {
+              0%, 10% { width: 0; }
+              40%, 100% { width: 110px; }
+            }
+            @keyframes type-line-2 {
+              0%, 40% { width: 0; }
+              70%, 100% { width: 70px; }
+            }
+            @keyframes type-line-3 {
+              0%, 70% { width: 0; }
+              95%, 100% { width: 90px; }
+            }
+            @keyframes blink-cursor {
+              0%, 100% { opacity: 1; }
+              50% { opacity: 0; }
+            }
+            .code-l1 { animation: type-line-1 5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+            .code-l2 { animation: type-line-2 5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+            .code-l3 { animation: type-line-3 5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+            .cursor { animation: blink-cursor 1s infinite step-start; }
+          `}
+        </style>
+
+        {/* Terminal Window */}
+        <rect
+          x="15"
+          y="35"
+          width="170"
+          height="130"
+          rx="8"
+          fill="#07080d"
+          stroke="rgba(56, 189, 248, 0.15)"
+          strokeWidth="1.5"
+        />
+
+        {/* Window controls */}
+        <circle cx="30" cy="47" r="3" fill="#ef4444" opacity="0.8" />
+        <circle cx="40" cy="47" r="3" fill="#eab308" opacity="0.8" />
+        <circle cx="50" cy="47" r="3" fill="#22c55e" opacity="0.8" />
+        <line x1="15" y1="58" x2="185" y2="58" stroke="rgba(56, 189, 248, 0.08)" strokeWidth="1" />
+
+        {/* Mock code lines */}
+        {/* Line 1 */}
+        <g transform="translate(30, 75)">
+          <rect
+            className="code-l1"
+            x="0"
+            y="0"
+            width="110"
+            height="6"
+            rx="3"
+            fill="url(#syntaxKeyword)"
+          />
+          {/* Cursor */}
+          <rect className="cursor" x="115" y="-1" width="4" height="8" rx="1" fill="#38bdf8" />
+        </g>
+
+        {/* Line 2 */}
+        <g transform="translate(45, 95)">
+          <rect
+            className="code-l2"
+            x="0"
+            y="0"
+            width="70"
+            height="6"
+            rx="3"
+            fill="url(#syntaxVar)"
+          />
+        </g>
+
+        {/* Line 3 */}
+        <g transform="translate(45, 115)">
+          <rect
+            className="code-l3"
+            x="0"
+            y="0"
+            width="90"
+            height="6"
+            rx="3"
+            fill="url(#syntaxFunc)"
+          />
+        </g>
+
+        <defs>
+          <linearGradient id="syntaxKeyword" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#38bdf8" />
+            <stop offset="30%" stopColor="#38bdf8" />
+            <stop offset="35%" stopColor="#a78bfa" />
+            <stop offset="100%" stopColor="#a78bfa" />
+          </linearGradient>
+          <linearGradient id="syntaxVar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#34d399" />
+            <stop offset="60%" stopColor="#34d399" />
+            <stop offset="65%" stopColor="#f472b6" />
+            <stop offset="100%" stopColor="#f472b6" />
+          </linearGradient>
+          <linearGradient id="syntaxFunc" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#fb7185" />
+            <stop offset="50%" stopColor="#fb7185" />
+            <stop offset="55%" stopColor="#38bdf8" />
+            <stop offset="100%" stopColor="#38bdf8" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+  },
+  {
+    id: "system-design-concepts",
+    title: "System Design Concepts",
+    description:
+      "Core concepts of high-scale system design: caching strategies, database partitioning/sharding, DNS load balancing, CDN caching, and proxy layers.",
+    icon: "⚙️",
+    status: "active",
+    path: "/learning/system-design-concepts",
+    tags: ["Horizontal Scaling", "Sharding", "Cache Eviction"],
+    color: "from-purple-500 to-indigo-600",
+    renderPortalVisual: () => (
+      /* Database Shards cylinder layout with arrows */
+      <svg className="w-full h-full p-4" viewBox="0 0 200 200" fill="none">
+        {/* Shard 1 */}
+        <g transform="translate(30, 60)">
+          <ellipse cx="25" cy="15" rx="20" ry="8" fill="#0d0e15" stroke="#8b5cf6" strokeWidth="2" />
+          <path
+            d="M 5 15 L 5 45 A 20 8 0 0 0 45 45 L 45 15"
+            fill="#0d0e15"
+            stroke="#8b5cf6"
+            strokeWidth="2"
+          />
+          <ellipse
+            cx="25"
+            cy="45"
+            rx="20"
+            ry="8"
+            stroke="#8b5cf6"
+            strokeWidth="2"
+            fill="none"
+            opacity="0.5"
+          />
+          <text x="14" y="33" fill="#c084fc" fontSize="8" fontFamily="monospace">
+            SHARD A
+          </text>
+        </g>
+        {/* Shard 2 */}
+        <g transform="translate(110, 60)">
+          <ellipse cx="25" cy="15" rx="20" ry="8" fill="#0d0e15" stroke="#8b5cf6" strokeWidth="2" />
+          <path
+            d="M 5 15 L 5 45 A 20 8 0 0 0 45 45 L 45 15"
+            fill="#0d0e15"
+            stroke="#8b5cf6"
+            strokeWidth="2"
+          />
+          <ellipse
+            cx="25"
+            cy="45"
+            rx="20"
+            ry="8"
+            stroke="#8b5cf6"
+            strokeWidth="2"
+            fill="none"
+            opacity="0.5"
+          />
+          <text x="14" y="33" fill="#c084fc" fontSize="8" fontFamily="monospace">
+            SHARD B
+          </text>
+        </g>
+        {/* Request Router Node top */}
+        <circle cx="100" cy="35" r="10" fill="#0d0e15" stroke="#6366f1" strokeWidth="2" />
+        <text x="96" y="39" fill="#818cf8" fontSize="12" fontWeight="bold">
+          R
+        </text>
+
+        <path
+          d="M 90 35 L 55 60"
+          stroke="rgba(99, 102, 241, 0.4)"
+          strokeWidth="1.5"
+          strokeDasharray="3 3"
+        />
+        <path
+          d="M 110 35 L 135 60"
+          stroke="rgba(99, 102, 241, 0.4)"
+          strokeWidth="1.5"
+          strokeDasharray="3 3"
+        />
+      </svg>
+    ),
+  },
 ];
 
 export default function Learning() {
   return (
-    <>
-      <Seo
-        title="Learning Hub — Akshay Borse"
-        description="Interactive visual playpens and sandboxes exploring computer science theory, distributed systems, AI security, and platform engineering."
-        path="/learning"
-      />
-
-      <div className="min-h-screen relative overflow-x-hidden pb-32 pt-20 bg-transparent text-[#f1f3f7] font-sans">
-        {/* Ambient glow blobs */}
-        <div className="absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-indigo-500/10 to-transparent blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-bl from-purple-500/10 to-transparent blur-[100px] pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-          {/* Header */}
-          <header className="text-center mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-[0.6875rem] font-mono tracking-[0.25em] uppercase text-[var(--color-gold)] mb-3"
-            >
-              CS Theory & Interactive Sandboxes
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.08 }}
-              className="text-[2.25rem] sm:text-[3.25rem] font-display font-semibold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-[#e2e8f0] to-[#94a3b8]"
-            >
-              Learning Lab
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="mt-4 text-sm max-w-lg mx-auto text-slate-400 leading-relaxed"
-            >
-              Explore complex concepts made tangible through interactive simulations. Move values,
-              tweak parameters, and analyze real-time telemetry.
-            </motion.p>
-          </header>
-
-          {/* Cards Grid */}
-          <div className="grid md:grid-cols-2 gap-8 items-stretch">
-            {TOPICS.map((topic, index) => (
-              <LearningInteractiveCard key={topic.id} topic={topic} index={index} />
-            ))}
-          </div>
-        </div>
+    <LearningHubLayout
+      seo={{
+        title: "Learning Hub — Akshay Borse",
+        description:
+          "Interactive visual playpens and sandboxes exploring computer science theory, distributed systems, AI security, and platform engineering.",
+        path: "/learning",
+      }}
+      eyebrow="CS Theory & Interactive Sandboxes"
+      title="Learning Lab"
+      description="Explore complex concepts made tangible through interactive simulations. Move values, tweak parameters, and analyze real-time telemetry."
+    >
+      <div className={HUB_CARD_GRID}>
+        {TOPICS.map((topic, index) => (
+          <LearningInteractiveCard key={topic.id} topic={topic} index={index} />
+        ))}
       </div>
-    </>
+    </LearningHubLayout>
   );
 }

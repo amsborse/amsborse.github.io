@@ -25,8 +25,8 @@ export default function ExperiencePage() {
         </p>
 
         <div className="mt-14">
-          {experience.map((e) => (
-            <ExperienceCard key={e.id} entry={e} />
+          {experience.map((entry, idx) => (
+            <ExperienceCard key={entry.id} entry={entry} index={idx} />
           ))}
         </div>
       </div>

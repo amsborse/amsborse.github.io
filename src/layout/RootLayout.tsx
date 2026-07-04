@@ -1,19 +1,40 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import Lenis from "lenis";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
-import { InteractiveParticles } from "@/components/InteractiveParticles";
-import Lenis from "lenis";
-import { useStore } from "@/store/useStore";
-import { useMouseVelocity } from "@/hooks/useMouseVelocity";
+import { isImmersiveSandbox, shouldDisableGlobalEffects } from "@/layout/immersiveRoutes";
+
+const LazyInteractiveParticles = lazy(() =>
+  import("@/components/InteractiveParticles").then((mod) => ({
+    default: mod.InteractiveParticles,
+  }))
+);
+
+function PageSkeleton() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--color-accent)] border-t-transparent" />
+        <span className="font-mono text-sm tracking-wider text-[var(--color-ink-muted)]">
+          Loading…
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export function RootLayout() {
   const location = useLocation();
-  const setScrollProgress = useStore((state) => state.setScrollProgress);
-  useMouseVelocity();
+  const prefersReducedMotion = useReducedMotion();
+  const isHome = location.pathname === "/";
+  const isImmersive = isImmersiveSandbox(location.pathname);
+  const disableGlobalEffects = shouldDisableGlobalEffects(location.pathname);
 
   useEffect(() => {
+    if (disableGlobalEffects || prefersReducedMotion) return;
+
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -22,33 +43,42 @@ export function RootLayout() {
       smoothWheel: true,
     });
 
-    lenis.on("scroll", (e: any) => {
-      setScrollProgress(e.progress);
-    });
+    let rafId = 0;
+    let paused = document.hidden;
+
+    const onVisibility = () => {
+      paused = document.hidden;
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
 
     function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      if (!paused) lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, [setScrollProgress]);
-
-  const isHome = location.pathname === "/";
+  }, [disableGlobalEffects, prefersReducedMotion, location.pathname]);
 
   return (
     <div
-      className="flex min-h-screen flex-col relative overflow-hidden"
+      className={`relative flex flex-col ${isImmersive ? "h-dvh overflow-hidden" : "min-h-screen overflow-hidden"}`}
       style={{ background: "transparent" }}
     >
-      <InteractiveParticles intensity="intense" />
-      {isHome && (
+      {!disableGlobalEffects ? (
+        <Suspense fallback={null}>
+          <LazyInteractiveParticles intensity="intense" />
+        </Suspense>
+      ) : null}
+      {isHome ? (
         <div className="pointer-events-none fixed inset-0 -z-10 bg-[#050505]" aria-hidden />
-      )}
+      ) : null}
       <a
         href="#main"
         className="absolute left-[-9999px] top-4 z-[100] rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm text-[var(--color-ink)] shadow-sm focus:left-4 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30"
@@ -56,17 +86,26 @@ export function RootLayout() {
         Skip to content
       </a>
       <Navbar />
-      <main id="main" className="flex-1 relative z-10" tabIndex={-1}>
+      <main
+        id="main"
+        className={`relative z-10 ${isImmersive ? "min-h-0 flex-1 overflow-hidden" : "flex-1"}`}
+        tabIndex={-1}
+      >
         <motion.div
           key={location.pathname}
-          initial={{ opacity: 0, y: 15 }}
+          className={isImmersive ? "flex h-full min-h-0 flex-col" : undefined}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          transition={
+            prefersReducedMotion ? { duration: 0 } : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
+          }
         >
-          <Outlet />
+          <Suspense fallback={<PageSkeleton />}>
+            <Outlet />
+          </Suspense>
         </motion.div>
       </main>
-      <Footer />
+      {!isImmersive && <Footer />}
     </div>
   );
 }

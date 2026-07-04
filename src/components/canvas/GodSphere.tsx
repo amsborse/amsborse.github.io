@@ -1,7 +1,6 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useStore } from "@/store/useStore";
 
 const vertexShader = `
   uniform float uTime;
@@ -105,13 +104,12 @@ export default function GodSphere({
   speed = 1.0,
   scale = 1.0,
   colorTheme = "indigo",
-  scrollOverride,
+  scrollOverride = 0,
   autoColor = false,
 }: GodSphereProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const scrollProgressStore = useStore((state) => state.scrollProgress);
-  const scrollProgress = scrollOverride !== undefined ? scrollOverride : scrollProgressStore;
+  const scrollProgress = scrollOverride;
   const introScaleRef = useRef(0);
 
   const colors = useMemo(() => {

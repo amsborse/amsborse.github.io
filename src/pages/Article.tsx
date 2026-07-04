@@ -1,14 +1,38 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Seo } from "@/components/Seo";
 import { TableOfContents } from "@/components/TableOfContents";
 import { site } from "@/data";
 import { getPostBySlug } from "@/utils/loadArticles";
+import type { ParsedPost } from "@/utils/markdown";
 import NotFoundPage from "@/pages/NotFound";
 
 export default function Article() {
   const { slug } = useParams();
-  const post = slug ? getPostBySlug(slug) : undefined;
+  const [post, setPost] = useState<ParsedPost | null | undefined>(undefined);
+
+  useEffect(() => {
+    if (!slug) {
+      setPost(null);
+      return;
+    }
+    let cancelled = false;
+    getPostBySlug(slug).then((found) => {
+      if (!cancelled) setPost(found ?? null);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  if (post === undefined) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-sm text-[var(--color-ink-muted)]">
+        Loading…
+      </div>
+    );
+  }
 
   if (!post) {
     return <NotFoundPage />;

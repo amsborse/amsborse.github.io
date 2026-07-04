@@ -13,6 +13,8 @@ export { links, socialNav } from "./socials";
 export { navItems } from "./navigation";
 export { profile } from "./profile";
 export { projectCategories, projects } from "./projects";
+export { futureProjects } from "./futureProjects";
+export type { FutureProject } from "./futureProjects";
 export { resume } from "./resume";
 export type {
   ExperienceEntry,

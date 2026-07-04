@@ -1,53 +1,39 @@
 import type { ExperienceEntry } from "@/data";
-import { useTilt } from "@/hooks/useTilt";
+import { ContentInteractiveCard } from "@/components/InteractiveCard";
 
-export function ExperienceCard({ entry }: { entry: ExperienceEntry }) {
-  const tiltRef = useTilt<HTMLDivElement>({
-    maxRotation: 4,
-    scale: 1.012,
-    perspective: 1200,
-  });
-
+export function ExperienceCard({ entry, index = 0 }: { entry: ExperienceEntry; index?: number }) {
   return (
-    <div ref={tiltRef} className="mb-8 last:mb-0">
-      <article className="premium-card group relative p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl">
-        <div className="relative pl-8 sm:pl-10">
-          <span
-            className="absolute left-0 top-2 flex h-2 w-2 rounded-full bg-[var(--color-accent)] ring-4 ring-[var(--color-surface-elevated)]"
-            aria-hidden
-          />
-
-          <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <div>
-              <h3 className="font-display text-[1.2rem] font-semibold tracking-tight text-[var(--color-ink)]">
-                {entry.title}
-              </h3>
-              <p className="mt-1 text-sm text-[var(--color-body)] font-medium">{entry.company}</p>
-            </div>
-            <p className="font-mono text-xs text-[var(--color-ink-muted)] sm:shrink-0 sm:text-right">
-              {entry.start} — {entry.end}
-              <span className="text-[var(--color-ink-muted)]/80"> · </span>
-              {entry.location}
-            </p>
-          </div>
-          <p className="mt-5 text-sm leading-relaxed text-[var(--color-body)]">{entry.summary}</p>
-
-          <div className="mt-8 border-t border-[var(--color-border)] pt-6">
-            <p className="section-label">Outcomes</p>
-            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--color-body)]">
-              {entry.achievements.map((a) => (
-                <li key={a} className="flex gap-3">
-                  <span
-                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]/45"
-                    aria-hidden
-                  />
-                  {a}
-                </li>
-              ))}
-            </ul>
-          </div>
+    <ContentInteractiveCard
+      color="from-indigo-500 to-purple-600"
+      index={index}
+      className="mb-6 last:mb-0"
+    >
+      <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+        <div>
+          <h3 className="font-display text-base font-semibold tracking-tight text-white">
+            {entry.title}
+          </h3>
+          <p className="mt-1 text-sm text-slate-400 font-medium">{entry.company}</p>
         </div>
-      </article>
-    </div>
+        <p className="font-mono text-[10px] text-slate-500 sm:shrink-0 sm:text-right">
+          {entry.start} — {entry.end}
+          <span className="text-slate-600"> · </span>
+          {entry.location}
+        </p>
+      </div>
+      <p className="mt-4 text-sm leading-relaxed text-slate-400">{entry.summary}</p>
+
+      <div className="mt-5 border-t border-white/5 pt-4">
+        <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-slate-500">Outcomes</p>
+        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-400">
+          {entry.achievements.map((achievement) => (
+            <li key={achievement} className="flex gap-3">
+              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-indigo-400/60" aria-hidden />
+              {achievement}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </ContentInteractiveCard>
   );
 }

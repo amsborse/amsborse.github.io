@@ -4,8 +4,7 @@ import { parsePostMarkdown, type ParsedPost } from "@/utils/markdown";
 const rawModules = import.meta.glob<string>("../content/articles/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as Record<string, string>;
+});
 
 function slugFromPath(path: string): string {
   const normalized = path.replace(/\\/g, "/");
@@ -15,16 +14,24 @@ function slugFromPath(path: string): string {
 
 const slugOrder = articleOrder;
 
-function parseAll(): ParsedPost[] {
+let cache: ParsedPost[] | null = null;
+let loadPromise: Promise<ParsedPost[]> | null = null;
+
+async function parseAll(): Promise<ParsedPost[]> {
   const bySlug = new Map<string, ParsedPost>();
-  for (const [path, raw] of Object.entries(rawModules)) {
-    const slug = slugFromPath(path);
-    try {
-      bySlug.set(slug, parsePostMarkdown(raw, slug));
-    } catch (e) {
-      console.error(`[writing] Failed to parse "${slug}" (${path}):`, e);
-    }
-  }
+
+  await Promise.all(
+    Object.entries(rawModules).map(async ([path, loader]) => {
+      const slug = slugFromPath(path);
+      try {
+        const raw = await loader();
+        bySlug.set(slug, parsePostMarkdown(raw, slug));
+      } catch (e) {
+        console.error(`[writing] Failed to parse "${slug}" (${path}):`, e);
+      }
+    })
+  );
+
   const ordered: ParsedPost[] = [];
   for (const slug of slugOrder) {
     const p = bySlug.get(slug);
@@ -38,16 +45,28 @@ function parseAll(): ParsedPost[] {
   return ordered;
 }
 
-const allPosts = parseAll();
-
-export function getAllPosts(): ParsedPost[] {
-  return allPosts;
+/** Load all markdown articles on demand (lazy per file). */
+export function loadArticles(): Promise<ParsedPost[]> {
+  if (cache) return Promise.resolve(cache);
+  if (!loadPromise) {
+    loadPromise = parseAll().then((posts) => {
+      cache = posts;
+      return posts;
+    });
+  }
+  return loadPromise;
 }
 
-export function getPostBySlug(slug: string): ParsedPost | undefined {
-  return allPosts.find((p) => p.slug === slug);
+export async function getAllPosts(): Promise<ParsedPost[]> {
+  return loadArticles();
 }
 
-export function getFeaturedPosts(): ParsedPost[] {
-  return allPosts.filter((p) => p.featured);
+export async function getPostBySlug(slug: string): Promise<ParsedPost | undefined> {
+  const posts = await loadArticles();
+  return posts.find((p) => p.slug === slug);
+}
+
+export async function getFeaturedPosts(): Promise<ParsedPost[]> {
+  const posts = await loadArticles();
+  return posts.filter((p) => p.featured);
 }

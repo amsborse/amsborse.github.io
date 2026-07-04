@@ -1,69 +1,50 @@
-import type { CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
-import { useTilt } from "@/hooks/useTilt";
+import { HubInteractiveCard, HUB_CARD_GRID } from "@/components/InteractiveCard";
 import { contentPaths } from "@/data";
 import { getAllPosts, getFeaturedPosts } from "@/utils/loadArticles";
+import type { ParsedPost } from "@/utils/markdown";
 
-function FeaturedWritingCard({ post, i }: { post: any; i: number }) {
-  const tiltRef = useTilt<HTMLLIElement>({
-    maxRotation: 3,
-    scale: 1.01,
-    perspective: 1200,
-  });
-
+function FeaturedWritingCard({ post, i }: { post: ParsedPost; i: number }) {
   return (
-    <li
-      ref={tiltRef}
-      className="reveal-stagger-item"
-      style={{ "--reveal-index": i } as CSSProperties}
-    >
-      <Link
-        to={`/writing/${post.slug}`}
-        className="writing-entry-card group block px-6 py-7 sm:px-8 sm:py-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl"
-      >
-        <div className="writing-entry-card__inner">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-10">
-            <div className="flex shrink-0 flex-col sm:w-32">
-              <span className="writing-entry-card__eyebrow">Featured</span>
-              <time
-                className="mt-3 block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]"
-                dateTime={post.date}
-              >
-                {post.date}
-              </time>
-              <p className="mt-2 font-mono text-[0.6875rem] text-[var(--color-gold-muted)]">
-                {post.readingMinutes} min
-              </p>
-              <span className="writing-entry-card__read">
-                Read
-                <span className="writing-entry-card__read-arrow" aria-hidden>
-                  →
-                </span>
-              </span>
-            </div>
-            <div className="min-w-0 flex-1 sm:pl-2">
-              <h3 className="font-display text-[1.2rem] font-semibold leading-snug text-[var(--color-ink)] transition-colors duration-300 group-hover:text-[var(--color-accent)] sm:text-[1.28rem]">
-                {post.title}
-              </h3>
-              <p className="mt-3 text-sm leading-[1.72] text-[var(--color-body)] sm:text-[0.9375rem]">
-                {post.description}
-              </p>
-              <p className="mt-4 font-mono text-[0.6875rem] text-[var(--color-ink-muted)]">
-                {post.tags.join(" · ")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </Link>
+    <li>
+      <HubInteractiveCard
+        id={post.slug}
+        title={post.title}
+        description={post.description}
+        path={`/writing/${post.slug}`}
+        status="active"
+        statusLabel="Featured"
+        tags={[...post.tags, `${post.readingMinutes} min`, post.date]}
+        color="from-indigo-500 to-purple-600"
+        icon="📝"
+        index={i}
+        ctaLabel="Read Essay"
+      />
     </li>
   );
 }
 
 export default function WritingPage() {
-  const all = getAllPosts();
-  const featured = getFeaturedPosts();
+  const [all, setAll] = useState<ParsedPost[]>([]);
+  const [featured, setFeatured] = useState<ParsedPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([getAllPosts(), getFeaturedPosts()]).then(([posts, featuredPosts]) => {
+      if (!cancelled) {
+        setAll(posts);
+        setFeatured(featuredPosts);
+        setLoading(false);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <>
@@ -92,39 +73,45 @@ export default function WritingPage() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-20" delayMs={30}>
-          <h2 className="section-label">Featured</h2>
-        </Reveal>
-        <Reveal className="mt-8" stagger staggerMs={72}>
-          <ul className="flex flex-col gap-5">
-            {featured.map((post, i) => (
-              <FeaturedWritingCard key={post.slug} post={post} i={i} />
-            ))}
-          </ul>
-        </Reveal>
+        {loading ? (
+          <p className="mt-16 text-sm text-[var(--color-ink-muted)]">Loading essays…</p>
+        ) : (
+          <>
+            <Reveal className="mt-20" delayMs={30}>
+              <h2 className="section-label">Featured</h2>
+            </Reveal>
+            <Reveal className="mt-8" stagger staggerMs={72}>
+              <ul className={HUB_CARD_GRID}>
+                {featured.map((post, i) => (
+                  <FeaturedWritingCard key={post.slug} post={post} i={i} />
+                ))}
+              </ul>
+            </Reveal>
 
-        <Reveal className="mt-24" delayMs={20}>
-          <h2 className="section-label">Archive</h2>
-          <ul className="mt-8 divide-y divide-[var(--color-border)] border-t border-[var(--color-border)]">
-            {all.map((post) => (
-              <li key={post.slug}>
-                <Link
-                  to={`/writing/${post.slug}`}
-                  className="group flex flex-col gap-1 py-5 transition-colors motion-reduce:transition-none sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-6"
-                >
-                  <span className="font-display text-[1.05rem] font-semibold text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
-                    {post.title}
-                  </span>
-                  <span className="shrink-0 font-mono text-xs text-[var(--color-ink-muted)]">
-                    {post.date}
-                    <span className="mx-2 opacity-40">·</span>
-                    {post.readingMinutes} min
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+            <Reveal className="mt-24" delayMs={20}>
+              <h2 className="section-label">Archive</h2>
+              <ul className="mt-8 divide-y divide-[var(--color-border)] border-t border-[var(--color-border)]">
+                {all.map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      to={`/writing/${post.slug}`}
+                      className="group flex flex-col gap-1 py-5 transition-colors motion-reduce:transition-none sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-6"
+                    >
+                      <span className="font-display text-[1.05rem] font-semibold text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
+                        {post.title}
+                      </span>
+                      <span className="shrink-0 font-mono text-xs text-[var(--color-ink-muted)]">
+                        {post.date}
+                        <span className="mx-2 opacity-40">·</span>
+                        {post.readingMinutes} min
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </>
+        )}
       </div>
     </>
   );

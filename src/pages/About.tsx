@@ -1,43 +1,27 @@
 import { Seo } from "@/components/Seo";
-import { useTilt } from "@/hooks/useTilt";
+import { ContentInteractiveCard } from "@/components/InteractiveCard";
 import { about, profile, site } from "@/data";
 
 function ValuesCard({ values }: { values: readonly string[] }) {
-  const tiltRef = useTilt<HTMLDivElement>({
-    maxRotation: 3,
-    scale: 1.008,
-    perspective: 1200,
-  });
-
   return (
-    <div ref={tiltRef} className="mt-6">
-      <div className="premium-card p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl">
-        <ul className="space-y-3.5 text-[var(--color-body)]">
-          {values.map((line) => (
-            <li key={line} className="flex gap-3 text-sm sm:text-base leading-relaxed">
-              <span className="text-[var(--color-accent)] font-bold">—</span>
-              {line}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <ContentInteractiveCard color="from-emerald-500 to-teal-600" className="mt-6">
+      <ul className="space-y-3 text-sm leading-relaxed">
+        {values.map((line) => (
+          <li key={line} className="flex gap-3">
+            <span className="text-indigo-400 font-bold">—</span>
+            {line}
+          </li>
+        ))}
+      </ul>
+    </ContentInteractiveCard>
   );
 }
 
 function BuildingCard({ text }: { text: string }) {
-  const tiltRef = useTilt<HTMLDivElement>({
-    maxRotation: 2.5,
-    scale: 1.006,
-    perspective: 1200,
-  });
-
   return (
-    <div ref={tiltRef} className="mt-6">
-      <div className="premium-card p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 rounded-xl">
-        <p className="text-sm sm:text-base leading-relaxed text-[var(--color-body)]">{text}</p>
-      </div>
-    </div>
+    <ContentInteractiveCard color="from-amber-500 to-orange-600" className="mt-6">
+      <p className="text-sm leading-relaxed">{text}</p>
+    </ContentInteractiveCard>
   );
 }
 
