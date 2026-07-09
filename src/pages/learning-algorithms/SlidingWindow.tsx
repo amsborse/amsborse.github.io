@@ -25,7 +25,7 @@ function Panel({
 }) {
   return (
     <section
-      className={`flex min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.09] bg-[#07111f]/70 shadow-[0_16px_48px_rgba(0,0,0,0.28)] backdrop-blur-md ${className}`}
+      className={`flex flex-col rounded-xl border border-white/[0.09] bg-[#07111f]/70 shadow-[0_16px_48px_rgba(0,0,0,0.28)] backdrop-blur-md ${className}`}
     >
       <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/[0.06] px-3 py-2">
         <div>
@@ -39,7 +39,7 @@ function Panel({
           </h2>
         </div>
       </div>
-      <div className="min-h-0 flex-1 overflow-hidden p-3">{children}</div>
+      <div className="p-3">{children}</div>
     </section>
   );
 }
@@ -131,25 +131,21 @@ export default function SlidingWindowPage() {
         path="/learning/coding-patterns/sliding-window"
       />
 
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-30 h-16 bg-[#030712]/88 backdrop-blur-md" />
-
-      <main className="relative flex h-full flex-col overflow-hidden bg-transparent pt-16 text-[#f1f3f7] selection:bg-cyan-400/20">
+      <div className="relative min-h-screen overflow-x-hidden bg-transparent pb-24 pt-20 text-[#f1f3f7] selection:bg-cyan-400/20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(217,70,239,0.1),transparent_28%),radial-gradient(circle_at_76%_18%,rgba(14,165,233,0.1),transparent_30%),linear-gradient(180deg,rgba(3,7,18,0.1),rgba(3,7,18,0.92))]" />
 
-        <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-2 px-3 py-2 sm:px-4 lg:px-6">
-          <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1">
+        <div className="relative z-10 mx-auto w-full max-w-7xl space-y-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <Link
               to="/learning/coding-patterns"
               className="font-mono text-[9px] uppercase tracking-[0.2em] text-cyan-200/60 transition hover:text-cyan-200"
             >
               ← Patterns
             </Link>
-            <h1 className="font-display text-lg font-black tracking-normal text-white sm:text-xl">
+            <h1 className="font-display text-xl font-black tracking-normal text-white sm:text-2xl">
               Sliding Window
             </h1>
-            <span className="hidden text-[10px] text-slate-400 sm:inline">
-              Max sum · O(n) · K = {K}
-            </span>
+            <span className="text-[10px] text-slate-400">Max sum · O(n) · K = {K}</span>
             <div className="ml-auto flex flex-wrap items-center gap-2">
               <div className="rounded-lg border border-emerald-300/20 bg-emerald-400/[0.055] px-2 py-1">
                 <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-emerald-200">
@@ -165,9 +161,9 @@ export default function SlidingWindowPage() {
             </div>
           </div>
 
-          <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#030816]/62 p-2 shadow-[0_20px_80px_rgba(0,0,0,0.42)] backdrop-blur-md sm:p-3">
-            <div className="grid shrink-0 gap-2 lg:grid-cols-[0.85fr_1.3fr_0.85fr] lg:items-center">
-              <div className="flex items-center gap-2 rounded-lg border border-cyan-300/15 bg-cyan-400/[0.04] px-2.5 py-1.5">
+          <section className="space-y-3 rounded-xl border border-white/[0.08] bg-[#030816]/62 p-3 shadow-[0_20px_80px_rgba(0,0,0,0.42)] backdrop-blur-md sm:p-4">
+            <div className="grid gap-3 lg:grid-cols-[0.85fr_1.3fr_0.85fr] lg:items-center">
+              <div className="flex items-center gap-2 rounded-lg border border-cyan-300/15 bg-cyan-400/[0.04] px-2.5 py-2">
                 <div className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full">
                   <div className="absolute inset-0 rounded-full border border-dashed border-cyan-300/30 [animation:spin_28s_linear_infinite]" />
                   <motion.span
@@ -188,16 +184,14 @@ export default function SlidingWindowPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-white/[0.08] bg-black/20 px-2.5 py-1.5 text-center">
+              <div className="rounded-lg border border-white/[0.08] bg-black/20 px-2.5 py-2 text-center">
                 <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">
                   Step {currentStep + 1}/{steps.length}
                 </p>
-                <p className="mx-auto mt-0.5 line-clamp-2 text-[10px] leading-4 text-slate-200">
-                  {explanation}
-                </p>
+                <p className="mx-auto mt-1 text-[11px] leading-5 text-slate-200">{explanation}</p>
               </div>
 
-              <div className="flex items-center gap-2 rounded-lg border border-amber-300/15 bg-amber-400/[0.045] px-2.5 py-1.5">
+              <div className="flex items-center gap-2 rounded-lg border border-amber-300/15 bg-amber-400/[0.045] px-2.5 py-2">
                 <motion.div
                   className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-amber-300/35 bg-amber-950/20"
                   animate={{
@@ -227,9 +221,9 @@ export default function SlidingWindowPage() {
               </div>
             </div>
 
-            <div className="relative mt-2 min-h-0 flex-1 overflow-hidden rounded-lg border border-cyan-300/12 bg-[#020713]/70">
+            <div className="relative overflow-hidden rounded-lg border border-cyan-300/12 bg-[#020713]/70">
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.07)_1px,transparent_1px),linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px)] bg-[size:36px_36px] opacity-45" />
-              <div className="relative h-full min-h-[7.5rem]">
+              <div className="relative min-h-[220px] py-10 sm:min-h-[260px]">
                 <div
                   className="absolute left-1/2 top-1/2 z-10 pointer-events-none"
                   style={{
@@ -335,8 +329,8 @@ export default function SlidingWindowPage() {
               </div>
             </div>
 
-            <div className="mt-2 shrink-0 rounded-lg border border-white/[0.08] bg-black/25 px-3 py-1.5">
-              <div className="grid gap-0.5 text-center font-mono sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
+            <div className="rounded-lg border border-white/[0.08] bg-black/25 px-3 py-2">
+              <div className="grid gap-1 text-center font-mono sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
                 <div>
                   <p className="text-[8px] uppercase text-cyan-200">Prev</p>
                   <p className="text-base font-bold text-cyan-100">{step.formula.prevSum}</p>
@@ -358,11 +352,11 @@ export default function SlidingWindowPage() {
             </div>
           </section>
 
-          <section className="grid min-h-0 shrink-0 gap-2 lg:grid-cols-[1fr_1.1fr_0.85fr] lg:max-h-[10rem]">
-            <Panel title="Event log" className="min-h-0">
+          <section className="grid gap-4 lg:grid-cols-[1fr_1.1fr_0.85fr]">
+            <Panel title="Event log">
               <div
                 ref={terminalRef}
-                className="h-full max-h-[6.5rem] overflow-y-auto rounded-lg bg-black/35 p-2 font-mono text-[9px] leading-3.5"
+                className="max-h-40 overflow-y-auto rounded-lg bg-black/35 p-2 font-mono text-[9px] leading-4"
                 style={{ scrollBehavior: "smooth" }}
               >
                 {terminalLines.map((line, i) => {
@@ -390,9 +384,9 @@ export default function SlidingWindowPage() {
               </div>
             </Panel>
 
-            <Panel title="Controls" className="min-h-0">
-              <div className="grid gap-1.5">
-                <div className="grid grid-cols-4 gap-1">
+            <Panel title="Controls">
+              <div className="grid gap-2">
+                <div className="grid grid-cols-4 gap-1.5">
                   <button
                     type="button"
                     onClick={() => currentStep > 0 && setCurrentStep((s) => s - 1)}
@@ -425,8 +419,8 @@ export default function SlidingWindowPage() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-[1fr_auto] items-center gap-1.5">
-                  <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] px-2 py-1">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
+                  <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] px-2 py-2">
                     <div className="flex items-center justify-between gap-2">
                       <label
                         htmlFor="window-size"
@@ -446,17 +440,17 @@ export default function SlidingWindowPage() {
                         setK(Number(event.target.value));
                         reset();
                       }}
-                      className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-cyan-300"
+                      className="mt-1.5 h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-cyan-300"
                     />
                   </div>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1.5">
                     <div className="flex gap-1">
                       {[0.5, 1, 2].map((item) => (
                         <button
                           key={item}
                           type="button"
                           onClick={() => setSpeed(item)}
-                          className={`h-6 min-w-9 rounded-lg border font-mono text-[9px] transition ${
+                          className={`h-7 min-w-9 rounded-lg border font-mono text-[9px] transition ${
                             speed === item
                               ? "border-cyan-300/45 bg-cyan-400/[0.1] text-cyan-100"
                               : "border-white/[0.08] bg-white/[0.025] text-slate-400 hover:text-white"
@@ -474,12 +468,8 @@ export default function SlidingWindowPage() {
               </div>
             </Panel>
 
-            <Panel
-              title="Progress"
-              eyebrow={`${currentStep + 1}/${steps.length}`}
-              className="min-h-0"
-            >
-              <div className="flex flex-wrap gap-1">
+            <Panel title="Progress" eyebrow={`${currentStep + 1}/${steps.length}`}>
+              <div className="flex flex-wrap gap-1.5">
                 {steps.map((_, idx) => {
                   const isCurrent = currentStep === idx;
                   return (
@@ -490,7 +480,7 @@ export default function SlidingWindowPage() {
                         setCurrentStep(idx);
                         setIsPlaying(false);
                       }}
-                      className={`grid h-6 w-6 place-items-center rounded-full border font-mono text-[9px] transition ${
+                      className={`grid h-7 w-7 place-items-center rounded-full border font-mono text-[9px] transition ${
                         isCurrent
                           ? "border-cyan-200 bg-cyan-400/25 text-white"
                           : idx < currentStep
@@ -503,7 +493,7 @@ export default function SlidingWindowPage() {
                   );
                 })}
               </div>
-              <div className="mt-1.5 h-1.5 rounded-full border border-white/[0.08] bg-black/35 p-px">
+              <div className="mt-2 h-1.5 rounded-full border border-white/[0.08] bg-black/35 p-px">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
                   animate={{ width: `${progressPct}%` }}
@@ -513,7 +503,7 @@ export default function SlidingWindowPage() {
             </Panel>
           </section>
         </div>
-      </main>
+      </div>
     </>
   );
 }

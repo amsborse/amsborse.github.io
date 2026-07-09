@@ -283,7 +283,11 @@ function toTopics(concepts: Concept[]): LearningCardTopic[] {
     description: concept.description,
     icon: concept.icon,
     status:
-      concept.id === "consistency" || concept.id === "load-balancing" || concept.id === "caching"
+      concept.id === "consistency" ||
+      concept.id === "load-balancing" ||
+      concept.id === "caching" ||
+      concept.id === "database-sharding" ||
+      concept.id === "cdn"
         ? ("active" as const)
         : ("coming-soon" as const),
     path:
@@ -293,7 +297,11 @@ function toTopics(concepts: Concept[]): LearningCardTopic[] {
           ? "/learning/system-design-concepts/load-balancing"
           : concept.id === "caching"
             ? "/learning/system-design-concepts/caching"
-            : undefined,
+            : concept.id === "database-sharding"
+              ? "/learning/system-design-concepts/database-sharding"
+              : concept.id === "cdn"
+                ? "/learning/system-design-concepts/cdn"
+                : undefined,
     tags: concept.keyTerms,
     color: concept.color,
     renderPortalVisual: () => (

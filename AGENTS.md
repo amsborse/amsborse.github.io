@@ -55,3 +55,19 @@ E2E tests cover routes, navigation, and key interactions. Together they reduceâ€
 Enable **branch protection** on `master`: see [`.github/BRANCH_PROTECTION.md`](.github/BRANCH_PROTECTION.md). Required checks: `Quality gate`, `Playwright e2e`.
 
 **CODEOWNERS** (`.github/CODEOWNERS`) requests review on CI, dependencies, routing, and resume. **Dependabot** opens weekly npm/GitHub Actions PRs.
+
+## Knowledge graph (for agents)
+
+Structured repo map lives in [`.cursor/knowledge-graph/`](.cursor/knowledge-graph/README.md):
+
+| File                    | Purpose                                             |
+| ----------------------- | --------------------------------------------------- |
+| `graph.json`            | Routes, pages, data files, shared components, edges |
+| `AGENT_INSTRUCTIONS.md` | Exploration workflow + task entry points            |
+| `SCHEMA.md`             | Node/edge types                                     |
+
+```bash
+npm run verify:kg   # validate graph vs App.tsx + filesystem
+```
+
+Update `graph.json` whenever you add routes, pages, or shared components.

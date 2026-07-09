@@ -1,0 +1,29 @@
+---
+description: Use and maintain the repo knowledge graph for navigation and structural changes
+alwaysApply: true
+---
+
+# Knowledge graph
+
+Before exploring or refactoring, read:
+
+- `.cursor/knowledge-graph/graph.json` — routes, data, shared components
+- `.cursor/knowledge-graph/AGENT_INSTRUCTIONS.md` — task → entry point map
+
+## Required on structural changes
+
+When adding/removing routes, pages, shared components, or `src/data/*` files:
+
+1. Update `.cursor/knowledge-graph/graph.json` (nodes + edges)
+2. Bump `meta.lastUpdated`
+3. Run `npm run verify:kg`
+
+## Conventions (from graph)
+
+- Hub cards: `src/components/InteractiveCard.tsx` — default `quad` density, 4-col grid
+- Learning hubs: `LearningHubLayout` + `LearningInteractiveCard`
+- Algorithm page path: `/algorithm` (singular)
+- Immersive (no scroll/footer): `/aether-lab` only
+- Do not remove `GodSphere` / Aether Lab canvas stack
+
+See also `AGENTS.md` for CI and test requirements.

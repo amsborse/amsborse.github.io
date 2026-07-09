@@ -1,0 +1,449 @@
+{
+  "meta": {
+    "version": 1,
+    "repo": "amsborse.github.io",
+    "description": "Akshay Borse portfolio — React/Vite static site",
+    "lastUpdated": "2026-07-04",
+    "entrypoints": ["src/main.tsx", "src/App.tsx", "src/layout/RootLayout.tsx"]
+  },
+  "domains": [
+    { "id": "domain:core", "label": "Core site (home, about, contact)" },
+    { "id": "domain:portfolio", "label": "Projects & experience" },
+    { "id": "domain:writing", "label": "Essays & articles" },
+    { "id": "domain:resume", "label": "Résumé & career narrative" },
+    { "id": "domain:learning", "label": "Learning lab & sandboxes" },
+    { "id": "domain:visual", "label": "Motion, 3D, particles" },
+    { "id": "domain:tooling", "label": "Build, CI, validation" }
+  ],
+  "nodes": [
+    {
+      "id": "entry:app",
+      "type": "layout",
+      "file": "src/App.tsx",
+      "notes": "Route table + lazy page imports"
+    },
+    { "id": "entry:main", "type": "layout", "file": "src/main.tsx" },
+    {
+      "id": "entry:vite-config",
+      "type": "script",
+      "file": "vite.config.ts",
+      "notes": "manualChunks, base URL"
+    },
+    {
+      "id": "layout:root",
+      "type": "layout",
+      "file": "src/layout/RootLayout.tsx",
+      "notes": "Lenis, particles, Suspense, footer"
+    },
+    {
+      "id": "layout:immersive-routes",
+      "type": "layout",
+      "file": "src/layout/immersiveRoutes.ts",
+      "notes": "Aether Lab only — fixed viewport"
+    },
+    { "id": "layout:navbar", "type": "layout", "file": "src/layout/Navbar.tsx" },
+    { "id": "layout:footer", "type": "layout", "file": "src/layout/Footer.tsx" },
+
+    {
+      "id": "data:index",
+      "type": "data",
+      "file": "src/data/index.ts",
+      "notes": "Barrel + site composite"
+    },
+    {
+      "id": "data:profile",
+      "type": "data",
+      "file": "src/data/profile.ts",
+      "notes": "Identity, SEO, whyAnthropic"
+    },
+    { "id": "data:home", "type": "data", "file": "src/data/home.ts" },
+    { "id": "data:about", "type": "data", "file": "src/data/about.ts" },
+    {
+      "id": "data:navigation",
+      "type": "data",
+      "file": "src/data/navigation.ts",
+      "notes": "Must match App.tsx routes"
+    },
+    { "id": "data:socials", "type": "data", "file": "src/data/socials.ts" },
+    { "id": "data:contact", "type": "data", "file": "src/data/contact.ts" },
+    { "id": "data:projects", "type": "data", "file": "src/data/projects.ts" },
+    { "id": "data:future-projects", "type": "data", "file": "src/data/futureProjects.ts" },
+    { "id": "data:experience", "type": "data", "file": "src/data/experience.ts" },
+    { "id": "data:resume", "type": "data", "file": "src/data/resume.ts" },
+    {
+      "id": "data:articles",
+      "type": "data",
+      "file": "src/data/articles.ts",
+      "notes": "articleOrder slugs"
+    },
+    { "id": "data:paths", "type": "data", "file": "src/data/paths.ts", "notes": "UI edit hints" },
+    {
+      "id": "data:algorithm-categories",
+      "type": "data",
+      "file": "src/data/algorithmCategories.ts"
+    },
+    { "id": "data:coding-patterns", "type": "data", "file": "src/data/codingPatterns.ts" },
+    {
+      "id": "data:coding-pattern-topics",
+      "type": "data",
+      "file": "src/data/codingPatternTopics.tsx"
+    },
+    { "id": "data:algorithms-info", "type": "data", "file": "src/data/algorithmsInfo.ts" },
+
+    {
+      "id": "util:markdown",
+      "type": "util",
+      "file": "src/utils/markdown.ts",
+      "notes": "99% coverage required"
+    },
+    {
+      "id": "util:frontmatter",
+      "type": "util",
+      "file": "src/utils/frontmatter.ts",
+      "notes": "99% coverage required"
+    },
+    {
+      "id": "util:load-articles",
+      "type": "util",
+      "file": "src/utils/loadArticles.ts",
+      "notes": "Lazy markdown glob"
+    },
+    {
+      "id": "util:sliding-window-steps",
+      "type": "util",
+      "file": "src/utils/slidingWindowSteps.ts"
+    },
+
+    {
+      "id": "component:interactive-card",
+      "type": "component",
+      "file": "src/components/InteractiveCard.tsx",
+      "notes": "Hub/card shell, quad density default"
+    },
+    {
+      "id": "component:learning-interactive-card",
+      "type": "component",
+      "file": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "component:learning-hub-layout",
+      "type": "component",
+      "file": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "component:learning-sandbox-layout",
+      "type": "component",
+      "file": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    { "id": "component:seo", "type": "component", "file": "src/components/Seo.tsx" },
+    {
+      "id": "component:interactive-particles",
+      "type": "component",
+      "file": "src/components/InteractiveParticles.tsx"
+    },
+    { "id": "component:reveal", "type": "component", "file": "src/components/Reveal.tsx" },
+    {
+      "id": "component:project-card",
+      "type": "component",
+      "file": "src/components/ProjectCard.tsx"
+    },
+    {
+      "id": "component:experience-card",
+      "type": "component",
+      "file": "src/components/ExperienceCard.tsx"
+    },
+    {
+      "id": "component:god-sphere",
+      "type": "component",
+      "file": "src/components/canvas/GodSphere.tsx",
+      "notes": "Protected — do not remove"
+    },
+    {
+      "id": "component:anomaly-matrix",
+      "type": "component",
+      "file": "src/components/canvas/AnomalyMatrix.tsx"
+    },
+    {
+      "id": "component:gravity-well",
+      "type": "component",
+      "file": "src/components/canvas/GravityWell.tsx"
+    },
+    {
+      "id": "component:quantum-mesh",
+      "type": "component",
+      "file": "src/components/canvas/QuantumMesh.tsx"
+    },
+
+    { "id": "route:/", "type": "route", "path": "/", "file": "src/pages/Home.tsx" },
+    { "id": "route:/about", "type": "route", "path": "/about", "file": "src/pages/About.tsx" },
+    {
+      "id": "route:/experience",
+      "type": "route",
+      "path": "/experience",
+      "file": "src/pages/Experience.tsx"
+    },
+    {
+      "id": "route:/projects",
+      "type": "route",
+      "path": "/projects",
+      "file": "src/pages/Projects.tsx"
+    },
+    {
+      "id": "route:/writing",
+      "type": "route",
+      "path": "/writing",
+      "file": "src/pages/Writing.tsx"
+    },
+    {
+      "id": "route:/writing/:slug",
+      "type": "route",
+      "path": "/writing/:slug",
+      "file": "src/pages/Article.tsx"
+    },
+    { "id": "route:/resume", "type": "route", "path": "/resume", "file": "src/pages/Resume.tsx" },
+    {
+      "id": "route:/motion",
+      "type": "route",
+      "path": "/motion",
+      "file": "src/pages/MotionLab.tsx"
+    },
+    {
+      "id": "route:/algorithm",
+      "type": "route",
+      "path": "/algorithm",
+      "file": "src/pages/Algorithms.tsx",
+      "notes": "Singular path"
+    },
+    {
+      "id": "route:/learning",
+      "type": "route",
+      "path": "/learning",
+      "file": "src/pages/Learning.tsx"
+    },
+    {
+      "id": "route:/learning/coding-patterns",
+      "type": "route",
+      "path": "/learning/coding-patterns",
+      "file": "src/pages/CodingPatterns.tsx"
+    },
+    {
+      "id": "route:/learning/coding-patterns/sliding-window",
+      "type": "route",
+      "path": "/learning/coding-patterns/sliding-window",
+      "file": "src/pages/learning-algorithms/SlidingWindow.tsx"
+    },
+    {
+      "id": "route:/learning/algorithm",
+      "type": "route",
+      "path": "/learning/algorithm",
+      "file": "src/pages/LearningAlgorithmHub.tsx"
+    },
+    {
+      "id": "route:/learning/algorithm/search",
+      "type": "route",
+      "path": "/learning/algorithm/search",
+      "file": "src/pages/learning-algorithms/AlgorithmSearch.tsx"
+    },
+    {
+      "id": "route:/learning/algorithm/graph",
+      "type": "route",
+      "path": "/learning/algorithm/graph",
+      "file": "src/pages/learning-algorithms/AlgorithmGraph.tsx"
+    },
+    {
+      "id": "route:/learning/algorithm/dp",
+      "type": "route",
+      "path": "/learning/algorithm/dp",
+      "file": "src/pages/learning-algorithms/AlgorithmDP.tsx"
+    },
+    {
+      "id": "route:/learning/algorithm/greedy",
+      "type": "route",
+      "path": "/learning/algorithm/greedy",
+      "file": "src/pages/learning-algorithms/AlgorithmGreedy.tsx"
+    },
+    {
+      "id": "route:/learning/algorithm/trees",
+      "type": "route",
+      "path": "/learning/algorithm/trees",
+      "file": "src/pages/learning-algorithms/AlgorithmTrees.tsx"
+    },
+    {
+      "id": "route:/learning/system-design-concepts",
+      "type": "route",
+      "path": "/learning/system-design-concepts",
+      "file": "src/pages/learning-algorithms/SystemDesignConcepts.tsx"
+    },
+    {
+      "id": "route:/learning/system-design-concepts/consistency",
+      "type": "route",
+      "path": "/learning/system-design-concepts/consistency",
+      "file": "src/pages/learning-algorithms/ConsistencyModels.tsx"
+    },
+    {
+      "id": "route:/learning/system-design-concepts/load-balancing",
+      "type": "route",
+      "path": "/learning/system-design-concepts/load-balancing",
+      "file": "src/pages/learning-algorithms/LoadBalancing.tsx"
+    },
+    {
+      "id": "route:/learning/system-design-concepts/caching",
+      "type": "route",
+      "path": "/learning/system-design-concepts/caching",
+      "file": "src/pages/learning-algorithms/CachingStrategies.tsx"
+    },
+    {
+      "id": "route:/learning/system-design-concepts/database-sharding",
+      "type": "route",
+      "path": "/learning/system-design-concepts/database-sharding",
+      "file": "src/pages/learning-algorithms/DatabaseSharding.tsx"
+    },
+    {
+      "id": "route:/learning/system-design-concepts/cdn",
+      "type": "route",
+      "path": "/learning/system-design-concepts/cdn",
+      "file": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx"
+    },
+    {
+      "id": "route:/aether-lab",
+      "type": "route",
+      "path": "/aether-lab",
+      "file": "src/pages/AetherLab.tsx",
+      "notes": "Immersive — no footer"
+    },
+    {
+      "id": "route:/contact",
+      "type": "route",
+      "path": "/contact",
+      "file": "src/pages/Contact.tsx"
+    },
+    { "id": "route:404", "type": "route", "path": "/*", "file": "src/pages/NotFound.tsx" },
+
+    {
+      "id": "content:designing-for-reliability",
+      "type": "content",
+      "file": "src/content/articles/designing-for-reliability.md"
+    },
+    {
+      "id": "content:notes-on-api-design",
+      "type": "content",
+      "file": "src/content/articles/notes-on-api-design.md"
+    },
+    {
+      "id": "content:observability-without-overload",
+      "type": "content",
+      "file": "src/content/articles/observability-without-overload.md"
+    },
+    {
+      "id": "content:tradeoffs-in-distributed-systems",
+      "type": "content",
+      "file": "src/content/articles/tradeoffs-in-distributed-systems.md"
+    },
+    {
+      "id": "content:writing-as-engineering",
+      "type": "content",
+      "file": "src/content/articles/writing-as-engineering.md"
+    },
+
+    { "id": "script:validate", "type": "script", "file": "scripts/validate.mjs" },
+    { "id": "script:check-bundle-size", "type": "script", "file": "scripts/check-bundle-size.mjs" },
+    { "id": "script:verify-dist", "type": "script", "file": "scripts/verify-dist.mjs" },
+    { "id": "script:verify-kg", "type": "script", "file": "scripts/verify-knowledge-graph.mjs" },
+    { "id": "script:compile-resume", "type": "script", "file": "scripts/compile-resume.mjs" },
+    { "id": "doc:agents", "type": "data", "file": "AGENTS.md" },
+    {
+      "id": "doc:kg-instructions",
+      "type": "data",
+      "file": ".cursor/knowledge-graph/AGENT_INSTRUCTIONS.md"
+    }
+  ],
+  "edges": [
+    { "from": "entry:app", "to": "layout:root", "rel": "wraps" },
+    { "from": "layout:root", "to": "layout:immersive-routes", "rel": "uses" },
+    { "from": "layout:root", "to": "component:interactive-particles", "rel": "lazy_loads" },
+    { "from": "layout:root", "to": "layout:navbar", "rel": "uses" },
+    { "from": "layout:root", "to": "layout:footer", "rel": "uses" },
+    { "from": "layout:navbar", "to": "data:navigation", "rel": "reads" },
+
+    { "from": "data:index", "to": "data:profile", "rel": "depends_on" },
+    { "from": "data:index", "to": "data:home", "rel": "depends_on" },
+    { "from": "data:index", "to": "data:socials", "rel": "depends_on" },
+
+    { "from": "route:/", "to": "data:home", "rel": "reads" },
+    { "from": "route:/", "to": "data:profile", "rel": "reads" },
+    { "from": "route:/about", "to": "data:about", "rel": "reads" },
+    { "from": "route:/about", "to": "data:profile", "rel": "reads" },
+    { "from": "route:/experience", "to": "data:experience", "rel": "reads" },
+    { "from": "route:/experience", "to": "component:experience-card", "rel": "uses" },
+    { "from": "route:/projects", "to": "data:projects", "rel": "reads" },
+    { "from": "route:/projects", "to": "data:future-projects", "rel": "reads" },
+    { "from": "route:/projects", "to": "component:project-card", "rel": "uses" },
+    { "from": "route:/projects", "to": "component:interactive-card", "rel": "uses" },
+    { "from": "route:/writing", "to": "util:load-articles", "rel": "reads" },
+    { "from": "route:/writing", "to": "component:interactive-card", "rel": "uses" },
+    { "from": "route:/writing/:slug", "to": "util:load-articles", "rel": "reads" },
+    { "from": "route:/writing/:slug", "to": "util:markdown", "rel": "depends_on" },
+    { "from": "route:/contact", "to": "data:contact", "rel": "reads" },
+    { "from": "route:/resume", "to": "data:resume", "rel": "reads" },
+
+    { "from": "route:/learning", "to": "component:learning-hub-layout", "rel": "uses" },
+    { "from": "route:/learning", "to": "component:learning-interactive-card", "rel": "uses" },
+    {
+      "from": "route:/learning/coding-patterns",
+      "to": "data:coding-pattern-topics",
+      "rel": "reads"
+    },
+    {
+      "from": "route:/learning/coding-patterns",
+      "to": "component:learning-hub-layout",
+      "rel": "uses"
+    },
+    {
+      "from": "route:/learning/coding-patterns/sliding-window",
+      "to": "util:sliding-window-steps",
+      "rel": "uses"
+    },
+    { "from": "route:/learning/algorithm", "to": "data:algorithm-categories", "rel": "reads" },
+    {
+      "from": "route:/learning/system-design-concepts",
+      "to": "component:learning-hub-layout",
+      "rel": "uses"
+    },
+    { "from": "route:/algorithm", "to": "data:algorithms-info", "rel": "reads" },
+    { "from": "route:/aether-lab", "to": "component:anomaly-matrix", "rel": "lazy_loads" },
+    { "from": "route:/aether-lab", "to": "component:gravity-well", "rel": "lazy_loads" },
+    { "from": "route:/aether-lab", "to": "component:quantum-mesh", "rel": "lazy_loads" },
+    { "from": "component:anomaly-matrix", "to": "component:god-sphere", "rel": "uses" },
+
+    { "from": "util:load-articles", "to": "data:articles", "rel": "reads" },
+    { "from": "util:load-articles", "to": "util:markdown", "rel": "depends_on" },
+    { "from": "util:markdown", "to": "util:frontmatter", "rel": "depends_on" },
+
+    {
+      "from": "component:learning-interactive-card",
+      "to": "component:interactive-card",
+      "rel": "uses"
+    },
+    { "from": "component:project-card", "to": "component:interactive-card", "rel": "uses" },
+    { "from": "component:experience-card", "to": "component:interactive-card", "rel": "uses" },
+
+    { "from": "route:/learning", "to": "domain:learning", "rel": "part_of" },
+    { "from": "route:/learning/coding-patterns", "to": "domain:learning", "rel": "part_of" },
+    {
+      "from": "route:/learning/coding-patterns/sliding-window",
+      "to": "domain:learning",
+      "rel": "part_of"
+    },
+    { "from": "route:/learning/algorithm", "to": "domain:learning", "rel": "part_of" },
+    { "from": "route:/learning/system-design-concepts", "to": "domain:learning", "rel": "part_of" },
+    { "from": "route:/algorithm", "to": "domain:learning", "rel": "part_of" },
+    { "from": "route:/aether-lab", "to": "domain:visual", "rel": "part_of" },
+    { "from": "route:/motion", "to": "domain:visual", "rel": "part_of" },
+    { "from": "route:/writing", "to": "domain:writing", "rel": "part_of" },
+    { "from": "route:/resume", "to": "domain:resume", "rel": "part_of" },
+
+    { "from": "script:validate", "to": "script:check-bundle-size", "rel": "depends_on" },
+    { "from": "doc:agents", "to": "script:validate", "rel": "documents" },
+    { "from": "doc:kg-instructions", "to": "script:verify-kg", "rel": "documents" }
+  ]
+}

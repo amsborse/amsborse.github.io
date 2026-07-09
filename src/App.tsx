@@ -25,6 +25,10 @@ const SystemDesignConcepts = lazy(() => import("@/pages/learning-algorithms/Syst
 const ConsistencyModels = lazy(() => import("@/pages/learning-algorithms/ConsistencyModels"));
 const LoadBalancing = lazy(() => import("@/pages/learning-algorithms/LoadBalancing"));
 const CachingStrategies = lazy(() => import("@/pages/learning-algorithms/CachingStrategies"));
+const DatabaseSharding = lazy(() => import("@/pages/learning-algorithms/DatabaseSharding"));
+const ContentDeliveryNetwork = lazy(
+  () => import("@/pages/learning-algorithms/ContentDeliveryNetwork")
+);
 const AetherLab = lazy(() => import("@/pages/AetherLab"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
@@ -60,6 +64,11 @@ export default function App() {
             element={<LoadBalancing />}
           />
           <Route path="learning/system-design-concepts/caching" element={<CachingStrategies />} />
+          <Route
+            path="learning/system-design-concepts/database-sharding"
+            element={<DatabaseSharding />}
+          />
+          <Route path="learning/system-design-concepts/cdn" element={<ContentDeliveryNetwork />} />
           <Route path="learning/algorithm" element={<LearningAlgorithmHub />} />
           <Route path="learning/algorithm/search" element={<AlgorithmSearch />} />
           <Route path="learning/algorithm/graph" element={<AlgorithmGraph />} />

@@ -63,6 +63,19 @@ export default function About() {
         </h2>
         <BuildingCard text={about.building} />
 
+        {profile.whyAnthropic ? (
+          <>
+            <h2 className="mt-14 font-display text-xl font-medium tracking-tight text-[var(--color-ink)] sm:text-2xl">
+              {profile.whyAnthropic.heading}
+            </h2>
+            {profile.whyAnthropic.paragraphs.map((paragraph, i) => (
+              <p key={i} className="mt-6 text-lg leading-relaxed text-[var(--color-body)]">
+                {paragraph}
+              </p>
+            ))}
+          </>
+        ) : null}
+
         {about.showQuickReference ? (
           <p className="mt-12 text-xs text-[var(--color-ink-muted)] font-mono">
             Telemetry reference: {site.name} — {site.headline}

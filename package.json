@@ -20,6 +20,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "validate": "node scripts/validate.mjs",
+    "verify:kg": "node scripts/verify-knowledge-graph.mjs",
     "prepare": "husky"
   },
   "dependencies": {
