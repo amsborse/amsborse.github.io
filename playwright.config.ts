@@ -6,7 +6,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : [["list"]],
   use: {
-    baseURL: "http://localhost:5151",
+    baseURL: "http://localhost:1111",
     headless: true,
     screenshot: "only-on-failure",
     trace: "on-first-retry",
@@ -14,7 +14,7 @@ export default defineConfig({
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     command: "npm run dev",
-    url: "http://localhost:5151",
+    url: "http://localhost:1111",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

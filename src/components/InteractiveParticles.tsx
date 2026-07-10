@@ -13,6 +13,10 @@ interface Particle {
   wobbleIntensity: number;
   offsetX: number; // mouse attraction offset x
   offsetY: number; // mouse attraction offset y
+  lifePhase: number;
+  pulseSpeed: number;
+  influence: number;
+  interactionCharge: -1 | 1;
 }
 
 interface InteractiveParticlesProps {
@@ -51,6 +55,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     let lastDpr = window.devicePixelRatio || 1;
     let viewportScale = 1;
     let particles: Particle[] = [];
+    let elapsedFrames = 0;
 
     // Calibrate density against a 1920×1080 reference so the mesh stays equally rich on large displays.
     const REFERENCE_AREA = 1920 * 1080;
@@ -89,6 +94,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         "rgba(56, 189, 248, 0.72)", // Neon Cyan bright
         "rgba(245, 158, 11, 0.65)", // Cosmic Gold bright
         "rgba(236, 72, 153, 0.65)", // Nebula Pink bright
+        "rgba(74, 222, 128, 0.58)", // Living green bright
       ],
     };
 
@@ -163,6 +169,10 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           wobbleIntensity: Math.random() * 0.15 + 0.05,
           offsetX: 0,
           offsetY: 0,
+          lifePhase: Math.random() * Math.PI * 2,
+          pulseSpeed: Math.random() * 0.025 + 0.01,
+          influence: 0,
+          interactionCharge: Math.random() > 0.48 ? 1 : -1,
         });
       }
     };
@@ -184,6 +194,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
       scrollRef.current.velocity = scrollRef.current.velocity * 0.92 + scrollDiff * 0.08;
       const velocityImpact = Math.min(Math.max(scrollRef.current.velocity * 0.22, -15), 15);
+      elapsedFrames += isReducedMotion ? 0 : 1;
 
       // Calculate gradual buildup gravity physics (starts extremely slow to avoid distraction on random clicks)
       const holdDuration = mouseRef.current.isClicked ? Date.now() - mouseRef.current.clickTime : 0;
@@ -223,7 +234,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         const wrapHeight = height + padding * 2;
         wrappedVisualY = ((((visualY + padding) % wrapHeight) + wrapHeight) % wrapHeight) - padding;
 
-        // Apply magnetic mouse attraction when clicked, or gentle repulsion when not clicked
+        // Click gathers the mesh; hovering only disturbs nearby life into mixed responses.
         if (mouseRef.current.active && !isReducedMotion) {
           if (mouseRef.current.isClicked) {
             // Target coordinate relative to pointer
@@ -238,19 +249,26 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
             p.offsetX += (0 - p.offsetX) * 0.075;
             p.offsetY += (0 - p.offsetY) * 0.075;
 
-            // Apply standard gentle repulsion
+            // Hover leaves a soft trace: some nodes lean in, others push away, then all settle.
             const currentX = p.x + p.offsetX;
             const currentY = wrappedVisualY + p.offsetY;
             const dx = mouseRef.current.x - currentX;
             const dy = mouseRef.current.y - currentY;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 140 * viewportScale;
+            const maxDist = 105 * viewportScale;
 
             if (dist < maxDist) {
               const force = (maxDist - dist) / maxDist;
-              // Push outwards slightly
-              p.offsetX -= (dx / dist) * force * 4.5 * p.depth;
-              p.offsetY -= (dy / dist) * force * 4.5 * p.depth;
+              const safeDist = Math.max(dist, 0.001);
+              const direction = p.interactionCharge;
+              const responseStrength = direction > 0 ? 1.65 : 3.1;
+              const bend = Math.sin(p.lifePhase + elapsedFrames * p.pulseSpeed) * force * 1.35;
+
+              p.offsetX += (dx / safeDist) * force * responseStrength * p.depth * direction;
+              p.offsetY += (dy / safeDist) * force * responseStrength * p.depth * direction;
+              p.offsetX += (-dy / safeDist) * bend * p.depth;
+              p.offsetY += (dx / safeDist) * bend * p.depth;
+              p.influence = Math.max(p.influence, force);
             }
           }
         } else {
@@ -258,6 +276,8 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           p.offsetX += (0 - p.offsetX) * 0.075;
           p.offsetY += (0 - p.offsetY) * 0.075;
         }
+
+        p.influence *= 0.92;
 
         return {
           ...p,
@@ -268,13 +288,20 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
       // Draw Particles
       renderedParticles.forEach((p) => {
+        const livingPulse = isReducedMotion
+          ? 0
+          : (Math.sin(p.lifePhase + elapsedFrames * p.pulseSpeed) + 1) * 0.5;
+        const influenceGlow = Math.min(1, p.influence);
+        const particleRadius = p.radius + livingPulse * 0.45 + influenceGlow * 1.3 * p.depth;
+
         ctx.beginPath();
-        ctx.arc(p.visualX, p.visualY, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
+        ctx.arc(p.visualX, p.visualY, particleRadius, 0, Math.PI * 2);
+        ctx.fillStyle =
+          influenceGlow > 0.08 ? `rgba(167, 243, 208, ${0.3 + influenceGlow * 0.55})` : p.color;
 
         if (p.depth > 0.6) {
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 8 + influenceGlow * 12;
+          ctx.shadowColor = influenceGlow > 0.08 ? "rgba(74, 222, 128, 0.75)" : p.color;
         } else {
           ctx.shadowBlur = 0;
         }
@@ -299,13 +326,20 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           const maxLinkDist = isIntense ? baseMaxDist * 1.35 : baseMaxDist;
 
           if (dist < maxLinkDist) {
+            const influence = Math.max(p1.influence, p2.influence);
             const alpha =
               ((maxLinkDist - dist) / maxLinkDist) *
-              (p1.depth > 0.8 ? (isIntense ? 0.75 : 0.55) : isIntense ? 0.55 : 0.35);
+              (p1.depth > 0.8 ? (isIntense ? 0.75 : 0.55) : isIntense ? 0.55 : 0.35) *
+              (1 + influence * 0.75);
 
             ctx.strokeStyle =
-              p1.depth > 0.8 ? `rgba(56, 189, 248, ${alpha})` : `rgba(245, 158, 11, ${alpha})`;
+              influence > 0.08
+                ? `rgba(167, 243, 208, ${Math.min(0.9, alpha + influence * 0.35)})`
+                : p1.depth > 0.8
+                  ? `rgba(56, 189, 248, ${alpha})`
+                  : `rgba(245, 158, 11, ${alpha})`;
 
+            ctx.lineWidth = 0.8 + influence * 1.15;
             ctx.beginPath();
             ctx.moveTo(p1.visualX, p1.visualY);
             ctx.lineTo(p2.visualX, p2.visualY);
@@ -332,6 +366,26 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
             ctx.stroke();
           }
         }
+      }
+
+      if (mouseRef.current.active && !isReducedMotion) {
+        const rippleRadius = (36 + Math.sin(elapsedFrames * 0.06) * 9) * viewportScale;
+        const gradient = ctx.createRadialGradient(
+          mouseRef.current.x,
+          mouseRef.current.y,
+          0,
+          mouseRef.current.x,
+          mouseRef.current.y,
+          rippleRadius
+        );
+        gradient.addColorStop(0, "rgba(167, 243, 208, 0.2)");
+        gradient.addColorStop(0.45, "rgba(56, 189, 248, 0.1)");
+        gradient.addColorStop(1, "rgba(56, 189, 248, 0)");
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(mouseRef.current.x, mouseRef.current.y, rippleRadius, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       animationFrameId = requestAnimationFrame(draw);

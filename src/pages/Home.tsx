@@ -41,8 +41,8 @@ export default function Home() {
                 LIVING SYSTEMS
               </h2>
               <p className="text-lg text-white/50 leading-relaxed font-sans">
-                The world is not a collection of static pages. It is a reactive simulation, an
-                evolving architecture of thoughts and logic mapped into interactive structures.
+                Life is a living network. Whether we mean to or not, every move sends a signal,
+                bending what touches us and quietly rewriting the world around us.
               </p>
               <div className="mt-12 flex flex-col gap-4">
                 {["Architect", "Developer", "Creator"].map((item) => (
