@@ -1,0 +1,27 @@
+{
+  "path": "src/pages/Resume.tsx",
+  "purpose": "Defines ResumePage and related symbols in Resume.tsx",
+  "exports": [
+    "ResumePage"
+  ],
+  "imports": [
+    "@/components/Seo",
+    "react",
+    "framer-motion"
+  ],
+  "keySymbols": [
+    "ResumePage"
+  ],
+  "sideEffects": [
+    "filesystem I/O"
+  ],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "81a0606c7b15190c"
+}

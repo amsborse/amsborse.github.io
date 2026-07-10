@@ -1,0 +1,19 @@
+{
+  "path": "src/components/GlassPanel.tsx",
+  "purpose": "Defines GlassPanel and related symbols in GlassPanel.tsx",
+  "exports": [
+    "GlassPanel"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "GlassPanel"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f00eeebda767ff9c"
+}

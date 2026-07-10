@@ -1,0 +1,22 @@
+{
+  "path": "scripts/import-medium-html.js",
+  "purpose": "Source module (import-medium-html.js)",
+  "exports": [],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url",
+    "jsdom",
+    "turndown"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f4d80ac6dded30ee"
+}

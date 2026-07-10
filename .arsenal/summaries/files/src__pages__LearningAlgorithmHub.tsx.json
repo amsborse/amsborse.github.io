@@ -1,0 +1,27 @@
+{
+  "path": "src/pages/LearningAlgorithmHub.tsx",
+  "purpose": "Defines LearningAlgorithmHub and related symbols in LearningAlgorithmHub.tsx",
+  "exports": [
+    "LearningAlgorithmHub"
+  ],
+  "imports": [
+    "@/components/learning/LearningInteractiveCard",
+    "@/components/learning/LearningHubLayout",
+    "@/components/InteractiveCard",
+    "@/data/algorithmCategories"
+  ],
+  "keySymbols": [
+    "LearningAlgorithmHub"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/learning/LearningInteractiveCard.tsx",
+    "src/components/learning/LearningHubLayout.tsx",
+    "src/components/InteractiveCard.tsx",
+    "src/data/algorithmCategories.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "b372424ba53050ee"
+}

@@ -1,0 +1,19 @@
+{
+  "path": "src/data/about.ts",
+  "purpose": "Utility or entry module (about.ts)",
+  "exports": [
+    "about"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "about"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "7f4c2a13ae36bf5e"
+}

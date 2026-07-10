@@ -1,0 +1,22 @@
+{
+  "path": "src/data/articles.ts",
+  "purpose": "Utility or entry module (articles.ts)",
+  "exports": [
+    "articleOrder",
+    "ArticleSlug"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "articleOrder",
+    "ArticleSlug"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/index.ts",
+    "src/utils/loadArticles.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f0e68b73af6c904b"
+}

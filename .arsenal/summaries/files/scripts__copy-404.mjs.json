@@ -1,0 +1,20 @@
+{
+  "path": "scripts/copy-404.mjs",
+  "purpose": "Source module (copy-404.mjs)",
+  "exports": [],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f1871b3b6eff8448"
+}

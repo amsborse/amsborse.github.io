@@ -1,0 +1,58 @@
+{
+  "path": "src/data/index.ts",
+  "purpose": "Defines site and related symbols in index.ts",
+  "exports": [
+    "site"
+  ],
+  "imports": [
+    "@/data",
+    "./home",
+    "./socials",
+    "./profile",
+    "./articles",
+    "./about",
+    "./contact",
+    "./paths",
+    "./experience",
+    "./navigation",
+    "./projects",
+    "./futureProjects",
+    "./resume"
+  ],
+  "keySymbols": [
+    "site"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/index.ts",
+    "src/data/home.ts",
+    "src/data/socials.ts",
+    "src/data/profile.ts",
+    "src/data/articles.ts",
+    "src/data/about.ts",
+    "src/data/contact.ts",
+    "src/data/paths.ts",
+    "src/data/experience.ts",
+    "src/data/navigation.ts",
+    "src/data/projects.ts",
+    "src/data/futureProjects.ts",
+    "src/data/resume.ts"
+  ],
+  "usedBy": [
+    "src/components/ExperienceCard.tsx",
+    "src/components/ProjectCard.tsx",
+    "src/components/Seo.tsx",
+    "src/data/index.ts",
+    "src/layout/Footer.tsx",
+    "src/layout/Navbar.tsx",
+    "src/pages/About.tsx",
+    "src/pages/Article.tsx",
+    "src/pages/Contact.tsx",
+    "src/pages/Experience.tsx",
+    "src/pages/Projects.tsx",
+    "src/pages/Writing.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "7d264d6a156a46bd"
+}

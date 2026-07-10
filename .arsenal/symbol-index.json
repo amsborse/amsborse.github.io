@@ -1,0 +1,943 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-07-10T01:02:15.083Z",
+  "symbols": [
+    {
+      "name": "articleOrder",
+      "kind": "variable",
+      "file": "scripts/generate-article-index.mjs",
+      "exported": true
+    },
+    {
+      "name": "ArticleSlug",
+      "kind": "type",
+      "file": "scripts/generate-article-index.mjs",
+      "exported": true
+    },
+    {
+      "name": "mediumArticles",
+      "kind": "variable",
+      "file": "scripts/generate-medium-articles.mjs",
+      "exported": true
+    },
+    {
+      "name": "MediumArticle",
+      "kind": "type",
+      "file": "scripts/generate-medium-articles.mjs",
+      "exported": true
+    },
+    {
+      "name": "mediumTopRanked",
+      "kind": "variable",
+      "file": "scripts/generate-medium-top-ranked.mjs",
+      "exported": true
+    },
+    {
+      "name": "MediumTopRankedEntry",
+      "kind": "type",
+      "file": "scripts/generate-medium-top-ranked.mjs",
+      "exported": true
+    },
+    {
+      "name": "ResumePage",
+      "kind": "function",
+      "file": "scripts/patch_resume.cjs",
+      "exported": true
+    },
+    {
+      "name": "ResumePage",
+      "kind": "function",
+      "file": "scripts/patch_resume.js",
+      "exported": true
+    },
+    {
+      "name": "App",
+      "kind": "function",
+      "file": "src/App.tsx",
+      "exported": true,
+      "module": "src"
+    },
+    {
+      "name": "Button",
+      "kind": "function",
+      "file": "src/components/Button.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "AnomalyMatrix",
+      "kind": "function",
+      "file": "src/components/canvas/AnomalyMatrix.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "GodSphere",
+      "kind": "function",
+      "file": "src/components/canvas/GodSphere.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "GravityWell",
+      "kind": "function",
+      "file": "src/components/canvas/GravityWell.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "QuantumMesh",
+      "kind": "function",
+      "file": "src/components/canvas/QuantumMesh.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "CosmicBackground",
+      "kind": "function",
+      "file": "src/components/CosmicBackground.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "ExperienceCard",
+      "kind": "function",
+      "file": "src/components/ExperienceCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "FutureProjectsSection",
+      "kind": "function",
+      "file": "src/components/FutureProjectsSection.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "GlassPanel",
+      "kind": "function",
+      "file": "src/components/GlassPanel.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardShell",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardSplit",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardHeader",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardBody",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardTags",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardFooter",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "ContentInteractiveCard",
+      "kind": "function",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "HUB_PAGE_CONTAINER",
+      "kind": "variable",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "HUB_CARD_GRID",
+      "kind": "variable",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "HubInteractiveCard",
+      "kind": "variable",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardDensity",
+      "kind": "type",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveCardStatus",
+      "kind": "type",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "HubCardProps",
+      "kind": "type",
+      "file": "src/components/InteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "InteractiveParticles",
+      "kind": "function",
+      "file": "src/components/InteractiveParticles.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "SortingPortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "SearchPortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "GraphPortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "DPPortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "GreedyPortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "TreePortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "LearningHubLayout",
+      "kind": "function",
+      "file": "src/components/learning/LearningHubLayout.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "LearningInteractiveCard",
+      "kind": "function",
+      "file": "src/components/learning/LearningInteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "LearningCardTopic",
+      "kind": "type",
+      "file": "src/components/learning/LearningInteractiveCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "LearningSandboxLayout",
+      "kind": "function",
+      "file": "src/components/learning/LearningSandboxLayout.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "StatPill",
+      "kind": "function",
+      "file": "src/components/learning/LearningSandboxLayout.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "PatternPortalVisual",
+      "kind": "function",
+      "file": "src/components/learning/patternVisuals.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "MorphingSphere",
+      "kind": "function",
+      "file": "src/components/MorphingSphere.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "PageHeader",
+      "kind": "function",
+      "file": "src/components/PageHeader.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "ProjectCard",
+      "kind": "function",
+      "file": "src/components/ProjectCard.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "ReadingProgress",
+      "kind": "function",
+      "file": "src/components/ReadingProgress.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "Reveal",
+      "kind": "function",
+      "file": "src/components/Reveal.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "SectionHeading",
+      "kind": "function",
+      "file": "src/components/SectionHeading.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "Seo",
+      "kind": "function",
+      "file": "src/components/Seo.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "TableOfContents",
+      "kind": "function",
+      "file": "src/components/TableOfContents.tsx",
+      "exported": true,
+      "module": "src/components"
+    },
+    {
+      "name": "about",
+      "kind": "variable",
+      "file": "src/data/about.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "ALGORITHM_CATEGORIES",
+      "kind": "variable",
+      "file": "src/data/algorithmCategories.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "algorithmsData",
+      "kind": "variable",
+      "file": "src/data/algorithmsInfo.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "AlgorithmInfo",
+      "kind": "type",
+      "file": "src/data/algorithmsInfo.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "articleOrder",
+      "kind": "variable",
+      "file": "src/data/articles.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "ArticleSlug",
+      "kind": "type",
+      "file": "src/data/articles.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "CODING_PATTERNS",
+      "kind": "variable",
+      "file": "src/data/codingPatterns.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "CodingPattern",
+      "kind": "type",
+      "file": "src/data/codingPatterns.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "CODING_PATTERN_TOPICS",
+      "kind": "variable",
+      "file": "src/data/codingPatternTopics.tsx",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "contactPage",
+      "kind": "variable",
+      "file": "src/data/contact.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "experience",
+      "kind": "variable",
+      "file": "src/data/experience.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "futureProjects",
+      "kind": "variable",
+      "file": "src/data/futureProjects.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "FutureProject",
+      "kind": "type",
+      "file": "src/data/futureProjects.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "home",
+      "kind": "variable",
+      "file": "src/data/home.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "site",
+      "kind": "variable",
+      "file": "src/data/index.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "navItems",
+      "kind": "variable",
+      "file": "src/data/navigation.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "contentPaths",
+      "kind": "variable",
+      "file": "src/data/paths.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "profile",
+      "kind": "variable",
+      "file": "src/data/profile.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "projectCategories",
+      "kind": "variable",
+      "file": "src/data/projects.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "projects",
+      "kind": "variable",
+      "file": "src/data/projects.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "resume",
+      "kind": "variable",
+      "file": "src/data/resume.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "SLIDING_WINDOW_PROBLEMS",
+      "kind": "variable",
+      "file": "src/data/slidingWindowProblems.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "WindowInputKind",
+      "kind": "type",
+      "file": "src/data/slidingWindowProblems.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "WindowStructureKind",
+      "kind": "type",
+      "file": "src/data/slidingWindowProblems.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "WindowValue",
+      "kind": "type",
+      "file": "src/data/slidingWindowProblems.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "WindowVisualStep",
+      "kind": "type",
+      "file": "src/data/slidingWindowProblems.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "SlidingWindowProblem",
+      "kind": "type",
+      "file": "src/data/slidingWindowProblems.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "links",
+      "kind": "variable",
+      "file": "src/data/socials.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "socialNav",
+      "kind": "variable",
+      "file": "src/data/socials.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "ExperienceEntry",
+      "kind": "type",
+      "file": "src/data/types.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "ProjectCategory",
+      "kind": "type",
+      "file": "src/data/types.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "Project",
+      "kind": "type",
+      "file": "src/data/types.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "ProjectCategoryDef",
+      "kind": "type",
+      "file": "src/data/types.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "NavItem",
+      "kind": "type",
+      "file": "src/data/types.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "SocialLinks",
+      "kind": "type",
+      "file": "src/data/types.ts",
+      "exported": true,
+      "module": "src/data"
+    },
+    {
+      "name": "useScrollOffset",
+      "kind": "function",
+      "file": "src/hooks/useParallax.ts",
+      "exported": true,
+      "module": "src/hooks"
+    },
+    {
+      "name": "usePrefersReducedMotion",
+      "kind": "function",
+      "file": "src/hooks/useParallax.ts",
+      "exported": true,
+      "module": "src/hooks"
+    },
+    {
+      "name": "useParallaxEnabled",
+      "kind": "function",
+      "file": "src/hooks/useParallax.ts",
+      "exported": true,
+      "module": "src/hooks"
+    },
+    {
+      "name": "useTilt",
+      "kind": "function",
+      "file": "src/hooks/useTilt.ts",
+      "exported": true,
+      "module": "src/hooks"
+    },
+    {
+      "name": "Footer",
+      "kind": "function",
+      "file": "src/layout/Footer.tsx",
+      "exported": true,
+      "module": "src/layout"
+    },
+    {
+      "name": "isImmersiveSandbox",
+      "kind": "function",
+      "file": "src/layout/immersiveRoutes.ts",
+      "exported": true,
+      "module": "src/layout"
+    },
+    {
+      "name": "shouldDisableGlobalEffects",
+      "kind": "function",
+      "file": "src/layout/immersiveRoutes.ts",
+      "exported": true,
+      "module": "src/layout"
+    },
+    {
+      "name": "Navbar",
+      "kind": "function",
+      "file": "src/layout/Navbar.tsx",
+      "exported": true,
+      "module": "src/layout"
+    },
+    {
+      "name": "RootLayout",
+      "kind": "function",
+      "file": "src/layout/RootLayout.tsx",
+      "exported": true,
+      "module": "src/layout"
+    },
+    {
+      "name": "About",
+      "kind": "function",
+      "file": "src/pages/About.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "AetherLab",
+      "kind": "function",
+      "file": "src/pages/AetherLab.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "Algorithms",
+      "kind": "function",
+      "file": "src/pages/Algorithms.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "Article",
+      "kind": "function",
+      "file": "src/pages/Article.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "CodingPatterns",
+      "kind": "function",
+      "file": "src/pages/CodingPatterns.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "ContactPage",
+      "kind": "function",
+      "file": "src/pages/Contact.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "ExperiencePage",
+      "kind": "function",
+      "file": "src/pages/Experience.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "Home",
+      "kind": "function",
+      "file": "src/pages/Home.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "AlgorithmDP",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "AlgorithmGraph",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "AlgorithmGreedy",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "AlgorithmSearch",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "AlgorithmTrees",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "CachingStrategiesPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/CachingStrategies.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "ConsistencyModelsPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "ContentDeliveryNetworkPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "DatabaseShardingPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "LoadBalancingPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/LoadBalancing.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "SlidingWindowPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "SystemDesignConceptsPage",
+      "kind": "function",
+      "file": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "Learning",
+      "kind": "function",
+      "file": "src/pages/Learning.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "LearningAlgorithmHub",
+      "kind": "function",
+      "file": "src/pages/LearningAlgorithmHub.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "MotionLab",
+      "kind": "function",
+      "file": "src/pages/MotionLab.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "NotFoundPage",
+      "kind": "function",
+      "file": "src/pages/NotFound.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "ProjectsPage",
+      "kind": "function",
+      "file": "src/pages/Projects.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "ResumePage",
+      "kind": "function",
+      "file": "src/pages/Resume.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "WritingPage",
+      "kind": "function",
+      "file": "src/pages/Writing.tsx",
+      "exported": true,
+      "module": "src/pages"
+    },
+    {
+      "name": "parseFrontmatter",
+      "kind": "function",
+      "file": "src/utils/frontmatter.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "FrontData",
+      "kind": "type",
+      "file": "src/utils/frontmatter.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "loadArticles",
+      "kind": "function",
+      "file": "src/utils/loadArticles.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "getAllPosts",
+      "kind": "function",
+      "file": "src/utils/loadArticles.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "getPostBySlug",
+      "kind": "function",
+      "file": "src/utils/loadArticles.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "getFeaturedPosts",
+      "kind": "function",
+      "file": "src/utils/loadArticles.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "parsePostMarkdown",
+      "kind": "function",
+      "file": "src/utils/markdown.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "TocItem",
+      "kind": "type",
+      "file": "src/utils/markdown.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "ParsedPost",
+      "kind": "type",
+      "file": "src/utils/markdown.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "generateSlidingWindowSteps",
+      "kind": "function",
+      "file": "src/utils/slidingWindowSteps.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "StepFormula",
+      "kind": "type",
+      "file": "src/utils/slidingWindowSteps.ts",
+      "exported": true,
+      "module": "src/utils"
+    },
+    {
+      "name": "ExecutionStep",
+      "kind": "type",
+      "file": "src/utils/slidingWindowSteps.ts",
+      "exported": true,
+      "module": "src/utils"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "path": "src/layout/RootLayout.tsx",
+  "purpose": "Defines RootLayout and related symbols in RootLayout.tsx",
+  "exports": [
+    "RootLayout"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "lenis",
+    "./Footer",
+    "./Navbar",
+    "@/layout/immersiveRoutes"
+  ],
+  "keySymbols": [
+    "RootLayout"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/layout/Footer.tsx",
+    "src/layout/Navbar.tsx",
+    "src/layout/immersiveRoutes.ts"
+  ],
+  "usedBy": [
+    "src/App.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "70c511d4512059e5"
+}

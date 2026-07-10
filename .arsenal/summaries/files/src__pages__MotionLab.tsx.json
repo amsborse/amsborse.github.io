@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/MotionLab.tsx",
+  "purpose": "Defines MotionLab and related symbols in MotionLab.tsx",
+  "exports": [
+    "MotionLab"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo",
+    "@/components/MorphingSphere"
+  ],
+  "keySymbols": [
+    "MotionLab"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/MorphingSphere.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "dcef6980c898c912"
+}

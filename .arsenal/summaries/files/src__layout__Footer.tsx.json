@@ -1,0 +1,24 @@
+{
+  "path": "src/layout/Footer.tsx",
+  "purpose": "Defines Footer and related symbols in Footer.tsx",
+  "exports": [
+    "Footer"
+  ],
+  "imports": [
+    "react-router-dom",
+    "@/data"
+  ],
+  "keySymbols": [
+    "Footer"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/index.ts"
+  ],
+  "usedBy": [
+    "src/layout/RootLayout.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "24321d54f75ff3e2"
+}

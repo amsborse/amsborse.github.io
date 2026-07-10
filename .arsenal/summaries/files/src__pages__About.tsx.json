@@ -1,0 +1,25 @@
+{
+  "path": "src/pages/About.tsx",
+  "purpose": "Defines About and related symbols in About.tsx",
+  "exports": [
+    "About"
+  ],
+  "imports": [
+    "@/components/Seo",
+    "@/components/InteractiveCard",
+    "@/data"
+  ],
+  "keySymbols": [
+    "About"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/InteractiveCard.tsx",
+    "src/data/index.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "1cd64bc13cc24bb7"
+}

@@ -1,0 +1,25 @@
+{
+  "path": "src/pages/Experience.tsx",
+  "purpose": "Defines ExperiencePage and related symbols in Experience.tsx",
+  "exports": [
+    "ExperiencePage"
+  ],
+  "imports": [
+    "@/components/ExperienceCard",
+    "@/components/Seo",
+    "@/data"
+  ],
+  "keySymbols": [
+    "ExperiencePage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/ExperienceCard.tsx",
+    "src/components/Seo.tsx",
+    "src/data/index.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "24e943be6cbaa798"
+}

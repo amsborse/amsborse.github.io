@@ -1,0 +1,26 @@
+{
+  "path": "src/pages/learning-algorithms/DatabaseSharding.tsx",
+  "purpose": "Defines DatabaseShardingPage and related symbols in DatabaseSharding.tsx",
+  "exports": [
+    "DatabaseShardingPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "DatabaseShardingPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "00e67ef0a54c0501"
+}

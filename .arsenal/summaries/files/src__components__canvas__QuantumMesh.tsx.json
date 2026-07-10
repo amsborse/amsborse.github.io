@@ -1,0 +1,19 @@
+{
+  "path": "src/components/canvas/QuantumMesh.tsx",
+  "purpose": "Defines QuantumMesh and related symbols in QuantumMesh.tsx",
+  "exports": [
+    "QuantumMesh"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "QuantumMesh"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "983683dfc9e0531d"
+}

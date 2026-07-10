@@ -1,0 +1,34 @@
+{
+  "path": "src/utils/markdown.ts",
+  "purpose": "Defines parsePostMarkdown and related symbols in markdown.ts",
+  "exports": [
+    "parsePostMarkdown",
+    "TocItem",
+    "ParsedPost"
+  ],
+  "imports": [
+    "marked",
+    "@/utils/frontmatter"
+  ],
+  "keySymbols": [
+    "parsePostMarkdown",
+    "TocItem",
+    "ParsedPost"
+  ],
+  "sideEffects": [
+    "console output"
+  ],
+  "dependsOn": [
+    "src/utils/frontmatter.ts"
+  ],
+  "usedBy": [
+    "src/components/TableOfContents.tsx",
+    "src/pages/Article.tsx",
+    "src/pages/Writing.tsx",
+    "src/utils/loadArticles.ts",
+    "tests/unit/markdown.test.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f76d6361a162e00f"
+}

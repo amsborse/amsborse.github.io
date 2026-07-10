@@ -1,0 +1,34 @@
+{
+  "path": "src/utils/loadArticles.ts",
+  "purpose": "Defines loadArticles and related symbols in loadArticles.ts",
+  "exports": [
+    "loadArticles",
+    "getAllPosts",
+    "getPostBySlug",
+    "getFeaturedPosts"
+  ],
+  "imports": [
+    "@/data/articles",
+    "@/utils/markdown"
+  ],
+  "keySymbols": [
+    "loadArticles",
+    "getAllPosts",
+    "getPostBySlug",
+    "getFeaturedPosts"
+  ],
+  "sideEffects": [
+    "console output"
+  ],
+  "dependsOn": [
+    "src/data/articles.ts",
+    "src/utils/markdown.ts"
+  ],
+  "usedBy": [
+    "src/pages/Article.tsx",
+    "src/pages/Writing.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f5f7a1ad35cf41af"
+}

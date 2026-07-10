@@ -8,3 +8,9 @@ coverage
 playwright-report
 test-results
 .husky/_
+.arsenal/cache/
+cleaned_resume.html
+extracted_resume.html
+tmp_resume/
+
+.arsenal/cache/

@@ -1,0 +1,25 @@
+{
+  "path": "src/data/socials.ts",
+  "purpose": "Defines links and related symbols in socials.ts",
+  "exports": [
+    "links",
+    "socialNav"
+  ],
+  "imports": [
+    "./types"
+  ],
+  "keySymbols": [
+    "links",
+    "socialNav"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/types.ts"
+  ],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "ecd0e29b22da28e1"
+}

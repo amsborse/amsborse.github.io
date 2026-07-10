@@ -1,0 +1,23 @@
+{
+  "path": "src/components/TableOfContents.tsx",
+  "purpose": "Defines TableOfContents and related symbols in TableOfContents.tsx",
+  "exports": [
+    "TableOfContents"
+  ],
+  "imports": [
+    "@/utils/markdown"
+  ],
+  "keySymbols": [
+    "TableOfContents"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/utils/markdown.ts"
+  ],
+  "usedBy": [
+    "src/pages/Article.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "15dd2e69352e9ebf"
+}

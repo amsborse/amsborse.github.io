@@ -1,0 +1,27 @@
+{
+  "path": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+  "purpose": "Defines SystemDesignConceptsPage and related symbols in SystemDesignConcepts.tsx",
+  "exports": [
+    "SystemDesignConceptsPage"
+  ],
+  "imports": [
+    "react",
+    "framer-motion",
+    "@/components/learning/LearningInteractiveCard",
+    "@/components/learning/LearningHubLayout",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "SystemDesignConceptsPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/learning/LearningInteractiveCard.tsx",
+    "src/components/learning/LearningHubLayout.tsx",
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "caaeaae85695451a"
+}

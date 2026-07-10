@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+  "purpose": "Defines AlgorithmGraph and related symbols in AlgorithmGraph.tsx",
+  "exports": [
+    "AlgorithmGraph"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo",
+    "@/components/learning/LearningSandboxLayout"
+  ],
+  "keySymbols": [
+    "AlgorithmGraph"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/learning/LearningSandboxLayout.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "a763e65ff976c372"
+}

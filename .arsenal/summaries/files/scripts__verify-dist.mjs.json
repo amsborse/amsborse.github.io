@@ -1,0 +1,20 @@
+{
+  "path": "scripts/verify-dist.mjs",
+  "purpose": "Source module (verify-dist.mjs)",
+  "exports": [],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "16f3a2700e8e1f56"
+}

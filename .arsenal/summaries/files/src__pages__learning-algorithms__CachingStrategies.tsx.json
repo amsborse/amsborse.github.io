@@ -1,0 +1,26 @@
+{
+  "path": "src/pages/learning-algorithms/CachingStrategies.tsx",
+  "purpose": "Defines CachingStrategiesPage and related symbols in CachingStrategies.tsx",
+  "exports": [
+    "CachingStrategiesPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "CachingStrategiesPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "3c43169d629856e7"
+}

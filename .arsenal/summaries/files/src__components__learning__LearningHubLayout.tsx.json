@@ -1,0 +1,30 @@
+{
+  "path": "src/components/learning/LearningHubLayout.tsx",
+  "purpose": "Defines LearningHubLayout and related symbols in LearningHubLayout.tsx",
+  "exports": [
+    "LearningHubLayout"
+  ],
+  "imports": [
+    "react-router-dom",
+    "react",
+    "@/components/Seo",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "LearningHubLayout"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [
+    "src/pages/CodingPatterns.tsx",
+    "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+    "src/pages/Learning.tsx",
+    "src/pages/LearningAlgorithmHub.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "53b47ea78d32d8b9"
+}

@@ -1,0 +1,19 @@
+{
+  "path": "src/components/Button.tsx",
+  "purpose": "Defines Button and related symbols in Button.tsx",
+  "exports": [
+    "Button"
+  ],
+  "imports": [
+    "react-router-dom"
+  ],
+  "keySymbols": [
+    "Button"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "b0902bb8c416fb6f"
+}

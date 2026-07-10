@@ -1,0 +1,19 @@
+{
+  "path": "src/hooks/useTilt.ts",
+  "purpose": "Defines useTilt and related symbols in useTilt.ts",
+  "exports": [
+    "useTilt"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "useTilt"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "30551fdcf46970e0"
+}

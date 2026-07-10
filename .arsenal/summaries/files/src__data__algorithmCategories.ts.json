@@ -1,0 +1,25 @@
+{
+  "path": "src/data/algorithmCategories.ts",
+  "purpose": "Defines ALGORITHM_CATEGORIES and related symbols in algorithmCategories.ts",
+  "exports": [
+    "ALGORITHM_CATEGORIES"
+  ],
+  "imports": [
+    "@/components/learning/LearningInteractiveCard",
+    "@/components/learning/algorithmCategoryVisuals"
+  ],
+  "keySymbols": [
+    "ALGORITHM_CATEGORIES"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/learning/LearningInteractiveCard.tsx",
+    "src/components/learning/algorithmCategoryVisuals.tsx"
+  ],
+  "usedBy": [
+    "src/pages/LearningAlgorithmHub.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "047e8f4f6d87da75"
+}

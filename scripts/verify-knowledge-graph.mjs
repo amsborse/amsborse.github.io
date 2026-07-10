@@ -73,8 +73,10 @@ function main() {
   }
 
   for (const appPath of appRoutes) {
+    if (appPath.includes(":")) continue;
     if (!graphRoutePaths.has(appPath) && appPath !== "/") {
-      console.warn(`⚠ Route in App.tsx not in graph: ${appPath}`);
+      console.error(`✗ Route in App.tsx not in graph: ${appPath}`);
+      failed = true;
     }
   }
 

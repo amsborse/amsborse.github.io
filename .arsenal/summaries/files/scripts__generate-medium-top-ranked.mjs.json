@@ -1,0 +1,26 @@
+{
+  "path": "scripts/generate-medium-top-ranked.mjs",
+  "purpose": "Defines mediumTopRanked and related symbols in generate-medium-top-ranked.mjs",
+  "exports": [
+    "mediumTopRanked",
+    "MediumTopRankedEntry"
+  ],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url"
+  ],
+  "keySymbols": [
+    "mediumTopRanked",
+    "MediumTopRankedEntry"
+  ],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "575216ed1ede0b75"
+}

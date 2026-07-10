@@ -1,0 +1,23 @@
+{
+  "path": "src/utils/slidingWindowSteps.ts",
+  "purpose": "Defines generateSlidingWindowSteps and related symbols in slidingWindowSteps.ts",
+  "exports": [
+    "generateSlidingWindowSteps",
+    "StepFormula",
+    "ExecutionStep"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "generateSlidingWindowSteps",
+    "StepFormula",
+    "ExecutionStep"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/pages/learning-algorithms/SlidingWindow.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "0b897a60789f10fa"
+}

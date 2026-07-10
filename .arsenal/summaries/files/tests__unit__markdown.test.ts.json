@@ -1,0 +1,18 @@
+{
+  "path": "tests/unit/markdown.test.ts",
+  "purpose": "Tests for related source modules (markdown.test.ts)",
+  "exports": [],
+  "imports": [
+    "vitest",
+    "@/utils/markdown"
+  ],
+  "keySymbols": [],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/utils/markdown.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "56f4ef00e8cb2029"
+}

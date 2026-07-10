@@ -1,0 +1,19 @@
+{
+  "path": "src/components/SectionHeading.tsx",
+  "purpose": "Utility or entry module (SectionHeading.tsx)",
+  "exports": [
+    "SectionHeading"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "SectionHeading"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/pages/Projects.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "afecae97973786f8"
+}

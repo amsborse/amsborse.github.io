@@ -1,0 +1,21 @@
+{
+  "path": "src/data/home.ts",
+  "purpose": "Utility or entry module (home.ts)",
+  "exports": [
+    "home"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "home"
+  ],
+  "sideEffects": [
+    "filesystem I/O"
+  ],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "d938d898586e528b"
+}

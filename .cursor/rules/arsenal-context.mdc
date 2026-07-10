@@ -1,0 +1,18 @@
+---
+description: Arsenal context optimization rules
+alwaysApply: true
+---
+
+Use `.arsenal/` as the primary repo knowledge layer. Use `.cursor/knowledge-graph/` for curated route/task entry points.
+
+Before editing:
+- inspect `.arsenal/memory/active-task.md`
+- inspect `.arsenal/repo-map.json` and relevant summaries
+- check `.cursor/knowledge-graph/AGENT_INSTRUCTIONS.md` for task-specific entry points
+- open only relevant source files
+
+After editing:
+- update active task
+- update `.cursor/knowledge-graph/graph.json` if routes/pages/components changed
+- run `npm run verify:kg` and `npm run verify:arsenal`
+- run `npm run validate` and relevant e2e tests

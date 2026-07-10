@@ -4,23 +4,23 @@ A static portfolio and writing site built with **React**, **Vite**, and **Tailwi
 
 ## Where to edit content (quick reference)
 
-| What                                                                                                           | File                                        |
-| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| **Profile** — name, headlines, subheadline, short bio, SEO, hero/footer lines, CTAs, optional artist–yogi line | `src/data/profile.ts`                       |
-| **Homepage** — credibility copy, section blurbs, highlight stats, hero quick links                             | `src/data/home.ts`                          |
-| **About page**                                                                                                 | `src/data/about.ts`                         |
-| **Projects**                                                                                                   | `src/data/projects.ts`                      |
-| **Experience / jobs**                                                                                          | `src/data/experience.ts`                    |
-| **Résumé page** — skills, achievements, PDF link                                                               | `src/data/resume.ts`                        |
-| **Navigation**                                                                                                 | `src/data/navigation.ts`                    |
-| **Social links, email, site URL**                                                                              | `src/data/socials.ts`                       |
-| **Contact page copy**                                                                                          | `src/data/contact.ts`                       |
-| **Article list order**                                                                                         | `src/data/articleIndex.ts` (`articleOrder`) |
-| **Article bodies (Markdown)**                                                                                  | `src/content/articles/*.md`                 |
-| **Article loading (code)**                                                                                     | `src/lib/articles.ts`                       |
-| **UI “where to edit” hints**                                                                                   | `src/data/paths.ts`                         |
+| What                                                                                                           | File                                    |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| **Profile** — name, headlines, subheadline, short bio, SEO, hero/footer lines, CTAs, optional artist–yogi line | `src/data/profile.ts`                   |
+| **Homepage** — credibility copy, section blurbs, highlight stats, hero quick links                             | `src/data/home.ts`                      |
+| **About page**                                                                                                 | `src/data/about.ts`                     |
+| **Projects**                                                                                                   | `src/data/projects.ts`                  |
+| **Experience / jobs**                                                                                          | `src/data/experience.ts`                |
+| **Résumé page** — skills, achievements, PDF link                                                               | `src/data/resume.ts`                    |
+| **Navigation**                                                                                                 | `src/data/navigation.ts`                |
+| **Social links, email, site URL**                                                                              | `src/data/socials.ts`                   |
+| **Contact page copy**                                                                                          | `src/data/contact.ts`                   |
+| **Article list order**                                                                                         | `src/data/articles.ts` (`articleOrder`) |
+| **Article bodies (Markdown)**                                                                                  | `src/content/articles/*.md`             |
+| **Article loading (code)**                                                                                     | `src/utils/loadArticles.ts`             |
+| **UI “where to edit” hints**                                                                                   | `src/data/paths.ts`                     |
 
-Import site-wide data: `import { site, projects, … } from '@/data'`. Article API: `import { getAllArticles, getArticleBySlug, … } from '@/lib/articles'`.
+Import site-wide data: `import { site, projects, … } from '@/data'`. Article API: `import { getAllArticles, getArticleBySlug, … } from '@/utils/loadArticles'`.
 
 ## Prerequisites
 
@@ -36,34 +36,36 @@ npm run dev
 
 Open the URL shown in the terminal (default `http://localhost:1111`).
 
-| Script                  | Description                                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------- |
-| `npm run dev`           | Vite dev server with HMR                                                              |
-| `npm run build`         | Typecheck + production build + `dist/404.html` + verify `dist/`                       |
-| `npm run build:docs`    | Same as **`build`**, then copy **`dist/` → `docs/`** for “Deploy from branch → /docs” |
-| `npm run preview`       | Serve `dist/` locally (same paths as production)                                      |
-| `npm run validate`      | Full quality gate: typecheck, lint, format, unit coverage, build                      |
-| `npm run test`          | Unit tests (Vitest)                                                                   |
-| `npm run test:coverage` | Unit tests + HTML coverage report in `coverage/`                                      |
-| `npm run test:e2e`      | Playwright smoke and interaction tests                                                |
-| `npm run lint`          | ESLint                                                                                |
-| `npm run format`        | Prettier write                                                                        |
-| `npm run import:medium` | Run Medium HTML import (see below) — pass folder path as argument                     |
+| Script                    | Description                                                                           |
+| ------------------------- | ------------------------------------------------------------------------------------- |
+| `npm run dev`             | Vite dev server with HMR                                                              |
+| `npm run build`           | Typecheck + production build + `dist/404.html` + verify `dist/`                       |
+| `npm run build:docs`      | Same as **`build`**, then copy **`dist/` → `docs/`** for “Deploy from branch → /docs” |
+| `npm run preview`         | Serve `dist/` locally (same paths as production)                                      |
+| `npm run validate`        | Full quality gate: typecheck, lint, format, unit coverage, build                      |
+| `npm run test`            | Unit tests (Vitest)                                                                   |
+| `npm run test:coverage`   | Unit tests + HTML coverage report in `coverage/`                                      |
+| `npm run test:e2e`        | Playwright smoke and interaction tests                                                |
+| `npm run lint`            | ESLint                                                                                |
+| `npm run format`          | Prettier write                                                                        |
+| `npm run verify:kg`       | Validate `.cursor/knowledge-graph/graph.json` vs routes and files                     |
+| `npm run verify:arsenal`  | Validate committed `.arsenal/` context workspace                                      |
+| `npm run context:refresh` | Regenerate `.arsenal/` index, summaries, and graph (local)                            |
 
-**Quality & agent guardrails** — See [`AGENTS.md`](AGENTS.md). Husky runs checks on commit/push. CI runs on every push/PR (`.github/workflows/ci.yml`). Enable branch protection: [`.github/BRANCH_PROTECTION.md`](.github/BRANCH_PROTECTION.md).
+**Quality & agent guardrails** — See [`AGENTS.md`](AGENTS.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md). Husky runs checks on commit/push. CI runs on every push/PR (`.github/workflows/ci.yml`). Enable branch protection: [`.github/BRANCH_PROTECTION.md`](.github/BRANCH_PROTECTION.md).
 
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
 
 ## Author guide: articles (hosted Markdown)
 
-**Where content lives** — Only **`src/content/articles/*.md`**. Layout, typography, and reading UI are in **`src/components/writing/`** and **`src/styles/index.css`** (`prose-article`, `.article-reading`). Do not put article prose in React components.
+**Where content lives** — Only **`src/content/articles/*.md`**. Layout, typography, and reading UI are in **`src/pages/Article.tsx`** and **`src/styles/index.css`** (`prose-article`, `.article-reading`). Do not put article prose in React components.
 
-**Routes** — **`/articles`** lists posts; **`/articles/:slug`** renders one post. Legacy **`/writing/:slug`** redirects to **`/articles/:slug`**. The **`/writing`** page is Medium stats + links (not the full article reader).
+**Routes** — **`/writing`** lists posts; **`/writing/:slug`** renders one post (e.g. `/writing/designing-for-reliability`).
 
 ### Add a new article by hand
 
 1. Create **`src/content/articles/your-slug.md`** with YAML frontmatter and the body below the second `---`.
-2. Add **`your-slug`** to **`articleOrder`** in **`src/data/articleIndex.ts`** (or omit it; unordered files still appear after the ordered list).
+2. Add **`your-slug`** to **`articleOrder`** in **`src/data/articles.ts`** (or omit it; unordered files still appear after the ordered list).
 3. Frontmatter fields supported:
 
 | Field            | Notes                                                                           |
@@ -92,7 +94,7 @@ node scripts/import-medium-html.js "C:/path/to/medium-export/posts"
 
 Optional:
 
-- **`--update-index`** — append each new slug to **`articleIndex.ts`** (skips drafts).
+- **`--update-index`** — append each new slug to **`src/data/articles.ts`** (skips drafts).
 - **`--only partial`** — import only files whose **derived slug** contains that substring (good for testing one post).
 
 Example (test one):
@@ -109,12 +111,12 @@ The script **does not rewrite your wording** — it strips Medium wrappers and c
 npm run dev
 ```
 
-Open **`/articles`** and the article URL shown in the terminal.
+Open **`/writing`** and **`/writing/your-slug`** in the dev server.
 
 ### How rendering works
 
-- **`src/lib/articles.ts`** eagerly loads all `*.md` via Vite’s `import.meta.glob`, parses frontmatter, and renders Markdown to HTML with **marked**.
-- **`getAllArticles()`**, **`getArticleBySlug(slug)`**, **`getFeaturedArticles()`**, **`getArticleMetadata()`** are the public API.
+- **`src/utils/loadArticles.ts`** eagerly loads all `*.md` via Vite’s `import.meta.glob`, parses frontmatter, and renders Markdown to HTML with **marked**.
+- **`getAllArticles()`**, **`getArticleBySlug(slug)`**, **`getFeaturedArticles()`** are the public API.
 - Table of contents is built from `##` / `###` / `####` headings in the Markdown source.
 
 ## Articles (markdown) — legacy note

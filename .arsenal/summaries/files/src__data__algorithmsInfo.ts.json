@@ -1,0 +1,21 @@
+{
+  "path": "src/data/algorithmsInfo.ts",
+  "purpose": "Utility or entry module (algorithmsInfo.ts)",
+  "exports": [
+    "algorithmsData",
+    "AlgorithmInfo"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "algorithmsData",
+    "AlgorithmInfo"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/pages/Algorithms.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "c71de2edbf8c5e87"
+}

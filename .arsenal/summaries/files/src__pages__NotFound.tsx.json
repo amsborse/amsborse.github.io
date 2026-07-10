@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/NotFound.tsx",
+  "purpose": "Defines NotFoundPage and related symbols in NotFound.tsx",
+  "exports": [
+    "NotFoundPage"
+  ],
+  "imports": [
+    "react-router-dom",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "NotFoundPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [
+    "src/pages/Article.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f7e4b259a321b7b7"
+}

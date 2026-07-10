@@ -1,0 +1,25 @@
+{
+  "path": "src/hooks/useParallax.ts",
+  "purpose": "Defines useScrollOffset and related symbols in useParallax.ts",
+  "exports": [
+    "useScrollOffset",
+    "usePrefersReducedMotion",
+    "useParallaxEnabled"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "useScrollOffset",
+    "usePrefersReducedMotion",
+    "useParallaxEnabled"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/components/ReadingProgress.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "11525c67a6ebedbe"
+}

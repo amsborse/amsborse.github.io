@@ -1,0 +1,19 @@
+{
+  "path": "scripts/compile-resume.mjs",
+  "purpose": "Source module (compile-resume.mjs)",
+  "exports": [],
+  "imports": [
+    "child_process",
+    "fs",
+    "path"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "b120d5c85c492657"
+}

@@ -1,0 +1,25 @@
+{
+  "path": "src/components/ProjectCard.tsx",
+  "purpose": "Defines ProjectCard and related symbols in ProjectCard.tsx",
+  "exports": [
+    "ProjectCard"
+  ],
+  "imports": [
+    "@/data",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "ProjectCard"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/index.ts",
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [
+    "src/pages/Projects.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "1e3a18121f439305"
+}

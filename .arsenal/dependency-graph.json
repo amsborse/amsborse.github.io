@@ -1,0 +1,697 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-07-10T01:02:15.086Z",
+  "edges": [
+    {
+      "from": "scripts/patch_resume.cjs",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "scripts/patch_resume.js",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/App.tsx",
+      "to": "src/layout/RootLayout.tsx"
+    },
+    {
+      "from": "src/App.tsx",
+      "to": "src/pages/Home.tsx"
+    },
+    {
+      "from": "src/components/canvas/AnomalyMatrix.tsx",
+      "to": "src/components/canvas/GodSphere.tsx"
+    },
+    {
+      "from": "src/components/ExperienceCard.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/components/ExperienceCard.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/components/FutureProjectsSection.tsx",
+      "to": "src/data/futureProjects.ts"
+    },
+    {
+      "from": "src/components/FutureProjectsSection.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/components/learning/LearningHubLayout.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/components/learning/LearningHubLayout.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/components/learning/LearningInteractiveCard.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/components/ProjectCard.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/components/ProjectCard.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/components/ReadingProgress.tsx",
+      "to": "src/hooks/useParallax.ts"
+    },
+    {
+      "from": "src/components/Seo.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/components/TableOfContents.tsx",
+      "to": "src/utils/markdown.ts"
+    },
+    {
+      "from": "src/data/algorithmCategories.ts",
+      "to": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "from": "src/data/algorithmCategories.ts",
+      "to": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "from": "src/data/codingPatternTopics.tsx",
+      "to": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "from": "src/data/codingPatternTopics.tsx",
+      "to": "src/components/learning/patternVisuals.tsx"
+    },
+    {
+      "from": "src/data/codingPatternTopics.tsx",
+      "to": "src/data/codingPatterns.ts"
+    },
+    {
+      "from": "src/data/contact.ts",
+      "to": "src/data/types.ts"
+    },
+    {
+      "from": "src/data/experience.ts",
+      "to": "src/data/types.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/home.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/socials.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/profile.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/articles.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/about.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/contact.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/paths.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/experience.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/navigation.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/projects.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/futureProjects.ts"
+    },
+    {
+      "from": "src/data/index.ts",
+      "to": "src/data/resume.ts"
+    },
+    {
+      "from": "src/data/navigation.ts",
+      "to": "src/data/types.ts"
+    },
+    {
+      "from": "src/data/projects.ts",
+      "to": "src/data/types.ts"
+    },
+    {
+      "from": "src/data/socials.ts",
+      "to": "src/data/types.ts"
+    },
+    {
+      "from": "src/layout/Footer.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/layout/Navbar.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/layout/RootLayout.tsx",
+      "to": "src/layout/Footer.tsx"
+    },
+    {
+      "from": "src/layout/RootLayout.tsx",
+      "to": "src/layout/Navbar.tsx"
+    },
+    {
+      "from": "src/layout/RootLayout.tsx",
+      "to": "src/layout/immersiveRoutes.ts"
+    },
+    {
+      "from": "src/main.tsx",
+      "to": "src/App.tsx"
+    },
+    {
+      "from": "src/main.tsx",
+      "to": "src/styles/index.css"
+    },
+    {
+      "from": "src/pages/About.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/About.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/About.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/pages/AetherLab.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Algorithms.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Algorithms.tsx",
+      "to": "src/data/algorithmsInfo.ts"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/components/ReadingProgress.tsx"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/components/TableOfContents.tsx"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/utils/loadArticles.ts"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/utils/markdown.ts"
+    },
+    {
+      "from": "src/pages/Article.tsx",
+      "to": "src/pages/NotFound.tsx"
+    },
+    {
+      "from": "src/pages/CodingPatterns.tsx",
+      "to": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/CodingPatterns.tsx",
+      "to": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "from": "src/pages/CodingPatterns.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/CodingPatterns.tsx",
+      "to": "src/data/codingPatternTopics.tsx"
+    },
+    {
+      "from": "src/pages/Contact.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Contact.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/Contact.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/pages/Experience.tsx",
+      "to": "src/components/ExperienceCard.tsx"
+    },
+    {
+      "from": "src/pages/Experience.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Experience.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/pages/Home.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "to": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "to": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "to": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "to": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "to": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/CachingStrategies.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/LoadBalancing.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "to": "src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "from": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "to": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "to": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "from": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/Learning.tsx",
+      "to": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/Learning.tsx",
+      "to": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "from": "src/pages/Learning.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/LearningAlgorithmHub.tsx",
+      "to": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/LearningAlgorithmHub.tsx",
+      "to": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "from": "src/pages/LearningAlgorithmHub.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/LearningAlgorithmHub.tsx",
+      "to": "src/data/algorithmCategories.ts"
+    },
+    {
+      "from": "src/pages/MotionLab.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/MotionLab.tsx",
+      "to": "src/components/MorphingSphere.tsx"
+    },
+    {
+      "from": "src/pages/NotFound.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Projects.tsx",
+      "to": "src/components/ProjectCard.tsx"
+    },
+    {
+      "from": "src/pages/Projects.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/Projects.tsx",
+      "to": "src/components/SectionHeading.tsx"
+    },
+    {
+      "from": "src/pages/Projects.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Projects.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/pages/Projects.tsx",
+      "to": "src/components/FutureProjectsSection.tsx"
+    },
+    {
+      "from": "src/pages/Resume.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Writing.tsx",
+      "to": "src/components/Reveal.tsx"
+    },
+    {
+      "from": "src/pages/Writing.tsx",
+      "to": "src/components/Seo.tsx"
+    },
+    {
+      "from": "src/pages/Writing.tsx",
+      "to": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "from": "src/pages/Writing.tsx",
+      "to": "src/data/index.ts"
+    },
+    {
+      "from": "src/pages/Writing.tsx",
+      "to": "src/utils/loadArticles.ts"
+    },
+    {
+      "from": "src/pages/Writing.tsx",
+      "to": "src/utils/markdown.ts"
+    },
+    {
+      "from": "src/utils/loadArticles.ts",
+      "to": "src/data/articles.ts"
+    },
+    {
+      "from": "src/utils/loadArticles.ts",
+      "to": "src/utils/markdown.ts"
+    },
+    {
+      "from": "src/utils/markdown.ts",
+      "to": "src/utils/frontmatter.ts"
+    },
+    {
+      "from": "tests/unit/frontmatter.test.ts",
+      "to": "src/utils/frontmatter.ts"
+    },
+    {
+      "from": "tests/unit/markdown.test.ts",
+      "to": "src/utils/markdown.ts"
+    }
+  ],
+  "dependents": {
+    "src/components/Seo.tsx": [
+      "scripts/patch_resume.cjs",
+      "scripts/patch_resume.js",
+      "src/components/learning/LearningHubLayout.tsx",
+      "src/pages/About.tsx",
+      "src/pages/AetherLab.tsx",
+      "src/pages/Algorithms.tsx",
+      "src/pages/Article.tsx",
+      "src/pages/Contact.tsx",
+      "src/pages/Experience.tsx",
+      "src/pages/Home.tsx",
+      "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "src/pages/learning-algorithms/CachingStrategies.tsx",
+      "src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "src/pages/learning-algorithms/LoadBalancing.tsx",
+      "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "src/pages/MotionLab.tsx",
+      "src/pages/NotFound.tsx",
+      "src/pages/Projects.tsx",
+      "src/pages/Resume.tsx",
+      "src/pages/Writing.tsx"
+    ],
+    "src/layout/RootLayout.tsx": [
+      "src/App.tsx"
+    ],
+    "src/pages/Home.tsx": [
+      "src/App.tsx"
+    ],
+    "src/components/canvas/GodSphere.tsx": [
+      "src/components/canvas/AnomalyMatrix.tsx"
+    ],
+    "src/data/index.ts": [
+      "src/components/ExperienceCard.tsx",
+      "src/components/ProjectCard.tsx",
+      "src/components/Seo.tsx",
+      "src/data/index.ts",
+      "src/layout/Footer.tsx",
+      "src/layout/Navbar.tsx",
+      "src/pages/About.tsx",
+      "src/pages/Article.tsx",
+      "src/pages/Contact.tsx",
+      "src/pages/Experience.tsx",
+      "src/pages/Projects.tsx",
+      "src/pages/Writing.tsx"
+    ],
+    "src/components/InteractiveCard.tsx": [
+      "src/components/ExperienceCard.tsx",
+      "src/components/FutureProjectsSection.tsx",
+      "src/components/learning/LearningHubLayout.tsx",
+      "src/components/learning/LearningInteractiveCard.tsx",
+      "src/components/ProjectCard.tsx",
+      "src/pages/About.tsx",
+      "src/pages/CodingPatterns.tsx",
+      "src/pages/Contact.tsx",
+      "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "src/pages/Learning.tsx",
+      "src/pages/LearningAlgorithmHub.tsx",
+      "src/pages/Projects.tsx",
+      "src/pages/Writing.tsx"
+    ],
+    "src/data/futureProjects.ts": [
+      "src/components/FutureProjectsSection.tsx",
+      "src/data/index.ts"
+    ],
+    "src/hooks/useParallax.ts": [
+      "src/components/ReadingProgress.tsx"
+    ],
+    "src/utils/markdown.ts": [
+      "src/components/TableOfContents.tsx",
+      "src/pages/Article.tsx",
+      "src/pages/Writing.tsx",
+      "src/utils/loadArticles.ts",
+      "tests/unit/markdown.test.ts"
+    ],
+    "src/components/learning/LearningInteractiveCard.tsx": [
+      "src/data/algorithmCategories.ts",
+      "src/data/codingPatternTopics.tsx",
+      "src/pages/CodingPatterns.tsx",
+      "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "src/pages/Learning.tsx",
+      "src/pages/LearningAlgorithmHub.tsx"
+    ],
+    "src/components/learning/algorithmCategoryVisuals.tsx": [
+      "src/data/algorithmCategories.ts"
+    ],
+    "src/components/learning/patternVisuals.tsx": [
+      "src/data/codingPatternTopics.tsx"
+    ],
+    "src/data/codingPatterns.ts": [
+      "src/data/codingPatternTopics.tsx"
+    ],
+    "src/data/types.ts": [
+      "src/data/contact.ts",
+      "src/data/experience.ts",
+      "src/data/navigation.ts",
+      "src/data/projects.ts",
+      "src/data/socials.ts"
+    ],
+    "src/data/home.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/socials.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/profile.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/articles.ts": [
+      "src/data/index.ts",
+      "src/utils/loadArticles.ts"
+    ],
+    "src/data/about.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/contact.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/paths.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/experience.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/navigation.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/projects.ts": [
+      "src/data/index.ts"
+    ],
+    "src/data/resume.ts": [
+      "src/data/index.ts"
+    ],
+    "src/layout/Footer.tsx": [
+      "src/layout/RootLayout.tsx"
+    ],
+    "src/layout/Navbar.tsx": [
+      "src/layout/RootLayout.tsx"
+    ],
+    "src/layout/immersiveRoutes.ts": [
+      "src/layout/RootLayout.tsx"
+    ],
+    "src/App.tsx": [
+      "src/main.tsx"
+    ],
+    "src/styles/index.css": [
+      "src/main.tsx"
+    ],
+    "src/data/algorithmsInfo.ts": [
+      "src/pages/Algorithms.tsx"
+    ],
+    "src/components/ReadingProgress.tsx": [
+      "src/pages/Article.tsx"
+    ],
+    "src/components/TableOfContents.tsx": [
+      "src/pages/Article.tsx"
+    ],
+    "src/utils/loadArticles.ts": [
+      "src/pages/Article.tsx",
+      "src/pages/Writing.tsx"
+    ],
+    "src/pages/NotFound.tsx": [
+      "src/pages/Article.tsx"
+    ],
+    "src/components/learning/LearningHubLayout.tsx": [
+      "src/pages/CodingPatterns.tsx",
+      "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "src/pages/Learning.tsx",
+      "src/pages/LearningAlgorithmHub.tsx"
+    ],
+    "src/data/codingPatternTopics.tsx": [
+      "src/pages/CodingPatterns.tsx"
+    ],
+    "src/components/ExperienceCard.tsx": [
+      "src/pages/Experience.tsx"
+    ],
+    "src/components/learning/LearningSandboxLayout.tsx": [
+      "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "src/pages/learning-algorithms/AlgorithmTrees.tsx"
+    ],
+    "src/utils/slidingWindowSteps.ts": [
+      "src/pages/learning-algorithms/SlidingWindow.tsx"
+    ],
+    "src/data/algorithmCategories.ts": [
+      "src/pages/LearningAlgorithmHub.tsx"
+    ],
+    "src/components/MorphingSphere.tsx": [
+      "src/pages/MotionLab.tsx"
+    ],
+    "src/components/ProjectCard.tsx": [
+      "src/pages/Projects.tsx"
+    ],
+    "src/components/SectionHeading.tsx": [
+      "src/pages/Projects.tsx"
+    ],
+    "src/components/FutureProjectsSection.tsx": [
+      "src/pages/Projects.tsx"
+    ],
+    "src/components/Reveal.tsx": [
+      "src/pages/Writing.tsx"
+    ],
+    "src/utils/frontmatter.ts": [
+      "src/utils/markdown.ts",
+      "tests/unit/frontmatter.test.ts"
+    ]
+  }
+}

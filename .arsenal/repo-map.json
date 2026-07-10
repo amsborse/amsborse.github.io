@@ -1,0 +1,1664 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-07-10T01:02:15.075Z",
+  "root": "D:\\1 - Projects\\Projects\\Portfolio\\amsborse.github.io",
+  "projectType": "vite",
+  "stats": {
+    "totalFiles": 221,
+    "sourceFiles": 98,
+    "testFiles": 3,
+    "configFiles": 7,
+    "docFiles": 40
+  },
+  "modules": [
+    "src",
+    "src/components",
+    "src/content",
+    "src/data",
+    "src/hooks",
+    "src/layout",
+    "src/pages",
+    "src/sections",
+    "src/styles",
+    "src/utils"
+  ],
+  "files": [
+    {
+      "path": ".arsenal/analytics/agent-events.jsonl",
+      "kind": "other",
+      "extension": ".jsonl",
+      "size": 0,
+      "hash": "e3b0c44298fc1c14"
+    },
+    {
+      "path": ".arsenal/analytics/context-builds.jsonl",
+      "kind": "other",
+      "extension": ".jsonl",
+      "size": 0,
+      "hash": "e3b0c44298fc1c14"
+    },
+    {
+      "path": ".arsenal/analytics/dashboard-details.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 188,
+      "hash": "131975ad90a03bf6"
+    },
+    {
+      "path": ".arsenal/analytics/improvement-suggestions.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 69,
+      "hash": "d3289e528c52ffe5"
+    },
+    {
+      "path": ".arsenal/analytics/savings-report.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 370,
+      "hash": "301489e333a11914"
+    },
+    {
+      "path": ".arsenal/analytics/stale-knowledge-report.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 200,
+      "hash": "b6de1f95da0e5c36"
+    },
+    {
+      "path": ".arsenal/analytics/usage-log.jsonl",
+      "kind": "other",
+      "extension": ".jsonl",
+      "size": 0,
+      "hash": "e3b0c44298fc1c14"
+    },
+    {
+      "path": ".arsenal/config.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 667,
+      "hash": "795259ccb615e1e9"
+    },
+    {
+      "path": ".arsenal/memory/active-task.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 110,
+      "hash": "a2b6b6734e1c093a"
+    },
+    {
+      "path": ".arsenal/memory/compact-history.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 19,
+      "hash": "1c9c552dd5ab5765"
+    },
+    {
+      "path": ".arsenal/memory/conventions.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 58,
+      "hash": "4174100619ca62fd"
+    },
+    {
+      "path": ".arsenal/memory/decisions.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 73,
+      "hash": "896c33261bfb3ed9"
+    },
+    {
+      "path": ".arsenal/memory/pitfalls.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 54,
+      "hash": "85e4d285f6930be1"
+    },
+    {
+      "path": ".arsenal/prompts/agent-handoff.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 57,
+      "hash": "e17eb7b9b20397ec"
+    },
+    {
+      "path": ".arsenal/prompts/claude-context.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 80,
+      "hash": "cd60e24f01dd6a19"
+    },
+    {
+      "path": ".arsenal/prompts/cursor-context.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 80,
+      "hash": "4a3c4411bf7c3e60"
+    },
+    {
+      "path": ".arsenal/rules/AGENTS.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 707,
+      "hash": "e128f4d958ba3ab2"
+    },
+    {
+      "path": ".arsenal/rules/CLAUDE.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 425,
+      "hash": "dbba76bfbef0eafe"
+    },
+    {
+      "path": ".arsenal/rules/commands.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 64,
+      "hash": "b9765c4f5e78e609"
+    },
+    {
+      "path": ".arsenal/rules/context-policy.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 149,
+      "hash": "b4ba76b24d5baf60"
+    },
+    {
+      "path": ".arsenal/rules/cursor-rules.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 260,
+      "hash": "2c30727a6f28458b"
+    },
+    {
+      "path": ".arsenal/rules/testing-rules.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 143,
+      "hash": "bb4d1b4c140dee43"
+    },
+    {
+      "path": ".arsenal/summaries/architecture.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 95,
+      "hash": "9cf75e799ee83574"
+    },
+    {
+      "path": ".arsenal/summaries/public-api.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 40,
+      "hash": "02475d434d89b8bd"
+    },
+    {
+      "path": ".arsenal/summaries/tests.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 35,
+      "hash": "7087e8513d822662"
+    },
+    {
+      "path": ".cursor/knowledge-graph/AGENT_INSTRUCTIONS.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 5213,
+      "hash": "8018ecf4e5aae980"
+    },
+    {
+      "path": ".cursor/knowledge-graph/graph.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 16523,
+      "hash": "48387257fdcac9cc"
+    },
+    {
+      "path": ".cursor/knowledge-graph/README.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 2336,
+      "hash": "b43bdffcb88ea7c8"
+    },
+    {
+      "path": ".cursor/knowledge-graph/SCHEMA.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 2974,
+      "hash": "261a76e1b564f733"
+    },
+    {
+      "path": ".cursor/rules/agent-guardrails.mdc",
+      "kind": "other",
+      "extension": ".mdc",
+      "size": 846,
+      "hash": "aadba802d72f81f8"
+    },
+    {
+      "path": ".cursor/rules/arsenal-context.mdc",
+      "kind": "other",
+      "extension": ".mdc",
+      "size": 335,
+      "hash": "3ab00127839eb796"
+    },
+    {
+      "path": ".cursor/rules/knowledge-graph.mdc",
+      "kind": "other",
+      "extension": ".mdc",
+      "size": 982,
+      "hash": "03a62adbe8c30a65"
+    },
+    {
+      "path": ".cursor/rules/react-pages.mdc",
+      "kind": "other",
+      "extension": ".mdc",
+      "size": 466,
+      "hash": "01f74f7d8c148531"
+    },
+    {
+      "path": ".cursor/rules/testing.mdc",
+      "kind": "other",
+      "extension": ".mdc",
+      "size": 498,
+      "hash": "197aea6184b6ab1e"
+    },
+    {
+      "path": ".editorconfig",
+      "kind": "other",
+      "extension": ".editorconfig",
+      "size": 220,
+      "hash": "f3b037b140074f4f"
+    },
+    {
+      "path": ".env.example",
+      "kind": "other",
+      "extension": ".example",
+      "size": 167,
+      "hash": "e5ee020260a2237b"
+    },
+    {
+      "path": ".github/BRANCH_PROTECTION.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 846,
+      "hash": "c409fb479b2a1307"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "kind": "other",
+      "extension": ".github/CODEOWNERS",
+      "size": 445,
+      "hash": "97ae3f5829f92b85"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "kind": "other",
+      "extension": ".yml",
+      "size": 369,
+      "hash": "0481a354c741d4c9"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 454,
+      "hash": "a12b3a834a89bae3"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "kind": "other",
+      "extension": ".yml",
+      "size": 1298,
+      "hash": "fd2cca8b1f848a18"
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "kind": "other",
+      "extension": ".yml",
+      "size": 1352,
+      "hash": "70da3a6cda020325"
+    },
+    {
+      "path": ".gitignore",
+      "kind": "other",
+      "extension": ".gitignore",
+      "size": 128,
+      "hash": "b2c29ce6ba5af203"
+    },
+    {
+      "path": ".husky/pre-commit",
+      "kind": "other",
+      "extension": ".husky/pre-commit",
+      "size": 56,
+      "hash": "6b703e484a995b08"
+    },
+    {
+      "path": ".husky/pre-push",
+      "kind": "other",
+      "extension": ".husky/pre-push",
+      "size": 34,
+      "hash": "5adab656f3420df6"
+    },
+    {
+      "path": ".nvmrc",
+      "kind": "other",
+      "extension": ".nvmrc",
+      "size": 3,
+      "hash": "5378796307535df3"
+    },
+    {
+      "path": ".prettierignore",
+      "kind": "other",
+      "extension": ".prettierignore",
+      "size": 285,
+      "hash": "e34cf6756e8b06f8"
+    },
+    {
+      "path": ".prettierrc",
+      "kind": "other",
+      "extension": ".prettierrc",
+      "size": 107,
+      "hash": "824c8c55a71bac12"
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 4351,
+      "hash": "5314dc64b3a8f2e1"
+    },
+    {
+      "path": "CLAUDE.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 425,
+      "hash": "dbba76bfbef0eafe"
+    },
+    {
+      "path": "cleaned_resume.html",
+      "kind": "other",
+      "extension": ".html",
+      "size": 48642,
+      "hash": "8d908367b871206a"
+    },
+    {
+      "path": "docs/.nojekyll",
+      "kind": "doc",
+      "extension": ".nojekyll",
+      "size": 0,
+      "hash": "e3b0c44298fc1c14"
+    },
+    {
+      "path": "docs/404.html",
+      "kind": "doc",
+      "extension": ".html",
+      "size": 918,
+      "hash": "00f6f292dd0b6689"
+    },
+    {
+      "path": "docs/assets/Article-D3AJ1lqh.js",
+      "kind": "doc",
+      "extension": ".js",
+      "size": 4602,
+      "hash": "02a6bc1f056fad84"
+    },
+    {
+      "path": "docs/assets/index-DLOQmEzy.js",
+      "kind": "doc",
+      "extension": ".js",
+      "size": 322350,
+      "hash": "21ce858497fbdf76"
+    },
+    {
+      "path": "docs/assets/index-Don2Lvkz.css",
+      "kind": "doc",
+      "extension": ".css",
+      "size": 47453,
+      "hash": "405b44a94cdd6f2b"
+    },
+    {
+      "path": "docs/favicon.svg",
+      "kind": "doc",
+      "extension": ".svg",
+      "size": 309,
+      "hash": "7cb06047a41690b8"
+    },
+    {
+      "path": "docs/index.html",
+      "kind": "doc",
+      "extension": ".html",
+      "size": 918,
+      "hash": "00f6f292dd0b6689"
+    },
+    {
+      "path": "eslint.config.js",
+      "kind": "config",
+      "extension": ".js",
+      "size": 1103,
+      "hash": "4b973c1781576a48"
+    },
+    {
+      "path": "extracted_resume.html",
+      "kind": "other",
+      "extension": ".html",
+      "size": 49237,
+      "hash": "b4f83a99291d3a75"
+    },
+    {
+      "path": "images/1.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 193013,
+      "hash": "d3078dd566a770b3"
+    },
+    {
+      "path": "images/2.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 114161,
+      "hash": "7f95ec0608469e06"
+    },
+    {
+      "path": "images/3.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 172339,
+      "hash": "7bd819b18d233c34"
+    },
+    {
+      "path": "images/bbottom.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 11110,
+      "hash": "ce56532624353b98"
+    },
+    {
+      "path": "images/bg.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 13313,
+      "hash": "1bd6d469d7f96248"
+    },
+    {
+      "path": "images/bmid.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 3727,
+      "hash": "e5a35582a24cdd1e"
+    },
+    {
+      "path": "images/border1.png",
+      "kind": "asset",
+      "extension": ".png",
+      "size": 896,
+      "hash": "54dd40df9bf7f4bb"
+    },
+    {
+      "path": "images/border2.png",
+      "kind": "asset",
+      "extension": ".png",
+      "size": 183,
+      "hash": "b920cd64a49aa2bd"
+    },
+    {
+      "path": "images/btop.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 9899,
+      "hash": "608efa6a52629bce"
+    },
+    {
+      "path": "images/bullet.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 71,
+      "hash": "da6e8bcf0a3fb328"
+    },
+    {
+      "path": "images/frame.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 5692,
+      "hash": "916c110e9bc319f7"
+    },
+    {
+      "path": "images/icn-ad.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 616,
+      "hash": "d16cfb3fb2c82c42"
+    },
+    {
+      "path": "images/icn-contact.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 3780,
+      "hash": "597f051908ffc22b"
+    },
+    {
+      "path": "images/icn-facebook.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 4215,
+      "hash": "f903cf555d74ac0f"
+    },
+    {
+      "path": "images/icn-mail.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 630,
+      "hash": "0c8693b8fbd712b7"
+    },
+    {
+      "path": "images/icn-print.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 3976,
+      "hash": "6e14d4357a127b4b"
+    },
+    {
+      "path": "images/icn-save.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 719,
+      "hash": "e447c86dc8918cb3"
+    },
+    {
+      "path": "images/icn-tel.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 1032,
+      "hash": "842b6c782855d1e8"
+    },
+    {
+      "path": "images/icn-twitter.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 4123,
+      "hash": "966bb90e2215c4d6"
+    },
+    {
+      "path": "images/icn-web.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 573,
+      "hash": "78cac23994135c6f"
+    },
+    {
+      "path": "images/image.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 1857,
+      "hash": "26849c7d284d93aa"
+    },
+    {
+      "path": "images/loading.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 9427,
+      "hash": "a6eae7615a906bfb"
+    },
+    {
+      "path": "images/paperbottom.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 6368,
+      "hash": "06024468a7a14e95"
+    },
+    {
+      "path": "images/papertop.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 13216,
+      "hash": "fcff30b3c7ed256b"
+    },
+    {
+      "path": "images/pbottom.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 6834,
+      "hash": "077f5a54f7d4fd03"
+    },
+    {
+      "path": "images/pmid.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 3592,
+      "hash": "fbaacf5233ba568c"
+    },
+    {
+      "path": "images/ptop.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 14717,
+      "hash": "fe66f09785b0b1b6"
+    },
+    {
+      "path": "images/submit.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 6157,
+      "hash": "ab352f6136880c59"
+    },
+    {
+      "path": "images/tipsy.gif",
+      "kind": "asset",
+      "extension": ".gif",
+      "size": 867,
+      "hash": "7e9b87448f84fed9"
+    },
+    {
+      "path": "images/title.jpg",
+      "kind": "asset",
+      "extension": ".jpg",
+      "size": 15226,
+      "hash": "5ea4ea6125ce4d6f"
+    },
+    {
+      "path": "index.html",
+      "kind": "other",
+      "extension": ".html",
+      "size": 1099,
+      "hash": "ca165693433bffa3"
+    },
+    {
+      "path": "package.json",
+      "kind": "config",
+      "extension": ".json",
+      "size": 2121,
+      "hash": "1a822932471b2146"
+    },
+    {
+      "path": "playwright.config.ts",
+      "kind": "config",
+      "extension": ".ts",
+      "size": 615,
+      "hash": "ea7007248a1505e2"
+    },
+    {
+      "path": "public/.nojekyll",
+      "kind": "other",
+      "extension": ".nojekyll",
+      "size": 0,
+      "hash": "e3b0c44298fc1c14"
+    },
+    {
+      "path": "public/Akshay-Borse-Resume.pdf",
+      "kind": "other",
+      "extension": ".pdf",
+      "size": 156293,
+      "hash": "f2c75103032916eb"
+    },
+    {
+      "path": "public/favicon.svg",
+      "kind": "asset",
+      "extension": ".svg",
+      "size": 309,
+      "hash": "f5e5b43c30ce9b70"
+    },
+    {
+      "path": "public/resume.pdf",
+      "kind": "other",
+      "extension": ".pdf",
+      "size": 105994,
+      "hash": "0510e1ce067cb284"
+    },
+    {
+      "path": "public/robots.txt",
+      "kind": "doc",
+      "extension": ".txt",
+      "size": 76,
+      "hash": "7bcfe044fd9cabdd"
+    },
+    {
+      "path": "public/sitemap.xml",
+      "kind": "other",
+      "extension": ".xml",
+      "size": 1470,
+      "hash": "c4dcfd0ae43993e8"
+    },
+    {
+      "path": "README.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 13989,
+      "hash": "261a37ed26809db4"
+    },
+    {
+      "path": "resume/resume.tex",
+      "kind": "other",
+      "extension": ".tex",
+      "size": 10656,
+      "hash": "4caa43ccb19f59a9"
+    },
+    {
+      "path": "scripts/check-bundle-size.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 1025,
+      "hash": "c4700539fac39c32"
+    },
+    {
+      "path": "scripts/compile-resume.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 1723,
+      "hash": "b120d5c85c492657"
+    },
+    {
+      "path": "scripts/copy-404.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 524,
+      "hash": "f1871b3b6eff8448"
+    },
+    {
+      "path": "scripts/generate-article-index.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 2084,
+      "hash": "d1ed20bd9c78ee40"
+    },
+    {
+      "path": "scripts/generate-medium-articles.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 4941,
+      "hash": "ccf9ed7bc0a1b282"
+    },
+    {
+      "path": "scripts/generate-medium-top-ranked.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 6222,
+      "hash": "575216ed1ede0b75"
+    },
+    {
+      "path": "scripts/import-medium-html.js",
+      "kind": "source",
+      "extension": ".js",
+      "size": 6636,
+      "hash": "f4d80ac6dded30ee"
+    },
+    {
+      "path": "scripts/Medium_Performance_Analysis.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 1946,
+      "hash": "aae8f2e546e731f7"
+    },
+    {
+      "path": "scripts/Medium_Stats_With_Scoring.csv",
+      "kind": "other",
+      "extension": ".csv",
+      "size": 24239,
+      "hash": "2ad4482ccaffa7c3"
+    },
+    {
+      "path": "scripts/Medium_Top15_Ranked.csv",
+      "kind": "other",
+      "extension": ".csv",
+      "size": 4571,
+      "hash": "befffba3e840697f"
+    },
+    {
+      "path": "scripts/patch_resume.cjs",
+      "kind": "source",
+      "extension": ".cjs",
+      "size": 74362,
+      "hash": "471fe3c51c6cf5fb"
+    },
+    {
+      "path": "scripts/patch_resume.js",
+      "kind": "source",
+      "extension": ".js",
+      "size": 74390,
+      "hash": "fb8d84a38f02bf3a"
+    },
+    {
+      "path": "scripts/prune-css.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 1843,
+      "hash": "16f92a6ec47acefa"
+    },
+    {
+      "path": "scripts/start_replacement.txt",
+      "kind": "doc",
+      "extension": ".txt",
+      "size": 52661,
+      "hash": "066d1632cc3adc41"
+    },
+    {
+      "path": "scripts/sync-docs.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 897,
+      "hash": "036d3cd54bde3e1f"
+    },
+    {
+      "path": "scripts/validate.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 672,
+      "hash": "ec2ef135680ff7cc"
+    },
+    {
+      "path": "scripts/verify-dist.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 1934,
+      "hash": "16f3a2700e8e1f56"
+    },
+    {
+      "path": "scripts/verify-knowledge-graph.mjs",
+      "kind": "source",
+      "extension": ".mjs",
+      "size": 2996,
+      "hash": "f889d0037f7a9ff7"
+    },
+    {
+      "path": "src/App.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 4697,
+      "hash": "12071cc054743bc0",
+      "module": "src"
+    },
+    {
+      "path": "src/components/Button.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2064,
+      "hash": "b0902bb8c416fb6f",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/AnomalyMatrix.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1014,
+      "hash": "163269b3aa9068f7",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/GodSphere.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 5859,
+      "hash": "16d8c7ae77981b95",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/GravityWell.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 5528,
+      "hash": "92b1a182439e290a",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/QuantumMesh.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 6107,
+      "hash": "983683dfc9e0531d",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/CosmicBackground.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2192,
+      "hash": "90f9d9497de8a80f",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/ExperienceCard.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1602,
+      "hash": "4e6c0b1e5d8c8fad",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/FutureProjectsSection.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 18210,
+      "hash": "93e846e3ec791592",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/GlassPanel.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1215,
+      "hash": "f00eeebda767ff9c",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/InteractiveCard.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 12220,
+      "hash": "6c1c220126d03728",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/InteractiveParticles.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 18481,
+      "hash": "98f1d0d897d97f15",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 5381,
+      "hash": "5e4436aee8d00810",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/LearningHubLayout.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2835,
+      "hash": "53b47ea78d32d8b9",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/LearningInteractiveCard.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 517,
+      "hash": "4531b7cda64765c9",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/LearningSandboxLayout.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2240,
+      "hash": "0df309bbfa1e7b88",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/patternVisuals.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 7930,
+      "hash": "154788f4a8b63f02",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/MorphingSphere.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 21575,
+      "hash": "ec6d015d0054c61d",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/PageHeader.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1526,
+      "hash": "e94c43390625251d",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/ProjectCard.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 4664,
+      "hash": "1e3a18121f439305",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/ReadingProgress.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1459,
+      "hash": "c5083171703dbbb8",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/Reveal.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1955,
+      "hash": "3ee4aa4342525b38",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/SectionHeading.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 688,
+      "hash": "afecae97973786f8",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/Seo.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1971,
+      "hash": "f8ec29b12cb2d91d",
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/TableOfContents.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1945,
+      "hash": "15dd2e69352e9ebf",
+      "module": "src/components"
+    },
+    {
+      "path": "src/content/articles/designing-for-reliability.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 1726,
+      "hash": "3edaa832aa4ecef6",
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/notes-on-api-design.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 1503,
+      "hash": "18d307f7b129078c",
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/observability-without-overload.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 1083,
+      "hash": "6713b20591726dab",
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/tradeoffs-in-distributed-systems.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 1250,
+      "hash": "aa54e5c962151d67",
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/writing-as-engineering.md",
+      "kind": "doc",
+      "extension": ".md",
+      "size": 954,
+      "hash": "fce6db5fc58709fd",
+      "module": "src/content"
+    },
+    {
+      "path": "src/data/about.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 1329,
+      "hash": "7f4c2a13ae36bf5e",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/algorithmCategories.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 2854,
+      "hash": "047e8f4f6d87da75",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/algorithmsInfo.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 11123,
+      "hash": "c71de2edbf8c5e87",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/articles.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 440,
+      "hash": "f0e68b73af6c904b",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/codingPatterns.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 6655,
+      "hash": "25e734cd5cc366c3",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/codingPatternTopics.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 713,
+      "hash": "e57aaf67e9231f69",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/contact.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 911,
+      "hash": "05d7d7a5c234708b",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/experience.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 1921,
+      "hash": "8286c58461853c71",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/futureProjects.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 14342,
+      "hash": "bed126ec4ad542dc",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/home.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 1722,
+      "hash": "d938d898586e528b",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/index.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 1796,
+      "hash": "7d264d6a156a46bd",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/navigation.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 558,
+      "hash": "727edae7341b79e7",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/paths.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 408,
+      "hash": "b8ca9d8aa42e2b39",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/profile.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 3649,
+      "hash": "e67f60d93b45fe59",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/projects.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 3008,
+      "hash": "37ad378d36f17c8d",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/resume.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 2228,
+      "hash": "c6c5908beadeb79a",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/slidingWindowProblems.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 31741,
+      "hash": "5ce88b29e7690bb3",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/socials.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 995,
+      "hash": "ecd0e29b22da28e1",
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/types.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 988,
+      "hash": "eac6c93b81dbf4e9",
+      "module": "src/data"
+    },
+    {
+      "path": "src/hooks/useParallax.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 1751,
+      "hash": "11525c67a6ebedbe",
+      "module": "src/hooks"
+    },
+    {
+      "path": "src/hooks/useTilt.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 2917,
+      "hash": "30551fdcf46970e0",
+      "module": "src/hooks"
+    },
+    {
+      "path": "src/layout/Footer.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2514,
+      "hash": "24321d54f75ff3e2",
+      "module": "src/layout"
+    },
+    {
+      "path": "src/layout/immersiveRoutes.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 377,
+      "hash": "a1dc1fbb09944bbf",
+      "module": "src/layout"
+    },
+    {
+      "path": "src/layout/Navbar.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 3033,
+      "hash": "703eba02b641b780",
+      "module": "src/layout"
+    },
+    {
+      "path": "src/layout/RootLayout.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 3691,
+      "hash": "70c511d4512059e5",
+      "module": "src/layout"
+    },
+    {
+      "path": "src/main.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 241,
+      "hash": "0747f98d63c99393",
+      "module": "src"
+    },
+    {
+      "path": "src/pages/About.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 3144,
+      "hash": "1cd64bc13cc24bb7",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/AetherLab.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 15400,
+      "hash": "ca4d94df833eb40e",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Algorithms.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 57612,
+      "hash": "b9f17e62bc75b59b",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Article.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 4406,
+      "hash": "2c25c9f526b1406b",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/CodingPatterns.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2700,
+      "hash": "90d9367d3f2ed3df",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Contact.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2718,
+      "hash": "0e670720d43e5494",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Experience.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1268,
+      "hash": "24e943be6cbaa798",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Home.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 2924,
+      "hash": "786a8a4da10f687b",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 4001,
+      "hash": "bf313e6a85b85b61",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 4841,
+      "hash": "a763e65ff976c372",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 3949,
+      "hash": "097ab84bc2e89f8b",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 5728,
+      "hash": "fd095db385939cde",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 5808,
+      "hash": "f3581f424984e021",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/CachingStrategies.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 31185,
+      "hash": "3c43169d629856e7",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 37349,
+      "hash": "a0a17deb7214e2bc",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 21493,
+      "hash": "236c96489c7ef662",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 25555,
+      "hash": "00e67ef0a54c0501",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/LoadBalancing.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 26014,
+      "hash": "66def7eed06fd87d",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 23726,
+      "hash": "949b64cd85c2e413",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 16703,
+      "hash": "caaeaae85695451a",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Learning.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 15187,
+      "hash": "04a77f5291168d8f",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/LearningAlgorithmHub.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1230,
+      "hash": "b372424ba53050ee",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/MotionLab.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 8584,
+      "hash": "dcef6980c898c912",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/NotFound.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 1341,
+      "hash": "f7e4b259a321b7b7",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Projects.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 3386,
+      "hash": "8cb88221cc024c3c",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Resume.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 106716,
+      "hash": "81a0606c7b15190c",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Writing.tsx",
+      "kind": "source",
+      "extension": ".tsx",
+      "size": 4560,
+      "hash": "6b1f5f30334f374d",
+      "module": "src/pages"
+    },
+    {
+      "path": "src/sections/.gitkeep",
+      "kind": "other",
+      "extension": ".gitkeep",
+      "size": 0,
+      "hash": "e3b0c44298fc1c14",
+      "module": "src/sections"
+    },
+    {
+      "path": "src/styles/index.css",
+      "kind": "other",
+      "extension": ".css",
+      "size": 15586,
+      "hash": "e25afd6ce95f1143",
+      "module": "src/styles"
+    },
+    {
+      "path": "src/utils/frontmatter.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 1710,
+      "hash": "d1b1681218ce7c60",
+      "module": "src/utils"
+    },
+    {
+      "path": "src/utils/loadArticles.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 2003,
+      "hash": "f5f7a1ad35cf41af",
+      "module": "src/utils"
+    },
+    {
+      "path": "src/utils/markdown.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 2944,
+      "hash": "f76d6361a162e00f",
+      "module": "src/utils"
+    },
+    {
+      "path": "src/utils/slidingWindowSteps.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 2803,
+      "hash": "0b897a60789f10fa",
+      "module": "src/utils"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "kind": "source",
+      "extension": ".ts",
+      "size": 120,
+      "hash": "6a9c65c4c0a210f4",
+      "module": "src"
+    },
+    {
+      "path": "tailwind.config.js",
+      "kind": "config",
+      "extension": ".js",
+      "size": 279,
+      "hash": "023ec6e4c4dd36af"
+    },
+    {
+      "path": "tests/e2e/portfolio.spec.ts",
+      "kind": "test",
+      "extension": ".ts",
+      "size": 7617,
+      "hash": "8622120e113eb240"
+    },
+    {
+      "path": "tests/unit/frontmatter.test.ts",
+      "kind": "test",
+      "extension": ".ts",
+      "size": 2095,
+      "hash": "7711cae5ddcd1a71"
+    },
+    {
+      "path": "tests/unit/markdown.test.ts",
+      "kind": "test",
+      "extension": ".ts",
+      "size": 2837,
+      "hash": "56f4ef00e8cb2029"
+    },
+    {
+      "path": "tmp_resume/resume_web/index.html",
+      "kind": "other",
+      "extension": ".html",
+      "size": 10758,
+      "hash": "b1d6672edb09bba1"
+    },
+    {
+      "path": "tmp_resume/resume_web/script.js",
+      "kind": "source",
+      "extension": ".js",
+      "size": 418,
+      "hash": "4cc0a83f9f4a2c00"
+    },
+    {
+      "path": "tmp_resume/resume_web/styles.css",
+      "kind": "other",
+      "extension": ".css",
+      "size": 1839,
+      "hash": "66e867ef97b80ad4"
+    },
+    {
+      "path": "tsconfig.app.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 710,
+      "hash": "ce49cdc466f6a9e8"
+    },
+    {
+      "path": "tsconfig.json",
+      "kind": "config",
+      "extension": ".json",
+      "size": 107,
+      "hash": "e8d6f7b50828db39"
+    },
+    {
+      "path": "tsconfig.node.json",
+      "kind": "other",
+      "extension": ".json",
+      "size": 550,
+      "hash": "d1dca3f992b2a8ae"
+    },
+    {
+      "path": "vite.config.ts",
+      "kind": "config",
+      "extension": ".ts",
+      "size": 2487,
+      "hash": "013cdbd43f4244ba"
+    },
+    {
+      "path": "vitest.config.ts",
+      "kind": "config",
+      "extension": ".ts",
+      "size": 703,
+      "hash": "2272cefdf9cc4891"
+    }
+  ]
+}

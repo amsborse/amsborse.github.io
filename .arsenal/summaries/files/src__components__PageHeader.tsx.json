@@ -1,0 +1,17 @@
+{
+  "path": "src/components/PageHeader.tsx",
+  "purpose": "Utility or entry module (PageHeader.tsx)",
+  "exports": [
+    "PageHeader"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "PageHeader"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "e94c43390625251d"
+}

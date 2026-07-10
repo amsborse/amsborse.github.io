@@ -1,0 +1,57 @@
+{
+  "path": "src/components/InteractiveCard.tsx",
+  "purpose": "Defines InteractiveCardShell and related symbols in InteractiveCard.tsx",
+  "exports": [
+    "InteractiveCardShell",
+    "InteractiveCardSplit",
+    "InteractiveCardHeader",
+    "InteractiveCardBody",
+    "InteractiveCardTags",
+    "InteractiveCardFooter",
+    "ContentInteractiveCard",
+    "HUB_PAGE_CONTAINER",
+    "HUB_CARD_GRID",
+    "HubInteractiveCard",
+    "InteractiveCardDensity",
+    "InteractiveCardStatus",
+    "HubCardProps"
+  ],
+  "imports": [
+    "react-router-dom",
+    "react"
+  ],
+  "keySymbols": [
+    "InteractiveCardShell",
+    "InteractiveCardSplit",
+    "InteractiveCardHeader",
+    "InteractiveCardBody",
+    "InteractiveCardTags",
+    "InteractiveCardFooter",
+    "ContentInteractiveCard",
+    "HUB_PAGE_CONTAINER",
+    "HUB_CARD_GRID",
+    "HubInteractiveCard",
+    "InteractiveCardDensity",
+    "InteractiveCardStatus"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/components/ExperienceCard.tsx",
+    "src/components/FutureProjectsSection.tsx",
+    "src/components/learning/LearningHubLayout.tsx",
+    "src/components/learning/LearningInteractiveCard.tsx",
+    "src/components/ProjectCard.tsx",
+    "src/pages/About.tsx",
+    "src/pages/CodingPatterns.tsx",
+    "src/pages/Contact.tsx",
+    "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+    "src/pages/Learning.tsx",
+    "src/pages/LearningAlgorithmHub.tsx",
+    "src/pages/Projects.tsx",
+    "src/pages/Writing.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "6c1c220126d03728"
+}

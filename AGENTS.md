@@ -5,7 +5,7 @@ This repo uses automated gates to catch AI/agent regressions before they ship.
 ## Required checks (local + CI)
 
 ```bash
-npm run validate        # typecheck, lint, format, unit coverage, build
+npm run validate        # verify:kg, verify:arsenal, typecheck, lint, format, coverage, build
 npm run test:e2e        # Playwright smoke + interaction tests
 ```
 
@@ -56,9 +56,33 @@ Enable **branch protection** on `master`: see [`.github/BRANCH_PROTECTION.md`](.
 
 **CODEOWNERS** (`.github/CODEOWNERS`) requests review on CI, dependencies, routing, and resume. **Dependabot** opens weekly npm/GitHub Actions PRs.
 
-## Knowledge graph (for agents)
+## Knowledge layers (for agents)
 
-Structured repo map lives in [`.cursor/knowledge-graph/`](.cursor/knowledge-graph/README.md):
+This repo uses **two complementary** knowledge systems:
+
+### 1. Arsenal context engine (`.arsenal/`)
+
+Auto-indexed repo intelligence from [Arsenal](../Arsenal/docs/using-arsenal-in-any-repo.md). Prefer this for exploration and token-efficient context.
+
+| Path                             | Purpose                                     |
+| -------------------------------- | ------------------------------------------- |
+| `.arsenal/knowledge-graph.json`  | Full dependency + symbol graph (410+ nodes) |
+| `.arsenal/repo-map.json`         | File index with hashes                      |
+| `.arsenal/summaries/files/`      | Per-file summaries                          |
+| `.arsenal/memory/active-task.md` | Current task / handoff                      |
+| `.arsenal/rules/`                | Agent rules templates                       |
+
+```bash
+npm run verify:arsenal      # validate committed .arsenal structure
+npm run context:refresh     # regenerate index + summaries + graph (local, needs Arsenal CLI)
+npm run context:doctor      # health check via Arsenal CLI
+```
+
+Before editing: read `.arsenal/memory/active-task.md`, relevant summaries, then open source files only as needed.
+
+### 2. Curated Cursor graph (`.cursor/knowledge-graph/`)
+
+Hand-maintained map for routes, data entry points, and task routing:
 
 | File                    | Purpose                                             |
 | ----------------------- | --------------------------------------------------- |
@@ -70,4 +94,4 @@ Structured repo map lives in [`.cursor/knowledge-graph/`](.cursor/knowledge-grap
 npm run verify:kg   # validate graph vs App.tsx + filesystem
 ```
 
-Update `graph.json` whenever you add routes, pages, or shared components.
+Update `graph.json` whenever you add routes, pages, or shared components. After large refactors, also run `npm run context:refresh`.

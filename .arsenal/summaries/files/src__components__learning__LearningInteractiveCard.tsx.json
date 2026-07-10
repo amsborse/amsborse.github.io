@@ -1,0 +1,31 @@
+{
+  "path": "src/components/learning/LearningInteractiveCard.tsx",
+  "purpose": "Defines LearningInteractiveCard and related symbols in LearningInteractiveCard.tsx",
+  "exports": [
+    "LearningInteractiveCard",
+    "LearningCardTopic"
+  ],
+  "imports": [
+    "react",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "LearningInteractiveCard",
+    "LearningCardTopic"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [
+    "src/data/algorithmCategories.ts",
+    "src/data/codingPatternTopics.tsx",
+    "src/pages/CodingPatterns.tsx",
+    "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+    "src/pages/Learning.tsx",
+    "src/pages/LearningAlgorithmHub.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "4531b7cda64765c9"
+}

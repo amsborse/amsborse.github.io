@@ -1,0 +1,19 @@
+{
+  "path": "src/components/learning/patternVisuals.tsx",
+  "purpose": "Utility or entry module (patternVisuals.tsx)",
+  "exports": [
+    "PatternPortalVisual"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "PatternPortalVisual"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/codingPatternTopics.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "154788f4a8b63f02"
+}

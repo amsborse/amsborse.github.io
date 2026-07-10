@@ -1,0 +1,33 @@
+{
+  "path": "src/data/types.ts",
+  "purpose": "Defines ExperienceEntry and related symbols in types.ts",
+  "exports": [
+    "ExperienceEntry",
+    "ProjectCategory",
+    "Project",
+    "ProjectCategoryDef",
+    "NavItem",
+    "SocialLinks"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "ExperienceEntry",
+    "ProjectCategory",
+    "Project",
+    "ProjectCategoryDef",
+    "NavItem",
+    "SocialLinks"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/contact.ts",
+    "src/data/experience.ts",
+    "src/data/navigation.ts",
+    "src/data/projects.ts",
+    "src/data/socials.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "eac6c93b81dbf4e9"
+}

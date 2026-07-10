@@ -1,0 +1,22 @@
+{
+  "path": "src/components/canvas/GravityWell.tsx",
+  "purpose": "Defines GravityWell and related symbols in GravityWell.tsx",
+  "exports": [
+    "GravityWell"
+  ],
+  "imports": [
+    "react",
+    "@react-three/fiber",
+    "@react-three/drei",
+    "three"
+  ],
+  "keySymbols": [
+    "GravityWell"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "92b1a182439e290a"
+}

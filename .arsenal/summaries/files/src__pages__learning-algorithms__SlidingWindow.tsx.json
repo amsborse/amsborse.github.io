@@ -1,0 +1,28 @@
+{
+  "path": "src/pages/learning-algorithms/SlidingWindow.tsx",
+  "purpose": "Defines SlidingWindowPage and related symbols in SlidingWindow.tsx",
+  "exports": [
+    "SlidingWindowPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "@/components/Seo",
+    "@/utils/slidingWindowSteps"
+  ],
+  "keySymbols": [
+    "SlidingWindowPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/utils/slidingWindowSteps.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "949b64cd85c2e413"
+}

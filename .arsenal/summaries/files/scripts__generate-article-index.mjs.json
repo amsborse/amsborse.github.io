@@ -1,0 +1,26 @@
+{
+  "path": "scripts/generate-article-index.mjs",
+  "purpose": "Defines articleOrder and related symbols in generate-article-index.mjs",
+  "exports": [
+    "articleOrder",
+    "ArticleSlug"
+  ],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url"
+  ],
+  "keySymbols": [
+    "articleOrder",
+    "ArticleSlug"
+  ],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "d1ed20bd9c78ee40"
+}

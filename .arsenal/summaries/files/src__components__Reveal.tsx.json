@@ -1,0 +1,21 @@
+{
+  "path": "src/components/Reveal.tsx",
+  "purpose": "Defines Reveal and related symbols in Reveal.tsx",
+  "exports": [
+    "Reveal"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "Reveal"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/pages/Writing.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "3ee4aa4342525b38"
+}

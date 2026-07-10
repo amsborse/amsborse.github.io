@@ -1,0 +1,21 @@
+{
+  "path": "src/data/profile.ts",
+  "purpose": "Utility or entry module (profile.ts)",
+  "exports": [
+    "profile"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "profile"
+  ],
+  "sideEffects": [
+    "filesystem I/O"
+  ],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "e67f60d93b45fe59"
+}

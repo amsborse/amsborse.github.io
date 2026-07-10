@@ -1,0 +1,23 @@
+{
+  "path": "src/data/navigation.ts",
+  "purpose": "Defines navItems and related symbols in navigation.ts",
+  "exports": [
+    "navItems"
+  ],
+  "imports": [
+    "./types"
+  ],
+  "keySymbols": [
+    "navItems"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/types.ts"
+  ],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "727edae7341b79e7"
+}

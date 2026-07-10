@@ -1,0 +1,18 @@
+{
+  "path": "scripts/prune-css.mjs",
+  "purpose": "Source module (prune-css.mjs)",
+  "exports": [],
+  "imports": [
+    "node:fs"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "16f92a6ec47acefa"
+}

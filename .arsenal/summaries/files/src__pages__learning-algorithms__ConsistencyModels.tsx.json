@@ -1,0 +1,26 @@
+{
+  "path": "src/pages/learning-algorithms/ConsistencyModels.tsx",
+  "purpose": "Defines ConsistencyModelsPage and related symbols in ConsistencyModels.tsx",
+  "exports": [
+    "ConsistencyModelsPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "ConsistencyModelsPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "a0a17deb7214e2bc"
+}

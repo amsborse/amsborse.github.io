@@ -1,0 +1,29 @@
+{
+  "path": "src/pages/Algorithms.tsx",
+  "purpose": "Defines Algorithms and related symbols in Algorithms.tsx",
+  "exports": [
+    "Algorithms"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "@/components/Seo",
+    "@/data/algorithmsInfo"
+  ],
+  "keySymbols": [
+    "Algorithms"
+  ],
+  "sideEffects": [
+    "console output"
+  ],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/data/algorithmsInfo.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "b9f17e62bc75b59b"
+}

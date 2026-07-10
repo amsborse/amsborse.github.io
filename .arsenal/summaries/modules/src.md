@@ -1,0 +1,91 @@
+# Module: src
+
+Files: 83
+Key exports: App, Button, AnomalyMatrix, GodSphere, GravityWell, QuantumMesh, CosmicBackground, ExperienceCard, FutureProjectsSection, GlassPanel, InteractiveCardShell, InteractiveCardSplit, InteractiveCardHeader, InteractiveCardBody, InteractiveCardTags
+Depends on: src/layout/RootLayout.tsx, src/pages/Home.tsx, src/components/canvas/GodSphere.tsx, src/data/index.ts, src/components/InteractiveCard.tsx, src/data/futureProjects.ts, src/components/Seo.tsx, src/hooks/useParallax.ts, src/utils/markdown.ts, src/components/learning/LearningInteractiveCard.tsx
+Tests: none
+
+## Files
+- `src/App.tsx` — Defines App and related symbols in App.tsx
+- `src/components/Button.tsx` — Defines Button and related symbols in Button.tsx
+- `src/components/canvas/AnomalyMatrix.tsx` — Defines AnomalyMatrix and related symbols in AnomalyMatrix.tsx
+- `src/components/canvas/GodSphere.tsx` — Defines GodSphere and related symbols in GodSphere.tsx
+- `src/components/canvas/GravityWell.tsx` — Defines GravityWell and related symbols in GravityWell.tsx
+- `src/components/canvas/QuantumMesh.tsx` — Defines QuantumMesh and related symbols in QuantumMesh.tsx
+- `src/components/CosmicBackground.tsx` — Utility or entry module (CosmicBackground.tsx)
+- `src/components/ExperienceCard.tsx` — Defines ExperienceCard and related symbols in ExperienceCard.tsx
+- `src/components/FutureProjectsSection.tsx` — Defines FutureProjectsSection and related symbols in FutureProjectsSection.tsx
+- `src/components/GlassPanel.tsx` — Defines GlassPanel and related symbols in GlassPanel.tsx
+- `src/components/InteractiveCard.tsx` — Defines InteractiveCardShell and related symbols in InteractiveCard.tsx
+- `src/components/InteractiveParticles.tsx` — Defines InteractiveParticles and related symbols in InteractiveParticles.tsx
+- `src/components/learning/algorithmCategoryVisuals.tsx` — Defines SortingPortalVisual and related symbols in algorithmCategoryVisuals.tsx
+- `src/components/learning/LearningHubLayout.tsx` — Defines LearningHubLayout and related symbols in LearningHubLayout.tsx
+- `src/components/learning/LearningInteractiveCard.tsx` — Defines LearningInteractiveCard and related symbols in LearningInteractiveCard.tsx
+- `src/components/learning/LearningSandboxLayout.tsx` — Defines LearningSandboxLayout and related symbols in LearningSandboxLayout.tsx
+- `src/components/learning/patternVisuals.tsx` — Utility or entry module (patternVisuals.tsx)
+- `src/components/MorphingSphere.tsx` — Defines MorphingSphere and related symbols in MorphingSphere.tsx
+- `src/components/PageHeader.tsx` — Utility or entry module (PageHeader.tsx)
+- `src/components/ProjectCard.tsx` — Defines ProjectCard and related symbols in ProjectCard.tsx
+- `src/components/ReadingProgress.tsx` — Defines ReadingProgress and related symbols in ReadingProgress.tsx
+- `src/components/Reveal.tsx` — Defines Reveal and related symbols in Reveal.tsx
+- `src/components/SectionHeading.tsx` — Utility or entry module (SectionHeading.tsx)
+- `src/components/Seo.tsx` — Defines Seo and related symbols in Seo.tsx
+- `src/components/TableOfContents.tsx` — Defines TableOfContents and related symbols in TableOfContents.tsx
+- `src/data/about.ts` — Utility or entry module (about.ts)
+- `src/data/algorithmCategories.ts` — Defines ALGORITHM_CATEGORIES and related symbols in algorithmCategories.ts
+- `src/data/algorithmsInfo.ts` — Utility or entry module (algorithmsInfo.ts)
+- `src/data/articles.ts` — Utility or entry module (articles.ts)
+- `src/data/codingPatterns.ts` — Utility or entry module (codingPatterns.ts)
+- `src/data/codingPatternTopics.tsx` — Defines CODING_PATTERN_TOPICS and related symbols in codingPatternTopics.tsx
+- `src/data/contact.ts` — Defines contactPage and related symbols in contact.ts
+- `src/data/experience.ts` — Defines experience and related symbols in experience.ts
+- `src/data/futureProjects.ts` — Utility or entry module (futureProjects.ts)
+- `src/data/home.ts` — Utility or entry module (home.ts)
+- `src/data/index.ts` — Defines site and related symbols in index.ts
+- `src/data/navigation.ts` — Defines navItems and related symbols in navigation.ts
+- `src/data/paths.ts` — Utility or entry module (paths.ts)
+- `src/data/profile.ts` — Utility or entry module (profile.ts)
+- `src/data/projects.ts` — Defines projectCategories and related symbols in projects.ts
+- `src/data/resume.ts` — Utility or entry module (resume.ts)
+- `src/data/slidingWindowProblems.ts` — Defines SLIDING_WINDOW_PROBLEMS and related symbols in slidingWindowProblems.ts
+- `src/data/socials.ts` — Defines links and related symbols in socials.ts
+- `src/data/types.ts` — Defines ExperienceEntry and related symbols in types.ts
+- `src/hooks/useParallax.ts` — Defines useScrollOffset and related symbols in useParallax.ts
+- `src/hooks/useTilt.ts` — Defines useTilt and related symbols in useTilt.ts
+- `src/layout/Footer.tsx` — Defines Footer and related symbols in Footer.tsx
+- `src/layout/immersiveRoutes.ts` — Utility or entry module (immersiveRoutes.ts)
+- `src/layout/Navbar.tsx` — Defines Navbar and related symbols in Navbar.tsx
+- `src/layout/RootLayout.tsx` — Defines RootLayout and related symbols in RootLayout.tsx
+- `src/main.tsx` — Source module (main.tsx)
+- `src/pages/About.tsx` — Defines About and related symbols in About.tsx
+- `src/pages/AetherLab.tsx` — Defines AetherLab and related symbols in AetherLab.tsx
+- `src/pages/Algorithms.tsx` — Defines Algorithms and related symbols in Algorithms.tsx
+- `src/pages/Article.tsx` — Defines Article and related symbols in Article.tsx
+- `src/pages/CodingPatterns.tsx` — Defines CodingPatterns and related symbols in CodingPatterns.tsx
+- `src/pages/Contact.tsx` — Defines ContactPage and related symbols in Contact.tsx
+- `src/pages/Experience.tsx` — Defines ExperiencePage and related symbols in Experience.tsx
+- `src/pages/Home.tsx` — Defines Home and related symbols in Home.tsx
+- `src/pages/learning-algorithms/AlgorithmDP.tsx` — Defines AlgorithmDP and related symbols in AlgorithmDP.tsx
+- `src/pages/learning-algorithms/AlgorithmGraph.tsx` — Defines AlgorithmGraph and related symbols in AlgorithmGraph.tsx
+- `src/pages/learning-algorithms/AlgorithmGreedy.tsx` — Defines AlgorithmGreedy and related symbols in AlgorithmGreedy.tsx
+- `src/pages/learning-algorithms/AlgorithmSearch.tsx` — Defines AlgorithmSearch and related symbols in AlgorithmSearch.tsx
+- `src/pages/learning-algorithms/AlgorithmTrees.tsx` — Defines AlgorithmTrees and related symbols in AlgorithmTrees.tsx
+- `src/pages/learning-algorithms/CachingStrategies.tsx` — Defines CachingStrategiesPage and related symbols in CachingStrategies.tsx
+- `src/pages/learning-algorithms/ConsistencyModels.tsx` — Defines ConsistencyModelsPage and related symbols in ConsistencyModels.tsx
+- `src/pages/learning-algorithms/ContentDeliveryNetwork.tsx` — Defines ContentDeliveryNetworkPage and related symbols in ContentDeliveryNetwork.tsx
+- `src/pages/learning-algorithms/DatabaseSharding.tsx` — Defines DatabaseShardingPage and related symbols in DatabaseSharding.tsx
+- `src/pages/learning-algorithms/LoadBalancing.tsx` — Defines LoadBalancingPage and related symbols in LoadBalancing.tsx
+- `src/pages/learning-algorithms/SlidingWindow.tsx` — Defines SlidingWindowPage and related symbols in SlidingWindow.tsx
+- `src/pages/learning-algorithms/SystemDesignConcepts.tsx` — Defines SystemDesignConceptsPage and related symbols in SystemDesignConcepts.tsx
+- `src/pages/Learning.tsx` — Defines Learning and related symbols in Learning.tsx
+- `src/pages/LearningAlgorithmHub.tsx` — Defines LearningAlgorithmHub and related symbols in LearningAlgorithmHub.tsx
+- `src/pages/MotionLab.tsx` — Defines MotionLab and related symbols in MotionLab.tsx
+- `src/pages/NotFound.tsx` — Defines NotFoundPage and related symbols in NotFound.tsx
+- `src/pages/Projects.tsx` — Defines ProjectsPage and related symbols in Projects.tsx
+- `src/pages/Resume.tsx` — Defines ResumePage and related symbols in Resume.tsx
+- `src/pages/Writing.tsx` — Defines WritingPage and related symbols in Writing.tsx
+- `src/utils/frontmatter.ts` — Utility or entry module (frontmatter.ts)
+- `src/utils/loadArticles.ts` — Defines loadArticles and related symbols in loadArticles.ts
+- `src/utils/markdown.ts` — Defines parsePostMarkdown and related symbols in markdown.ts
+- `src/utils/slidingWindowSteps.ts` — Defines generateSlidingWindowSteps and related symbols in slidingWindowSteps.ts
+- `src/vite-env.d.ts` — Utility or entry module (vite-env.d.ts)

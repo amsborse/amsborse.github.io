@@ -1,0 +1,23 @@
+{
+  "path": "src/components/canvas/GodSphere.tsx",
+  "purpose": "Defines GodSphere and related symbols in GodSphere.tsx",
+  "exports": [
+    "GodSphere"
+  ],
+  "imports": [
+    "react",
+    "@react-three/fiber",
+    "three"
+  ],
+  "keySymbols": [
+    "GodSphere"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/components/canvas/AnomalyMatrix.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "16d8c7ae77981b95"
+}

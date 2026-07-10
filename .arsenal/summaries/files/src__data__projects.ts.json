@@ -1,0 +1,25 @@
+{
+  "path": "src/data/projects.ts",
+  "purpose": "Defines projectCategories and related symbols in projects.ts",
+  "exports": [
+    "projectCategories",
+    "projects"
+  ],
+  "imports": [
+    "./types"
+  ],
+  "keySymbols": [
+    "projectCategories",
+    "projects"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/types.ts"
+  ],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "37ad378d36f17c8d"
+}

@@ -1,0 +1,6921 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-07-10T01:02:16.046Z",
+  "nodes": [
+    {
+      "id": "repo:root",
+      "type": "Repository",
+      "label": "D:\\1 - Projects\\Projects\\Portfolio\\amsborse.github.io"
+    },
+    {
+      "id": "module:src",
+      "type": "Module",
+      "label": "src"
+    },
+    {
+      "id": "module:src/components",
+      "type": "Module",
+      "label": "src/components"
+    },
+    {
+      "id": "module:src/content",
+      "type": "Module",
+      "label": "src/content"
+    },
+    {
+      "id": "module:src/data",
+      "type": "Module",
+      "label": "src/data"
+    },
+    {
+      "id": "module:src/hooks",
+      "type": "Module",
+      "label": "src/hooks"
+    },
+    {
+      "id": "module:src/layout",
+      "type": "Module",
+      "label": "src/layout"
+    },
+    {
+      "id": "module:src/pages",
+      "type": "Module",
+      "label": "src/pages"
+    },
+    {
+      "id": "module:src/sections",
+      "type": "Module",
+      "label": "src/sections"
+    },
+    {
+      "id": "module:src/styles",
+      "type": "Module",
+      "label": "src/styles"
+    },
+    {
+      "id": "module:src/utils",
+      "type": "Module",
+      "label": "src/utils"
+    },
+    {
+      "id": "file:.arsenal/analytics/agent-events.jsonl",
+      "type": "File",
+      "label": ".arsenal/analytics/agent-events.jsonl",
+      "path": ".arsenal/analytics/agent-events.jsonl"
+    },
+    {
+      "id": "file:.arsenal/analytics/context-builds.jsonl",
+      "type": "File",
+      "label": ".arsenal/analytics/context-builds.jsonl",
+      "path": ".arsenal/analytics/context-builds.jsonl"
+    },
+    {
+      "id": "file:.arsenal/analytics/dashboard-details.json",
+      "type": "File",
+      "label": ".arsenal/analytics/dashboard-details.json",
+      "path": ".arsenal/analytics/dashboard-details.json"
+    },
+    {
+      "id": "file:.arsenal/analytics/improvement-suggestions.json",
+      "type": "File",
+      "label": ".arsenal/analytics/improvement-suggestions.json",
+      "path": ".arsenal/analytics/improvement-suggestions.json"
+    },
+    {
+      "id": "file:.arsenal/analytics/savings-report.json",
+      "type": "File",
+      "label": ".arsenal/analytics/savings-report.json",
+      "path": ".arsenal/analytics/savings-report.json"
+    },
+    {
+      "id": "file:.arsenal/analytics/stale-knowledge-report.json",
+      "type": "File",
+      "label": ".arsenal/analytics/stale-knowledge-report.json",
+      "path": ".arsenal/analytics/stale-knowledge-report.json"
+    },
+    {
+      "id": "file:.arsenal/analytics/usage-log.jsonl",
+      "type": "File",
+      "label": ".arsenal/analytics/usage-log.jsonl",
+      "path": ".arsenal/analytics/usage-log.jsonl"
+    },
+    {
+      "id": "file:.arsenal/config.json",
+      "type": "File",
+      "label": ".arsenal/config.json",
+      "path": ".arsenal/config.json"
+    },
+    {
+      "id": "file:.arsenal/memory/active-task.md",
+      "type": "File",
+      "label": ".arsenal/memory/active-task.md",
+      "path": ".arsenal/memory/active-task.md"
+    },
+    {
+      "id": "file:.arsenal/memory/compact-history.md",
+      "type": "File",
+      "label": ".arsenal/memory/compact-history.md",
+      "path": ".arsenal/memory/compact-history.md"
+    },
+    {
+      "id": "file:.arsenal/memory/conventions.md",
+      "type": "File",
+      "label": ".arsenal/memory/conventions.md",
+      "path": ".arsenal/memory/conventions.md"
+    },
+    {
+      "id": "file:.arsenal/memory/decisions.md",
+      "type": "File",
+      "label": ".arsenal/memory/decisions.md",
+      "path": ".arsenal/memory/decisions.md"
+    },
+    {
+      "id": "file:.arsenal/memory/pitfalls.md",
+      "type": "File",
+      "label": ".arsenal/memory/pitfalls.md",
+      "path": ".arsenal/memory/pitfalls.md"
+    },
+    {
+      "id": "file:.arsenal/prompts/agent-handoff.md",
+      "type": "File",
+      "label": ".arsenal/prompts/agent-handoff.md",
+      "path": ".arsenal/prompts/agent-handoff.md"
+    },
+    {
+      "id": "file:.arsenal/prompts/claude-context.md",
+      "type": "File",
+      "label": ".arsenal/prompts/claude-context.md",
+      "path": ".arsenal/prompts/claude-context.md"
+    },
+    {
+      "id": "file:.arsenal/prompts/cursor-context.md",
+      "type": "File",
+      "label": ".arsenal/prompts/cursor-context.md",
+      "path": ".arsenal/prompts/cursor-context.md"
+    },
+    {
+      "id": "file:.arsenal/rules/AGENTS.md",
+      "type": "File",
+      "label": ".arsenal/rules/AGENTS.md",
+      "path": ".arsenal/rules/AGENTS.md"
+    },
+    {
+      "id": "file:.arsenal/rules/CLAUDE.md",
+      "type": "File",
+      "label": ".arsenal/rules/CLAUDE.md",
+      "path": ".arsenal/rules/CLAUDE.md"
+    },
+    {
+      "id": "file:.arsenal/rules/commands.md",
+      "type": "File",
+      "label": ".arsenal/rules/commands.md",
+      "path": ".arsenal/rules/commands.md"
+    },
+    {
+      "id": "file:.arsenal/rules/context-policy.md",
+      "type": "File",
+      "label": ".arsenal/rules/context-policy.md",
+      "path": ".arsenal/rules/context-policy.md"
+    },
+    {
+      "id": "file:.arsenal/rules/cursor-rules.md",
+      "type": "File",
+      "label": ".arsenal/rules/cursor-rules.md",
+      "path": ".arsenal/rules/cursor-rules.md"
+    },
+    {
+      "id": "file:.arsenal/rules/testing-rules.md",
+      "type": "File",
+      "label": ".arsenal/rules/testing-rules.md",
+      "path": ".arsenal/rules/testing-rules.md"
+    },
+    {
+      "id": "file:.arsenal/summaries/architecture.md",
+      "type": "File",
+      "label": ".arsenal/summaries/architecture.md",
+      "path": ".arsenal/summaries/architecture.md"
+    },
+    {
+      "id": "file:.arsenal/summaries/public-api.md",
+      "type": "File",
+      "label": ".arsenal/summaries/public-api.md",
+      "path": ".arsenal/summaries/public-api.md"
+    },
+    {
+      "id": "file:.arsenal/summaries/tests.md",
+      "type": "File",
+      "label": ".arsenal/summaries/tests.md",
+      "path": ".arsenal/summaries/tests.md"
+    },
+    {
+      "id": "file:.cursor/knowledge-graph/AGENT_INSTRUCTIONS.md",
+      "type": "File",
+      "label": ".cursor/knowledge-graph/AGENT_INSTRUCTIONS.md",
+      "path": ".cursor/knowledge-graph/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "id": "file:.cursor/knowledge-graph/graph.json",
+      "type": "File",
+      "label": ".cursor/knowledge-graph/graph.json",
+      "path": ".cursor/knowledge-graph/graph.json"
+    },
+    {
+      "id": "file:.cursor/knowledge-graph/README.md",
+      "type": "File",
+      "label": ".cursor/knowledge-graph/README.md",
+      "path": ".cursor/knowledge-graph/README.md"
+    },
+    {
+      "id": "file:.cursor/knowledge-graph/SCHEMA.md",
+      "type": "File",
+      "label": ".cursor/knowledge-graph/SCHEMA.md",
+      "path": ".cursor/knowledge-graph/SCHEMA.md"
+    },
+    {
+      "id": "file:.cursor/rules/agent-guardrails.mdc",
+      "type": "File",
+      "label": ".cursor/rules/agent-guardrails.mdc",
+      "path": ".cursor/rules/agent-guardrails.mdc"
+    },
+    {
+      "id": "file:.cursor/rules/arsenal-context.mdc",
+      "type": "File",
+      "label": ".cursor/rules/arsenal-context.mdc",
+      "path": ".cursor/rules/arsenal-context.mdc"
+    },
+    {
+      "id": "file:.cursor/rules/knowledge-graph.mdc",
+      "type": "File",
+      "label": ".cursor/rules/knowledge-graph.mdc",
+      "path": ".cursor/rules/knowledge-graph.mdc"
+    },
+    {
+      "id": "file:.cursor/rules/react-pages.mdc",
+      "type": "File",
+      "label": ".cursor/rules/react-pages.mdc",
+      "path": ".cursor/rules/react-pages.mdc"
+    },
+    {
+      "id": "file:.cursor/rules/testing.mdc",
+      "type": "File",
+      "label": ".cursor/rules/testing.mdc",
+      "path": ".cursor/rules/testing.mdc"
+    },
+    {
+      "id": "file:.editorconfig",
+      "type": "File",
+      "label": ".editorconfig",
+      "path": ".editorconfig"
+    },
+    {
+      "id": "file:.env.example",
+      "type": "File",
+      "label": ".env.example",
+      "path": ".env.example"
+    },
+    {
+      "id": "file:.github/BRANCH_PROTECTION.md",
+      "type": "File",
+      "label": ".github/BRANCH_PROTECTION.md",
+      "path": ".github/BRANCH_PROTECTION.md"
+    },
+    {
+      "id": "file:.github/CODEOWNERS",
+      "type": "File",
+      "label": ".github/CODEOWNERS",
+      "path": ".github/CODEOWNERS"
+    },
+    {
+      "id": "file:.github/dependabot.yml",
+      "type": "File",
+      "label": ".github/dependabot.yml",
+      "path": ".github/dependabot.yml"
+    },
+    {
+      "id": "file:.github/pull_request_template.md",
+      "type": "File",
+      "label": ".github/pull_request_template.md",
+      "path": ".github/pull_request_template.md"
+    },
+    {
+      "id": "file:.github/workflows/ci.yml",
+      "type": "File",
+      "label": ".github/workflows/ci.yml",
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "id": "file:.github/workflows/deploy.yml",
+      "type": "File",
+      "label": ".github/workflows/deploy.yml",
+      "path": ".github/workflows/deploy.yml"
+    },
+    {
+      "id": "file:.gitignore",
+      "type": "File",
+      "label": ".gitignore",
+      "path": ".gitignore"
+    },
+    {
+      "id": "file:.husky/pre-commit",
+      "type": "File",
+      "label": ".husky/pre-commit",
+      "path": ".husky/pre-commit"
+    },
+    {
+      "id": "file:.husky/pre-push",
+      "type": "File",
+      "label": ".husky/pre-push",
+      "path": ".husky/pre-push"
+    },
+    {
+      "id": "file:.nvmrc",
+      "type": "File",
+      "label": ".nvmrc",
+      "path": ".nvmrc"
+    },
+    {
+      "id": "file:.prettierignore",
+      "type": "File",
+      "label": ".prettierignore",
+      "path": ".prettierignore"
+    },
+    {
+      "id": "file:.prettierrc",
+      "type": "File",
+      "label": ".prettierrc",
+      "path": ".prettierrc"
+    },
+    {
+      "id": "file:AGENTS.md",
+      "type": "File",
+      "label": "AGENTS.md",
+      "path": "AGENTS.md"
+    },
+    {
+      "id": "file:CLAUDE.md",
+      "type": "File",
+      "label": "CLAUDE.md",
+      "path": "CLAUDE.md"
+    },
+    {
+      "id": "file:cleaned_resume.html",
+      "type": "File",
+      "label": "cleaned_resume.html",
+      "path": "cleaned_resume.html"
+    },
+    {
+      "id": "file:docs/.nojekyll",
+      "type": "File",
+      "label": "docs/.nojekyll",
+      "path": "docs/.nojekyll"
+    },
+    {
+      "id": "file:docs/404.html",
+      "type": "File",
+      "label": "docs/404.html",
+      "path": "docs/404.html"
+    },
+    {
+      "id": "file:docs/assets/Article-D3AJ1lqh.js",
+      "type": "File",
+      "label": "docs/assets/Article-D3AJ1lqh.js",
+      "path": "docs/assets/Article-D3AJ1lqh.js"
+    },
+    {
+      "id": "file:docs/assets/index-DLOQmEzy.js",
+      "type": "File",
+      "label": "docs/assets/index-DLOQmEzy.js",
+      "path": "docs/assets/index-DLOQmEzy.js"
+    },
+    {
+      "id": "file:docs/assets/index-Don2Lvkz.css",
+      "type": "File",
+      "label": "docs/assets/index-Don2Lvkz.css",
+      "path": "docs/assets/index-Don2Lvkz.css"
+    },
+    {
+      "id": "file:docs/favicon.svg",
+      "type": "File",
+      "label": "docs/favicon.svg",
+      "path": "docs/favicon.svg"
+    },
+    {
+      "id": "file:docs/index.html",
+      "type": "File",
+      "label": "docs/index.html",
+      "path": "docs/index.html"
+    },
+    {
+      "id": "file:eslint.config.js",
+      "type": "File",
+      "label": "eslint.config.js",
+      "path": "eslint.config.js"
+    },
+    {
+      "id": "file:extracted_resume.html",
+      "type": "File",
+      "label": "extracted_resume.html",
+      "path": "extracted_resume.html"
+    },
+    {
+      "id": "file:images/1.jpg",
+      "type": "File",
+      "label": "images/1.jpg",
+      "path": "images/1.jpg"
+    },
+    {
+      "id": "file:images/2.jpg",
+      "type": "File",
+      "label": "images/2.jpg",
+      "path": "images/2.jpg"
+    },
+    {
+      "id": "file:images/3.jpg",
+      "type": "File",
+      "label": "images/3.jpg",
+      "path": "images/3.jpg"
+    },
+    {
+      "id": "file:images/bbottom.jpg",
+      "type": "File",
+      "label": "images/bbottom.jpg",
+      "path": "images/bbottom.jpg"
+    },
+    {
+      "id": "file:images/bg.jpg",
+      "type": "File",
+      "label": "images/bg.jpg",
+      "path": "images/bg.jpg"
+    },
+    {
+      "id": "file:images/bmid.jpg",
+      "type": "File",
+      "label": "images/bmid.jpg",
+      "path": "images/bmid.jpg"
+    },
+    {
+      "id": "file:images/border1.png",
+      "type": "File",
+      "label": "images/border1.png",
+      "path": "images/border1.png"
+    },
+    {
+      "id": "file:images/border2.png",
+      "type": "File",
+      "label": "images/border2.png",
+      "path": "images/border2.png"
+    },
+    {
+      "id": "file:images/btop.jpg",
+      "type": "File",
+      "label": "images/btop.jpg",
+      "path": "images/btop.jpg"
+    },
+    {
+      "id": "file:images/bullet.gif",
+      "type": "File",
+      "label": "images/bullet.gif",
+      "path": "images/bullet.gif"
+    },
+    {
+      "id": "file:images/frame.jpg",
+      "type": "File",
+      "label": "images/frame.jpg",
+      "path": "images/frame.jpg"
+    },
+    {
+      "id": "file:images/icn-ad.gif",
+      "type": "File",
+      "label": "images/icn-ad.gif",
+      "path": "images/icn-ad.gif"
+    },
+    {
+      "id": "file:images/icn-contact.jpg",
+      "type": "File",
+      "label": "images/icn-contact.jpg",
+      "path": "images/icn-contact.jpg"
+    },
+    {
+      "id": "file:images/icn-facebook.jpg",
+      "type": "File",
+      "label": "images/icn-facebook.jpg",
+      "path": "images/icn-facebook.jpg"
+    },
+    {
+      "id": "file:images/icn-mail.gif",
+      "type": "File",
+      "label": "images/icn-mail.gif",
+      "path": "images/icn-mail.gif"
+    },
+    {
+      "id": "file:images/icn-print.jpg",
+      "type": "File",
+      "label": "images/icn-print.jpg",
+      "path": "images/icn-print.jpg"
+    },
+    {
+      "id": "file:images/icn-save.jpg",
+      "type": "File",
+      "label": "images/icn-save.jpg",
+      "path": "images/icn-save.jpg"
+    },
+    {
+      "id": "file:images/icn-tel.gif",
+      "type": "File",
+      "label": "images/icn-tel.gif",
+      "path": "images/icn-tel.gif"
+    },
+    {
+      "id": "file:images/icn-twitter.jpg",
+      "type": "File",
+      "label": "images/icn-twitter.jpg",
+      "path": "images/icn-twitter.jpg"
+    },
+    {
+      "id": "file:images/icn-web.gif",
+      "type": "File",
+      "label": "images/icn-web.gif",
+      "path": "images/icn-web.gif"
+    },
+    {
+      "id": "file:images/image.jpg",
+      "type": "File",
+      "label": "images/image.jpg",
+      "path": "images/image.jpg"
+    },
+    {
+      "id": "file:images/loading.gif",
+      "type": "File",
+      "label": "images/loading.gif",
+      "path": "images/loading.gif"
+    },
+    {
+      "id": "file:images/paperbottom.jpg",
+      "type": "File",
+      "label": "images/paperbottom.jpg",
+      "path": "images/paperbottom.jpg"
+    },
+    {
+      "id": "file:images/papertop.jpg",
+      "type": "File",
+      "label": "images/papertop.jpg",
+      "path": "images/papertop.jpg"
+    },
+    {
+      "id": "file:images/pbottom.jpg",
+      "type": "File",
+      "label": "images/pbottom.jpg",
+      "path": "images/pbottom.jpg"
+    },
+    {
+      "id": "file:images/pmid.jpg",
+      "type": "File",
+      "label": "images/pmid.jpg",
+      "path": "images/pmid.jpg"
+    },
+    {
+      "id": "file:images/ptop.jpg",
+      "type": "File",
+      "label": "images/ptop.jpg",
+      "path": "images/ptop.jpg"
+    },
+    {
+      "id": "file:images/submit.jpg",
+      "type": "File",
+      "label": "images/submit.jpg",
+      "path": "images/submit.jpg"
+    },
+    {
+      "id": "file:images/tipsy.gif",
+      "type": "File",
+      "label": "images/tipsy.gif",
+      "path": "images/tipsy.gif"
+    },
+    {
+      "id": "file:images/title.jpg",
+      "type": "File",
+      "label": "images/title.jpg",
+      "path": "images/title.jpg"
+    },
+    {
+      "id": "file:index.html",
+      "type": "File",
+      "label": "index.html",
+      "path": "index.html"
+    },
+    {
+      "id": "file:package.json",
+      "type": "File",
+      "label": "package.json",
+      "path": "package.json"
+    },
+    {
+      "id": "file:playwright.config.ts",
+      "type": "File",
+      "label": "playwright.config.ts",
+      "path": "playwright.config.ts"
+    },
+    {
+      "id": "file:public/.nojekyll",
+      "type": "File",
+      "label": "public/.nojekyll",
+      "path": "public/.nojekyll"
+    },
+    {
+      "id": "file:public/Akshay-Borse-Resume.pdf",
+      "type": "File",
+      "label": "public/Akshay-Borse-Resume.pdf",
+      "path": "public/Akshay-Borse-Resume.pdf"
+    },
+    {
+      "id": "file:public/favicon.svg",
+      "type": "File",
+      "label": "public/favicon.svg",
+      "path": "public/favicon.svg"
+    },
+    {
+      "id": "file:public/resume.pdf",
+      "type": "File",
+      "label": "public/resume.pdf",
+      "path": "public/resume.pdf"
+    },
+    {
+      "id": "file:public/robots.txt",
+      "type": "File",
+      "label": "public/robots.txt",
+      "path": "public/robots.txt"
+    },
+    {
+      "id": "file:public/sitemap.xml",
+      "type": "File",
+      "label": "public/sitemap.xml",
+      "path": "public/sitemap.xml"
+    },
+    {
+      "id": "file:README.md",
+      "type": "File",
+      "label": "README.md",
+      "path": "README.md"
+    },
+    {
+      "id": "file:resume/resume.tex",
+      "type": "File",
+      "label": "resume/resume.tex",
+      "path": "resume/resume.tex"
+    },
+    {
+      "id": "file:scripts/check-bundle-size.mjs",
+      "type": "File",
+      "label": "scripts/check-bundle-size.mjs",
+      "path": "scripts/check-bundle-size.mjs"
+    },
+    {
+      "id": "file:scripts/compile-resume.mjs",
+      "type": "File",
+      "label": "scripts/compile-resume.mjs",
+      "path": "scripts/compile-resume.mjs"
+    },
+    {
+      "id": "file:scripts/copy-404.mjs",
+      "type": "File",
+      "label": "scripts/copy-404.mjs",
+      "path": "scripts/copy-404.mjs"
+    },
+    {
+      "id": "file:scripts/generate-article-index.mjs",
+      "type": "File",
+      "label": "scripts/generate-article-index.mjs",
+      "path": "scripts/generate-article-index.mjs"
+    },
+    {
+      "id": "file:scripts/generate-medium-articles.mjs",
+      "type": "File",
+      "label": "scripts/generate-medium-articles.mjs",
+      "path": "scripts/generate-medium-articles.mjs"
+    },
+    {
+      "id": "file:scripts/generate-medium-top-ranked.mjs",
+      "type": "File",
+      "label": "scripts/generate-medium-top-ranked.mjs",
+      "path": "scripts/generate-medium-top-ranked.mjs"
+    },
+    {
+      "id": "file:scripts/import-medium-html.js",
+      "type": "File",
+      "label": "scripts/import-medium-html.js",
+      "path": "scripts/import-medium-html.js"
+    },
+    {
+      "id": "file:scripts/Medium_Performance_Analysis.md",
+      "type": "File",
+      "label": "scripts/Medium_Performance_Analysis.md",
+      "path": "scripts/Medium_Performance_Analysis.md"
+    },
+    {
+      "id": "file:scripts/Medium_Stats_With_Scoring.csv",
+      "type": "File",
+      "label": "scripts/Medium_Stats_With_Scoring.csv",
+      "path": "scripts/Medium_Stats_With_Scoring.csv"
+    },
+    {
+      "id": "file:scripts/Medium_Top15_Ranked.csv",
+      "type": "File",
+      "label": "scripts/Medium_Top15_Ranked.csv",
+      "path": "scripts/Medium_Top15_Ranked.csv"
+    },
+    {
+      "id": "file:scripts/patch_resume.cjs",
+      "type": "File",
+      "label": "scripts/patch_resume.cjs",
+      "path": "scripts/patch_resume.cjs"
+    },
+    {
+      "id": "file:scripts/patch_resume.js",
+      "type": "File",
+      "label": "scripts/patch_resume.js",
+      "path": "scripts/patch_resume.js"
+    },
+    {
+      "id": "file:scripts/prune-css.mjs",
+      "type": "File",
+      "label": "scripts/prune-css.mjs",
+      "path": "scripts/prune-css.mjs"
+    },
+    {
+      "id": "file:scripts/start_replacement.txt",
+      "type": "File",
+      "label": "scripts/start_replacement.txt",
+      "path": "scripts/start_replacement.txt"
+    },
+    {
+      "id": "file:scripts/sync-docs.mjs",
+      "type": "File",
+      "label": "scripts/sync-docs.mjs",
+      "path": "scripts/sync-docs.mjs"
+    },
+    {
+      "id": "file:scripts/validate.mjs",
+      "type": "File",
+      "label": "scripts/validate.mjs",
+      "path": "scripts/validate.mjs"
+    },
+    {
+      "id": "file:scripts/verify-dist.mjs",
+      "type": "File",
+      "label": "scripts/verify-dist.mjs",
+      "path": "scripts/verify-dist.mjs"
+    },
+    {
+      "id": "file:scripts/verify-knowledge-graph.mjs",
+      "type": "File",
+      "label": "scripts/verify-knowledge-graph.mjs",
+      "path": "scripts/verify-knowledge-graph.mjs"
+    },
+    {
+      "id": "file:src/App.tsx",
+      "type": "File",
+      "label": "src/App.tsx",
+      "path": "src/App.tsx"
+    },
+    {
+      "id": "file:src/components/Button.tsx",
+      "type": "File",
+      "label": "src/components/Button.tsx",
+      "path": "src/components/Button.tsx"
+    },
+    {
+      "id": "file:src/components/canvas/AnomalyMatrix.tsx",
+      "type": "File",
+      "label": "src/components/canvas/AnomalyMatrix.tsx",
+      "path": "src/components/canvas/AnomalyMatrix.tsx"
+    },
+    {
+      "id": "file:src/components/canvas/GodSphere.tsx",
+      "type": "File",
+      "label": "src/components/canvas/GodSphere.tsx",
+      "path": "src/components/canvas/GodSphere.tsx"
+    },
+    {
+      "id": "file:src/components/canvas/GravityWell.tsx",
+      "type": "File",
+      "label": "src/components/canvas/GravityWell.tsx",
+      "path": "src/components/canvas/GravityWell.tsx"
+    },
+    {
+      "id": "file:src/components/canvas/QuantumMesh.tsx",
+      "type": "File",
+      "label": "src/components/canvas/QuantumMesh.tsx",
+      "path": "src/components/canvas/QuantumMesh.tsx"
+    },
+    {
+      "id": "file:src/components/CosmicBackground.tsx",
+      "type": "File",
+      "label": "src/components/CosmicBackground.tsx",
+      "path": "src/components/CosmicBackground.tsx"
+    },
+    {
+      "id": "file:src/components/ExperienceCard.tsx",
+      "type": "File",
+      "label": "src/components/ExperienceCard.tsx",
+      "path": "src/components/ExperienceCard.tsx"
+    },
+    {
+      "id": "file:src/components/FutureProjectsSection.tsx",
+      "type": "File",
+      "label": "src/components/FutureProjectsSection.tsx",
+      "path": "src/components/FutureProjectsSection.tsx"
+    },
+    {
+      "id": "file:src/components/GlassPanel.tsx",
+      "type": "File",
+      "label": "src/components/GlassPanel.tsx",
+      "path": "src/components/GlassPanel.tsx"
+    },
+    {
+      "id": "file:src/components/InteractiveCard.tsx",
+      "type": "File",
+      "label": "src/components/InteractiveCard.tsx",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "file:src/components/InteractiveParticles.tsx",
+      "type": "File",
+      "label": "src/components/InteractiveParticles.tsx",
+      "path": "src/components/InteractiveParticles.tsx"
+    },
+    {
+      "id": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "type": "File",
+      "label": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "file:src/components/learning/LearningHubLayout.tsx",
+      "type": "File",
+      "label": "src/components/learning/LearningHubLayout.tsx",
+      "path": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "file:src/components/learning/LearningInteractiveCard.tsx",
+      "type": "File",
+      "label": "src/components/learning/LearningInteractiveCard.tsx",
+      "path": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "file:src/components/learning/LearningSandboxLayout.tsx",
+      "type": "File",
+      "label": "src/components/learning/LearningSandboxLayout.tsx",
+      "path": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "file:src/components/learning/patternVisuals.tsx",
+      "type": "File",
+      "label": "src/components/learning/patternVisuals.tsx",
+      "path": "src/components/learning/patternVisuals.tsx"
+    },
+    {
+      "id": "file:src/components/MorphingSphere.tsx",
+      "type": "File",
+      "label": "src/components/MorphingSphere.tsx",
+      "path": "src/components/MorphingSphere.tsx"
+    },
+    {
+      "id": "file:src/components/PageHeader.tsx",
+      "type": "File",
+      "label": "src/components/PageHeader.tsx",
+      "path": "src/components/PageHeader.tsx"
+    },
+    {
+      "id": "file:src/components/ProjectCard.tsx",
+      "type": "File",
+      "label": "src/components/ProjectCard.tsx",
+      "path": "src/components/ProjectCard.tsx"
+    },
+    {
+      "id": "file:src/components/ReadingProgress.tsx",
+      "type": "File",
+      "label": "src/components/ReadingProgress.tsx",
+      "path": "src/components/ReadingProgress.tsx"
+    },
+    {
+      "id": "file:src/components/Reveal.tsx",
+      "type": "File",
+      "label": "src/components/Reveal.tsx",
+      "path": "src/components/Reveal.tsx"
+    },
+    {
+      "id": "file:src/components/SectionHeading.tsx",
+      "type": "File",
+      "label": "src/components/SectionHeading.tsx",
+      "path": "src/components/SectionHeading.tsx"
+    },
+    {
+      "id": "file:src/components/Seo.tsx",
+      "type": "File",
+      "label": "src/components/Seo.tsx",
+      "path": "src/components/Seo.tsx"
+    },
+    {
+      "id": "file:src/components/TableOfContents.tsx",
+      "type": "File",
+      "label": "src/components/TableOfContents.tsx",
+      "path": "src/components/TableOfContents.tsx"
+    },
+    {
+      "id": "file:src/content/articles/designing-for-reliability.md",
+      "type": "File",
+      "label": "src/content/articles/designing-for-reliability.md",
+      "path": "src/content/articles/designing-for-reliability.md"
+    },
+    {
+      "id": "file:src/content/articles/notes-on-api-design.md",
+      "type": "File",
+      "label": "src/content/articles/notes-on-api-design.md",
+      "path": "src/content/articles/notes-on-api-design.md"
+    },
+    {
+      "id": "file:src/content/articles/observability-without-overload.md",
+      "type": "File",
+      "label": "src/content/articles/observability-without-overload.md",
+      "path": "src/content/articles/observability-without-overload.md"
+    },
+    {
+      "id": "file:src/content/articles/tradeoffs-in-distributed-systems.md",
+      "type": "File",
+      "label": "src/content/articles/tradeoffs-in-distributed-systems.md",
+      "path": "src/content/articles/tradeoffs-in-distributed-systems.md"
+    },
+    {
+      "id": "file:src/content/articles/writing-as-engineering.md",
+      "type": "File",
+      "label": "src/content/articles/writing-as-engineering.md",
+      "path": "src/content/articles/writing-as-engineering.md"
+    },
+    {
+      "id": "file:src/data/about.ts",
+      "type": "File",
+      "label": "src/data/about.ts",
+      "path": "src/data/about.ts"
+    },
+    {
+      "id": "file:src/data/algorithmCategories.ts",
+      "type": "File",
+      "label": "src/data/algorithmCategories.ts",
+      "path": "src/data/algorithmCategories.ts"
+    },
+    {
+      "id": "file:src/data/algorithmsInfo.ts",
+      "type": "File",
+      "label": "src/data/algorithmsInfo.ts",
+      "path": "src/data/algorithmsInfo.ts"
+    },
+    {
+      "id": "file:src/data/articles.ts",
+      "type": "File",
+      "label": "src/data/articles.ts",
+      "path": "src/data/articles.ts"
+    },
+    {
+      "id": "file:src/data/codingPatterns.ts",
+      "type": "File",
+      "label": "src/data/codingPatterns.ts",
+      "path": "src/data/codingPatterns.ts"
+    },
+    {
+      "id": "file:src/data/codingPatternTopics.tsx",
+      "type": "File",
+      "label": "src/data/codingPatternTopics.tsx",
+      "path": "src/data/codingPatternTopics.tsx"
+    },
+    {
+      "id": "file:src/data/contact.ts",
+      "type": "File",
+      "label": "src/data/contact.ts",
+      "path": "src/data/contact.ts"
+    },
+    {
+      "id": "file:src/data/experience.ts",
+      "type": "File",
+      "label": "src/data/experience.ts",
+      "path": "src/data/experience.ts"
+    },
+    {
+      "id": "file:src/data/futureProjects.ts",
+      "type": "File",
+      "label": "src/data/futureProjects.ts",
+      "path": "src/data/futureProjects.ts"
+    },
+    {
+      "id": "file:src/data/home.ts",
+      "type": "File",
+      "label": "src/data/home.ts",
+      "path": "src/data/home.ts"
+    },
+    {
+      "id": "file:src/data/index.ts",
+      "type": "File",
+      "label": "src/data/index.ts",
+      "path": "src/data/index.ts"
+    },
+    {
+      "id": "file:src/data/navigation.ts",
+      "type": "File",
+      "label": "src/data/navigation.ts",
+      "path": "src/data/navigation.ts"
+    },
+    {
+      "id": "file:src/data/paths.ts",
+      "type": "File",
+      "label": "src/data/paths.ts",
+      "path": "src/data/paths.ts"
+    },
+    {
+      "id": "file:src/data/profile.ts",
+      "type": "File",
+      "label": "src/data/profile.ts",
+      "path": "src/data/profile.ts"
+    },
+    {
+      "id": "file:src/data/projects.ts",
+      "type": "File",
+      "label": "src/data/projects.ts",
+      "path": "src/data/projects.ts"
+    },
+    {
+      "id": "file:src/data/resume.ts",
+      "type": "File",
+      "label": "src/data/resume.ts",
+      "path": "src/data/resume.ts"
+    },
+    {
+      "id": "file:src/data/slidingWindowProblems.ts",
+      "type": "File",
+      "label": "src/data/slidingWindowProblems.ts",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "file:src/data/socials.ts",
+      "type": "File",
+      "label": "src/data/socials.ts",
+      "path": "src/data/socials.ts"
+    },
+    {
+      "id": "file:src/data/types.ts",
+      "type": "File",
+      "label": "src/data/types.ts",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "file:src/hooks/useParallax.ts",
+      "type": "File",
+      "label": "src/hooks/useParallax.ts",
+      "path": "src/hooks/useParallax.ts"
+    },
+    {
+      "id": "file:src/hooks/useTilt.ts",
+      "type": "File",
+      "label": "src/hooks/useTilt.ts",
+      "path": "src/hooks/useTilt.ts"
+    },
+    {
+      "id": "file:src/layout/Footer.tsx",
+      "type": "File",
+      "label": "src/layout/Footer.tsx",
+      "path": "src/layout/Footer.tsx"
+    },
+    {
+      "id": "file:src/layout/immersiveRoutes.ts",
+      "type": "File",
+      "label": "src/layout/immersiveRoutes.ts",
+      "path": "src/layout/immersiveRoutes.ts"
+    },
+    {
+      "id": "file:src/layout/Navbar.tsx",
+      "type": "File",
+      "label": "src/layout/Navbar.tsx",
+      "path": "src/layout/Navbar.tsx"
+    },
+    {
+      "id": "file:src/layout/RootLayout.tsx",
+      "type": "File",
+      "label": "src/layout/RootLayout.tsx",
+      "path": "src/layout/RootLayout.tsx"
+    },
+    {
+      "id": "file:src/main.tsx",
+      "type": "File",
+      "label": "src/main.tsx",
+      "path": "src/main.tsx"
+    },
+    {
+      "id": "file:src/pages/About.tsx",
+      "type": "File",
+      "label": "src/pages/About.tsx",
+      "path": "src/pages/About.tsx"
+    },
+    {
+      "id": "file:src/pages/AetherLab.tsx",
+      "type": "File",
+      "label": "src/pages/AetherLab.tsx",
+      "path": "src/pages/AetherLab.tsx"
+    },
+    {
+      "id": "file:src/pages/Algorithms.tsx",
+      "type": "File",
+      "label": "src/pages/Algorithms.tsx",
+      "path": "src/pages/Algorithms.tsx"
+    },
+    {
+      "id": "file:src/pages/Article.tsx",
+      "type": "File",
+      "label": "src/pages/Article.tsx",
+      "path": "src/pages/Article.tsx"
+    },
+    {
+      "id": "file:src/pages/CodingPatterns.tsx",
+      "type": "File",
+      "label": "src/pages/CodingPatterns.tsx",
+      "path": "src/pages/CodingPatterns.tsx"
+    },
+    {
+      "id": "file:src/pages/Contact.tsx",
+      "type": "File",
+      "label": "src/pages/Contact.tsx",
+      "path": "src/pages/Contact.tsx"
+    },
+    {
+      "id": "file:src/pages/Experience.tsx",
+      "type": "File",
+      "label": "src/pages/Experience.tsx",
+      "path": "src/pages/Experience.tsx"
+    },
+    {
+      "id": "file:src/pages/Home.tsx",
+      "type": "File",
+      "label": "src/pages/Home.tsx",
+      "path": "src/pages/Home.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "path": "src/pages/learning-algorithms/AlgorithmDP.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "path": "src/pages/learning-algorithms/AlgorithmGraph.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "path": "src/pages/learning-algorithms/AlgorithmGreedy.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "path": "src/pages/learning-algorithms/AlgorithmSearch.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "path": "src/pages/learning-algorithms/AlgorithmTrees.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/CachingStrategies.tsx",
+      "path": "src/pages/learning-algorithms/CachingStrategies.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "path": "src/pages/learning-algorithms/ConsistencyModels.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "path": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "path": "src/pages/learning-algorithms/DatabaseSharding.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/LoadBalancing.tsx",
+      "path": "src/pages/learning-algorithms/LoadBalancing.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/SlidingWindow.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "path": "src/pages/learning-algorithms/SlidingWindow.tsx"
+    },
+    {
+      "id": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "type": "File",
+      "label": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "path": "src/pages/learning-algorithms/SystemDesignConcepts.tsx"
+    },
+    {
+      "id": "file:src/pages/Learning.tsx",
+      "type": "File",
+      "label": "src/pages/Learning.tsx",
+      "path": "src/pages/Learning.tsx"
+    },
+    {
+      "id": "file:src/pages/LearningAlgorithmHub.tsx",
+      "type": "File",
+      "label": "src/pages/LearningAlgorithmHub.tsx",
+      "path": "src/pages/LearningAlgorithmHub.tsx"
+    },
+    {
+      "id": "file:src/pages/MotionLab.tsx",
+      "type": "File",
+      "label": "src/pages/MotionLab.tsx",
+      "path": "src/pages/MotionLab.tsx"
+    },
+    {
+      "id": "file:src/pages/NotFound.tsx",
+      "type": "File",
+      "label": "src/pages/NotFound.tsx",
+      "path": "src/pages/NotFound.tsx"
+    },
+    {
+      "id": "file:src/pages/Projects.tsx",
+      "type": "File",
+      "label": "src/pages/Projects.tsx",
+      "path": "src/pages/Projects.tsx"
+    },
+    {
+      "id": "file:src/pages/Resume.tsx",
+      "type": "File",
+      "label": "src/pages/Resume.tsx",
+      "path": "src/pages/Resume.tsx"
+    },
+    {
+      "id": "file:src/pages/Writing.tsx",
+      "type": "File",
+      "label": "src/pages/Writing.tsx",
+      "path": "src/pages/Writing.tsx"
+    },
+    {
+      "id": "file:src/sections/.gitkeep",
+      "type": "File",
+      "label": "src/sections/.gitkeep",
+      "path": "src/sections/.gitkeep"
+    },
+    {
+      "id": "file:src/styles/index.css",
+      "type": "File",
+      "label": "src/styles/index.css",
+      "path": "src/styles/index.css"
+    },
+    {
+      "id": "file:src/utils/frontmatter.ts",
+      "type": "File",
+      "label": "src/utils/frontmatter.ts",
+      "path": "src/utils/frontmatter.ts"
+    },
+    {
+      "id": "file:src/utils/loadArticles.ts",
+      "type": "File",
+      "label": "src/utils/loadArticles.ts",
+      "path": "src/utils/loadArticles.ts"
+    },
+    {
+      "id": "file:src/utils/markdown.ts",
+      "type": "File",
+      "label": "src/utils/markdown.ts",
+      "path": "src/utils/markdown.ts"
+    },
+    {
+      "id": "file:src/utils/slidingWindowSteps.ts",
+      "type": "File",
+      "label": "src/utils/slidingWindowSteps.ts",
+      "path": "src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "file:src/vite-env.d.ts",
+      "type": "File",
+      "label": "src/vite-env.d.ts",
+      "path": "src/vite-env.d.ts"
+    },
+    {
+      "id": "file:tailwind.config.js",
+      "type": "File",
+      "label": "tailwind.config.js",
+      "path": "tailwind.config.js"
+    },
+    {
+      "id": "file:tests/e2e/portfolio.spec.ts",
+      "type": "File",
+      "label": "tests/e2e/portfolio.spec.ts",
+      "path": "tests/e2e/portfolio.spec.ts"
+    },
+    {
+      "id": "file:tests/unit/frontmatter.test.ts",
+      "type": "File",
+      "label": "tests/unit/frontmatter.test.ts",
+      "path": "tests/unit/frontmatter.test.ts"
+    },
+    {
+      "id": "file:tests/unit/markdown.test.ts",
+      "type": "File",
+      "label": "tests/unit/markdown.test.ts",
+      "path": "tests/unit/markdown.test.ts"
+    },
+    {
+      "id": "file:tmp_resume/resume_web/index.html",
+      "type": "File",
+      "label": "tmp_resume/resume_web/index.html",
+      "path": "tmp_resume/resume_web/index.html"
+    },
+    {
+      "id": "file:tmp_resume/resume_web/script.js",
+      "type": "File",
+      "label": "tmp_resume/resume_web/script.js",
+      "path": "tmp_resume/resume_web/script.js"
+    },
+    {
+      "id": "file:tmp_resume/resume_web/styles.css",
+      "type": "File",
+      "label": "tmp_resume/resume_web/styles.css",
+      "path": "tmp_resume/resume_web/styles.css"
+    },
+    {
+      "id": "file:tsconfig.app.json",
+      "type": "File",
+      "label": "tsconfig.app.json",
+      "path": "tsconfig.app.json"
+    },
+    {
+      "id": "file:tsconfig.json",
+      "type": "File",
+      "label": "tsconfig.json",
+      "path": "tsconfig.json"
+    },
+    {
+      "id": "file:tsconfig.node.json",
+      "type": "File",
+      "label": "tsconfig.node.json",
+      "path": "tsconfig.node.json"
+    },
+    {
+      "id": "file:vite.config.ts",
+      "type": "File",
+      "label": "vite.config.ts",
+      "path": "vite.config.ts"
+    },
+    {
+      "id": "file:vitest.config.ts",
+      "type": "File",
+      "label": "vitest.config.ts",
+      "path": "vitest.config.ts"
+    },
+    {
+      "id": "symbol:scripts/generate-article-index.mjs:articleOrder",
+      "type": "Function",
+      "label": "articleOrder",
+      "path": "scripts/generate-article-index.mjs"
+    },
+    {
+      "id": "symbol:scripts/generate-article-index.mjs:ArticleSlug",
+      "type": "Function",
+      "label": "ArticleSlug",
+      "path": "scripts/generate-article-index.mjs"
+    },
+    {
+      "id": "symbol:scripts/generate-medium-articles.mjs:mediumArticles",
+      "type": "Function",
+      "label": "mediumArticles",
+      "path": "scripts/generate-medium-articles.mjs"
+    },
+    {
+      "id": "symbol:scripts/generate-medium-articles.mjs:MediumArticle",
+      "type": "Function",
+      "label": "MediumArticle",
+      "path": "scripts/generate-medium-articles.mjs"
+    },
+    {
+      "id": "symbol:scripts/generate-medium-top-ranked.mjs:mediumTopRanked",
+      "type": "Function",
+      "label": "mediumTopRanked",
+      "path": "scripts/generate-medium-top-ranked.mjs"
+    },
+    {
+      "id": "symbol:scripts/generate-medium-top-ranked.mjs:MediumTopRankedEntry",
+      "type": "Function",
+      "label": "MediumTopRankedEntry",
+      "path": "scripts/generate-medium-top-ranked.mjs"
+    },
+    {
+      "id": "symbol:scripts/patch_resume.cjs:ResumePage",
+      "type": "Function",
+      "label": "ResumePage",
+      "path": "scripts/patch_resume.cjs"
+    },
+    {
+      "id": "symbol:scripts/patch_resume.js:ResumePage",
+      "type": "Function",
+      "label": "ResumePage",
+      "path": "scripts/patch_resume.js"
+    },
+    {
+      "id": "symbol:src/App.tsx:App",
+      "type": "Function",
+      "label": "App",
+      "path": "src/App.tsx"
+    },
+    {
+      "id": "symbol:src/components/Button.tsx:Button",
+      "type": "Function",
+      "label": "Button",
+      "path": "src/components/Button.tsx"
+    },
+    {
+      "id": "symbol:src/components/canvas/AnomalyMatrix.tsx:AnomalyMatrix",
+      "type": "Function",
+      "label": "AnomalyMatrix",
+      "path": "src/components/canvas/AnomalyMatrix.tsx"
+    },
+    {
+      "id": "symbol:src/components/canvas/GodSphere.tsx:GodSphere",
+      "type": "Function",
+      "label": "GodSphere",
+      "path": "src/components/canvas/GodSphere.tsx"
+    },
+    {
+      "id": "symbol:src/components/canvas/GravityWell.tsx:GravityWell",
+      "type": "Function",
+      "label": "GravityWell",
+      "path": "src/components/canvas/GravityWell.tsx"
+    },
+    {
+      "id": "symbol:src/components/canvas/QuantumMesh.tsx:QuantumMesh",
+      "type": "Function",
+      "label": "QuantumMesh",
+      "path": "src/components/canvas/QuantumMesh.tsx"
+    },
+    {
+      "id": "symbol:src/components/CosmicBackground.tsx:CosmicBackground",
+      "type": "Function",
+      "label": "CosmicBackground",
+      "path": "src/components/CosmicBackground.tsx"
+    },
+    {
+      "id": "symbol:src/components/ExperienceCard.tsx:ExperienceCard",
+      "type": "Function",
+      "label": "ExperienceCard",
+      "path": "src/components/ExperienceCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/FutureProjectsSection.tsx:FutureProjectsSection",
+      "type": "Function",
+      "label": "FutureProjectsSection",
+      "path": "src/components/FutureProjectsSection.tsx"
+    },
+    {
+      "id": "symbol:src/components/GlassPanel.tsx:GlassPanel",
+      "type": "Function",
+      "label": "GlassPanel",
+      "path": "src/components/GlassPanel.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardShell",
+      "type": "Function",
+      "label": "InteractiveCardShell",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardSplit",
+      "type": "Function",
+      "label": "InteractiveCardSplit",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardHeader",
+      "type": "Function",
+      "label": "InteractiveCardHeader",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardBody",
+      "type": "Function",
+      "label": "InteractiveCardBody",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardTags",
+      "type": "Function",
+      "label": "InteractiveCardTags",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardFooter",
+      "type": "Function",
+      "label": "InteractiveCardFooter",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:ContentInteractiveCard",
+      "type": "Function",
+      "label": "ContentInteractiveCard",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:HUB_PAGE_CONTAINER",
+      "type": "Function",
+      "label": "HUB_PAGE_CONTAINER",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:HUB_CARD_GRID",
+      "type": "Function",
+      "label": "HUB_CARD_GRID",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:HubInteractiveCard",
+      "type": "Function",
+      "label": "HubInteractiveCard",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardDensity",
+      "type": "Function",
+      "label": "InteractiveCardDensity",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:InteractiveCardStatus",
+      "type": "Function",
+      "label": "InteractiveCardStatus",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveCard.tsx:HubCardProps",
+      "type": "Function",
+      "label": "HubCardProps",
+      "path": "src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/InteractiveParticles.tsx:InteractiveParticles",
+      "type": "Function",
+      "label": "InteractiveParticles",
+      "path": "src/components/InteractiveParticles.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:SortingPortalVisual",
+      "type": "Function",
+      "label": "SortingPortalVisual",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:SearchPortalVisual",
+      "type": "Function",
+      "label": "SearchPortalVisual",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:GraphPortalVisual",
+      "type": "Function",
+      "label": "GraphPortalVisual",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:DPPortalVisual",
+      "type": "Function",
+      "label": "DPPortalVisual",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:GreedyPortalVisual",
+      "type": "Function",
+      "label": "GreedyPortalVisual",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:TreePortalVisual",
+      "type": "Function",
+      "label": "TreePortalVisual",
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/LearningHubLayout.tsx:LearningHubLayout",
+      "type": "Function",
+      "label": "LearningHubLayout",
+      "path": "src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/LearningInteractiveCard.tsx:LearningInteractiveCard",
+      "type": "Function",
+      "label": "LearningInteractiveCard",
+      "path": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/LearningInteractiveCard.tsx:LearningCardTopic",
+      "type": "Function",
+      "label": "LearningCardTopic",
+      "path": "src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/LearningSandboxLayout.tsx:LearningSandboxLayout",
+      "type": "Function",
+      "label": "LearningSandboxLayout",
+      "path": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/LearningSandboxLayout.tsx:StatPill",
+      "type": "Function",
+      "label": "StatPill",
+      "path": "src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "symbol:src/components/learning/patternVisuals.tsx:PatternPortalVisual",
+      "type": "Function",
+      "label": "PatternPortalVisual",
+      "path": "src/components/learning/patternVisuals.tsx"
+    },
+    {
+      "id": "symbol:src/components/MorphingSphere.tsx:MorphingSphere",
+      "type": "Function",
+      "label": "MorphingSphere",
+      "path": "src/components/MorphingSphere.tsx"
+    },
+    {
+      "id": "symbol:src/components/PageHeader.tsx:PageHeader",
+      "type": "Function",
+      "label": "PageHeader",
+      "path": "src/components/PageHeader.tsx"
+    },
+    {
+      "id": "symbol:src/components/ProjectCard.tsx:ProjectCard",
+      "type": "Function",
+      "label": "ProjectCard",
+      "path": "src/components/ProjectCard.tsx"
+    },
+    {
+      "id": "symbol:src/components/ReadingProgress.tsx:ReadingProgress",
+      "type": "Function",
+      "label": "ReadingProgress",
+      "path": "src/components/ReadingProgress.tsx"
+    },
+    {
+      "id": "symbol:src/components/Reveal.tsx:Reveal",
+      "type": "Function",
+      "label": "Reveal",
+      "path": "src/components/Reveal.tsx"
+    },
+    {
+      "id": "symbol:src/components/SectionHeading.tsx:SectionHeading",
+      "type": "Function",
+      "label": "SectionHeading",
+      "path": "src/components/SectionHeading.tsx"
+    },
+    {
+      "id": "symbol:src/components/Seo.tsx:Seo",
+      "type": "Function",
+      "label": "Seo",
+      "path": "src/components/Seo.tsx"
+    },
+    {
+      "id": "symbol:src/components/TableOfContents.tsx:TableOfContents",
+      "type": "Function",
+      "label": "TableOfContents",
+      "path": "src/components/TableOfContents.tsx"
+    },
+    {
+      "id": "symbol:src/data/about.ts:about",
+      "type": "Function",
+      "label": "about",
+      "path": "src/data/about.ts"
+    },
+    {
+      "id": "symbol:src/data/algorithmCategories.ts:ALGORITHM_CATEGORIES",
+      "type": "Function",
+      "label": "ALGORITHM_CATEGORIES",
+      "path": "src/data/algorithmCategories.ts"
+    },
+    {
+      "id": "symbol:src/data/algorithmsInfo.ts:algorithmsData",
+      "type": "Function",
+      "label": "algorithmsData",
+      "path": "src/data/algorithmsInfo.ts"
+    },
+    {
+      "id": "symbol:src/data/algorithmsInfo.ts:AlgorithmInfo",
+      "type": "Function",
+      "label": "AlgorithmInfo",
+      "path": "src/data/algorithmsInfo.ts"
+    },
+    {
+      "id": "symbol:src/data/articles.ts:articleOrder",
+      "type": "Function",
+      "label": "articleOrder",
+      "path": "src/data/articles.ts"
+    },
+    {
+      "id": "symbol:src/data/articles.ts:ArticleSlug",
+      "type": "Function",
+      "label": "ArticleSlug",
+      "path": "src/data/articles.ts"
+    },
+    {
+      "id": "symbol:src/data/codingPatterns.ts:CODING_PATTERNS",
+      "type": "Function",
+      "label": "CODING_PATTERNS",
+      "path": "src/data/codingPatterns.ts"
+    },
+    {
+      "id": "symbol:src/data/codingPatterns.ts:CodingPattern",
+      "type": "Function",
+      "label": "CodingPattern",
+      "path": "src/data/codingPatterns.ts"
+    },
+    {
+      "id": "symbol:src/data/codingPatternTopics.tsx:CODING_PATTERN_TOPICS",
+      "type": "Function",
+      "label": "CODING_PATTERN_TOPICS",
+      "path": "src/data/codingPatternTopics.tsx"
+    },
+    {
+      "id": "symbol:src/data/contact.ts:contactPage",
+      "type": "Function",
+      "label": "contactPage",
+      "path": "src/data/contact.ts"
+    },
+    {
+      "id": "symbol:src/data/experience.ts:experience",
+      "type": "Function",
+      "label": "experience",
+      "path": "src/data/experience.ts"
+    },
+    {
+      "id": "symbol:src/data/futureProjects.ts:futureProjects",
+      "type": "Function",
+      "label": "futureProjects",
+      "path": "src/data/futureProjects.ts"
+    },
+    {
+      "id": "symbol:src/data/futureProjects.ts:FutureProject",
+      "type": "Function",
+      "label": "FutureProject",
+      "path": "src/data/futureProjects.ts"
+    },
+    {
+      "id": "symbol:src/data/home.ts:home",
+      "type": "Function",
+      "label": "home",
+      "path": "src/data/home.ts"
+    },
+    {
+      "id": "symbol:src/data/index.ts:site",
+      "type": "Function",
+      "label": "site",
+      "path": "src/data/index.ts"
+    },
+    {
+      "id": "symbol:src/data/navigation.ts:navItems",
+      "type": "Function",
+      "label": "navItems",
+      "path": "src/data/navigation.ts"
+    },
+    {
+      "id": "symbol:src/data/paths.ts:contentPaths",
+      "type": "Function",
+      "label": "contentPaths",
+      "path": "src/data/paths.ts"
+    },
+    {
+      "id": "symbol:src/data/profile.ts:profile",
+      "type": "Function",
+      "label": "profile",
+      "path": "src/data/profile.ts"
+    },
+    {
+      "id": "symbol:src/data/projects.ts:projectCategories",
+      "type": "Function",
+      "label": "projectCategories",
+      "path": "src/data/projects.ts"
+    },
+    {
+      "id": "symbol:src/data/projects.ts:projects",
+      "type": "Function",
+      "label": "projects",
+      "path": "src/data/projects.ts"
+    },
+    {
+      "id": "symbol:src/data/resume.ts:resume",
+      "type": "Function",
+      "label": "resume",
+      "path": "src/data/resume.ts"
+    },
+    {
+      "id": "symbol:src/data/slidingWindowProblems.ts:SLIDING_WINDOW_PROBLEMS",
+      "type": "Function",
+      "label": "SLIDING_WINDOW_PROBLEMS",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "symbol:src/data/slidingWindowProblems.ts:WindowInputKind",
+      "type": "Function",
+      "label": "WindowInputKind",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "symbol:src/data/slidingWindowProblems.ts:WindowStructureKind",
+      "type": "Function",
+      "label": "WindowStructureKind",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "symbol:src/data/slidingWindowProblems.ts:WindowValue",
+      "type": "Function",
+      "label": "WindowValue",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "symbol:src/data/slidingWindowProblems.ts:WindowVisualStep",
+      "type": "Function",
+      "label": "WindowVisualStep",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "symbol:src/data/slidingWindowProblems.ts:SlidingWindowProblem",
+      "type": "Function",
+      "label": "SlidingWindowProblem",
+      "path": "src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "symbol:src/data/socials.ts:links",
+      "type": "Function",
+      "label": "links",
+      "path": "src/data/socials.ts"
+    },
+    {
+      "id": "symbol:src/data/socials.ts:socialNav",
+      "type": "Function",
+      "label": "socialNav",
+      "path": "src/data/socials.ts"
+    },
+    {
+      "id": "symbol:src/data/types.ts:ExperienceEntry",
+      "type": "Function",
+      "label": "ExperienceEntry",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "symbol:src/data/types.ts:ProjectCategory",
+      "type": "Function",
+      "label": "ProjectCategory",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "symbol:src/data/types.ts:Project",
+      "type": "Function",
+      "label": "Project",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "symbol:src/data/types.ts:ProjectCategoryDef",
+      "type": "Function",
+      "label": "ProjectCategoryDef",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "symbol:src/data/types.ts:NavItem",
+      "type": "Function",
+      "label": "NavItem",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "symbol:src/data/types.ts:SocialLinks",
+      "type": "Function",
+      "label": "SocialLinks",
+      "path": "src/data/types.ts"
+    },
+    {
+      "id": "symbol:src/hooks/useParallax.ts:useScrollOffset",
+      "type": "Function",
+      "label": "useScrollOffset",
+      "path": "src/hooks/useParallax.ts"
+    },
+    {
+      "id": "symbol:src/hooks/useParallax.ts:usePrefersReducedMotion",
+      "type": "Function",
+      "label": "usePrefersReducedMotion",
+      "path": "src/hooks/useParallax.ts"
+    },
+    {
+      "id": "symbol:src/hooks/useParallax.ts:useParallaxEnabled",
+      "type": "Function",
+      "label": "useParallaxEnabled",
+      "path": "src/hooks/useParallax.ts"
+    },
+    {
+      "id": "symbol:src/hooks/useTilt.ts:useTilt",
+      "type": "Function",
+      "label": "useTilt",
+      "path": "src/hooks/useTilt.ts"
+    },
+    {
+      "id": "symbol:src/layout/Footer.tsx:Footer",
+      "type": "Function",
+      "label": "Footer",
+      "path": "src/layout/Footer.tsx"
+    },
+    {
+      "id": "symbol:src/layout/immersiveRoutes.ts:isImmersiveSandbox",
+      "type": "Function",
+      "label": "isImmersiveSandbox",
+      "path": "src/layout/immersiveRoutes.ts"
+    },
+    {
+      "id": "symbol:src/layout/immersiveRoutes.ts:shouldDisableGlobalEffects",
+      "type": "Function",
+      "label": "shouldDisableGlobalEffects",
+      "path": "src/layout/immersiveRoutes.ts"
+    },
+    {
+      "id": "symbol:src/layout/Navbar.tsx:Navbar",
+      "type": "Function",
+      "label": "Navbar",
+      "path": "src/layout/Navbar.tsx"
+    },
+    {
+      "id": "symbol:src/layout/RootLayout.tsx:RootLayout",
+      "type": "Function",
+      "label": "RootLayout",
+      "path": "src/layout/RootLayout.tsx"
+    },
+    {
+      "id": "symbol:src/pages/About.tsx:About",
+      "type": "Function",
+      "label": "About",
+      "path": "src/pages/About.tsx"
+    },
+    {
+      "id": "symbol:src/pages/AetherLab.tsx:AetherLab",
+      "type": "Function",
+      "label": "AetherLab",
+      "path": "src/pages/AetherLab.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Algorithms.tsx:Algorithms",
+      "type": "Function",
+      "label": "Algorithms",
+      "path": "src/pages/Algorithms.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Article.tsx:Article",
+      "type": "Function",
+      "label": "Article",
+      "path": "src/pages/Article.tsx"
+    },
+    {
+      "id": "symbol:src/pages/CodingPatterns.tsx:CodingPatterns",
+      "type": "Function",
+      "label": "CodingPatterns",
+      "path": "src/pages/CodingPatterns.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Contact.tsx:ContactPage",
+      "type": "Function",
+      "label": "ContactPage",
+      "path": "src/pages/Contact.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Experience.tsx:ExperiencePage",
+      "type": "Function",
+      "label": "ExperiencePage",
+      "path": "src/pages/Experience.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Home.tsx:Home",
+      "type": "Function",
+      "label": "Home",
+      "path": "src/pages/Home.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/AlgorithmDP.tsx:AlgorithmDP",
+      "type": "Function",
+      "label": "AlgorithmDP",
+      "path": "src/pages/learning-algorithms/AlgorithmDP.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/AlgorithmGraph.tsx:AlgorithmGraph",
+      "type": "Function",
+      "label": "AlgorithmGraph",
+      "path": "src/pages/learning-algorithms/AlgorithmGraph.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/AlgorithmGreedy.tsx:AlgorithmGreedy",
+      "type": "Function",
+      "label": "AlgorithmGreedy",
+      "path": "src/pages/learning-algorithms/AlgorithmGreedy.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/AlgorithmSearch.tsx:AlgorithmSearch",
+      "type": "Function",
+      "label": "AlgorithmSearch",
+      "path": "src/pages/learning-algorithms/AlgorithmSearch.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/AlgorithmTrees.tsx:AlgorithmTrees",
+      "type": "Function",
+      "label": "AlgorithmTrees",
+      "path": "src/pages/learning-algorithms/AlgorithmTrees.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/CachingStrategies.tsx:CachingStrategiesPage",
+      "type": "Function",
+      "label": "CachingStrategiesPage",
+      "path": "src/pages/learning-algorithms/CachingStrategies.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/ConsistencyModels.tsx:ConsistencyModelsPage",
+      "type": "Function",
+      "label": "ConsistencyModelsPage",
+      "path": "src/pages/learning-algorithms/ConsistencyModels.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx:ContentDeliveryNetworkPage",
+      "type": "Function",
+      "label": "ContentDeliveryNetworkPage",
+      "path": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/DatabaseSharding.tsx:DatabaseShardingPage",
+      "type": "Function",
+      "label": "DatabaseShardingPage",
+      "path": "src/pages/learning-algorithms/DatabaseSharding.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/LoadBalancing.tsx:LoadBalancingPage",
+      "type": "Function",
+      "label": "LoadBalancingPage",
+      "path": "src/pages/learning-algorithms/LoadBalancing.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/SlidingWindow.tsx:SlidingWindowPage",
+      "type": "Function",
+      "label": "SlidingWindowPage",
+      "path": "src/pages/learning-algorithms/SlidingWindow.tsx"
+    },
+    {
+      "id": "symbol:src/pages/learning-algorithms/SystemDesignConcepts.tsx:SystemDesignConceptsPage",
+      "type": "Function",
+      "label": "SystemDesignConceptsPage",
+      "path": "src/pages/learning-algorithms/SystemDesignConcepts.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Learning.tsx:Learning",
+      "type": "Function",
+      "label": "Learning",
+      "path": "src/pages/Learning.tsx"
+    },
+    {
+      "id": "symbol:src/pages/LearningAlgorithmHub.tsx:LearningAlgorithmHub",
+      "type": "Function",
+      "label": "LearningAlgorithmHub",
+      "path": "src/pages/LearningAlgorithmHub.tsx"
+    },
+    {
+      "id": "symbol:src/pages/MotionLab.tsx:MotionLab",
+      "type": "Function",
+      "label": "MotionLab",
+      "path": "src/pages/MotionLab.tsx"
+    },
+    {
+      "id": "symbol:src/pages/NotFound.tsx:NotFoundPage",
+      "type": "Function",
+      "label": "NotFoundPage",
+      "path": "src/pages/NotFound.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Projects.tsx:ProjectsPage",
+      "type": "Function",
+      "label": "ProjectsPage",
+      "path": "src/pages/Projects.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Resume.tsx:ResumePage",
+      "type": "Function",
+      "label": "ResumePage",
+      "path": "src/pages/Resume.tsx"
+    },
+    {
+      "id": "symbol:src/pages/Writing.tsx:WritingPage",
+      "type": "Function",
+      "label": "WritingPage",
+      "path": "src/pages/Writing.tsx"
+    },
+    {
+      "id": "symbol:src/utils/frontmatter.ts:parseFrontmatter",
+      "type": "Function",
+      "label": "parseFrontmatter",
+      "path": "src/utils/frontmatter.ts"
+    },
+    {
+      "id": "symbol:src/utils/frontmatter.ts:FrontData",
+      "type": "Function",
+      "label": "FrontData",
+      "path": "src/utils/frontmatter.ts"
+    },
+    {
+      "id": "symbol:src/utils/loadArticles.ts:loadArticles",
+      "type": "Function",
+      "label": "loadArticles",
+      "path": "src/utils/loadArticles.ts"
+    },
+    {
+      "id": "symbol:src/utils/loadArticles.ts:getAllPosts",
+      "type": "Function",
+      "label": "getAllPosts",
+      "path": "src/utils/loadArticles.ts"
+    },
+    {
+      "id": "symbol:src/utils/loadArticles.ts:getPostBySlug",
+      "type": "Function",
+      "label": "getPostBySlug",
+      "path": "src/utils/loadArticles.ts"
+    },
+    {
+      "id": "symbol:src/utils/loadArticles.ts:getFeaturedPosts",
+      "type": "Function",
+      "label": "getFeaturedPosts",
+      "path": "src/utils/loadArticles.ts"
+    },
+    {
+      "id": "symbol:src/utils/markdown.ts:parsePostMarkdown",
+      "type": "Function",
+      "label": "parsePostMarkdown",
+      "path": "src/utils/markdown.ts"
+    },
+    {
+      "id": "symbol:src/utils/markdown.ts:TocItem",
+      "type": "Function",
+      "label": "TocItem",
+      "path": "src/utils/markdown.ts"
+    },
+    {
+      "id": "symbol:src/utils/markdown.ts:ParsedPost",
+      "type": "Function",
+      "label": "ParsedPost",
+      "path": "src/utils/markdown.ts"
+    },
+    {
+      "id": "symbol:src/utils/slidingWindowSteps.ts:generateSlidingWindowSteps",
+      "type": "Function",
+      "label": "generateSlidingWindowSteps",
+      "path": "src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "symbol:src/utils/slidingWindowSteps.ts:StepFormula",
+      "type": "Function",
+      "label": "StepFormula",
+      "path": "src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "symbol:src/utils/slidingWindowSteps.ts:ExecutionStep",
+      "type": "Function",
+      "label": "ExecutionStep",
+      "path": "src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "test:.arsenal/summaries/files/tests__e2e__portfolio.spec.ts.json",
+      "type": "Test",
+      "label": ".arsenal/summaries/files/tests__e2e__portfolio.spec.ts.json",
+      "path": ".arsenal/summaries/files/tests__e2e__portfolio.spec.ts.json"
+    },
+    {
+      "id": "test:.arsenal/summaries/files/tests__unit__frontmatter.test.ts.json",
+      "type": "Test",
+      "label": ".arsenal/summaries/files/tests__unit__frontmatter.test.ts.json",
+      "path": ".arsenal/summaries/files/tests__unit__frontmatter.test.ts.json"
+    },
+    {
+      "id": "test:.arsenal/summaries/files/tests__unit__markdown.test.ts.json",
+      "type": "Test",
+      "label": ".arsenal/summaries/files/tests__unit__markdown.test.ts.json",
+      "path": ".arsenal/summaries/files/tests__unit__markdown.test.ts.json"
+    },
+    {
+      "id": "test:tests/e2e/portfolio.spec.ts",
+      "type": "Test",
+      "label": "tests/e2e/portfolio.spec.ts",
+      "path": "tests/e2e/portfolio.spec.ts"
+    },
+    {
+      "id": "test:tests/unit/frontmatter.test.ts",
+      "type": "Test",
+      "label": "tests/unit/frontmatter.test.ts",
+      "path": "tests/unit/frontmatter.test.ts"
+    },
+    {
+      "id": "test:tests/unit/markdown.test.ts",
+      "type": "Test",
+      "label": "tests/unit/markdown.test.ts",
+      "path": "tests/unit/markdown.test.ts"
+    },
+    {
+      "id": "ext:@eslint/js",
+      "type": "ExternalDependency",
+      "label": "@eslint/js"
+    },
+    {
+      "id": "ext:globals",
+      "type": "ExternalDependency",
+      "label": "globals"
+    },
+    {
+      "id": "ext:eslint-plugin-react-hooks",
+      "type": "ExternalDependency",
+      "label": "eslint-plugin-react-hooks"
+    },
+    {
+      "id": "ext:eslint-plugin-react-refresh",
+      "type": "ExternalDependency",
+      "label": "eslint-plugin-react-refresh"
+    },
+    {
+      "id": "ext:typescript-eslint",
+      "type": "ExternalDependency",
+      "label": "typescript-eslint"
+    },
+    {
+      "id": "ext:eslint-config-prettier",
+      "type": "ExternalDependency",
+      "label": "eslint-config-prettier"
+    },
+    {
+      "id": "ext:@playwright/test",
+      "type": "ExternalDependency",
+      "label": "@playwright/test"
+    },
+    {
+      "id": "ext:node:fs",
+      "type": "ExternalDependency",
+      "label": "node:fs"
+    },
+    {
+      "id": "ext:node:path",
+      "type": "ExternalDependency",
+      "label": "node:path"
+    },
+    {
+      "id": "ext:child_process",
+      "type": "ExternalDependency",
+      "label": "child_process"
+    },
+    {
+      "id": "ext:fs",
+      "type": "ExternalDependency",
+      "label": "fs"
+    },
+    {
+      "id": "ext:path",
+      "type": "ExternalDependency",
+      "label": "path"
+    },
+    {
+      "id": "ext:node:url",
+      "type": "ExternalDependency",
+      "label": "node:url"
+    },
+    {
+      "id": "ext:jsdom",
+      "type": "ExternalDependency",
+      "label": "jsdom"
+    },
+    {
+      "id": "ext:turndown",
+      "type": "ExternalDependency",
+      "label": "turndown"
+    },
+    {
+      "id": "ext:react",
+      "type": "ExternalDependency",
+      "label": "react"
+    },
+    {
+      "id": "ext:framer-motion",
+      "type": "ExternalDependency",
+      "label": "framer-motion"
+    },
+    {
+      "id": "ext:node:child_process",
+      "type": "ExternalDependency",
+      "label": "node:child_process"
+    },
+    {
+      "id": "ext:react-router-dom",
+      "type": "ExternalDependency",
+      "label": "react-router-dom"
+    },
+    {
+      "id": "ext:@react-three/fiber",
+      "type": "ExternalDependency",
+      "label": "@react-three/fiber"
+    },
+    {
+      "id": "ext:@react-three/drei",
+      "type": "ExternalDependency",
+      "label": "@react-three/drei"
+    },
+    {
+      "id": "ext:three",
+      "type": "ExternalDependency",
+      "label": "three"
+    },
+    {
+      "id": "ext:lenis",
+      "type": "ExternalDependency",
+      "label": "lenis"
+    },
+    {
+      "id": "ext:react-dom/client",
+      "type": "ExternalDependency",
+      "label": "react-dom/client"
+    },
+    {
+      "id": "ext:marked",
+      "type": "ExternalDependency",
+      "label": "marked"
+    },
+    {
+      "id": "ext:vitest",
+      "type": "ExternalDependency",
+      "label": "vitest"
+    },
+    {
+      "id": "ext:@tailwindcss/vite",
+      "type": "ExternalDependency",
+      "label": "@tailwindcss/vite"
+    },
+    {
+      "id": "ext:@vitejs/plugin-react",
+      "type": "ExternalDependency",
+      "label": "@vitejs/plugin-react"
+    },
+    {
+      "id": "ext:vite",
+      "type": "ExternalDependency",
+      "label": "vite"
+    },
+    {
+      "id": "ext:vitest/config",
+      "type": "ExternalDependency",
+      "label": "vitest/config"
+    },
+    {
+      "id": "config:eslint.config.js",
+      "type": "Config",
+      "label": "eslint.config.js",
+      "path": "eslint.config.js"
+    },
+    {
+      "id": "config:package.json",
+      "type": "Config",
+      "label": "package.json",
+      "path": "package.json"
+    },
+    {
+      "id": "config:playwright.config.ts",
+      "type": "Config",
+      "label": "playwright.config.ts",
+      "path": "playwright.config.ts"
+    },
+    {
+      "id": "config:tailwind.config.js",
+      "type": "Config",
+      "label": "tailwind.config.js",
+      "path": "tailwind.config.js"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "Config",
+      "label": "tsconfig.json",
+      "path": "tsconfig.json"
+    },
+    {
+      "id": "config:vite.config.ts",
+      "type": "Config",
+      "label": "vite.config.ts",
+      "path": "vite.config.ts"
+    },
+    {
+      "id": "config:vitest.config.ts",
+      "type": "Config",
+      "label": "vitest.config.ts",
+      "path": "vitest.config.ts"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src"
+    },
+    {
+      "id": "e2",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/components"
+    },
+    {
+      "id": "e3",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/content"
+    },
+    {
+      "id": "e4",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/data"
+    },
+    {
+      "id": "e5",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/hooks"
+    },
+    {
+      "id": "e6",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/layout"
+    },
+    {
+      "id": "e7",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/pages"
+    },
+    {
+      "id": "e8",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/sections"
+    },
+    {
+      "id": "e9",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/styles"
+    },
+    {
+      "id": "e10",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "module:src/utils"
+    },
+    {
+      "id": "e11",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/agent-events.jsonl"
+    },
+    {
+      "id": "e12",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/context-builds.jsonl"
+    },
+    {
+      "id": "e13",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/dashboard-details.json"
+    },
+    {
+      "id": "e14",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/improvement-suggestions.json"
+    },
+    {
+      "id": "e15",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/savings-report.json"
+    },
+    {
+      "id": "e16",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/stale-knowledge-report.json"
+    },
+    {
+      "id": "e17",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/analytics/usage-log.jsonl"
+    },
+    {
+      "id": "e18",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/config.json"
+    },
+    {
+      "id": "e19",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/memory/active-task.md"
+    },
+    {
+      "id": "e20",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/memory/compact-history.md"
+    },
+    {
+      "id": "e21",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/memory/conventions.md"
+    },
+    {
+      "id": "e22",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/memory/decisions.md"
+    },
+    {
+      "id": "e23",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/memory/pitfalls.md"
+    },
+    {
+      "id": "e24",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/prompts/agent-handoff.md"
+    },
+    {
+      "id": "e25",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/prompts/claude-context.md"
+    },
+    {
+      "id": "e26",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/prompts/cursor-context.md"
+    },
+    {
+      "id": "e27",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/rules/AGENTS.md"
+    },
+    {
+      "id": "e28",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/rules/CLAUDE.md"
+    },
+    {
+      "id": "e29",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/rules/commands.md"
+    },
+    {
+      "id": "e30",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/rules/context-policy.md"
+    },
+    {
+      "id": "e31",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/rules/cursor-rules.md"
+    },
+    {
+      "id": "e32",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/rules/testing-rules.md"
+    },
+    {
+      "id": "e33",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/summaries/architecture.md"
+    },
+    {
+      "id": "e34",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/summaries/public-api.md"
+    },
+    {
+      "id": "e35",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.arsenal/summaries/tests.md"
+    },
+    {
+      "id": "e36",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/knowledge-graph/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "id": "e37",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/knowledge-graph/graph.json"
+    },
+    {
+      "id": "e38",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/knowledge-graph/README.md"
+    },
+    {
+      "id": "e39",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/knowledge-graph/SCHEMA.md"
+    },
+    {
+      "id": "e40",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/rules/agent-guardrails.mdc"
+    },
+    {
+      "id": "e41",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/rules/arsenal-context.mdc"
+    },
+    {
+      "id": "e42",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/rules/knowledge-graph.mdc"
+    },
+    {
+      "id": "e43",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/rules/react-pages.mdc"
+    },
+    {
+      "id": "e44",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.cursor/rules/testing.mdc"
+    },
+    {
+      "id": "e45",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.editorconfig"
+    },
+    {
+      "id": "e46",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.env.example"
+    },
+    {
+      "id": "e47",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.github/BRANCH_PROTECTION.md"
+    },
+    {
+      "id": "e48",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.github/CODEOWNERS"
+    },
+    {
+      "id": "e49",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.github/dependabot.yml"
+    },
+    {
+      "id": "e50",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.github/pull_request_template.md"
+    },
+    {
+      "id": "e51",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.github/workflows/ci.yml"
+    },
+    {
+      "id": "e52",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.github/workflows/deploy.yml"
+    },
+    {
+      "id": "e53",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.gitignore"
+    },
+    {
+      "id": "e54",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.husky/pre-commit"
+    },
+    {
+      "id": "e55",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.husky/pre-push"
+    },
+    {
+      "id": "e56",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.nvmrc"
+    },
+    {
+      "id": "e57",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.prettierignore"
+    },
+    {
+      "id": "e58",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:.prettierrc"
+    },
+    {
+      "id": "e59",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:AGENTS.md"
+    },
+    {
+      "id": "e60",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:CLAUDE.md"
+    },
+    {
+      "id": "e61",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:cleaned_resume.html"
+    },
+    {
+      "id": "e62",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/.nojekyll"
+    },
+    {
+      "id": "e63",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/404.html"
+    },
+    {
+      "id": "e64",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/assets/Article-D3AJ1lqh.js"
+    },
+    {
+      "id": "e65",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/assets/index-DLOQmEzy.js"
+    },
+    {
+      "id": "e66",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/assets/index-Don2Lvkz.css"
+    },
+    {
+      "id": "e67",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/favicon.svg"
+    },
+    {
+      "id": "e68",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:docs/index.html"
+    },
+    {
+      "id": "e69",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:eslint.config.js"
+    },
+    {
+      "id": "e70",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:extracted_resume.html"
+    },
+    {
+      "id": "e71",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/1.jpg"
+    },
+    {
+      "id": "e72",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/2.jpg"
+    },
+    {
+      "id": "e73",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/3.jpg"
+    },
+    {
+      "id": "e74",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/bbottom.jpg"
+    },
+    {
+      "id": "e75",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/bg.jpg"
+    },
+    {
+      "id": "e76",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/bmid.jpg"
+    },
+    {
+      "id": "e77",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/border1.png"
+    },
+    {
+      "id": "e78",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/border2.png"
+    },
+    {
+      "id": "e79",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/btop.jpg"
+    },
+    {
+      "id": "e80",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/bullet.gif"
+    },
+    {
+      "id": "e81",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/frame.jpg"
+    },
+    {
+      "id": "e82",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-ad.gif"
+    },
+    {
+      "id": "e83",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-contact.jpg"
+    },
+    {
+      "id": "e84",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-facebook.jpg"
+    },
+    {
+      "id": "e85",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-mail.gif"
+    },
+    {
+      "id": "e86",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-print.jpg"
+    },
+    {
+      "id": "e87",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-save.jpg"
+    },
+    {
+      "id": "e88",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-tel.gif"
+    },
+    {
+      "id": "e89",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-twitter.jpg"
+    },
+    {
+      "id": "e90",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/icn-web.gif"
+    },
+    {
+      "id": "e91",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/image.jpg"
+    },
+    {
+      "id": "e92",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/loading.gif"
+    },
+    {
+      "id": "e93",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/paperbottom.jpg"
+    },
+    {
+      "id": "e94",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/papertop.jpg"
+    },
+    {
+      "id": "e95",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/pbottom.jpg"
+    },
+    {
+      "id": "e96",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/pmid.jpg"
+    },
+    {
+      "id": "e97",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/ptop.jpg"
+    },
+    {
+      "id": "e98",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/submit.jpg"
+    },
+    {
+      "id": "e99",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/tipsy.gif"
+    },
+    {
+      "id": "e100",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:images/title.jpg"
+    },
+    {
+      "id": "e101",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:index.html"
+    },
+    {
+      "id": "e102",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:package.json"
+    },
+    {
+      "id": "e103",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:playwright.config.ts"
+    },
+    {
+      "id": "e104",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:public/.nojekyll"
+    },
+    {
+      "id": "e105",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:public/Akshay-Borse-Resume.pdf"
+    },
+    {
+      "id": "e106",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:public/favicon.svg"
+    },
+    {
+      "id": "e107",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:public/resume.pdf"
+    },
+    {
+      "id": "e108",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:public/robots.txt"
+    },
+    {
+      "id": "e109",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:public/sitemap.xml"
+    },
+    {
+      "id": "e110",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:README.md"
+    },
+    {
+      "id": "e111",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:resume/resume.tex"
+    },
+    {
+      "id": "e112",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/check-bundle-size.mjs"
+    },
+    {
+      "id": "e113",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/compile-resume.mjs"
+    },
+    {
+      "id": "e114",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/copy-404.mjs"
+    },
+    {
+      "id": "e115",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/generate-article-index.mjs"
+    },
+    {
+      "id": "e116",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/generate-medium-articles.mjs"
+    },
+    {
+      "id": "e117",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/generate-medium-top-ranked.mjs"
+    },
+    {
+      "id": "e118",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/import-medium-html.js"
+    },
+    {
+      "id": "e119",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/Medium_Performance_Analysis.md"
+    },
+    {
+      "id": "e120",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/Medium_Stats_With_Scoring.csv"
+    },
+    {
+      "id": "e121",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/Medium_Top15_Ranked.csv"
+    },
+    {
+      "id": "e122",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/patch_resume.cjs"
+    },
+    {
+      "id": "e123",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/patch_resume.js"
+    },
+    {
+      "id": "e124",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/prune-css.mjs"
+    },
+    {
+      "id": "e125",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/start_replacement.txt"
+    },
+    {
+      "id": "e126",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/sync-docs.mjs"
+    },
+    {
+      "id": "e127",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/validate.mjs"
+    },
+    {
+      "id": "e128",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/verify-dist.mjs"
+    },
+    {
+      "id": "e129",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:scripts/verify-knowledge-graph.mjs"
+    },
+    {
+      "id": "e130",
+      "type": "CONTAINS",
+      "source": "module:src",
+      "target": "file:src/App.tsx"
+    },
+    {
+      "id": "e131",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/Button.tsx"
+    },
+    {
+      "id": "e132",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/canvas/AnomalyMatrix.tsx"
+    },
+    {
+      "id": "e133",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/canvas/GodSphere.tsx"
+    },
+    {
+      "id": "e134",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/canvas/GravityWell.tsx"
+    },
+    {
+      "id": "e135",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/canvas/QuantumMesh.tsx"
+    },
+    {
+      "id": "e136",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/CosmicBackground.tsx"
+    },
+    {
+      "id": "e137",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/ExperienceCard.tsx"
+    },
+    {
+      "id": "e138",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/FutureProjectsSection.tsx"
+    },
+    {
+      "id": "e139",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/GlassPanel.tsx"
+    },
+    {
+      "id": "e140",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e141",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/InteractiveParticles.tsx"
+    },
+    {
+      "id": "e142",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "e143",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e144",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e145",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e146",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/learning/patternVisuals.tsx"
+    },
+    {
+      "id": "e147",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/MorphingSphere.tsx"
+    },
+    {
+      "id": "e148",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/PageHeader.tsx"
+    },
+    {
+      "id": "e149",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/ProjectCard.tsx"
+    },
+    {
+      "id": "e150",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/ReadingProgress.tsx"
+    },
+    {
+      "id": "e151",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/Reveal.tsx"
+    },
+    {
+      "id": "e152",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/SectionHeading.tsx"
+    },
+    {
+      "id": "e153",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e154",
+      "type": "CONTAINS",
+      "source": "module:src/components",
+      "target": "file:src/components/TableOfContents.tsx"
+    },
+    {
+      "id": "e155",
+      "type": "CONTAINS",
+      "source": "module:src/content",
+      "target": "file:src/content/articles/designing-for-reliability.md"
+    },
+    {
+      "id": "e156",
+      "type": "CONTAINS",
+      "source": "module:src/content",
+      "target": "file:src/content/articles/notes-on-api-design.md"
+    },
+    {
+      "id": "e157",
+      "type": "CONTAINS",
+      "source": "module:src/content",
+      "target": "file:src/content/articles/observability-without-overload.md"
+    },
+    {
+      "id": "e158",
+      "type": "CONTAINS",
+      "source": "module:src/content",
+      "target": "file:src/content/articles/tradeoffs-in-distributed-systems.md"
+    },
+    {
+      "id": "e159",
+      "type": "CONTAINS",
+      "source": "module:src/content",
+      "target": "file:src/content/articles/writing-as-engineering.md"
+    },
+    {
+      "id": "e160",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/about.ts"
+    },
+    {
+      "id": "e161",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/algorithmCategories.ts"
+    },
+    {
+      "id": "e162",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/algorithmsInfo.ts"
+    },
+    {
+      "id": "e163",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/articles.ts"
+    },
+    {
+      "id": "e164",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/codingPatterns.ts"
+    },
+    {
+      "id": "e165",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/codingPatternTopics.tsx"
+    },
+    {
+      "id": "e166",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/contact.ts"
+    },
+    {
+      "id": "e167",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/experience.ts"
+    },
+    {
+      "id": "e168",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/futureProjects.ts"
+    },
+    {
+      "id": "e169",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/home.ts"
+    },
+    {
+      "id": "e170",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e171",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/navigation.ts"
+    },
+    {
+      "id": "e172",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/paths.ts"
+    },
+    {
+      "id": "e173",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/profile.ts"
+    },
+    {
+      "id": "e174",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/projects.ts"
+    },
+    {
+      "id": "e175",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/resume.ts"
+    },
+    {
+      "id": "e176",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/slidingWindowProblems.ts"
+    },
+    {
+      "id": "e177",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/socials.ts"
+    },
+    {
+      "id": "e178",
+      "type": "CONTAINS",
+      "source": "module:src/data",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e179",
+      "type": "CONTAINS",
+      "source": "module:src/hooks",
+      "target": "file:src/hooks/useParallax.ts"
+    },
+    {
+      "id": "e180",
+      "type": "CONTAINS",
+      "source": "module:src/hooks",
+      "target": "file:src/hooks/useTilt.ts"
+    },
+    {
+      "id": "e181",
+      "type": "CONTAINS",
+      "source": "module:src/layout",
+      "target": "file:src/layout/Footer.tsx"
+    },
+    {
+      "id": "e182",
+      "type": "CONTAINS",
+      "source": "module:src/layout",
+      "target": "file:src/layout/immersiveRoutes.ts"
+    },
+    {
+      "id": "e183",
+      "type": "CONTAINS",
+      "source": "module:src/layout",
+      "target": "file:src/layout/Navbar.tsx"
+    },
+    {
+      "id": "e184",
+      "type": "CONTAINS",
+      "source": "module:src/layout",
+      "target": "file:src/layout/RootLayout.tsx"
+    },
+    {
+      "id": "e185",
+      "type": "CONTAINS",
+      "source": "module:src",
+      "target": "file:src/main.tsx"
+    },
+    {
+      "id": "e186",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/About.tsx"
+    },
+    {
+      "id": "e187",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/AetherLab.tsx"
+    },
+    {
+      "id": "e188",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Algorithms.tsx"
+    },
+    {
+      "id": "e189",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Article.tsx"
+    },
+    {
+      "id": "e190",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/CodingPatterns.tsx"
+    },
+    {
+      "id": "e191",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Contact.tsx"
+    },
+    {
+      "id": "e192",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Experience.tsx"
+    },
+    {
+      "id": "e193",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Home.tsx"
+    },
+    {
+      "id": "e194",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/AlgorithmDP.tsx"
+    },
+    {
+      "id": "e195",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx"
+    },
+    {
+      "id": "e196",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx"
+    },
+    {
+      "id": "e197",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx"
+    },
+    {
+      "id": "e198",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx"
+    },
+    {
+      "id": "e199",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/CachingStrategies.tsx"
+    },
+    {
+      "id": "e200",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/ConsistencyModels.tsx"
+    },
+    {
+      "id": "e201",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx"
+    },
+    {
+      "id": "e202",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/DatabaseSharding.tsx"
+    },
+    {
+      "id": "e203",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/LoadBalancing.tsx"
+    },
+    {
+      "id": "e204",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/SlidingWindow.tsx"
+    },
+    {
+      "id": "e205",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx"
+    },
+    {
+      "id": "e206",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Learning.tsx"
+    },
+    {
+      "id": "e207",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/LearningAlgorithmHub.tsx"
+    },
+    {
+      "id": "e208",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/MotionLab.tsx"
+    },
+    {
+      "id": "e209",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/NotFound.tsx"
+    },
+    {
+      "id": "e210",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Projects.tsx"
+    },
+    {
+      "id": "e211",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Resume.tsx"
+    },
+    {
+      "id": "e212",
+      "type": "CONTAINS",
+      "source": "module:src/pages",
+      "target": "file:src/pages/Writing.tsx"
+    },
+    {
+      "id": "e213",
+      "type": "CONTAINS",
+      "source": "module:src/sections",
+      "target": "file:src/sections/.gitkeep"
+    },
+    {
+      "id": "e214",
+      "type": "CONTAINS",
+      "source": "module:src/styles",
+      "target": "file:src/styles/index.css"
+    },
+    {
+      "id": "e215",
+      "type": "CONTAINS",
+      "source": "module:src/utils",
+      "target": "file:src/utils/frontmatter.ts"
+    },
+    {
+      "id": "e216",
+      "type": "CONTAINS",
+      "source": "module:src/utils",
+      "target": "file:src/utils/loadArticles.ts"
+    },
+    {
+      "id": "e217",
+      "type": "CONTAINS",
+      "source": "module:src/utils",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e218",
+      "type": "CONTAINS",
+      "source": "module:src/utils",
+      "target": "file:src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "e219",
+      "type": "CONTAINS",
+      "source": "module:src",
+      "target": "file:src/vite-env.d.ts"
+    },
+    {
+      "id": "e220",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tailwind.config.js"
+    },
+    {
+      "id": "e221",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tests/e2e/portfolio.spec.ts"
+    },
+    {
+      "id": "e222",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tests/unit/frontmatter.test.ts"
+    },
+    {
+      "id": "e223",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tests/unit/markdown.test.ts"
+    },
+    {
+      "id": "e224",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tmp_resume/resume_web/index.html"
+    },
+    {
+      "id": "e225",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tmp_resume/resume_web/script.js"
+    },
+    {
+      "id": "e226",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tmp_resume/resume_web/styles.css"
+    },
+    {
+      "id": "e227",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tsconfig.app.json"
+    },
+    {
+      "id": "e228",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tsconfig.json"
+    },
+    {
+      "id": "e229",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:tsconfig.node.json"
+    },
+    {
+      "id": "e230",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:vite.config.ts"
+    },
+    {
+      "id": "e231",
+      "type": "CONTAINS",
+      "source": "repo:root",
+      "target": "file:vitest.config.ts"
+    },
+    {
+      "id": "e232",
+      "type": "EXPORTS",
+      "source": "file:scripts/generate-article-index.mjs",
+      "target": "symbol:scripts/generate-article-index.mjs:articleOrder"
+    },
+    {
+      "id": "e233",
+      "type": "EXPORTS",
+      "source": "file:scripts/generate-article-index.mjs",
+      "target": "symbol:scripts/generate-article-index.mjs:ArticleSlug"
+    },
+    {
+      "id": "e234",
+      "type": "EXPORTS",
+      "source": "file:scripts/generate-medium-articles.mjs",
+      "target": "symbol:scripts/generate-medium-articles.mjs:mediumArticles"
+    },
+    {
+      "id": "e235",
+      "type": "EXPORTS",
+      "source": "file:scripts/generate-medium-articles.mjs",
+      "target": "symbol:scripts/generate-medium-articles.mjs:MediumArticle"
+    },
+    {
+      "id": "e236",
+      "type": "EXPORTS",
+      "source": "file:scripts/generate-medium-top-ranked.mjs",
+      "target": "symbol:scripts/generate-medium-top-ranked.mjs:mediumTopRanked"
+    },
+    {
+      "id": "e237",
+      "type": "EXPORTS",
+      "source": "file:scripts/generate-medium-top-ranked.mjs",
+      "target": "symbol:scripts/generate-medium-top-ranked.mjs:MediumTopRankedEntry"
+    },
+    {
+      "id": "e238",
+      "type": "EXPORTS",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "symbol:scripts/patch_resume.cjs:ResumePage"
+    },
+    {
+      "id": "e239",
+      "type": "EXPORTS",
+      "source": "file:scripts/patch_resume.js",
+      "target": "symbol:scripts/patch_resume.js:ResumePage"
+    },
+    {
+      "id": "e240",
+      "type": "EXPORTS",
+      "source": "file:src/App.tsx",
+      "target": "symbol:src/App.tsx:App"
+    },
+    {
+      "id": "e241",
+      "type": "EXPORTS",
+      "source": "file:src/components/Button.tsx",
+      "target": "symbol:src/components/Button.tsx:Button"
+    },
+    {
+      "id": "e242",
+      "type": "EXPORTS",
+      "source": "file:src/components/canvas/AnomalyMatrix.tsx",
+      "target": "symbol:src/components/canvas/AnomalyMatrix.tsx:AnomalyMatrix"
+    },
+    {
+      "id": "e243",
+      "type": "EXPORTS",
+      "source": "file:src/components/canvas/GodSphere.tsx",
+      "target": "symbol:src/components/canvas/GodSphere.tsx:GodSphere"
+    },
+    {
+      "id": "e244",
+      "type": "EXPORTS",
+      "source": "file:src/components/canvas/GravityWell.tsx",
+      "target": "symbol:src/components/canvas/GravityWell.tsx:GravityWell"
+    },
+    {
+      "id": "e245",
+      "type": "EXPORTS",
+      "source": "file:src/components/canvas/QuantumMesh.tsx",
+      "target": "symbol:src/components/canvas/QuantumMesh.tsx:QuantumMesh"
+    },
+    {
+      "id": "e246",
+      "type": "EXPORTS",
+      "source": "file:src/components/CosmicBackground.tsx",
+      "target": "symbol:src/components/CosmicBackground.tsx:CosmicBackground"
+    },
+    {
+      "id": "e247",
+      "type": "EXPORTS",
+      "source": "file:src/components/ExperienceCard.tsx",
+      "target": "symbol:src/components/ExperienceCard.tsx:ExperienceCard"
+    },
+    {
+      "id": "e248",
+      "type": "EXPORTS",
+      "source": "file:src/components/FutureProjectsSection.tsx",
+      "target": "symbol:src/components/FutureProjectsSection.tsx:FutureProjectsSection"
+    },
+    {
+      "id": "e249",
+      "type": "EXPORTS",
+      "source": "file:src/components/GlassPanel.tsx",
+      "target": "symbol:src/components/GlassPanel.tsx:GlassPanel"
+    },
+    {
+      "id": "e250",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardShell"
+    },
+    {
+      "id": "e251",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardSplit"
+    },
+    {
+      "id": "e252",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardHeader"
+    },
+    {
+      "id": "e253",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardBody"
+    },
+    {
+      "id": "e254",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardTags"
+    },
+    {
+      "id": "e255",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardFooter"
+    },
+    {
+      "id": "e256",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:ContentInteractiveCard"
+    },
+    {
+      "id": "e257",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:HUB_PAGE_CONTAINER"
+    },
+    {
+      "id": "e258",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:HUB_CARD_GRID"
+    },
+    {
+      "id": "e259",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:HubInteractiveCard"
+    },
+    {
+      "id": "e260",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardDensity"
+    },
+    {
+      "id": "e261",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:InteractiveCardStatus"
+    },
+    {
+      "id": "e262",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "symbol:src/components/InteractiveCard.tsx:HubCardProps"
+    },
+    {
+      "id": "e263",
+      "type": "EXPORTS",
+      "source": "file:src/components/InteractiveParticles.tsx",
+      "target": "symbol:src/components/InteractiveParticles.tsx:InteractiveParticles"
+    },
+    {
+      "id": "e264",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "target": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:SortingPortalVisual"
+    },
+    {
+      "id": "e265",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "target": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:SearchPortalVisual"
+    },
+    {
+      "id": "e266",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "target": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:GraphPortalVisual"
+    },
+    {
+      "id": "e267",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "target": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:DPPortalVisual"
+    },
+    {
+      "id": "e268",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "target": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:GreedyPortalVisual"
+    },
+    {
+      "id": "e269",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/algorithmCategoryVisuals.tsx",
+      "target": "symbol:src/components/learning/algorithmCategoryVisuals.tsx:TreePortalVisual"
+    },
+    {
+      "id": "e270",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "symbol:src/components/learning/LearningHubLayout.tsx:LearningHubLayout"
+    },
+    {
+      "id": "e271",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/LearningInteractiveCard.tsx",
+      "target": "symbol:src/components/learning/LearningInteractiveCard.tsx:LearningInteractiveCard"
+    },
+    {
+      "id": "e272",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/LearningInteractiveCard.tsx",
+      "target": "symbol:src/components/learning/LearningInteractiveCard.tsx:LearningCardTopic"
+    },
+    {
+      "id": "e273",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/LearningSandboxLayout.tsx",
+      "target": "symbol:src/components/learning/LearningSandboxLayout.tsx:LearningSandboxLayout"
+    },
+    {
+      "id": "e274",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/LearningSandboxLayout.tsx",
+      "target": "symbol:src/components/learning/LearningSandboxLayout.tsx:StatPill"
+    },
+    {
+      "id": "e275",
+      "type": "EXPORTS",
+      "source": "file:src/components/learning/patternVisuals.tsx",
+      "target": "symbol:src/components/learning/patternVisuals.tsx:PatternPortalVisual"
+    },
+    {
+      "id": "e276",
+      "type": "EXPORTS",
+      "source": "file:src/components/MorphingSphere.tsx",
+      "target": "symbol:src/components/MorphingSphere.tsx:MorphingSphere"
+    },
+    {
+      "id": "e277",
+      "type": "EXPORTS",
+      "source": "file:src/components/PageHeader.tsx",
+      "target": "symbol:src/components/PageHeader.tsx:PageHeader"
+    },
+    {
+      "id": "e278",
+      "type": "EXPORTS",
+      "source": "file:src/components/ProjectCard.tsx",
+      "target": "symbol:src/components/ProjectCard.tsx:ProjectCard"
+    },
+    {
+      "id": "e279",
+      "type": "EXPORTS",
+      "source": "file:src/components/ReadingProgress.tsx",
+      "target": "symbol:src/components/ReadingProgress.tsx:ReadingProgress"
+    },
+    {
+      "id": "e280",
+      "type": "EXPORTS",
+      "source": "file:src/components/Reveal.tsx",
+      "target": "symbol:src/components/Reveal.tsx:Reveal"
+    },
+    {
+      "id": "e281",
+      "type": "EXPORTS",
+      "source": "file:src/components/SectionHeading.tsx",
+      "target": "symbol:src/components/SectionHeading.tsx:SectionHeading"
+    },
+    {
+      "id": "e282",
+      "type": "EXPORTS",
+      "source": "file:src/components/Seo.tsx",
+      "target": "symbol:src/components/Seo.tsx:Seo"
+    },
+    {
+      "id": "e283",
+      "type": "EXPORTS",
+      "source": "file:src/components/TableOfContents.tsx",
+      "target": "symbol:src/components/TableOfContents.tsx:TableOfContents"
+    },
+    {
+      "id": "e284",
+      "type": "EXPORTS",
+      "source": "file:src/data/about.ts",
+      "target": "symbol:src/data/about.ts:about"
+    },
+    {
+      "id": "e285",
+      "type": "EXPORTS",
+      "source": "file:src/data/algorithmCategories.ts",
+      "target": "symbol:src/data/algorithmCategories.ts:ALGORITHM_CATEGORIES"
+    },
+    {
+      "id": "e286",
+      "type": "EXPORTS",
+      "source": "file:src/data/algorithmsInfo.ts",
+      "target": "symbol:src/data/algorithmsInfo.ts:algorithmsData"
+    },
+    {
+      "id": "e287",
+      "type": "EXPORTS",
+      "source": "file:src/data/algorithmsInfo.ts",
+      "target": "symbol:src/data/algorithmsInfo.ts:AlgorithmInfo"
+    },
+    {
+      "id": "e288",
+      "type": "EXPORTS",
+      "source": "file:src/data/articles.ts",
+      "target": "symbol:src/data/articles.ts:articleOrder"
+    },
+    {
+      "id": "e289",
+      "type": "EXPORTS",
+      "source": "file:src/data/articles.ts",
+      "target": "symbol:src/data/articles.ts:ArticleSlug"
+    },
+    {
+      "id": "e290",
+      "type": "EXPORTS",
+      "source": "file:src/data/codingPatterns.ts",
+      "target": "symbol:src/data/codingPatterns.ts:CODING_PATTERNS"
+    },
+    {
+      "id": "e291",
+      "type": "EXPORTS",
+      "source": "file:src/data/codingPatterns.ts",
+      "target": "symbol:src/data/codingPatterns.ts:CodingPattern"
+    },
+    {
+      "id": "e292",
+      "type": "EXPORTS",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "symbol:src/data/codingPatternTopics.tsx:CODING_PATTERN_TOPICS"
+    },
+    {
+      "id": "e293",
+      "type": "EXPORTS",
+      "source": "file:src/data/contact.ts",
+      "target": "symbol:src/data/contact.ts:contactPage"
+    },
+    {
+      "id": "e294",
+      "type": "EXPORTS",
+      "source": "file:src/data/experience.ts",
+      "target": "symbol:src/data/experience.ts:experience"
+    },
+    {
+      "id": "e295",
+      "type": "EXPORTS",
+      "source": "file:src/data/futureProjects.ts",
+      "target": "symbol:src/data/futureProjects.ts:futureProjects"
+    },
+    {
+      "id": "e296",
+      "type": "EXPORTS",
+      "source": "file:src/data/futureProjects.ts",
+      "target": "symbol:src/data/futureProjects.ts:FutureProject"
+    },
+    {
+      "id": "e297",
+      "type": "EXPORTS",
+      "source": "file:src/data/home.ts",
+      "target": "symbol:src/data/home.ts:home"
+    },
+    {
+      "id": "e298",
+      "type": "EXPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "symbol:src/data/index.ts:site"
+    },
+    {
+      "id": "e299",
+      "type": "EXPORTS",
+      "source": "file:src/data/navigation.ts",
+      "target": "symbol:src/data/navigation.ts:navItems"
+    },
+    {
+      "id": "e300",
+      "type": "EXPORTS",
+      "source": "file:src/data/paths.ts",
+      "target": "symbol:src/data/paths.ts:contentPaths"
+    },
+    {
+      "id": "e301",
+      "type": "EXPORTS",
+      "source": "file:src/data/profile.ts",
+      "target": "symbol:src/data/profile.ts:profile"
+    },
+    {
+      "id": "e302",
+      "type": "EXPORTS",
+      "source": "file:src/data/projects.ts",
+      "target": "symbol:src/data/projects.ts:projectCategories"
+    },
+    {
+      "id": "e303",
+      "type": "EXPORTS",
+      "source": "file:src/data/projects.ts",
+      "target": "symbol:src/data/projects.ts:projects"
+    },
+    {
+      "id": "e304",
+      "type": "EXPORTS",
+      "source": "file:src/data/resume.ts",
+      "target": "symbol:src/data/resume.ts:resume"
+    },
+    {
+      "id": "e305",
+      "type": "EXPORTS",
+      "source": "file:src/data/slidingWindowProblems.ts",
+      "target": "symbol:src/data/slidingWindowProblems.ts:SLIDING_WINDOW_PROBLEMS"
+    },
+    {
+      "id": "e306",
+      "type": "EXPORTS",
+      "source": "file:src/data/slidingWindowProblems.ts",
+      "target": "symbol:src/data/slidingWindowProblems.ts:WindowInputKind"
+    },
+    {
+      "id": "e307",
+      "type": "EXPORTS",
+      "source": "file:src/data/slidingWindowProblems.ts",
+      "target": "symbol:src/data/slidingWindowProblems.ts:WindowStructureKind"
+    },
+    {
+      "id": "e308",
+      "type": "EXPORTS",
+      "source": "file:src/data/slidingWindowProblems.ts",
+      "target": "symbol:src/data/slidingWindowProblems.ts:WindowValue"
+    },
+    {
+      "id": "e309",
+      "type": "EXPORTS",
+      "source": "file:src/data/slidingWindowProblems.ts",
+      "target": "symbol:src/data/slidingWindowProblems.ts:WindowVisualStep"
+    },
+    {
+      "id": "e310",
+      "type": "EXPORTS",
+      "source": "file:src/data/slidingWindowProblems.ts",
+      "target": "symbol:src/data/slidingWindowProblems.ts:SlidingWindowProblem"
+    },
+    {
+      "id": "e311",
+      "type": "EXPORTS",
+      "source": "file:src/data/socials.ts",
+      "target": "symbol:src/data/socials.ts:links"
+    },
+    {
+      "id": "e312",
+      "type": "EXPORTS",
+      "source": "file:src/data/socials.ts",
+      "target": "symbol:src/data/socials.ts:socialNav"
+    },
+    {
+      "id": "e313",
+      "type": "EXPORTS",
+      "source": "file:src/data/types.ts",
+      "target": "symbol:src/data/types.ts:ExperienceEntry"
+    },
+    {
+      "id": "e314",
+      "type": "EXPORTS",
+      "source": "file:src/data/types.ts",
+      "target": "symbol:src/data/types.ts:ProjectCategory"
+    },
+    {
+      "id": "e315",
+      "type": "EXPORTS",
+      "source": "file:src/data/types.ts",
+      "target": "symbol:src/data/types.ts:Project"
+    },
+    {
+      "id": "e316",
+      "type": "EXPORTS",
+      "source": "file:src/data/types.ts",
+      "target": "symbol:src/data/types.ts:ProjectCategoryDef"
+    },
+    {
+      "id": "e317",
+      "type": "EXPORTS",
+      "source": "file:src/data/types.ts",
+      "target": "symbol:src/data/types.ts:NavItem"
+    },
+    {
+      "id": "e318",
+      "type": "EXPORTS",
+      "source": "file:src/data/types.ts",
+      "target": "symbol:src/data/types.ts:SocialLinks"
+    },
+    {
+      "id": "e319",
+      "type": "EXPORTS",
+      "source": "file:src/hooks/useParallax.ts",
+      "target": "symbol:src/hooks/useParallax.ts:useScrollOffset"
+    },
+    {
+      "id": "e320",
+      "type": "EXPORTS",
+      "source": "file:src/hooks/useParallax.ts",
+      "target": "symbol:src/hooks/useParallax.ts:usePrefersReducedMotion"
+    },
+    {
+      "id": "e321",
+      "type": "EXPORTS",
+      "source": "file:src/hooks/useParallax.ts",
+      "target": "symbol:src/hooks/useParallax.ts:useParallaxEnabled"
+    },
+    {
+      "id": "e322",
+      "type": "EXPORTS",
+      "source": "file:src/hooks/useTilt.ts",
+      "target": "symbol:src/hooks/useTilt.ts:useTilt"
+    },
+    {
+      "id": "e323",
+      "type": "EXPORTS",
+      "source": "file:src/layout/Footer.tsx",
+      "target": "symbol:src/layout/Footer.tsx:Footer"
+    },
+    {
+      "id": "e324",
+      "type": "EXPORTS",
+      "source": "file:src/layout/immersiveRoutes.ts",
+      "target": "symbol:src/layout/immersiveRoutes.ts:isImmersiveSandbox"
+    },
+    {
+      "id": "e325",
+      "type": "EXPORTS",
+      "source": "file:src/layout/immersiveRoutes.ts",
+      "target": "symbol:src/layout/immersiveRoutes.ts:shouldDisableGlobalEffects"
+    },
+    {
+      "id": "e326",
+      "type": "EXPORTS",
+      "source": "file:src/layout/Navbar.tsx",
+      "target": "symbol:src/layout/Navbar.tsx:Navbar"
+    },
+    {
+      "id": "e327",
+      "type": "EXPORTS",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "symbol:src/layout/RootLayout.tsx:RootLayout"
+    },
+    {
+      "id": "e328",
+      "type": "EXPORTS",
+      "source": "file:src/pages/About.tsx",
+      "target": "symbol:src/pages/About.tsx:About"
+    },
+    {
+      "id": "e329",
+      "type": "EXPORTS",
+      "source": "file:src/pages/AetherLab.tsx",
+      "target": "symbol:src/pages/AetherLab.tsx:AetherLab"
+    },
+    {
+      "id": "e330",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "symbol:src/pages/Algorithms.tsx:Algorithms"
+    },
+    {
+      "id": "e331",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "symbol:src/pages/Article.tsx:Article"
+    },
+    {
+      "id": "e332",
+      "type": "EXPORTS",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "symbol:src/pages/CodingPatterns.tsx:CodingPatterns"
+    },
+    {
+      "id": "e333",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "symbol:src/pages/Contact.tsx:ContactPage"
+    },
+    {
+      "id": "e334",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "symbol:src/pages/Experience.tsx:ExperiencePage"
+    },
+    {
+      "id": "e335",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Home.tsx",
+      "target": "symbol:src/pages/Home.tsx:Home"
+    },
+    {
+      "id": "e336",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "target": "symbol:src/pages/learning-algorithms/AlgorithmDP.tsx:AlgorithmDP"
+    },
+    {
+      "id": "e337",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "target": "symbol:src/pages/learning-algorithms/AlgorithmGraph.tsx:AlgorithmGraph"
+    },
+    {
+      "id": "e338",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "target": "symbol:src/pages/learning-algorithms/AlgorithmGreedy.tsx:AlgorithmGreedy"
+    },
+    {
+      "id": "e339",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "target": "symbol:src/pages/learning-algorithms/AlgorithmSearch.tsx:AlgorithmSearch"
+    },
+    {
+      "id": "e340",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "target": "symbol:src/pages/learning-algorithms/AlgorithmTrees.tsx:AlgorithmTrees"
+    },
+    {
+      "id": "e341",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "target": "symbol:src/pages/learning-algorithms/CachingStrategies.tsx:CachingStrategiesPage"
+    },
+    {
+      "id": "e342",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "target": "symbol:src/pages/learning-algorithms/ConsistencyModels.tsx:ConsistencyModelsPage"
+    },
+    {
+      "id": "e343",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "target": "symbol:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx:ContentDeliveryNetworkPage"
+    },
+    {
+      "id": "e344",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "target": "symbol:src/pages/learning-algorithms/DatabaseSharding.tsx:DatabaseShardingPage"
+    },
+    {
+      "id": "e345",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "target": "symbol:src/pages/learning-algorithms/LoadBalancing.tsx:LoadBalancingPage"
+    },
+    {
+      "id": "e346",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/SlidingWindow.tsx",
+      "target": "symbol:src/pages/learning-algorithms/SlidingWindow.tsx:SlidingWindowPage"
+    },
+    {
+      "id": "e347",
+      "type": "EXPORTS",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "symbol:src/pages/learning-algorithms/SystemDesignConcepts.tsx:SystemDesignConceptsPage"
+    },
+    {
+      "id": "e348",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "symbol:src/pages/Learning.tsx:Learning"
+    },
+    {
+      "id": "e349",
+      "type": "EXPORTS",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "symbol:src/pages/LearningAlgorithmHub.tsx:LearningAlgorithmHub"
+    },
+    {
+      "id": "e350",
+      "type": "EXPORTS",
+      "source": "file:src/pages/MotionLab.tsx",
+      "target": "symbol:src/pages/MotionLab.tsx:MotionLab"
+    },
+    {
+      "id": "e351",
+      "type": "EXPORTS",
+      "source": "file:src/pages/NotFound.tsx",
+      "target": "symbol:src/pages/NotFound.tsx:NotFoundPage"
+    },
+    {
+      "id": "e352",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "symbol:src/pages/Projects.tsx:ProjectsPage"
+    },
+    {
+      "id": "e353",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Resume.tsx",
+      "target": "symbol:src/pages/Resume.tsx:ResumePage"
+    },
+    {
+      "id": "e354",
+      "type": "EXPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "symbol:src/pages/Writing.tsx:WritingPage"
+    },
+    {
+      "id": "e355",
+      "type": "EXPORTS",
+      "source": "file:src/utils/frontmatter.ts",
+      "target": "symbol:src/utils/frontmatter.ts:parseFrontmatter"
+    },
+    {
+      "id": "e356",
+      "type": "EXPORTS",
+      "source": "file:src/utils/frontmatter.ts",
+      "target": "symbol:src/utils/frontmatter.ts:FrontData"
+    },
+    {
+      "id": "e357",
+      "type": "EXPORTS",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "symbol:src/utils/loadArticles.ts:loadArticles"
+    },
+    {
+      "id": "e358",
+      "type": "EXPORTS",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "symbol:src/utils/loadArticles.ts:getAllPosts"
+    },
+    {
+      "id": "e359",
+      "type": "EXPORTS",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "symbol:src/utils/loadArticles.ts:getPostBySlug"
+    },
+    {
+      "id": "e360",
+      "type": "EXPORTS",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "symbol:src/utils/loadArticles.ts:getFeaturedPosts"
+    },
+    {
+      "id": "e361",
+      "type": "EXPORTS",
+      "source": "file:src/utils/markdown.ts",
+      "target": "symbol:src/utils/markdown.ts:parsePostMarkdown"
+    },
+    {
+      "id": "e362",
+      "type": "EXPORTS",
+      "source": "file:src/utils/markdown.ts",
+      "target": "symbol:src/utils/markdown.ts:TocItem"
+    },
+    {
+      "id": "e363",
+      "type": "EXPORTS",
+      "source": "file:src/utils/markdown.ts",
+      "target": "symbol:src/utils/markdown.ts:ParsedPost"
+    },
+    {
+      "id": "e364",
+      "type": "EXPORTS",
+      "source": "file:src/utils/slidingWindowSteps.ts",
+      "target": "symbol:src/utils/slidingWindowSteps.ts:generateSlidingWindowSteps"
+    },
+    {
+      "id": "e365",
+      "type": "EXPORTS",
+      "source": "file:src/utils/slidingWindowSteps.ts",
+      "target": "symbol:src/utils/slidingWindowSteps.ts:StepFormula"
+    },
+    {
+      "id": "e366",
+      "type": "EXPORTS",
+      "source": "file:src/utils/slidingWindowSteps.ts",
+      "target": "symbol:src/utils/slidingWindowSteps.ts:ExecutionStep"
+    },
+    {
+      "id": "e367",
+      "type": "IMPORTS",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e368",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e369",
+      "type": "IMPORTS",
+      "source": "file:scripts/patch_resume.js",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e370",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.js",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e371",
+      "type": "IMPORTS",
+      "source": "file:src/App.tsx",
+      "target": "file:src/layout/RootLayout.tsx"
+    },
+    {
+      "id": "e372",
+      "type": "DEPENDS_ON",
+      "source": "file:src/App.tsx",
+      "target": "file:src/layout/RootLayout.tsx"
+    },
+    {
+      "id": "e373",
+      "type": "IMPORTS",
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/Home.tsx"
+    },
+    {
+      "id": "e374",
+      "type": "DEPENDS_ON",
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/Home.tsx"
+    },
+    {
+      "id": "e375",
+      "type": "IMPORTS",
+      "source": "file:src/components/canvas/AnomalyMatrix.tsx",
+      "target": "file:src/components/canvas/GodSphere.tsx"
+    },
+    {
+      "id": "e376",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/AnomalyMatrix.tsx",
+      "target": "file:src/components/canvas/GodSphere.tsx"
+    },
+    {
+      "id": "e377",
+      "type": "IMPORTS",
+      "source": "file:src/components/ExperienceCard.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e378",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/ExperienceCard.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e379",
+      "type": "IMPORTS",
+      "source": "file:src/components/ExperienceCard.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e380",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/ExperienceCard.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e381",
+      "type": "IMPORTS",
+      "source": "file:src/components/FutureProjectsSection.tsx",
+      "target": "file:src/data/futureProjects.ts"
+    },
+    {
+      "id": "e382",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/FutureProjectsSection.tsx",
+      "target": "file:src/data/futureProjects.ts"
+    },
+    {
+      "id": "e383",
+      "type": "IMPORTS",
+      "source": "file:src/components/FutureProjectsSection.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e384",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/FutureProjectsSection.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e385",
+      "type": "IMPORTS",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e386",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e387",
+      "type": "IMPORTS",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e388",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e389",
+      "type": "IMPORTS",
+      "source": "file:src/components/learning/LearningInteractiveCard.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e390",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningInteractiveCard.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e391",
+      "type": "IMPORTS",
+      "source": "file:src/components/ProjectCard.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e392",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/ProjectCard.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e393",
+      "type": "IMPORTS",
+      "source": "file:src/components/ProjectCard.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e394",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/ProjectCard.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e395",
+      "type": "IMPORTS",
+      "source": "file:src/components/ReadingProgress.tsx",
+      "target": "file:src/hooks/useParallax.ts"
+    },
+    {
+      "id": "e396",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/ReadingProgress.tsx",
+      "target": "file:src/hooks/useParallax.ts"
+    },
+    {
+      "id": "e397",
+      "type": "IMPORTS",
+      "source": "file:src/components/Seo.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e398",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/Seo.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e399",
+      "type": "IMPORTS",
+      "source": "file:src/components/TableOfContents.tsx",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e400",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/TableOfContents.tsx",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e401",
+      "type": "IMPORTS",
+      "source": "file:src/data/algorithmCategories.ts",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e402",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/algorithmCategories.ts",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e403",
+      "type": "IMPORTS",
+      "source": "file:src/data/algorithmCategories.ts",
+      "target": "file:src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "e404",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/algorithmCategories.ts",
+      "target": "file:src/components/learning/algorithmCategoryVisuals.tsx"
+    },
+    {
+      "id": "e405",
+      "type": "IMPORTS",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e406",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e407",
+      "type": "IMPORTS",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "file:src/components/learning/patternVisuals.tsx"
+    },
+    {
+      "id": "e408",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "file:src/components/learning/patternVisuals.tsx"
+    },
+    {
+      "id": "e409",
+      "type": "IMPORTS",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "file:src/data/codingPatterns.ts"
+    },
+    {
+      "id": "e410",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/codingPatternTopics.tsx",
+      "target": "file:src/data/codingPatterns.ts"
+    },
+    {
+      "id": "e411",
+      "type": "IMPORTS",
+      "source": "file:src/data/contact.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e412",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/contact.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e413",
+      "type": "IMPORTS",
+      "source": "file:src/data/experience.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e414",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/experience.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e415",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e416",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e417",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/home.ts"
+    },
+    {
+      "id": "e418",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/home.ts"
+    },
+    {
+      "id": "e419",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/socials.ts"
+    },
+    {
+      "id": "e420",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/socials.ts"
+    },
+    {
+      "id": "e421",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/profile.ts"
+    },
+    {
+      "id": "e422",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/profile.ts"
+    },
+    {
+      "id": "e423",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/articles.ts"
+    },
+    {
+      "id": "e424",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/articles.ts"
+    },
+    {
+      "id": "e425",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/about.ts"
+    },
+    {
+      "id": "e426",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/about.ts"
+    },
+    {
+      "id": "e427",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/contact.ts"
+    },
+    {
+      "id": "e428",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/contact.ts"
+    },
+    {
+      "id": "e429",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/paths.ts"
+    },
+    {
+      "id": "e430",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/paths.ts"
+    },
+    {
+      "id": "e431",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/experience.ts"
+    },
+    {
+      "id": "e432",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/experience.ts"
+    },
+    {
+      "id": "e433",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/navigation.ts"
+    },
+    {
+      "id": "e434",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/navigation.ts"
+    },
+    {
+      "id": "e435",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/projects.ts"
+    },
+    {
+      "id": "e436",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/projects.ts"
+    },
+    {
+      "id": "e437",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/futureProjects.ts"
+    },
+    {
+      "id": "e438",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/futureProjects.ts"
+    },
+    {
+      "id": "e439",
+      "type": "IMPORTS",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/resume.ts"
+    },
+    {
+      "id": "e440",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/index.ts",
+      "target": "file:src/data/resume.ts"
+    },
+    {
+      "id": "e441",
+      "type": "IMPORTS",
+      "source": "file:src/data/navigation.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e442",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/navigation.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e443",
+      "type": "IMPORTS",
+      "source": "file:src/data/projects.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e444",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/projects.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e445",
+      "type": "IMPORTS",
+      "source": "file:src/data/socials.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e446",
+      "type": "DEPENDS_ON",
+      "source": "file:src/data/socials.ts",
+      "target": "file:src/data/types.ts"
+    },
+    {
+      "id": "e447",
+      "type": "IMPORTS",
+      "source": "file:src/layout/Footer.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e448",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/Footer.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e449",
+      "type": "IMPORTS",
+      "source": "file:src/layout/Navbar.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e450",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/Navbar.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e451",
+      "type": "IMPORTS",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "file:src/layout/Footer.tsx"
+    },
+    {
+      "id": "e452",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "file:src/layout/Footer.tsx"
+    },
+    {
+      "id": "e453",
+      "type": "IMPORTS",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "file:src/layout/Navbar.tsx"
+    },
+    {
+      "id": "e454",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "file:src/layout/Navbar.tsx"
+    },
+    {
+      "id": "e455",
+      "type": "IMPORTS",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "file:src/layout/immersiveRoutes.ts"
+    },
+    {
+      "id": "e456",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "file:src/layout/immersiveRoutes.ts"
+    },
+    {
+      "id": "e457",
+      "type": "IMPORTS",
+      "source": "file:src/main.tsx",
+      "target": "file:src/App.tsx"
+    },
+    {
+      "id": "e458",
+      "type": "DEPENDS_ON",
+      "source": "file:src/main.tsx",
+      "target": "file:src/App.tsx"
+    },
+    {
+      "id": "e459",
+      "type": "IMPORTS",
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/index.css"
+    },
+    {
+      "id": "e460",
+      "type": "DEPENDS_ON",
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/index.css"
+    },
+    {
+      "id": "e461",
+      "type": "IMPORTS",
+      "source": "file:src/pages/About.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e462",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/About.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e463",
+      "type": "IMPORTS",
+      "source": "file:src/pages/About.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e464",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/About.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e465",
+      "type": "IMPORTS",
+      "source": "file:src/pages/About.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e466",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/About.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e467",
+      "type": "IMPORTS",
+      "source": "file:src/pages/AetherLab.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e468",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/AetherLab.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e469",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e470",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e471",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "file:src/data/algorithmsInfo.ts"
+    },
+    {
+      "id": "e472",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "file:src/data/algorithmsInfo.ts"
+    },
+    {
+      "id": "e473",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/components/ReadingProgress.tsx"
+    },
+    {
+      "id": "e474",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/components/ReadingProgress.tsx"
+    },
+    {
+      "id": "e475",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e476",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e477",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/components/TableOfContents.tsx"
+    },
+    {
+      "id": "e478",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/components/TableOfContents.tsx"
+    },
+    {
+      "id": "e479",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e480",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e481",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/utils/loadArticles.ts"
+    },
+    {
+      "id": "e482",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/utils/loadArticles.ts"
+    },
+    {
+      "id": "e483",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e484",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e485",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/pages/NotFound.tsx"
+    },
+    {
+      "id": "e486",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "file:src/pages/NotFound.tsx"
+    },
+    {
+      "id": "e487",
+      "type": "IMPORTS",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e488",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e489",
+      "type": "IMPORTS",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e490",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e491",
+      "type": "IMPORTS",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e492",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e493",
+      "type": "IMPORTS",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/data/codingPatternTopics.tsx"
+    },
+    {
+      "id": "e494",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "file:src/data/codingPatternTopics.tsx"
+    },
+    {
+      "id": "e495",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e496",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e497",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e498",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e499",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e500",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Contact.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e501",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "file:src/components/ExperienceCard.tsx"
+    },
+    {
+      "id": "e502",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "file:src/components/ExperienceCard.tsx"
+    },
+    {
+      "id": "e503",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e504",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e505",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e506",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Experience.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e507",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Home.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e508",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Home.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e509",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e510",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e511",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e512",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e513",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e514",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e515",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e516",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e517",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e518",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e519",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e520",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e521",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e522",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e523",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e524",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e525",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e526",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e527",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e528",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "target": "file:src/components/learning/LearningSandboxLayout.tsx"
+    },
+    {
+      "id": "e529",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e530",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e531",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e532",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e533",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e534",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e535",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e536",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e537",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e538",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e539",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/SlidingWindow.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e540",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SlidingWindow.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e541",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/SlidingWindow.tsx",
+      "target": "file:src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "e542",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SlidingWindow.tsx",
+      "target": "file:src/utils/slidingWindowSteps.ts"
+    },
+    {
+      "id": "e543",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e544",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e545",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e546",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e547",
+      "type": "IMPORTS",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e548",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e549",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e550",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e551",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e552",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e553",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e554",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Learning.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e555",
+      "type": "IMPORTS",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e556",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/components/learning/LearningInteractiveCard.tsx"
+    },
+    {
+      "id": "e557",
+      "type": "IMPORTS",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e558",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/components/learning/LearningHubLayout.tsx"
+    },
+    {
+      "id": "e559",
+      "type": "IMPORTS",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e560",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e561",
+      "type": "IMPORTS",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/data/algorithmCategories.ts"
+    },
+    {
+      "id": "e562",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/LearningAlgorithmHub.tsx",
+      "target": "file:src/data/algorithmCategories.ts"
+    },
+    {
+      "id": "e563",
+      "type": "IMPORTS",
+      "source": "file:src/pages/MotionLab.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e564",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/MotionLab.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e565",
+      "type": "IMPORTS",
+      "source": "file:src/pages/MotionLab.tsx",
+      "target": "file:src/components/MorphingSphere.tsx"
+    },
+    {
+      "id": "e566",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/MotionLab.tsx",
+      "target": "file:src/components/MorphingSphere.tsx"
+    },
+    {
+      "id": "e567",
+      "type": "IMPORTS",
+      "source": "file:src/pages/NotFound.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e568",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/NotFound.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e569",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/ProjectCard.tsx"
+    },
+    {
+      "id": "e570",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/ProjectCard.tsx"
+    },
+    {
+      "id": "e571",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e572",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e573",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/SectionHeading.tsx"
+    },
+    {
+      "id": "e574",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/SectionHeading.tsx"
+    },
+    {
+      "id": "e575",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e576",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e577",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e578",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e579",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/FutureProjectsSection.tsx"
+    },
+    {
+      "id": "e580",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "file:src/components/FutureProjectsSection.tsx"
+    },
+    {
+      "id": "e581",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Resume.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e582",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Resume.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e583",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/components/Reveal.tsx"
+    },
+    {
+      "id": "e584",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/components/Reveal.tsx"
+    },
+    {
+      "id": "e585",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e586",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/components/Seo.tsx"
+    },
+    {
+      "id": "e587",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e588",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/components/InteractiveCard.tsx"
+    },
+    {
+      "id": "e589",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e590",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/data/index.ts"
+    },
+    {
+      "id": "e591",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/utils/loadArticles.ts"
+    },
+    {
+      "id": "e592",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/utils/loadArticles.ts"
+    },
+    {
+      "id": "e593",
+      "type": "IMPORTS",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e594",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e595",
+      "type": "IMPORTS",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "file:src/data/articles.ts"
+    },
+    {
+      "id": "e596",
+      "type": "DEPENDS_ON",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "file:src/data/articles.ts"
+    },
+    {
+      "id": "e597",
+      "type": "IMPORTS",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e598",
+      "type": "DEPENDS_ON",
+      "source": "file:src/utils/loadArticles.ts",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e599",
+      "type": "IMPORTS",
+      "source": "file:src/utils/markdown.ts",
+      "target": "file:src/utils/frontmatter.ts"
+    },
+    {
+      "id": "e600",
+      "type": "DEPENDS_ON",
+      "source": "file:src/utils/markdown.ts",
+      "target": "file:src/utils/frontmatter.ts"
+    },
+    {
+      "id": "e601",
+      "type": "IMPORTS",
+      "source": "file:tests/unit/frontmatter.test.ts",
+      "target": "file:src/utils/frontmatter.ts"
+    },
+    {
+      "id": "e602",
+      "type": "DEPENDS_ON",
+      "source": "file:tests/unit/frontmatter.test.ts",
+      "target": "file:src/utils/frontmatter.ts"
+    },
+    {
+      "id": "e603",
+      "type": "IMPORTS",
+      "source": "file:tests/unit/markdown.test.ts",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e604",
+      "type": "DEPENDS_ON",
+      "source": "file:tests/unit/markdown.test.ts",
+      "target": "file:src/utils/markdown.ts"
+    },
+    {
+      "id": "e605",
+      "type": "TESTED_BY",
+      "source": "file:.arsenal/summaries/files/tests__e2e__portfolio.ts.json",
+      "target": "test:.arsenal/summaries/files/tests__e2e__portfolio.spec.ts.json"
+    },
+    {
+      "id": "e606",
+      "type": "TESTED_BY",
+      "source": "file:.arsenal/summaries/files/tests__unit__frontmatter.ts.json",
+      "target": "test:.arsenal/summaries/files/tests__unit__frontmatter.test.ts.json"
+    },
+    {
+      "id": "e607",
+      "type": "TESTED_BY",
+      "source": "file:.arsenal/summaries/files/tests__unit__markdown.ts.json",
+      "target": "test:.arsenal/summaries/files/tests__unit__markdown.test.ts.json"
+    },
+    {
+      "id": "e608",
+      "type": "TESTED_BY",
+      "source": "file:tests/e2e/portfolio.ts",
+      "target": "test:tests/e2e/portfolio.spec.ts"
+    },
+    {
+      "id": "e609",
+      "type": "TESTED_BY",
+      "source": "file:tests/unit/frontmatter.ts",
+      "target": "test:tests/unit/frontmatter.test.ts"
+    },
+    {
+      "id": "e610",
+      "type": "TESTED_BY",
+      "source": "file:tests/unit/markdown.ts",
+      "target": "test:tests/unit/markdown.test.ts"
+    },
+    {
+      "id": "e611",
+      "type": "DEPENDS_ON",
+      "source": "file:eslint.config.js",
+      "target": "ext:@eslint/js"
+    },
+    {
+      "id": "e612",
+      "type": "DEPENDS_ON",
+      "source": "file:eslint.config.js",
+      "target": "ext:globals"
+    },
+    {
+      "id": "e613",
+      "type": "DEPENDS_ON",
+      "source": "file:eslint.config.js",
+      "target": "ext:eslint-plugin-react-hooks"
+    },
+    {
+      "id": "e614",
+      "type": "DEPENDS_ON",
+      "source": "file:eslint.config.js",
+      "target": "ext:eslint-plugin-react-refresh"
+    },
+    {
+      "id": "e615",
+      "type": "DEPENDS_ON",
+      "source": "file:eslint.config.js",
+      "target": "ext:typescript-eslint"
+    },
+    {
+      "id": "e616",
+      "type": "DEPENDS_ON",
+      "source": "file:eslint.config.js",
+      "target": "ext:eslint-config-prettier"
+    },
+    {
+      "id": "e617",
+      "type": "DEPENDS_ON",
+      "source": "file:playwright.config.ts",
+      "target": "ext:@playwright/test"
+    },
+    {
+      "id": "e618",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/check-bundle-size.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e619",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/check-bundle-size.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e620",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/compile-resume.mjs",
+      "target": "ext:child_process"
+    },
+    {
+      "id": "e621",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/compile-resume.mjs",
+      "target": "ext:fs"
+    },
+    {
+      "id": "e622",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/compile-resume.mjs",
+      "target": "ext:path"
+    },
+    {
+      "id": "e623",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/copy-404.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e624",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/copy-404.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e625",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/copy-404.mjs",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e626",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-article-index.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e627",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-article-index.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e628",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-article-index.mjs",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e629",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-medium-articles.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e630",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-medium-articles.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e631",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-medium-articles.mjs",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e632",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-medium-top-ranked.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e633",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-medium-top-ranked.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e634",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/generate-medium-top-ranked.mjs",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e635",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/import-medium-html.js",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e636",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/import-medium-html.js",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e637",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/import-medium-html.js",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e638",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/import-medium-html.js",
+      "target": "ext:jsdom"
+    },
+    {
+      "id": "e639",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/import-medium-html.js",
+      "target": "ext:turndown"
+    },
+    {
+      "id": "e640",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "ext:react"
+    },
+    {
+      "id": "e641",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e642",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "ext:fs"
+    },
+    {
+      "id": "e643",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.cjs",
+      "target": "ext:path"
+    },
+    {
+      "id": "e644",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.js",
+      "target": "ext:react"
+    },
+    {
+      "id": "e645",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.js",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e646",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.js",
+      "target": "ext:fs"
+    },
+    {
+      "id": "e647",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/patch_resume.js",
+      "target": "ext:path"
+    },
+    {
+      "id": "e648",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/prune-css.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e649",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/sync-docs.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e650",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/sync-docs.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e651",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/sync-docs.mjs",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e652",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/validate.mjs",
+      "target": "ext:node:child_process"
+    },
+    {
+      "id": "e653",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/verify-dist.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e654",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/verify-dist.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e655",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/verify-dist.mjs",
+      "target": "ext:node:url"
+    },
+    {
+      "id": "e656",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/verify-knowledge-graph.mjs",
+      "target": "ext:node:fs"
+    },
+    {
+      "id": "e657",
+      "type": "DEPENDS_ON",
+      "source": "file:scripts/verify-knowledge-graph.mjs",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e658",
+      "type": "DEPENDS_ON",
+      "source": "file:src/App.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e659",
+      "type": "DEPENDS_ON",
+      "source": "file:src/App.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e660",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/Button.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e661",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/AnomalyMatrix.tsx",
+      "target": "ext:@react-three/fiber"
+    },
+    {
+      "id": "e662",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/AnomalyMatrix.tsx",
+      "target": "ext:@react-three/drei"
+    },
+    {
+      "id": "e663",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GodSphere.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e664",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GodSphere.tsx",
+      "target": "ext:@react-three/fiber"
+    },
+    {
+      "id": "e665",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GodSphere.tsx",
+      "target": "ext:three"
+    },
+    {
+      "id": "e666",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GravityWell.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e667",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GravityWell.tsx",
+      "target": "ext:@react-three/fiber"
+    },
+    {
+      "id": "e668",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GravityWell.tsx",
+      "target": "ext:@react-three/drei"
+    },
+    {
+      "id": "e669",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/GravityWell.tsx",
+      "target": "ext:three"
+    },
+    {
+      "id": "e670",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/canvas/QuantumMesh.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e671",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/FutureProjectsSection.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e672",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/GlassPanel.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e673",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e674",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/InteractiveCard.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e675",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/InteractiveParticles.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e676",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e677",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningHubLayout.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e678",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningInteractiveCard.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e679",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningSandboxLayout.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e680",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/learning/LearningSandboxLayout.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e681",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/MorphingSphere.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e682",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/ReadingProgress.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e683",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/Reveal.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e684",
+      "type": "DEPENDS_ON",
+      "source": "file:src/components/Seo.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e685",
+      "type": "DEPENDS_ON",
+      "source": "file:src/hooks/useParallax.ts",
+      "target": "ext:react"
+    },
+    {
+      "id": "e686",
+      "type": "DEPENDS_ON",
+      "source": "file:src/hooks/useTilt.ts",
+      "target": "ext:react"
+    },
+    {
+      "id": "e687",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/Footer.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e688",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/Navbar.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e689",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/Navbar.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e690",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e691",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e692",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e693",
+      "type": "DEPENDS_ON",
+      "source": "file:src/layout/RootLayout.tsx",
+      "target": "ext:lenis"
+    },
+    {
+      "id": "e694",
+      "type": "DEPENDS_ON",
+      "source": "file:src/main.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e695",
+      "type": "DEPENDS_ON",
+      "source": "file:src/main.tsx",
+      "target": "ext:react-dom/client"
+    },
+    {
+      "id": "e696",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/AetherLab.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e697",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e698",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Algorithms.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e699",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e700",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Article.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e701",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/CodingPatterns.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e702",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Home.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e703",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e704",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e705",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e706",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e707",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e708",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e709",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e710",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/CachingStrategies.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e711",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e712",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e713",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e714",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e715",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e716",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e717",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e718",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e719",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e720",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e721",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e722",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/LoadBalancing.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e723",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e724",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e725",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/MotionLab.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e726",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/NotFound.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e727",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Projects.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e728",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Resume.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e729",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Resume.tsx",
+      "target": "ext:framer-motion"
+    },
+    {
+      "id": "e730",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "ext:react"
+    },
+    {
+      "id": "e731",
+      "type": "DEPENDS_ON",
+      "source": "file:src/pages/Writing.tsx",
+      "target": "ext:react-router-dom"
+    },
+    {
+      "id": "e732",
+      "type": "DEPENDS_ON",
+      "source": "file:src/utils/markdown.ts",
+      "target": "ext:marked"
+    },
+    {
+      "id": "e733",
+      "type": "DEPENDS_ON",
+      "source": "file:tests/e2e/portfolio.spec.ts",
+      "target": "ext:@playwright/test"
+    },
+    {
+      "id": "e734",
+      "type": "DEPENDS_ON",
+      "source": "file:tests/unit/frontmatter.test.ts",
+      "target": "ext:vitest"
+    },
+    {
+      "id": "e735",
+      "type": "DEPENDS_ON",
+      "source": "file:tests/unit/markdown.test.ts",
+      "target": "ext:vitest"
+    },
+    {
+      "id": "e736",
+      "type": "DEPENDS_ON",
+      "source": "file:vite.config.ts",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e737",
+      "type": "DEPENDS_ON",
+      "source": "file:vite.config.ts",
+      "target": "ext:@tailwindcss/vite"
+    },
+    {
+      "id": "e738",
+      "type": "DEPENDS_ON",
+      "source": "file:vite.config.ts",
+      "target": "ext:@vitejs/plugin-react"
+    },
+    {
+      "id": "e739",
+      "type": "DEPENDS_ON",
+      "source": "file:vite.config.ts",
+      "target": "ext:vite"
+    },
+    {
+      "id": "e740",
+      "type": "DEPENDS_ON",
+      "source": "file:vitest.config.ts",
+      "target": "ext:node:path"
+    },
+    {
+      "id": "e741",
+      "type": "DEPENDS_ON",
+      "source": "file:vitest.config.ts",
+      "target": "ext:@vitejs/plugin-react"
+    },
+    {
+      "id": "e742",
+      "type": "DEPENDS_ON",
+      "source": "file:vitest.config.ts",
+      "target": "ext:vitest/config"
+    },
+    {
+      "id": "e743",
+      "type": "CONFIGURES",
+      "source": "config:eslint.config.js",
+      "target": "repo:root"
+    },
+    {
+      "id": "e744",
+      "type": "CONFIGURES",
+      "source": "config:package.json",
+      "target": "repo:root"
+    },
+    {
+      "id": "e745",
+      "type": "CONFIGURES",
+      "source": "config:playwright.config.ts",
+      "target": "repo:root"
+    },
+    {
+      "id": "e746",
+      "type": "CONFIGURES",
+      "source": "config:tailwind.config.js",
+      "target": "repo:root"
+    },
+    {
+      "id": "e747",
+      "type": "CONFIGURES",
+      "source": "config:tsconfig.json",
+      "target": "repo:root"
+    },
+    {
+      "id": "e748",
+      "type": "CONFIGURES",
+      "source": "config:vite.config.ts",
+      "target": "repo:root"
+    },
+    {
+      "id": "e749",
+      "type": "CONFIGURES",
+      "source": "config:vitest.config.ts",
+      "target": "repo:root"
+    }
+  ]
+}

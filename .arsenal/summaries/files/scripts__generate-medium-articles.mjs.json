@@ -1,0 +1,26 @@
+{
+  "path": "scripts/generate-medium-articles.mjs",
+  "purpose": "Defines mediumArticles and related symbols in generate-medium-articles.mjs",
+  "exports": [
+    "mediumArticles",
+    "MediumArticle"
+  ],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url"
+  ],
+  "keySymbols": [
+    "mediumArticles",
+    "MediumArticle"
+  ],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "ccf9ed7bc0a1b282"
+}

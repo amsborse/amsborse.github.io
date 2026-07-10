@@ -1,0 +1,20 @@
+{
+  "path": "scripts/sync-docs.mjs",
+  "purpose": "Source module (sync-docs.mjs)",
+  "exports": [],
+  "imports": [
+    "node:fs",
+    "node:path",
+    "node:url"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "036d3cd54bde3e1f"
+}

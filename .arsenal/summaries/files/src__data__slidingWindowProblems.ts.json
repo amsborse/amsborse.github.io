@@ -1,0 +1,29 @@
+{
+  "path": "src/data/slidingWindowProblems.ts",
+  "purpose": "Defines SLIDING_WINDOW_PROBLEMS and related symbols in slidingWindowProblems.ts",
+  "exports": [
+    "SLIDING_WINDOW_PROBLEMS",
+    "WindowInputKind",
+    "WindowStructureKind",
+    "WindowValue",
+    "WindowVisualStep",
+    "SlidingWindowProblem"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "SLIDING_WINDOW_PROBLEMS",
+    "WindowInputKind",
+    "WindowStructureKind",
+    "WindowValue",
+    "WindowVisualStep",
+    "SlidingWindowProblem"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "5ce88b29e7690bb3"
+}

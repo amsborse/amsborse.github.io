@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+  "purpose": "Defines AlgorithmGreedy and related symbols in AlgorithmGreedy.tsx",
+  "exports": [
+    "AlgorithmGreedy"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo",
+    "@/components/learning/LearningSandboxLayout"
+  ],
+  "keySymbols": [
+    "AlgorithmGreedy"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/learning/LearningSandboxLayout.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "097ab84bc2e89f8b"
+}

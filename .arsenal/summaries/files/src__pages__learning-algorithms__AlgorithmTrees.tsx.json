@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+  "purpose": "Defines AlgorithmTrees and related symbols in AlgorithmTrees.tsx",
+  "exports": [
+    "AlgorithmTrees"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo",
+    "@/components/learning/LearningSandboxLayout"
+  ],
+  "keySymbols": [
+    "AlgorithmTrees"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/learning/LearningSandboxLayout.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f3581f424984e021"
+}

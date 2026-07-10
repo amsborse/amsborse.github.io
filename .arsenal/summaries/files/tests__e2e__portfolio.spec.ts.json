@@ -1,0 +1,15 @@
+{
+  "path": "tests/e2e/portfolio.spec.ts",
+  "purpose": "Tests for related source modules (portfolio.spec.ts)",
+  "exports": [],
+  "imports": [
+    "@playwright/test"
+  ],
+  "keySymbols": [],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "8622120e113eb240"
+}

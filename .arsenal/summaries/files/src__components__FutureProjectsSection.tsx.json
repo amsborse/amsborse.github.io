@@ -1,0 +1,26 @@
+{
+  "path": "src/components/FutureProjectsSection.tsx",
+  "purpose": "Defines FutureProjectsSection and related symbols in FutureProjectsSection.tsx",
+  "exports": [
+    "FutureProjectsSection"
+  ],
+  "imports": [
+    "react",
+    "@/data/futureProjects",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "FutureProjectsSection"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/futureProjects.ts",
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [
+    "src/pages/Projects.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "93e846e3ec791592"
+}

@@ -1,0 +1,28 @@
+{
+  "path": "src/components/learning/LearningSandboxLayout.tsx",
+  "purpose": "Defines LearningSandboxLayout and related symbols in LearningSandboxLayout.tsx",
+  "exports": [
+    "LearningSandboxLayout",
+    "StatPill"
+  ],
+  "imports": [
+    "react-router-dom",
+    "react"
+  ],
+  "keySymbols": [
+    "LearningSandboxLayout",
+    "StatPill"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/pages/learning-algorithms/AlgorithmDP.tsx",
+    "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+    "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+    "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+    "src/pages/learning-algorithms/AlgorithmTrees.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "0df309bbfa1e7b88"
+}

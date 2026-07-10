@@ -1,0 +1,35 @@
+{
+  "path": "src/pages/Article.tsx",
+  "purpose": "Defines Article and related symbols in Article.tsx",
+  "exports": [
+    "Article"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "@/components/ReadingProgress",
+    "@/components/Seo",
+    "@/components/TableOfContents",
+    "@/data",
+    "@/utils/loadArticles",
+    "@/utils/markdown",
+    "@/pages/NotFound"
+  ],
+  "keySymbols": [
+    "Article"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/ReadingProgress.tsx",
+    "src/components/Seo.tsx",
+    "src/components/TableOfContents.tsx",
+    "src/data/index.ts",
+    "src/utils/loadArticles.ts",
+    "src/utils/markdown.ts",
+    "src/pages/NotFound.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "2c25c9f526b1406b"
+}

@@ -1,0 +1,18 @@
+{
+  "path": "scripts/check-bundle-size.mjs",
+  "purpose": "Source module (check-bundle-size.mjs)",
+  "exports": [],
+  "imports": [
+    "node:fs",
+    "node:path"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "c4700539fac39c32"
+}

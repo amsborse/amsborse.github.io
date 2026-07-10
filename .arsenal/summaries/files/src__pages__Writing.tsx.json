@@ -1,0 +1,33 @@
+{
+  "path": "src/pages/Writing.tsx",
+  "purpose": "Defines WritingPage and related symbols in Writing.tsx",
+  "exports": [
+    "WritingPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "@/components/Reveal",
+    "@/components/Seo",
+    "@/components/InteractiveCard",
+    "@/data",
+    "@/utils/loadArticles",
+    "@/utils/markdown"
+  ],
+  "keySymbols": [
+    "WritingPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Reveal.tsx",
+    "src/components/Seo.tsx",
+    "src/components/InteractiveCard.tsx",
+    "src/data/index.ts",
+    "src/utils/loadArticles.ts",
+    "src/utils/markdown.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "6b1f5f30334f374d"
+}

@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "projectType": "portfolio-site",
+  "sourceRoots": ["src", "scripts"],
+  "testRoots": ["tests"],
+  "docsRoots": ["docs"],
+  "ignore": [
+    "node_modules",
+    ".git",
+    "dist",
+    "build",
+    "docs",
+    ".next",
+    "coverage",
+    "playwright-report",
+    "test-results",
+    ".arsenal/cache",
+    "tmp_resume",
+    "cleaned_resume.html",
+    "extracted_resume.html"
+  ],
+  "contextBudget": {
+    "defaultMaxTokens": 12000,
+    "smallTaskMaxTokens": 4000,
+    "largeTaskMaxTokens": 24000
+  },
+  "models": {
+    "default": "claude",
+    "profiles": ["claude", "cursor", "openai"]
+  },
+  "summaryPolicy": {
+    "maxFileSummaryTokens": 250,
+    "maxModuleSummaryTokens": 600,
+    "includeCodeSnippets": false
+  }
+}

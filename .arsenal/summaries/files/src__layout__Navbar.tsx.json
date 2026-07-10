@@ -1,0 +1,25 @@
+{
+  "path": "src/layout/Navbar.tsx",
+  "purpose": "Defines Navbar and related symbols in Navbar.tsx",
+  "exports": [
+    "Navbar"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "@/data"
+  ],
+  "keySymbols": [
+    "Navbar"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/index.ts"
+  ],
+  "usedBy": [
+    "src/layout/RootLayout.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "703eba02b641b780"
+}

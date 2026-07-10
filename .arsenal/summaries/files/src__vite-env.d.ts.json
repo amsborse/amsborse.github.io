@@ -1,0 +1,13 @@
+{
+  "path": "src/vite-env.d.ts",
+  "purpose": "Utility or entry module (vite-env.d.ts)",
+  "exports": [],
+  "imports": [],
+  "keySymbols": [],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "6a9c65c4c0a210f4"
+}

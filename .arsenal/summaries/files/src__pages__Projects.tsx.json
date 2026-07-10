@@ -1,0 +1,32 @@
+{
+  "path": "src/pages/Projects.tsx",
+  "purpose": "Defines ProjectsPage and related symbols in Projects.tsx",
+  "exports": [
+    "ProjectsPage"
+  ],
+  "imports": [
+    "react",
+    "@/components/ProjectCard",
+    "@/components/InteractiveCard",
+    "@/components/SectionHeading",
+    "@/components/Seo",
+    "@/data",
+    "@/components/FutureProjectsSection"
+  ],
+  "keySymbols": [
+    "ProjectsPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/ProjectCard.tsx",
+    "src/components/InteractiveCard.tsx",
+    "src/components/SectionHeading.tsx",
+    "src/components/Seo.tsx",
+    "src/data/index.ts",
+    "src/components/FutureProjectsSection.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "8cb88221cc024c3c"
+}

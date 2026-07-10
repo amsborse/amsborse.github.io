@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+  "purpose": "Defines AlgorithmSearch and related symbols in AlgorithmSearch.tsx",
+  "exports": [
+    "AlgorithmSearch"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo",
+    "@/components/learning/LearningSandboxLayout"
+  ],
+  "keySymbols": [
+    "AlgorithmSearch"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/learning/LearningSandboxLayout.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "fd095db385939cde"
+}

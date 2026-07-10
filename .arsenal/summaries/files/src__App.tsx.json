@@ -1,0 +1,27 @@
+{
+  "path": "src/App.tsx",
+  "purpose": "Defines App and related symbols in App.tsx",
+  "exports": [
+    "App"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "@/layout/RootLayout",
+    "@/pages/Home"
+  ],
+  "keySymbols": [
+    "App"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/layout/RootLayout.tsx",
+    "src/pages/Home.tsx"
+  ],
+  "usedBy": [
+    "src/main.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "12071cc054743bc0"
+}

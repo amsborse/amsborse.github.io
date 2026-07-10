@@ -1,0 +1,25 @@
+{
+  "path": "src/components/ExperienceCard.tsx",
+  "purpose": "Defines ExperienceCard and related symbols in ExperienceCard.tsx",
+  "exports": [
+    "ExperienceCard"
+  ],
+  "imports": [
+    "@/data",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "ExperienceCard"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/index.ts",
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [
+    "src/pages/Experience.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "4e6c0b1e5d8c8fad"
+}

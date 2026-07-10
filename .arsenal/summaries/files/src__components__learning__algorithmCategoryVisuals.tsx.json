@@ -1,0 +1,29 @@
+{
+  "path": "src/components/learning/algorithmCategoryVisuals.tsx",
+  "purpose": "Defines SortingPortalVisual and related symbols in algorithmCategoryVisuals.tsx",
+  "exports": [
+    "SortingPortalVisual",
+    "SearchPortalVisual",
+    "GraphPortalVisual",
+    "DPPortalVisual",
+    "GreedyPortalVisual",
+    "TreePortalVisual"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "SortingPortalVisual",
+    "SearchPortalVisual",
+    "GraphPortalVisual",
+    "DPPortalVisual",
+    "GreedyPortalVisual",
+    "TreePortalVisual"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/algorithmCategories.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "5e4436aee8d00810"
+}

@@ -1,0 +1,22 @@
+{
+  "path": "src/utils/frontmatter.ts",
+  "purpose": "Utility or entry module (frontmatter.ts)",
+  "exports": [
+    "parseFrontmatter",
+    "FrontData"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "parseFrontmatter",
+    "FrontData"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/utils/markdown.ts",
+    "tests/unit/frontmatter.test.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "d1b1681218ce7c60"
+}

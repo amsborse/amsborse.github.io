@@ -1,0 +1,25 @@
+{
+  "path": "src/pages/Learning.tsx",
+  "purpose": "Defines Learning and related symbols in Learning.tsx",
+  "exports": [
+    "Learning"
+  ],
+  "imports": [
+    "@/components/learning/LearningInteractiveCard",
+    "@/components/learning/LearningHubLayout",
+    "@/components/InteractiveCard"
+  ],
+  "keySymbols": [
+    "Learning"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/learning/LearningInteractiveCard.tsx",
+    "src/components/learning/LearningHubLayout.tsx",
+    "src/components/InteractiveCard.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "04a77f5291168d8f"
+}

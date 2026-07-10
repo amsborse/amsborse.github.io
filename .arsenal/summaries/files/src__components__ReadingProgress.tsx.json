@@ -1,0 +1,24 @@
+{
+  "path": "src/components/ReadingProgress.tsx",
+  "purpose": "Defines ReadingProgress and related symbols in ReadingProgress.tsx",
+  "exports": [
+    "ReadingProgress"
+  ],
+  "imports": [
+    "react",
+    "@/hooks/useParallax"
+  ],
+  "keySymbols": [
+    "ReadingProgress"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/hooks/useParallax.ts"
+  ],
+  "usedBy": [
+    "src/pages/Article.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "c5083171703dbbb8"
+}

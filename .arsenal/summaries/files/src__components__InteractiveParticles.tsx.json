@@ -1,0 +1,19 @@
+{
+  "path": "src/components/InteractiveParticles.tsx",
+  "purpose": "Defines InteractiveParticles and related symbols in InteractiveParticles.tsx",
+  "exports": [
+    "InteractiveParticles"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "InteractiveParticles"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "98f1d0d897d97f15"
+}

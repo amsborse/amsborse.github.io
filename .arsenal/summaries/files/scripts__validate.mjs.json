@@ -1,0 +1,18 @@
+{
+  "path": "scripts/validate.mjs",
+  "purpose": "Source module (validate.mjs)",
+  "exports": [],
+  "imports": [
+    "node:child_process"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "reads environment variables",
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "ec2ef135680ff7cc"
+}

@@ -1,0 +1,19 @@
+{
+  "path": "src/data/paths.ts",
+  "purpose": "Utility or entry module (paths.ts)",
+  "exports": [
+    "contentPaths"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "contentPaths"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "b8ca9d8aa42e2b39"
+}

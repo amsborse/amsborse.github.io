@@ -1,0 +1,26 @@
+{
+  "path": "src/pages/learning-algorithms/LoadBalancing.tsx",
+  "purpose": "Defines LoadBalancingPage and related symbols in LoadBalancing.tsx",
+  "exports": [
+    "LoadBalancingPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "LoadBalancingPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "66def7eed06fd87d"
+}

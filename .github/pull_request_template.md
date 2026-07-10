@@ -13,3 +13,5 @@
 - [ ] Did not weaken coverage thresholds or skip hooks without reason
 - [ ] Did not commit `dist/`, `coverage/`, or `test-results/`
 - [ ] Matched existing code style and patterns
+- [ ] Updated `.cursor/knowledge-graph/graph.json` if routes/pages/components changed (`npm run verify:kg`)
+- [ ] Ran `npm run context:refresh` if architecture changed significantly (`.arsenal/` summaries/graph)

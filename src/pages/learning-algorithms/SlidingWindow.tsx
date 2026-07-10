@@ -2,35 +2,37 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Seo } from "@/components/Seo";
-import { generateSlidingWindowSteps } from "@/utils/slidingWindowSteps";
+import {
+  SLIDING_WINDOW_PROBLEMS,
+  type SlidingWindowProblem,
+  type WindowValue,
+  type WindowVisualStep,
+} from "@/data/slidingWindowProblems";
+import { SlidingWindowCatalog } from "@/components/learning/SlidingWindowCatalog";
 
-const CARD_W = 50;
-const CARD_GAP = 12;
-const STRIDE = CARD_W + CARD_GAP;
-const CHAMBER_PAD = 18;
-const OUTSIDE_GAP = 14;
-const CHAMBER_H = 70;
-const DEFAULT_ARRAY = [2, 1, 5, 1, 3, 2, 7, 1, 4];
+const CELL_W = 46;
+const CELL_GAP = 8;
+const CELL_STEP = CELL_W + CELL_GAP;
 
 function Panel({
   title,
   eyebrow,
-  className = "",
   children,
+  className = "",
 }: {
   title: string;
   eyebrow?: string;
-  className?: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <section
-      className={`flex flex-col rounded-xl border border-white/[0.09] bg-[#07111f]/70 shadow-[0_16px_48px_rgba(0,0,0,0.28)] backdrop-blur-md ${className}`}
+      className={`rounded-lg border border-white/[0.08] bg-[#06101d]/72 shadow-[0_16px_42px_rgba(0,0,0,0.24)] backdrop-blur-md ${className}`}
     >
-      <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/[0.06] px-3 py-2">
+      <div className="flex min-h-10 items-center justify-between gap-3 border-b border-white/[0.06] px-3 py-2">
         <div>
           {eyebrow ? (
-            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-cyan-300/70">
+            <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200/60">
               {eyebrow}
             </p>
           ) : null}
@@ -44,103 +46,375 @@ function Panel({
   );
 }
 
+function isMatrix(input: SlidingWindowProblem["input"]): input is WindowValue[][] {
+  return Array.isArray(input[0]);
+}
+
+function flattenInput(problem: SlidingWindowProblem): WindowValue[] {
+  return isMatrix(problem.input) ? problem.input.flat() : problem.input;
+}
+
+function ValueCell({
+  value,
+  index,
+  step,
+  inputKind,
+}: {
+  value: WindowValue;
+  index: number;
+  step: WindowVisualStep;
+  inputKind: SlidingWindowProblem["inputKind"];
+}) {
+  const isActive = step.active.includes(index);
+  const isEntering = step.entering === index;
+  const isLeaving = step.leaving === index;
+
+  const stateClass = isLeaving
+    ? "border-rose-300/65 bg-rose-400/[0.14] text-rose-100"
+    : isEntering
+      ? "border-emerald-300/70 bg-emerald-400/[0.14] text-emerald-100"
+      : isActive
+        ? step.valid
+          ? "border-cyan-300/65 bg-cyan-400/[0.12] text-white"
+          : "border-amber-300/65 bg-amber-400/[0.12] text-amber-100"
+        : "border-white/[0.08] bg-slate-900/72 text-slate-500";
+
+  return (
+    <motion.div
+      layout
+      className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-md border font-display text-lg font-black ${stateClass}`}
+      animate={{
+        y: isEntering ? -4 : isLeaving ? 5 : 0,
+        scale: isActive ? 1.03 : 0.92,
+        opacity: isActive || isEntering || isLeaving ? 1 : 0.58,
+      }}
+      transition={{ type: "tween", ease: "easeOut", duration: 0.28 }}
+    >
+      <span>{value}</span>
+      <span className="absolute -bottom-4 left-0 right-0 text-center font-mono text-[8px] text-slate-500">
+        {inputKind === "string" ? index : index}
+      </span>
+    </motion.div>
+  );
+}
+
+function InputStrip({ problem, step }: { problem: SlidingWindowProblem; step: WindowVisualStep }) {
+  const values = flattenInput(problem);
+  const leftX = step.left * CELL_STEP + CELL_W / 2;
+  const rightX = step.right * CELL_STEP + CELL_W / 2;
+  const windowLeft = Math.min(...step.active, step.left) * CELL_STEP;
+  const windowWidth = Math.max(1, step.active.length) * CELL_STEP - CELL_GAP;
+
+  if (isMatrix(problem.input)) {
+    const columns = problem.input[0]?.length ?? 1;
+    return (
+      <div className="relative mx-auto grid w-fit gap-2 py-7">
+        {problem.input.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="grid gap-2"
+            style={{ gridTemplateColumns: `repeat(${columns}, 46px)` }}
+          >
+            {row.map((value, colIndex) => {
+              const index = rowIndex * columns + colIndex;
+              return (
+                <ValueCell
+                  key={index}
+                  value={value}
+                  index={index}
+                  step={step}
+                  inputKind={problem.inputKind}
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative overflow-x-auto px-2 pb-8 pt-8">
+      <div className="relative mx-auto h-24 min-w-max" style={{ width: values.length * CELL_STEP }}>
+        <motion.div
+          className={`absolute top-3 h-14 rounded-lg border ${
+            step.valid
+              ? "border-cyan-300/45 bg-cyan-400/[0.055]"
+              : "border-amber-300/45 bg-amber-400/[0.055]"
+          }`}
+          animate={{ x: windowLeft, width: windowWidth }}
+          transition={{ type: "tween", ease: "easeOut", duration: 0.32 }}
+        />
+        <div className="absolute left-0 top-4 flex gap-2">
+          {values.map((value, index) => (
+            <ValueCell
+              key={`${problem.id}-${index}`}
+              value={value}
+              index={index}
+              step={step}
+              inputKind={problem.inputKind}
+            />
+          ))}
+        </div>
+        <motion.div
+          className="absolute top-[78px] font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-cyan-200"
+          animate={{ x: leftX - 12 }}
+          transition={{ type: "tween", ease: "easeOut", duration: 0.32 }}
+        >
+          L
+        </motion.div>
+        <motion.div
+          className="absolute top-[78px] font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-emerald-200"
+          animate={{ x: rightX - 12 }}
+          transition={{ type: "tween", ease: "easeOut", duration: 0.32 }}
+        >
+          R
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function StructurePanel({
+  problem,
+  step,
+}: {
+  problem: SlidingWindowProblem;
+  step: WindowVisualStep;
+}) {
+  const entries = step.frequency ? Object.entries(step.frequency) : [];
+  const linear =
+    problem.structure === "deque"
+      ? step.deque
+      : problem.structure === "queue"
+        ? step.queue
+        : problem.structure === "stack"
+          ? step.stack
+          : undefined;
+
+  if (problem.structure === "none" && !entries.length && !linear?.length) {
+    return (
+      <Panel title="State Structure" eyebrow="O(1)">
+        <p className="text-sm leading-6 text-slate-300">
+          This problem only needs scalar state. Watch the variable panel and the highlighted window.
+        </p>
+      </Panel>
+    );
+  }
+
+  return (
+    <Panel
+      title="State Structure"
+      eyebrow={problem.structureLabel ?? problem.structure}
+      className="min-h-[190px]"
+    >
+      {entries.length ? (
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {entries.map(([key, value]) => (
+            <motion.div
+              key={key}
+              layout
+              className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2"
+            >
+              <p className="font-mono text-[9px] uppercase text-slate-400">{key}</p>
+              <p className="mt-1 font-display text-lg font-black text-white">{value}</p>
+            </motion.div>
+          ))}
+        </div>
+      ) : null}
+
+      {linear?.length ? (
+        <div className="mt-1">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2">
+            {linear.map((value, index) => (
+              <motion.div
+                key={`${value}-${index}`}
+                layout
+                className="relative grid h-10 min-w-12 place-items-center rounded-md border border-violet-300/30 bg-violet-400/[0.08] px-3 font-mono text-xs font-bold text-violet-100"
+              >
+                {value}
+                {index === 0 ? (
+                  <span className="absolute -bottom-4 left-0 right-0 text-center text-[8px] uppercase text-violet-200/75">
+                    front
+                  </span>
+                ) : null}
+              </motion.div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs leading-5 text-slate-400">
+            {problem.structure === "deque"
+              ? "Front is the value/index that answers the current window; tail is trimmed to preserve monotonic order."
+              : "The front leaves first, so the visual matches first-in-first-out behavior."}
+          </p>
+        </div>
+      ) : null}
+    </Panel>
+  );
+}
+
+function VariablesPanel({ step }: { step: WindowVisualStep }) {
+  return (
+    <Panel title="Variables" eyebrow={step.valid ? "valid window" : "adjusting"}>
+      <div className="grid grid-cols-2 gap-2">
+        {Object.entries(step.variables).map(([key, value]) => (
+          <div key={key} className="rounded-md border border-white/[0.08] bg-black/20 px-2 py-2">
+            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-400">{key}</p>
+            <p className="mt-1 truncate font-mono text-sm font-bold text-slate-100">{value}</p>
+          </div>
+        ))}
+      </div>
+      {step.best !== undefined ? (
+        <div className="mt-3 rounded-md border border-amber-300/20 bg-amber-400/[0.06] px-2 py-2">
+          <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-amber-200">
+            Best / Answer
+          </p>
+          <p className="mt-1 font-display text-xl font-black text-amber-200">{step.best}</p>
+        </div>
+      ) : null}
+    </Panel>
+  );
+}
+
+function CodePanel({ problem, activeLine }: { problem: SlidingWindowProblem; activeLine: number }) {
+  return (
+    <Panel title="Python Trace" eyebrow={`line ${activeLine}`}>
+      <div className="overflow-hidden rounded-md border border-white/[0.08] bg-[#020712] font-mono text-[11px] leading-5">
+        {problem.code.map((line, index) => {
+          const lineNumber = index + 1;
+          const isActive = lineNumber === activeLine;
+          return (
+            <motion.div
+              key={`${problem.id}-line-${lineNumber}`}
+              className={`grid grid-cols-[34px_1fr] gap-2 px-2 py-1 ${
+                isActive ? "bg-cyan-300/[0.12] text-cyan-50" : "text-slate-400"
+              }`}
+              animate={{ opacity: isActive ? 1 : 0.78 }}
+            >
+              <span className={isActive ? "text-cyan-200" : "text-slate-600"}>{lineNumber}</span>
+              <code className="whitespace-pre-wrap">{line}</code>
+            </motion.div>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+}
+
+function ProblemList({
+  selectedId,
+  onSelect,
+}: {
+  selectedId: string;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <Panel
+      title="Interactive Lab"
+      eyebrow={`${SLIDING_WINDOW_PROBLEMS.length} live visuals`}
+      className="lg:sticky lg:top-24"
+    >
+      <div className="max-h-[520px] space-y-1.5 overflow-y-auto pr-1">
+        {SLIDING_WINDOW_PROBLEMS.map((problem) => {
+          const isSelected = selectedId === problem.id;
+          return (
+            <button
+              key={problem.id}
+              type="button"
+              onClick={() => onSelect(problem.id)}
+              className={`grid w-full grid-cols-[28px_1fr] gap-2 rounded-md border px-2 py-2 text-left transition ${
+                isSelected
+                  ? "border-cyan-300/45 bg-cyan-400/[0.1]"
+                  : "border-white/[0.06] bg-white/[0.025] hover:border-white/[0.14] hover:bg-white/[0.045]"
+              }`}
+            >
+              <span
+                className={`grid h-6 w-6 place-items-center rounded-full font-mono text-[10px] font-bold ${
+                  isSelected ? "bg-cyan-300 text-slate-950" : "bg-white/[0.07] text-slate-300"
+                }`}
+              >
+                {problem.level}
+              </span>
+              <span>
+                <span className="block text-xs font-semibold text-slate-100">{problem.title}</span>
+                <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.1em] text-slate-500">
+                  {problem.pattern}
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+}
+
 export default function SlidingWindowPage() {
-  const [array, setArray] = useState(DEFAULT_ARRAY);
-  const [K, setK] = useState(3);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [selectedId, setSelectedId] = useState(SLIDING_WINDOW_PROBLEMS[0].id);
+  const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const terminalRef = useRef<HTMLDivElement>(null);
+  const logRef = useRef<HTMLDivElement>(null);
 
-  const steps = useMemo(() => generateSlidingWindowSteps(array, K), [array, K]);
-
-  useEffect(() => {
-    if (currentStep >= steps.length) {
-      setCurrentStep(Math.max(0, steps.length - 1));
-    }
-  }, [currentStep, steps.length]);
-
-  const step = steps[currentStep] ?? steps[0];
-  const progressPct = (currentStep / Math.max(steps.length - 1, 1)) * 100;
-  const activeWindowValues = step.elementsInWindow.map((idx) => array[idx]);
-  const chamberW = K * STRIDE - CARD_GAP + CHAMBER_PAD * 2;
-  const isFillingWindow = step.right - step.left + 1 < K;
-
-  const terminalLines = useMemo(() => {
-    const lines: string[] = [];
-    for (let i = 0; i <= currentStep && i < steps.length; i++) {
-      lines.push(`step ${i + 1}`);
-      lines.push(...steps[i].logs);
-    }
-    return lines;
-  }, [currentStep, steps]);
+  const problem = useMemo(
+    () =>
+      SLIDING_WINDOW_PROBLEMS.find((item) => item.id === selectedId) ?? SLIDING_WINDOW_PROBLEMS[0],
+    [selectedId]
+  );
+  const step = problem.steps[stepIndex] ?? problem.steps[0];
+  const progressPct = (stepIndex / Math.max(problem.steps.length - 1, 1)) * 100;
 
   useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    setStepIndex(0);
+    setIsPlaying(false);
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (stepIndex >= problem.steps.length) {
+      setStepIndex(Math.max(0, problem.steps.length - 1));
     }
-  }, [terminalLines]);
+  }, [problem.steps.length, stepIndex]);
 
   useEffect(() => {
     if (!isPlaying) return;
-
     const id = window.setInterval(() => {
-      setCurrentStep((prev) => {
-        if (prev >= steps.length - 1) {
+      setStepIndex((current) => {
+        if (current >= problem.steps.length - 1) {
           setIsPlaying(false);
-          return prev;
+          return current;
         }
-        return prev + 1;
+        return current + 1;
       });
-    }, 3000 / speed);
+    }, 2200 / speed);
 
     return () => window.clearInterval(id);
-  }, [isPlaying, speed, steps.length]);
+  }, [isPlaying, problem.steps.length, speed]);
 
-  const baseOffset = -((K - 1) * STRIDE) / 2;
-  const cardX = (idx: number) => {
-    if (isFillingWindow && idx > step.right) {
-      return chamberW / 2 + OUTSIDE_GAP + CARD_W / 2 + (idx - step.right - 1) * STRIDE;
+  useEffect(() => {
+    if (logRef.current) {
+      logRef.current.scrollTop = logRef.current.scrollHeight;
     }
+  }, [stepIndex, selectedId]);
 
-    const base = baseOffset + (idx - step.left) * STRIDE;
-    if (idx < step.left) return base - OUTSIDE_GAP;
-    if (idx > step.right) return base + OUTSIDE_GAP;
-    return base;
+  const shownSteps = problem.steps.slice(0, stepIndex + 1);
+
+  const selectProblem = (id: string) => {
+    setSelectedId(id);
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" }));
   };
-
-  const explanation =
-    step.formula.outgoing === null
-      ? `Build the first window by adding arr[${step.incomingIdx}] to the running sum.`
-      : `Slide once: remove arr[${step.outgoingIdx}], add arr[${step.incomingIdx}], then compare with the maximum.`;
-
-  const reset = () => {
-    setCurrentStep(0);
-    setIsPlaying(false);
-  };
-
-  const randomize = () => {
-    setArray(Array.from({ length: 9 }, () => Math.floor(Math.random() * 9) + 1));
-    reset();
-  };
-
-  const buttonClass =
-    "min-h-8 rounded-lg border border-white/[0.09] bg-white/[0.045] px-3 py-1.5 font-mono text-[10px] font-semibold text-slate-100 transition hover:border-cyan-300/35 hover:bg-cyan-400/[0.08] disabled:cursor-not-allowed disabled:opacity-35";
 
   return (
     <>
       <Seo
-        title="Sliding Window Machine"
-        description="Watch a futuristic machine physically execute the Sliding Window algorithm."
+        title="Sliding Window Lab"
+        description="Visual execution guide and voteable roadmap for sliding window interview problems."
         path="/learning/coding-patterns/sliding-window"
       />
 
       <div className="relative min-h-screen overflow-x-hidden bg-transparent pb-24 pt-20 text-[#f1f3f7] selection:bg-cyan-400/20">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(217,70,239,0.1),transparent_28%),radial-gradient(circle_at_76%_18%,rgba(14,165,233,0.1),transparent_30%),linear-gradient(180deg,rgba(3,7,18,0.1),rgba(3,7,18,0.92))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,18,0.14),rgba(3,7,18,0.94))]" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl space-y-4 px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
             <Link
               to="/learning/coding-patterns"
               className="font-mono text-[9px] uppercase tracking-[0.2em] text-cyan-200/60 transition hover:text-cyan-200"
@@ -148,379 +422,171 @@ export default function SlidingWindowPage() {
               ← Patterns
             </Link>
             <h1 className="font-display text-xl font-black tracking-normal text-white sm:text-2xl">
-              Sliding Window
+              Sliding Window Lab
             </h1>
-            <span className="text-[10px] text-slate-400">Max sum · O(n) · K = {K}</span>
-            <div className="ml-auto flex flex-wrap items-center gap-2">
-              <div className="rounded-lg border border-emerald-300/20 bg-emerald-400/[0.055] px-2 py-1">
-                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-emerald-200">
-                  Window
-                </span>
-                <span className="ml-1.5 font-mono text-xs font-semibold text-white">
-                  [{step.left}..{step.right}]
-                </span>
-                <span className="ml-1.5 hidden text-[10px] text-slate-400 sm:inline">
-                  {activeWindowValues.join("+")}
-                </span>
-              </div>
-            </div>
+            <span className="text-[10px] text-slate-400">
+              {SLIDING_WINDOW_PROBLEMS.length} live visuals · vote on {">"}100 roadmap problems
+            </span>
           </div>
 
-          <section className="space-y-3 rounded-xl border border-white/[0.08] bg-[#030816]/62 p-3 shadow-[0_20px_80px_rgba(0,0,0,0.42)] backdrop-blur-md sm:p-4">
-            <div className="grid gap-3 lg:grid-cols-[0.85fr_1.3fr_0.85fr] lg:items-center">
-              <div className="flex items-center gap-2 rounded-lg border border-cyan-300/15 bg-cyan-400/[0.04] px-2.5 py-2">
-                <div className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full">
-                  <div className="absolute inset-0 rounded-full border border-dashed border-cyan-300/30 [animation:spin_28s_linear_infinite]" />
-                  <motion.span
-                    key={step.currentSum}
-                    className="relative z-10 font-display text-lg font-black text-white"
-                    initial={{ scale: 1.2, opacity: 0.45 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 14 }}
-                  >
-                    {step.currentSum}
-                  </motion.span>
-                </div>
-                <div>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200">
-                    Sum
-                  </p>
-                  <p className="text-[10px] text-slate-400">In chamber</p>
-                </div>
-              </div>
+          <div className="grid gap-4 lg:grid-cols-[300px_1fr]">
+            <ProblemList selectedId={selectedId} onSelect={selectProblem} />
 
-              <div className="rounded-lg border border-white/[0.08] bg-black/20 px-2.5 py-2 text-center">
-                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">
-                  Step {currentStep + 1}/{steps.length}
-                </p>
-                <p className="mx-auto mt-1 text-[11px] leading-5 text-slate-200">{explanation}</p>
-              </div>
-
-              <div className="flex items-center gap-2 rounded-lg border border-amber-300/15 bg-amber-400/[0.045] px-2.5 py-2">
-                <motion.div
-                  className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-amber-300/35 bg-amber-950/20"
-                  animate={{
-                    boxShadow: step.isNewMax
-                      ? "0 0 24px rgba(245,158,11,0.32)"
-                      : "0 0 8px rgba(245,158,11,0.08)",
-                  }}
-                >
-                  <motion.span
-                    key={step.maxSum}
-                    className="font-display text-lg font-black text-amber-300"
-                    initial={{ scale: step.isNewMax ? 1.2 : 1 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 250, damping: 13 }}
-                  >
-                    {step.maxSum}
-                  </motion.span>
-                </motion.div>
-                <div>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-amber-200">
-                    Max
-                  </p>
-                  <p className="text-[10px] text-slate-400">
-                    {step.isNewMax ? "New record" : "Best so far"}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-lg border border-cyan-300/12 bg-[#020713]/70">
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.07)_1px,transparent_1px),linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px)] bg-[size:36px_36px] opacity-45" />
-              <div className="relative min-h-[220px] py-10 sm:min-h-[260px]">
-                <div
-                  className="absolute left-1/2 top-1/2 z-10 pointer-events-none"
-                  style={{
-                    width: chamberW,
-                    height: CHAMBER_H,
-                    marginLeft: -chamberW / 2,
-                    marginTop: -CHAMBER_H / 2,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 rounded-[14px] border border-cyan-300/45 bg-cyan-500/[0.055]"
-                    style={{
-                      boxShadow:
-                        "0 0 28px rgba(34,211,238,0.18), inset 0 0 18px rgba(34,211,238,0.06)",
-                    }}
-                  />
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full border border-cyan-300/25 bg-[#04101f]/90 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.14em] text-cyan-100">
-                    Chamber · K={K}
+            <main className="space-y-4">
+              <section className="rounded-lg border border-white/[0.08] bg-[#030816]/66 p-3 shadow-[0_20px_70px_rgba(0,0,0,0.34)] backdrop-blur-md">
+                <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200/60">
+                      Level {problem.level} · {problem.pattern}
+                    </p>
+                    <h2 className="mt-1 font-display text-lg font-black text-white">
+                      {problem.title}
+                    </h2>
+                    <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-300">
+                      {problem.goal}
+                    </p>
                   </div>
-                  <div className="absolute -left-1 top-1/2 h-8 w-2 -translate-y-1/2 rounded-l border-y border-l border-cyan-300/70" />
-                  <div className="absolute -right-1 top-1/2 h-8 w-2 -translate-y-1/2 rounded-r border-y border-r border-cyan-300/70" />
-                  {Array.from({ length: K }, (_, slot) => (
-                    <div
-                      key={slot}
-                      className="absolute top-1/2 rounded-lg border border-dashed border-cyan-200/15 bg-cyan-200/[0.025]"
-                      style={{
-                        left: CHAMBER_PAD + slot * STRIDE,
-                        width: CARD_W,
-                        height: CARD_W,
-                        transform: "translateY(-50%)",
-                      }}
-                    />
-                  ))}
-                  <motion.div
-                    className="absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/60 to-transparent"
-                    animate={{ y: [6, CHAMBER_H - 6] }}
-                    transition={{
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      duration: 2.6,
-                      ease: "linear",
-                    }}
-                  />
-                  <div className="absolute -bottom-4 left-0 font-mono text-[8px] uppercase text-cyan-200/75">
-                    L {step.left}
-                  </div>
-                  <div className="absolute -bottom-4 right-0 font-mono text-[8px] uppercase text-emerald-200/75">
-                    R {step.right}
-                  </div>
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {array.map((value, idx) => {
-                    const isInside = step.elementsInWindow.includes(idx);
-                    const isOutgoing = step.outgoingIdx === idx;
-                    const isIncoming = step.incomingIdx === idx && isInside;
-                    const isDeparted = idx < step.left;
-                    const x = cardX(idx);
-
-                    const stateClass = isOutgoing
-                      ? "border-rose-400/65 bg-rose-500/16 text-rose-200"
-                      : isIncoming
-                        ? "border-emerald-300/70 bg-emerald-400/16 text-emerald-100"
-                        : isInside
-                          ? "border-cyan-300/70 bg-cyan-400/13 text-white"
-                          : "border-white/[0.08] bg-slate-900/72 text-slate-500";
-
-                    return (
-                      <motion.button
-                        key={idx}
-                        type="button"
-                        className={`absolute z-20 grid rounded-lg border text-center font-display text-xl font-black ${stateClass}`}
-                        style={{ width: CARD_W, height: CARD_W }}
-                        initial={false}
-                        animate={{
-                          x,
-                          y: isOutgoing ? 8 : isIncoming ? -5 : 0,
-                          opacity: isDeparted ? 0.48 : isInside ? 1 : 0.62,
-                          scale: isInside ? 1.04 : 0.88,
-                        }}
-                        whileHover={{ y: isInside ? -8 : -4, scale: isInside ? 1.06 : 0.92 }}
-                        transition={{ type: "tween", ease: "easeOut", duration: 0.42 }}
-                        onMouseEnter={() => setHoveredCard(idx)}
-                        onMouseLeave={() => setHoveredCard(null)}
-                        aria-label={`Array index ${idx}, value ${value}`}
-                      >
-                        <span className="m-auto">{value}</span>
-                        <span
-                          className={`absolute -bottom-4 left-0 right-0 font-mono text-[8px] font-semibold ${
-                            isOutgoing
-                              ? "text-rose-300"
-                              : isInside
-                                ? "text-cyan-100"
-                                : "text-slate-500"
-                          }`}
-                        >
-                          {idx}
-                        </span>
-                        <AnimatePresence>
-                          {hoveredCard === idx ? (
-                            <motion.span
-                              className="absolute -top-6 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded border border-white/[0.1] bg-slate-950 px-1.5 py-0.5 font-mono text-[8px] text-slate-200"
-                              initial={{ opacity: 0, y: 4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 4 }}
-                            >
-                              arr[{idx}]={value}
-                            </motion.span>
-                          ) : null}
-                        </AnimatePresence>
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-white/[0.08] bg-black/25 px-3 py-2">
-              <div className="grid gap-1 text-center font-mono sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
-                <div>
-                  <p className="text-[8px] uppercase text-cyan-200">Prev</p>
-                  <p className="text-base font-bold text-cyan-100">{step.formula.prevSum}</p>
-                </div>
-                <span className="hidden text-base text-slate-500 sm:block">-</span>
-                <div>
-                  <p className="text-[8px] uppercase text-rose-200">Out</p>
-                  <p className="text-base font-bold text-rose-300">
-                    {step.formula.outgoing ?? "none"}
-                  </p>
-                </div>
-                <span className="hidden text-base text-slate-500 sm:block">+</span>
-                <div>
-                  <p className="text-[8px] uppercase text-emerald-200">In</p>
-                  <p className="text-base font-bold text-emerald-300">{step.formula.incoming}</p>
-                </div>
-              </div>
-              <p className="text-center font-mono text-[9px] text-slate-400">
-                = {step.formula.newSum}
-              </p>
-            </div>
-          </section>
-
-          <section className="grid gap-4 lg:grid-cols-[1fr_1.1fr_0.85fr]">
-            <Panel title="Event log">
-              <div
-                ref={terminalRef}
-                className="max-h-40 overflow-y-auto rounded-lg bg-black/35 p-2 font-mono text-[9px] leading-4"
-                style={{ scrollBehavior: "smooth" }}
-              >
-                {terminalLines.map((line, i) => {
-                  const isHeading = line.startsWith("step");
-                  const isMax = line.includes("MAX");
-                  const isMove = line.startsWith("IN") || line.startsWith("OUT");
-                  return (
-                    <div
-                      key={`${line}-${i}`}
-                      className={
-                        isHeading
-                          ? "mt-1 text-cyan-200/55"
-                          : isMax
-                            ? "text-amber-300"
-                            : isMove
-                              ? "text-emerald-300"
-                              : "text-slate-400"
-                      }
-                    >
-                      <span className="text-cyan-400/70">&gt;</span> {line}
+                  <div className="grid min-w-40 grid-cols-2 gap-2">
+                    <div className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2">
+                      <p className="font-mono text-[8px] uppercase text-slate-500">
+                        {problem.inputLabel}
+                      </p>
+                      <p className="font-mono text-xs font-bold text-slate-100">
+                        {problem.inputKind}
+                      </p>
                     </div>
-                  );
-                })}
-                <span className="text-emerald-400 animate-pulse">_</span>
-              </div>
-            </Panel>
-
-            <Panel title="Controls">
-              <div className="grid gap-2">
-                <div className="grid grid-cols-4 gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => currentStep > 0 && setCurrentStep((s) => s - 1)}
-                    disabled={currentStep === 0}
-                    className={buttonClass}
-                  >
-                    Prev
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsPlaying((value) => !value)}
-                    className={`min-h-8 rounded-lg border px-2 py-1 font-mono text-[10px] font-bold transition ${
-                      isPlaying
-                        ? "border-rose-300/35 bg-rose-400/[0.1] text-rose-100"
-                        : "border-cyan-300/45 bg-cyan-400/[0.12] text-cyan-100"
-                    }`}
-                  >
-                    {isPlaying ? "Pause" : "Play"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => currentStep < steps.length - 1 && setCurrentStep((s) => s + 1)}
-                    disabled={currentStep >= steps.length - 1}
-                    className={buttonClass}
-                  >
-                    Next
-                  </button>
-                  <button type="button" onClick={reset} className={buttonClass}>
-                    Reset
-                  </button>
+                    <div className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2">
+                      <p className="font-mono text-[8px] uppercase text-slate-500">
+                        {problem.targetLabel ?? "mode"}
+                      </p>
+                      <p className="font-mono text-xs font-bold text-slate-100">
+                        {problem.targetValue ?? problem.structure}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
-                  <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] px-2 py-2">
+                <div className="rounded-lg border border-white/[0.08] bg-black/20">
+                  <InputStrip problem={problem} step={step} />
+                </div>
+
+                <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_260px]">
+                  <div className="rounded-lg border border-white/[0.08] bg-[#020712]/70 px-3 py-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">
+                          Step {stepIndex + 1}/{problem.steps.length}
+                        </p>
+                        <h3 className="mt-1 text-sm font-semibold text-white">{step.action}</h3>
+                      </div>
+                      <span
+                        className={`rounded-full border px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] ${
+                          step.valid
+                            ? "border-emerald-300/25 bg-emerald-400/[0.08] text-emerald-200"
+                            : "border-amber-300/25 bg-amber-400/[0.08] text-amber-200"
+                        }`}
+                      >
+                        {step.valid ? "valid" : "adjust"}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">{step.note}</p>
+                  </div>
+
+                  <div className="rounded-lg border border-white/[0.08] bg-black/25 px-3 py-3">
                     <div className="flex items-center justify-between gap-2">
-                      <label
-                        htmlFor="window-size"
-                        className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-300"
+                      <button
+                        type="button"
+                        onClick={() => setStepIndex((value) => Math.max(0, value - 1))}
+                        disabled={stepIndex === 0}
+                        className="h-8 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 font-mono text-[10px] font-bold text-slate-100 transition hover:border-cyan-300/35 disabled:cursor-not-allowed disabled:opacity-35"
                       >
-                        Window K
-                      </label>
-                      <span className="font-mono text-xs font-bold text-white">{K}</span>
+                        Prev
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsPlaying((value) => !value)}
+                        className={`h-8 min-w-16 rounded-md border px-3 font-mono text-[10px] font-bold transition ${
+                          isPlaying
+                            ? "border-rose-300/35 bg-rose-400/[0.1] text-rose-100"
+                            : "border-cyan-300/45 bg-cyan-400/[0.12] text-cyan-100"
+                        }`}
+                      >
+                        {isPlaying ? "Pause" : "Play"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setStepIndex((value) => Math.min(problem.steps.length - 1, value + 1))
+                        }
+                        disabled={stepIndex >= problem.steps.length - 1}
+                        className="h-8 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 font-mono text-[10px] font-bold text-slate-100 transition hover:border-cyan-300/35 disabled:cursor-not-allowed disabled:opacity-35"
+                      >
+                        Next
+                      </button>
                     </div>
-                    <input
-                      id="window-size"
-                      type="range"
-                      min={2}
-                      max={Math.min(5, array.length)}
-                      value={K}
-                      onChange={(event) => {
-                        setK(Number(event.target.value));
-                        reset();
-                      }}
-                      className="mt-1.5 h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-cyan-300"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex gap-1">
-                      {[0.5, 1, 2].map((item) => (
+                    <div className="mt-3 grid grid-cols-3 gap-1.5">
+                      {[0.5, 1, 2].map((value) => (
                         <button
-                          key={item}
+                          key={value}
                           type="button"
-                          onClick={() => setSpeed(item)}
-                          className={`h-7 min-w-9 rounded-lg border font-mono text-[9px] transition ${
-                            speed === item
+                          onClick={() => setSpeed(value)}
+                          className={`h-7 rounded-md border font-mono text-[9px] transition ${
+                            speed === value
                               ? "border-cyan-300/45 bg-cyan-400/[0.1] text-cyan-100"
                               : "border-white/[0.08] bg-white/[0.025] text-slate-400 hover:text-white"
                           }`}
                         >
-                          {item}x
+                          {value}x
                         </button>
                       ))}
                     </div>
-                    <button type="button" onClick={randomize} className={buttonClass}>
-                      Randomize
-                    </button>
+                    <div className="mt-3 h-1.5 rounded-full border border-white/[0.08] bg-black/35 p-px">
+                      <motion.div
+                        className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
+                        animate={{ width: `${progressPct}%` }}
+                        transition={{ ease: "easeOut", duration: 0.25 }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Panel>
+              </section>
 
-            <Panel title="Progress" eyebrow={`${currentStep + 1}/${steps.length}`}>
-              <div className="flex flex-wrap gap-1.5">
-                {steps.map((_, idx) => {
-                  const isCurrent = currentStep === idx;
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => {
-                        setCurrentStep(idx);
-                        setIsPlaying(false);
-                      }}
-                      className={`grid h-7 w-7 place-items-center rounded-full border font-mono text-[9px] transition ${
-                        isCurrent
-                          ? "border-cyan-200 bg-cyan-400/25 text-white"
-                          : idx < currentStep
-                            ? "border-cyan-300/35 bg-cyan-400/[0.08] text-cyan-100"
-                            : "border-white/[0.1] bg-white/[0.025] text-slate-400"
-                      }`}
-                    >
-                      {idx + 1}
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="mt-2 h-1.5 rounded-full border border-white/[0.08] bg-black/35 p-px">
-                <motion.div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
-                  animate={{ width: `${progressPct}%` }}
-                  transition={{ ease: "easeOut", duration: 0.35 }}
-                />
-              </div>
-            </Panel>
-          </section>
+              <section className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
+                <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-1">
+                  <VariablesPanel step={step} />
+                  <StructurePanel problem={problem} step={step} />
+                </div>
+                <CodePanel problem={problem} activeLine={step.line} />
+              </section>
+
+              <Panel title="Execution Log" eyebrow="current run">
+                <div
+                  ref={logRef}
+                  className="max-h-44 overflow-y-auto rounded-md border border-white/[0.06] bg-black/30 p-2 font-mono text-[10px] leading-5"
+                  style={{ scrollBehavior: "smooth" }}
+                >
+                  <AnimatePresence initial={false}>
+                    {shownSteps.map((item, index) => (
+                      <motion.div
+                        key={`${problem.id}-${index}-${item.action}`}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        className="grid gap-1 border-b border-white/[0.04] py-1 last:border-b-0"
+                      >
+                        <span className="text-cyan-200/70">
+                          {index + 1}. line {item.line}: {item.action}
+                        </span>
+                        <span className="text-slate-400">{item.note}</span>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </Panel>
+            </main>
+          </div>
+
+          <SlidingWindowCatalog onOpenLive={selectProblem} />
         </div>
       </div>
     </>

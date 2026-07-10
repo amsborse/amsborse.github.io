@@ -1,0 +1,26 @@
+{
+  "path": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+  "purpose": "Defines ContentDeliveryNetworkPage and related symbols in ContentDeliveryNetwork.tsx",
+  "exports": [
+    "ContentDeliveryNetworkPage"
+  ],
+  "imports": [
+    "react",
+    "react-router-dom",
+    "framer-motion",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "ContentDeliveryNetworkPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "236c96489c7ef662"
+}

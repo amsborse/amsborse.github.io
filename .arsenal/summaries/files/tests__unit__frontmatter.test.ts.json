@@ -1,0 +1,18 @@
+{
+  "path": "tests/unit/frontmatter.test.ts",
+  "purpose": "Tests for related source modules (frontmatter.test.ts)",
+  "exports": [],
+  "imports": [
+    "vitest",
+    "@/utils/frontmatter"
+  ],
+  "keySymbols": [],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/utils/frontmatter.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "7711cae5ddcd1a71"
+}

@@ -5,6 +5,7 @@ node_modules
 package-lock.json
 test-results
 playwright-report
+.arsenal
 public/resume.pdf
 cleaned_resume.html
 extracted_resume.html

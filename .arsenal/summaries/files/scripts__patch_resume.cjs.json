@@ -1,0 +1,30 @@
+{
+  "path": "scripts/patch_resume.cjs",
+  "purpose": "Defines ResumePage and related symbols in patch_resume.cjs",
+  "exports": [
+    "ResumePage"
+  ],
+  "imports": [
+    "@/components/Seo",
+    "react",
+    "framer-motion",
+    "fs",
+    "path"
+  ],
+  "keySymbols": [
+    "ResumePage"
+  ],
+  "sideEffects": [
+    "filesystem I/O",
+    "console output"
+  ],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "471fe3c51c6cf5fb"
+}

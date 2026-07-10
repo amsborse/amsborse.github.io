@@ -20,6 +20,18 @@ const PAGES = [
   },
   { path: "/aether-lab", title: "Aether Lab", selector: "h1" },
   { path: "/learning", title: "Learning", selector: "h1" },
+  { path: "/learning/coding-patterns", title: "Coding Patterns", selector: "h1" },
+  {
+    path: "/learning/coding-patterns/sliding-window",
+    title: "Sliding Window",
+    selector: "h1",
+  },
+  {
+    path: "/learning/system-design-concepts",
+    title: "System Design Concepts",
+    selector: "h1",
+  },
+  { path: "/algorithm", title: "Algorithms", selector: "h1" },
 ];
 
 for (const page of PAGES) {
@@ -36,6 +48,12 @@ for (const page of PAGES) {
     expect(errors.filter((e) => !e.includes("ResizeObserver"))).toHaveLength(0);
   });
 }
+
+test("Writing: article page loads for known slug", async ({ page }) => {
+  await page.goto("/writing/designing-for-reliability", { waitUntil: "networkidle" });
+  await expect(page.locator("h1").first()).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator("body")).toContainText(/reliability/i);
+});
 
 // =============================================================================
 // 2. NAVIGATION — Lazy loading works, links navigate correctly

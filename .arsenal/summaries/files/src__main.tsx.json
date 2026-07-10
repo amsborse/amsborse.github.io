@@ -1,0 +1,21 @@
+{
+  "path": "src/main.tsx",
+  "purpose": "Source module (main.tsx)",
+  "exports": [],
+  "imports": [
+    "react",
+    "react-dom/client",
+    "./App.tsx",
+    "./styles/index.css"
+  ],
+  "keySymbols": [],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/App.tsx",
+    "src/styles/index.css"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "0747f98d63c99393"
+}

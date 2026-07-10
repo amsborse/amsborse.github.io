@@ -21,6 +21,13 @@
     "test:e2e:ui": "playwright test --ui",
     "validate": "node scripts/validate.mjs",
     "verify:kg": "node scripts/verify-knowledge-graph.mjs",
+    "verify:arsenal": "node scripts/verify-arsenal.mjs",
+    "context:init": "node scripts/run-context.mjs init",
+    "context:index": "node scripts/run-context.mjs index",
+    "context:summarize": "node scripts/run-context.mjs summarize",
+    "context:graph": "node scripts/run-context.mjs graph",
+    "context:doctor": "node scripts/run-context.mjs doctor",
+    "context:refresh": "node scripts/run-context.mjs index && node scripts/run-context.mjs summarize && node scripts/run-context.mjs graph",
     "prepare": "husky"
   },
   "dependencies": {

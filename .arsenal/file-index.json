@@ -1,0 +1,1422 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-07-10T01:02:15.078Z",
+  "files": [
+    {
+      "path": ".arsenal/analytics/agent-events.jsonl",
+      "kind": "other",
+      "hash": "e3b0c44298fc1c14",
+      "size": 0
+    },
+    {
+      "path": ".arsenal/analytics/context-builds.jsonl",
+      "kind": "other",
+      "hash": "e3b0c44298fc1c14",
+      "size": 0
+    },
+    {
+      "path": ".arsenal/analytics/dashboard-details.json",
+      "kind": "other",
+      "hash": "131975ad90a03bf6",
+      "size": 188
+    },
+    {
+      "path": ".arsenal/analytics/improvement-suggestions.json",
+      "kind": "other",
+      "hash": "d3289e528c52ffe5",
+      "size": 69
+    },
+    {
+      "path": ".arsenal/analytics/savings-report.json",
+      "kind": "other",
+      "hash": "301489e333a11914",
+      "size": 370
+    },
+    {
+      "path": ".arsenal/analytics/stale-knowledge-report.json",
+      "kind": "other",
+      "hash": "b6de1f95da0e5c36",
+      "size": 200
+    },
+    {
+      "path": ".arsenal/analytics/usage-log.jsonl",
+      "kind": "other",
+      "hash": "e3b0c44298fc1c14",
+      "size": 0
+    },
+    {
+      "path": ".arsenal/config.json",
+      "kind": "other",
+      "hash": "795259ccb615e1e9",
+      "size": 667
+    },
+    {
+      "path": ".arsenal/memory/active-task.md",
+      "kind": "doc",
+      "hash": "a2b6b6734e1c093a",
+      "size": 110
+    },
+    {
+      "path": ".arsenal/memory/compact-history.md",
+      "kind": "doc",
+      "hash": "1c9c552dd5ab5765",
+      "size": 19
+    },
+    {
+      "path": ".arsenal/memory/conventions.md",
+      "kind": "doc",
+      "hash": "4174100619ca62fd",
+      "size": 58
+    },
+    {
+      "path": ".arsenal/memory/decisions.md",
+      "kind": "doc",
+      "hash": "896c33261bfb3ed9",
+      "size": 73
+    },
+    {
+      "path": ".arsenal/memory/pitfalls.md",
+      "kind": "doc",
+      "hash": "85e4d285f6930be1",
+      "size": 54
+    },
+    {
+      "path": ".arsenal/prompts/agent-handoff.md",
+      "kind": "doc",
+      "hash": "e17eb7b9b20397ec",
+      "size": 57
+    },
+    {
+      "path": ".arsenal/prompts/claude-context.md",
+      "kind": "doc",
+      "hash": "cd60e24f01dd6a19",
+      "size": 80
+    },
+    {
+      "path": ".arsenal/prompts/cursor-context.md",
+      "kind": "doc",
+      "hash": "4a3c4411bf7c3e60",
+      "size": 80
+    },
+    {
+      "path": ".arsenal/rules/AGENTS.md",
+      "kind": "doc",
+      "hash": "e128f4d958ba3ab2",
+      "size": 707
+    },
+    {
+      "path": ".arsenal/rules/CLAUDE.md",
+      "kind": "doc",
+      "hash": "dbba76bfbef0eafe",
+      "size": 425
+    },
+    {
+      "path": ".arsenal/rules/commands.md",
+      "kind": "doc",
+      "hash": "b9765c4f5e78e609",
+      "size": 64
+    },
+    {
+      "path": ".arsenal/rules/context-policy.md",
+      "kind": "doc",
+      "hash": "b4ba76b24d5baf60",
+      "size": 149
+    },
+    {
+      "path": ".arsenal/rules/cursor-rules.md",
+      "kind": "doc",
+      "hash": "2c30727a6f28458b",
+      "size": 260
+    },
+    {
+      "path": ".arsenal/rules/testing-rules.md",
+      "kind": "doc",
+      "hash": "bb4d1b4c140dee43",
+      "size": 143
+    },
+    {
+      "path": ".arsenal/summaries/architecture.md",
+      "kind": "doc",
+      "hash": "9cf75e799ee83574",
+      "size": 95
+    },
+    {
+      "path": ".arsenal/summaries/public-api.md",
+      "kind": "doc",
+      "hash": "02475d434d89b8bd",
+      "size": 40
+    },
+    {
+      "path": ".arsenal/summaries/tests.md",
+      "kind": "doc",
+      "hash": "7087e8513d822662",
+      "size": 35
+    },
+    {
+      "path": ".cursor/knowledge-graph/AGENT_INSTRUCTIONS.md",
+      "kind": "doc",
+      "hash": "8018ecf4e5aae980",
+      "size": 5213
+    },
+    {
+      "path": ".cursor/knowledge-graph/graph.json",
+      "kind": "other",
+      "hash": "48387257fdcac9cc",
+      "size": 16523
+    },
+    {
+      "path": ".cursor/knowledge-graph/README.md",
+      "kind": "doc",
+      "hash": "b43bdffcb88ea7c8",
+      "size": 2336
+    },
+    {
+      "path": ".cursor/knowledge-graph/SCHEMA.md",
+      "kind": "doc",
+      "hash": "261a76e1b564f733",
+      "size": 2974
+    },
+    {
+      "path": ".cursor/rules/agent-guardrails.mdc",
+      "kind": "other",
+      "hash": "aadba802d72f81f8",
+      "size": 846
+    },
+    {
+      "path": ".cursor/rules/arsenal-context.mdc",
+      "kind": "other",
+      "hash": "3ab00127839eb796",
+      "size": 335
+    },
+    {
+      "path": ".cursor/rules/knowledge-graph.mdc",
+      "kind": "other",
+      "hash": "03a62adbe8c30a65",
+      "size": 982
+    },
+    {
+      "path": ".cursor/rules/react-pages.mdc",
+      "kind": "other",
+      "hash": "01f74f7d8c148531",
+      "size": 466
+    },
+    {
+      "path": ".cursor/rules/testing.mdc",
+      "kind": "other",
+      "hash": "197aea6184b6ab1e",
+      "size": 498
+    },
+    {
+      "path": ".editorconfig",
+      "kind": "other",
+      "hash": "f3b037b140074f4f",
+      "size": 220
+    },
+    {
+      "path": ".env.example",
+      "kind": "other",
+      "hash": "e5ee020260a2237b",
+      "size": 167
+    },
+    {
+      "path": ".github/BRANCH_PROTECTION.md",
+      "kind": "doc",
+      "hash": "c409fb479b2a1307",
+      "size": 846
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "kind": "other",
+      "hash": "97ae3f5829f92b85",
+      "size": 445
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "kind": "other",
+      "hash": "0481a354c741d4c9",
+      "size": 369
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "kind": "doc",
+      "hash": "a12b3a834a89bae3",
+      "size": 454
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "kind": "other",
+      "hash": "fd2cca8b1f848a18",
+      "size": 1298
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "kind": "other",
+      "hash": "70da3a6cda020325",
+      "size": 1352
+    },
+    {
+      "path": ".gitignore",
+      "kind": "other",
+      "hash": "b2c29ce6ba5af203",
+      "size": 128
+    },
+    {
+      "path": ".husky/pre-commit",
+      "kind": "other",
+      "hash": "6b703e484a995b08",
+      "size": 56
+    },
+    {
+      "path": ".husky/pre-push",
+      "kind": "other",
+      "hash": "5adab656f3420df6",
+      "size": 34
+    },
+    {
+      "path": ".nvmrc",
+      "kind": "other",
+      "hash": "5378796307535df3",
+      "size": 3
+    },
+    {
+      "path": ".prettierignore",
+      "kind": "other",
+      "hash": "e34cf6756e8b06f8",
+      "size": 285
+    },
+    {
+      "path": ".prettierrc",
+      "kind": "other",
+      "hash": "824c8c55a71bac12",
+      "size": 107
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "doc",
+      "hash": "5314dc64b3a8f2e1",
+      "size": 4351
+    },
+    {
+      "path": "CLAUDE.md",
+      "kind": "doc",
+      "hash": "dbba76bfbef0eafe",
+      "size": 425
+    },
+    {
+      "path": "cleaned_resume.html",
+      "kind": "other",
+      "hash": "8d908367b871206a",
+      "size": 48642
+    },
+    {
+      "path": "docs/.nojekyll",
+      "kind": "doc",
+      "hash": "e3b0c44298fc1c14",
+      "size": 0
+    },
+    {
+      "path": "docs/404.html",
+      "kind": "doc",
+      "hash": "00f6f292dd0b6689",
+      "size": 918
+    },
+    {
+      "path": "docs/assets/Article-D3AJ1lqh.js",
+      "kind": "doc",
+      "hash": "02a6bc1f056fad84",
+      "size": 4602
+    },
+    {
+      "path": "docs/assets/index-DLOQmEzy.js",
+      "kind": "doc",
+      "hash": "21ce858497fbdf76",
+      "size": 322350
+    },
+    {
+      "path": "docs/assets/index-Don2Lvkz.css",
+      "kind": "doc",
+      "hash": "405b44a94cdd6f2b",
+      "size": 47453
+    },
+    {
+      "path": "docs/favicon.svg",
+      "kind": "doc",
+      "hash": "7cb06047a41690b8",
+      "size": 309
+    },
+    {
+      "path": "docs/index.html",
+      "kind": "doc",
+      "hash": "00f6f292dd0b6689",
+      "size": 918
+    },
+    {
+      "path": "eslint.config.js",
+      "kind": "config",
+      "hash": "4b973c1781576a48",
+      "size": 1103
+    },
+    {
+      "path": "extracted_resume.html",
+      "kind": "other",
+      "hash": "b4f83a99291d3a75",
+      "size": 49237
+    },
+    {
+      "path": "images/1.jpg",
+      "kind": "asset",
+      "hash": "d3078dd566a770b3",
+      "size": 193013
+    },
+    {
+      "path": "images/2.jpg",
+      "kind": "asset",
+      "hash": "7f95ec0608469e06",
+      "size": 114161
+    },
+    {
+      "path": "images/3.jpg",
+      "kind": "asset",
+      "hash": "7bd819b18d233c34",
+      "size": 172339
+    },
+    {
+      "path": "images/bbottom.jpg",
+      "kind": "asset",
+      "hash": "ce56532624353b98",
+      "size": 11110
+    },
+    {
+      "path": "images/bg.jpg",
+      "kind": "asset",
+      "hash": "1bd6d469d7f96248",
+      "size": 13313
+    },
+    {
+      "path": "images/bmid.jpg",
+      "kind": "asset",
+      "hash": "e5a35582a24cdd1e",
+      "size": 3727
+    },
+    {
+      "path": "images/border1.png",
+      "kind": "asset",
+      "hash": "54dd40df9bf7f4bb",
+      "size": 896
+    },
+    {
+      "path": "images/border2.png",
+      "kind": "asset",
+      "hash": "b920cd64a49aa2bd",
+      "size": 183
+    },
+    {
+      "path": "images/btop.jpg",
+      "kind": "asset",
+      "hash": "608efa6a52629bce",
+      "size": 9899
+    },
+    {
+      "path": "images/bullet.gif",
+      "kind": "asset",
+      "hash": "da6e8bcf0a3fb328",
+      "size": 71
+    },
+    {
+      "path": "images/frame.jpg",
+      "kind": "asset",
+      "hash": "916c110e9bc319f7",
+      "size": 5692
+    },
+    {
+      "path": "images/icn-ad.gif",
+      "kind": "asset",
+      "hash": "d16cfb3fb2c82c42",
+      "size": 616
+    },
+    {
+      "path": "images/icn-contact.jpg",
+      "kind": "asset",
+      "hash": "597f051908ffc22b",
+      "size": 3780
+    },
+    {
+      "path": "images/icn-facebook.jpg",
+      "kind": "asset",
+      "hash": "f903cf555d74ac0f",
+      "size": 4215
+    },
+    {
+      "path": "images/icn-mail.gif",
+      "kind": "asset",
+      "hash": "0c8693b8fbd712b7",
+      "size": 630
+    },
+    {
+      "path": "images/icn-print.jpg",
+      "kind": "asset",
+      "hash": "6e14d4357a127b4b",
+      "size": 3976
+    },
+    {
+      "path": "images/icn-save.jpg",
+      "kind": "asset",
+      "hash": "e447c86dc8918cb3",
+      "size": 719
+    },
+    {
+      "path": "images/icn-tel.gif",
+      "kind": "asset",
+      "hash": "842b6c782855d1e8",
+      "size": 1032
+    },
+    {
+      "path": "images/icn-twitter.jpg",
+      "kind": "asset",
+      "hash": "966bb90e2215c4d6",
+      "size": 4123
+    },
+    {
+      "path": "images/icn-web.gif",
+      "kind": "asset",
+      "hash": "78cac23994135c6f",
+      "size": 573
+    },
+    {
+      "path": "images/image.jpg",
+      "kind": "asset",
+      "hash": "26849c7d284d93aa",
+      "size": 1857
+    },
+    {
+      "path": "images/loading.gif",
+      "kind": "asset",
+      "hash": "a6eae7615a906bfb",
+      "size": 9427
+    },
+    {
+      "path": "images/paperbottom.jpg",
+      "kind": "asset",
+      "hash": "06024468a7a14e95",
+      "size": 6368
+    },
+    {
+      "path": "images/papertop.jpg",
+      "kind": "asset",
+      "hash": "fcff30b3c7ed256b",
+      "size": 13216
+    },
+    {
+      "path": "images/pbottom.jpg",
+      "kind": "asset",
+      "hash": "077f5a54f7d4fd03",
+      "size": 6834
+    },
+    {
+      "path": "images/pmid.jpg",
+      "kind": "asset",
+      "hash": "fbaacf5233ba568c",
+      "size": 3592
+    },
+    {
+      "path": "images/ptop.jpg",
+      "kind": "asset",
+      "hash": "fe66f09785b0b1b6",
+      "size": 14717
+    },
+    {
+      "path": "images/submit.jpg",
+      "kind": "asset",
+      "hash": "ab352f6136880c59",
+      "size": 6157
+    },
+    {
+      "path": "images/tipsy.gif",
+      "kind": "asset",
+      "hash": "7e9b87448f84fed9",
+      "size": 867
+    },
+    {
+      "path": "images/title.jpg",
+      "kind": "asset",
+      "hash": "5ea4ea6125ce4d6f",
+      "size": 15226
+    },
+    {
+      "path": "index.html",
+      "kind": "other",
+      "hash": "ca165693433bffa3",
+      "size": 1099
+    },
+    {
+      "path": "package.json",
+      "kind": "config",
+      "hash": "1a822932471b2146",
+      "size": 2121
+    },
+    {
+      "path": "playwright.config.ts",
+      "kind": "config",
+      "hash": "ea7007248a1505e2",
+      "size": 615
+    },
+    {
+      "path": "public/.nojekyll",
+      "kind": "other",
+      "hash": "e3b0c44298fc1c14",
+      "size": 0
+    },
+    {
+      "path": "public/Akshay-Borse-Resume.pdf",
+      "kind": "other",
+      "hash": "f2c75103032916eb",
+      "size": 156293
+    },
+    {
+      "path": "public/favicon.svg",
+      "kind": "asset",
+      "hash": "f5e5b43c30ce9b70",
+      "size": 309
+    },
+    {
+      "path": "public/resume.pdf",
+      "kind": "other",
+      "hash": "0510e1ce067cb284",
+      "size": 105994
+    },
+    {
+      "path": "public/robots.txt",
+      "kind": "doc",
+      "hash": "7bcfe044fd9cabdd",
+      "size": 76
+    },
+    {
+      "path": "public/sitemap.xml",
+      "kind": "other",
+      "hash": "c4dcfd0ae43993e8",
+      "size": 1470
+    },
+    {
+      "path": "README.md",
+      "kind": "doc",
+      "hash": "261a37ed26809db4",
+      "size": 13989
+    },
+    {
+      "path": "resume/resume.tex",
+      "kind": "other",
+      "hash": "4caa43ccb19f59a9",
+      "size": 10656
+    },
+    {
+      "path": "scripts/check-bundle-size.mjs",
+      "kind": "source",
+      "hash": "c4700539fac39c32",
+      "size": 1025
+    },
+    {
+      "path": "scripts/compile-resume.mjs",
+      "kind": "source",
+      "hash": "b120d5c85c492657",
+      "size": 1723
+    },
+    {
+      "path": "scripts/copy-404.mjs",
+      "kind": "source",
+      "hash": "f1871b3b6eff8448",
+      "size": 524
+    },
+    {
+      "path": "scripts/generate-article-index.mjs",
+      "kind": "source",
+      "hash": "d1ed20bd9c78ee40",
+      "size": 2084
+    },
+    {
+      "path": "scripts/generate-medium-articles.mjs",
+      "kind": "source",
+      "hash": "ccf9ed7bc0a1b282",
+      "size": 4941
+    },
+    {
+      "path": "scripts/generate-medium-top-ranked.mjs",
+      "kind": "source",
+      "hash": "575216ed1ede0b75",
+      "size": 6222
+    },
+    {
+      "path": "scripts/import-medium-html.js",
+      "kind": "source",
+      "hash": "f4d80ac6dded30ee",
+      "size": 6636
+    },
+    {
+      "path": "scripts/Medium_Performance_Analysis.md",
+      "kind": "doc",
+      "hash": "aae8f2e546e731f7",
+      "size": 1946
+    },
+    {
+      "path": "scripts/Medium_Stats_With_Scoring.csv",
+      "kind": "other",
+      "hash": "2ad4482ccaffa7c3",
+      "size": 24239
+    },
+    {
+      "path": "scripts/Medium_Top15_Ranked.csv",
+      "kind": "other",
+      "hash": "befffba3e840697f",
+      "size": 4571
+    },
+    {
+      "path": "scripts/patch_resume.cjs",
+      "kind": "source",
+      "hash": "471fe3c51c6cf5fb",
+      "size": 74362
+    },
+    {
+      "path": "scripts/patch_resume.js",
+      "kind": "source",
+      "hash": "fb8d84a38f02bf3a",
+      "size": 74390
+    },
+    {
+      "path": "scripts/prune-css.mjs",
+      "kind": "source",
+      "hash": "16f92a6ec47acefa",
+      "size": 1843
+    },
+    {
+      "path": "scripts/start_replacement.txt",
+      "kind": "doc",
+      "hash": "066d1632cc3adc41",
+      "size": 52661
+    },
+    {
+      "path": "scripts/sync-docs.mjs",
+      "kind": "source",
+      "hash": "036d3cd54bde3e1f",
+      "size": 897
+    },
+    {
+      "path": "scripts/validate.mjs",
+      "kind": "source",
+      "hash": "ec2ef135680ff7cc",
+      "size": 672
+    },
+    {
+      "path": "scripts/verify-dist.mjs",
+      "kind": "source",
+      "hash": "16f3a2700e8e1f56",
+      "size": 1934
+    },
+    {
+      "path": "scripts/verify-knowledge-graph.mjs",
+      "kind": "source",
+      "hash": "f889d0037f7a9ff7",
+      "size": 2996
+    },
+    {
+      "path": "src/App.tsx",
+      "kind": "source",
+      "hash": "12071cc054743bc0",
+      "size": 4697,
+      "module": "src"
+    },
+    {
+      "path": "src/components/Button.tsx",
+      "kind": "source",
+      "hash": "b0902bb8c416fb6f",
+      "size": 2064,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/AnomalyMatrix.tsx",
+      "kind": "source",
+      "hash": "163269b3aa9068f7",
+      "size": 1014,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/GodSphere.tsx",
+      "kind": "source",
+      "hash": "16d8c7ae77981b95",
+      "size": 5859,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/GravityWell.tsx",
+      "kind": "source",
+      "hash": "92b1a182439e290a",
+      "size": 5528,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/canvas/QuantumMesh.tsx",
+      "kind": "source",
+      "hash": "983683dfc9e0531d",
+      "size": 6107,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/CosmicBackground.tsx",
+      "kind": "source",
+      "hash": "90f9d9497de8a80f",
+      "size": 2192,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/ExperienceCard.tsx",
+      "kind": "source",
+      "hash": "4e6c0b1e5d8c8fad",
+      "size": 1602,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/FutureProjectsSection.tsx",
+      "kind": "source",
+      "hash": "93e846e3ec791592",
+      "size": 18210,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/GlassPanel.tsx",
+      "kind": "source",
+      "hash": "f00eeebda767ff9c",
+      "size": 1215,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/InteractiveCard.tsx",
+      "kind": "source",
+      "hash": "6c1c220126d03728",
+      "size": 12220,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/InteractiveParticles.tsx",
+      "kind": "source",
+      "hash": "98f1d0d897d97f15",
+      "size": 18481,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/algorithmCategoryVisuals.tsx",
+      "kind": "source",
+      "hash": "5e4436aee8d00810",
+      "size": 5381,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/LearningHubLayout.tsx",
+      "kind": "source",
+      "hash": "53b47ea78d32d8b9",
+      "size": 2835,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/LearningInteractiveCard.tsx",
+      "kind": "source",
+      "hash": "4531b7cda64765c9",
+      "size": 517,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/LearningSandboxLayout.tsx",
+      "kind": "source",
+      "hash": "0df309bbfa1e7b88",
+      "size": 2240,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/learning/patternVisuals.tsx",
+      "kind": "source",
+      "hash": "154788f4a8b63f02",
+      "size": 7930,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/MorphingSphere.tsx",
+      "kind": "source",
+      "hash": "ec6d015d0054c61d",
+      "size": 21575,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/PageHeader.tsx",
+      "kind": "source",
+      "hash": "e94c43390625251d",
+      "size": 1526,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/ProjectCard.tsx",
+      "kind": "source",
+      "hash": "1e3a18121f439305",
+      "size": 4664,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/ReadingProgress.tsx",
+      "kind": "source",
+      "hash": "c5083171703dbbb8",
+      "size": 1459,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/Reveal.tsx",
+      "kind": "source",
+      "hash": "3ee4aa4342525b38",
+      "size": 1955,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/SectionHeading.tsx",
+      "kind": "source",
+      "hash": "afecae97973786f8",
+      "size": 688,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/Seo.tsx",
+      "kind": "source",
+      "hash": "f8ec29b12cb2d91d",
+      "size": 1971,
+      "module": "src/components"
+    },
+    {
+      "path": "src/components/TableOfContents.tsx",
+      "kind": "source",
+      "hash": "15dd2e69352e9ebf",
+      "size": 1945,
+      "module": "src/components"
+    },
+    {
+      "path": "src/content/articles/designing-for-reliability.md",
+      "kind": "doc",
+      "hash": "3edaa832aa4ecef6",
+      "size": 1726,
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/notes-on-api-design.md",
+      "kind": "doc",
+      "hash": "18d307f7b129078c",
+      "size": 1503,
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/observability-without-overload.md",
+      "kind": "doc",
+      "hash": "6713b20591726dab",
+      "size": 1083,
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/tradeoffs-in-distributed-systems.md",
+      "kind": "doc",
+      "hash": "aa54e5c962151d67",
+      "size": 1250,
+      "module": "src/content"
+    },
+    {
+      "path": "src/content/articles/writing-as-engineering.md",
+      "kind": "doc",
+      "hash": "fce6db5fc58709fd",
+      "size": 954,
+      "module": "src/content"
+    },
+    {
+      "path": "src/data/about.ts",
+      "kind": "source",
+      "hash": "7f4c2a13ae36bf5e",
+      "size": 1329,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/algorithmCategories.ts",
+      "kind": "source",
+      "hash": "047e8f4f6d87da75",
+      "size": 2854,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/algorithmsInfo.ts",
+      "kind": "source",
+      "hash": "c71de2edbf8c5e87",
+      "size": 11123,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/articles.ts",
+      "kind": "source",
+      "hash": "f0e68b73af6c904b",
+      "size": 440,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/codingPatterns.ts",
+      "kind": "source",
+      "hash": "25e734cd5cc366c3",
+      "size": 6655,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/codingPatternTopics.tsx",
+      "kind": "source",
+      "hash": "e57aaf67e9231f69",
+      "size": 713,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/contact.ts",
+      "kind": "source",
+      "hash": "05d7d7a5c234708b",
+      "size": 911,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/experience.ts",
+      "kind": "source",
+      "hash": "8286c58461853c71",
+      "size": 1921,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/futureProjects.ts",
+      "kind": "source",
+      "hash": "bed126ec4ad542dc",
+      "size": 14342,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/home.ts",
+      "kind": "source",
+      "hash": "d938d898586e528b",
+      "size": 1722,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/index.ts",
+      "kind": "source",
+      "hash": "7d264d6a156a46bd",
+      "size": 1796,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/navigation.ts",
+      "kind": "source",
+      "hash": "727edae7341b79e7",
+      "size": 558,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/paths.ts",
+      "kind": "source",
+      "hash": "b8ca9d8aa42e2b39",
+      "size": 408,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/profile.ts",
+      "kind": "source",
+      "hash": "e67f60d93b45fe59",
+      "size": 3649,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/projects.ts",
+      "kind": "source",
+      "hash": "37ad378d36f17c8d",
+      "size": 3008,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/resume.ts",
+      "kind": "source",
+      "hash": "c6c5908beadeb79a",
+      "size": 2228,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/slidingWindowProblems.ts",
+      "kind": "source",
+      "hash": "5ce88b29e7690bb3",
+      "size": 31741,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/socials.ts",
+      "kind": "source",
+      "hash": "ecd0e29b22da28e1",
+      "size": 995,
+      "module": "src/data"
+    },
+    {
+      "path": "src/data/types.ts",
+      "kind": "source",
+      "hash": "eac6c93b81dbf4e9",
+      "size": 988,
+      "module": "src/data"
+    },
+    {
+      "path": "src/hooks/useParallax.ts",
+      "kind": "source",
+      "hash": "11525c67a6ebedbe",
+      "size": 1751,
+      "module": "src/hooks"
+    },
+    {
+      "path": "src/hooks/useTilt.ts",
+      "kind": "source",
+      "hash": "30551fdcf46970e0",
+      "size": 2917,
+      "module": "src/hooks"
+    },
+    {
+      "path": "src/layout/Footer.tsx",
+      "kind": "source",
+      "hash": "24321d54f75ff3e2",
+      "size": 2514,
+      "module": "src/layout"
+    },
+    {
+      "path": "src/layout/immersiveRoutes.ts",
+      "kind": "source",
+      "hash": "a1dc1fbb09944bbf",
+      "size": 377,
+      "module": "src/layout"
+    },
+    {
+      "path": "src/layout/Navbar.tsx",
+      "kind": "source",
+      "hash": "703eba02b641b780",
+      "size": 3033,
+      "module": "src/layout"
+    },
+    {
+      "path": "src/layout/RootLayout.tsx",
+      "kind": "source",
+      "hash": "70c511d4512059e5",
+      "size": 3691,
+      "module": "src/layout"
+    },
+    {
+      "path": "src/main.tsx",
+      "kind": "source",
+      "hash": "0747f98d63c99393",
+      "size": 241,
+      "module": "src"
+    },
+    {
+      "path": "src/pages/About.tsx",
+      "kind": "source",
+      "hash": "1cd64bc13cc24bb7",
+      "size": 3144,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/AetherLab.tsx",
+      "kind": "source",
+      "hash": "ca4d94df833eb40e",
+      "size": 15400,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Algorithms.tsx",
+      "kind": "source",
+      "hash": "b9f17e62bc75b59b",
+      "size": 57612,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Article.tsx",
+      "kind": "source",
+      "hash": "2c25c9f526b1406b",
+      "size": 4406,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/CodingPatterns.tsx",
+      "kind": "source",
+      "hash": "90d9367d3f2ed3df",
+      "size": 2700,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Contact.tsx",
+      "kind": "source",
+      "hash": "0e670720d43e5494",
+      "size": 2718,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Experience.tsx",
+      "kind": "source",
+      "hash": "24e943be6cbaa798",
+      "size": 1268,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Home.tsx",
+      "kind": "source",
+      "hash": "786a8a4da10f687b",
+      "size": 2924,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+      "kind": "source",
+      "hash": "bf313e6a85b85b61",
+      "size": 4001,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+      "kind": "source",
+      "hash": "a763e65ff976c372",
+      "size": 4841,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+      "kind": "source",
+      "hash": "097ab84bc2e89f8b",
+      "size": 3949,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+      "kind": "source",
+      "hash": "fd095db385939cde",
+      "size": 5728,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+      "kind": "source",
+      "hash": "f3581f424984e021",
+      "size": 5808,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/CachingStrategies.tsx",
+      "kind": "source",
+      "hash": "3c43169d629856e7",
+      "size": 31185,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/ConsistencyModels.tsx",
+      "kind": "source",
+      "hash": "a0a17deb7214e2bc",
+      "size": 37349,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+      "kind": "source",
+      "hash": "236c96489c7ef662",
+      "size": 21493,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/DatabaseSharding.tsx",
+      "kind": "source",
+      "hash": "00e67ef0a54c0501",
+      "size": 25555,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/LoadBalancing.tsx",
+      "kind": "source",
+      "hash": "66def7eed06fd87d",
+      "size": 26014,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/SlidingWindow.tsx",
+      "kind": "source",
+      "hash": "949b64cd85c2e413",
+      "size": 23726,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/learning-algorithms/SystemDesignConcepts.tsx",
+      "kind": "source",
+      "hash": "caaeaae85695451a",
+      "size": 16703,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Learning.tsx",
+      "kind": "source",
+      "hash": "04a77f5291168d8f",
+      "size": 15187,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/LearningAlgorithmHub.tsx",
+      "kind": "source",
+      "hash": "b372424ba53050ee",
+      "size": 1230,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/MotionLab.tsx",
+      "kind": "source",
+      "hash": "dcef6980c898c912",
+      "size": 8584,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/NotFound.tsx",
+      "kind": "source",
+      "hash": "f7e4b259a321b7b7",
+      "size": 1341,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Projects.tsx",
+      "kind": "source",
+      "hash": "8cb88221cc024c3c",
+      "size": 3386,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Resume.tsx",
+      "kind": "source",
+      "hash": "81a0606c7b15190c",
+      "size": 106716,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/pages/Writing.tsx",
+      "kind": "source",
+      "hash": "6b1f5f30334f374d",
+      "size": 4560,
+      "module": "src/pages"
+    },
+    {
+      "path": "src/sections/.gitkeep",
+      "kind": "other",
+      "hash": "e3b0c44298fc1c14",
+      "size": 0,
+      "module": "src/sections"
+    },
+    {
+      "path": "src/styles/index.css",
+      "kind": "other",
+      "hash": "e25afd6ce95f1143",
+      "size": 15586,
+      "module": "src/styles"
+    },
+    {
+      "path": "src/utils/frontmatter.ts",
+      "kind": "source",
+      "hash": "d1b1681218ce7c60",
+      "size": 1710,
+      "module": "src/utils"
+    },
+    {
+      "path": "src/utils/loadArticles.ts",
+      "kind": "source",
+      "hash": "f5f7a1ad35cf41af",
+      "size": 2003,
+      "module": "src/utils"
+    },
+    {
+      "path": "src/utils/markdown.ts",
+      "kind": "source",
+      "hash": "f76d6361a162e00f",
+      "size": 2944,
+      "module": "src/utils"
+    },
+    {
+      "path": "src/utils/slidingWindowSteps.ts",
+      "kind": "source",
+      "hash": "0b897a60789f10fa",
+      "size": 2803,
+      "module": "src/utils"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "kind": "source",
+      "hash": "6a9c65c4c0a210f4",
+      "size": 120,
+      "module": "src"
+    },
+    {
+      "path": "tailwind.config.js",
+      "kind": "config",
+      "hash": "023ec6e4c4dd36af",
+      "size": 279
+    },
+    {
+      "path": "tests/e2e/portfolio.spec.ts",
+      "kind": "test",
+      "hash": "8622120e113eb240",
+      "size": 7617
+    },
+    {
+      "path": "tests/unit/frontmatter.test.ts",
+      "kind": "test",
+      "hash": "7711cae5ddcd1a71",
+      "size": 2095
+    },
+    {
+      "path": "tests/unit/markdown.test.ts",
+      "kind": "test",
+      "hash": "56f4ef00e8cb2029",
+      "size": 2837
+    },
+    {
+      "path": "tmp_resume/resume_web/index.html",
+      "kind": "other",
+      "hash": "b1d6672edb09bba1",
+      "size": 10758
+    },
+    {
+      "path": "tmp_resume/resume_web/script.js",
+      "kind": "source",
+      "hash": "4cc0a83f9f4a2c00",
+      "size": 418
+    },
+    {
+      "path": "tmp_resume/resume_web/styles.css",
+      "kind": "other",
+      "hash": "66e867ef97b80ad4",
+      "size": 1839
+    },
+    {
+      "path": "tsconfig.app.json",
+      "kind": "other",
+      "hash": "ce49cdc466f6a9e8",
+      "size": 710
+    },
+    {
+      "path": "tsconfig.json",
+      "kind": "config",
+      "hash": "e8d6f7b50828db39",
+      "size": 107
+    },
+    {
+      "path": "tsconfig.node.json",
+      "kind": "other",
+      "hash": "d1dca3f992b2a8ae",
+      "size": 550
+    },
+    {
+      "path": "vite.config.ts",
+      "kind": "config",
+      "hash": "013cdbd43f4244ba",
+      "size": 2487
+    },
+    {
+      "path": "vitest.config.ts",
+      "kind": "config",
+      "hash": "2272cefdf9cc4891",
+      "size": 703
+    }
+  ]
+}

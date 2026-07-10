@@ -1,0 +1,21 @@
+{
+  "path": "src/data/codingPatterns.ts",
+  "purpose": "Utility or entry module (codingPatterns.ts)",
+  "exports": [
+    "CODING_PATTERNS",
+    "CodingPattern"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "CODING_PATTERNS",
+    "CodingPattern"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/codingPatternTopics.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "25e734cd5cc366c3"
+}

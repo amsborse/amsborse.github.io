@@ -1,0 +1,23 @@
+{
+  "path": "src/components/canvas/AnomalyMatrix.tsx",
+  "purpose": "Defines AnomalyMatrix and related symbols in AnomalyMatrix.tsx",
+  "exports": [
+    "AnomalyMatrix"
+  ],
+  "imports": [
+    "@react-three/fiber",
+    "@react-three/drei",
+    "./GodSphere"
+  ],
+  "keySymbols": [
+    "AnomalyMatrix"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/canvas/GodSphere.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "163269b3aa9068f7"
+}

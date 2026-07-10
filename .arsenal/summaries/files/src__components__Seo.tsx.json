@@ -1,0 +1,49 @@
+{
+  "path": "src/components/Seo.tsx",
+  "purpose": "Defines Seo and related symbols in Seo.tsx",
+  "exports": [
+    "Seo"
+  ],
+  "imports": [
+    "react",
+    "@/data"
+  ],
+  "keySymbols": [
+    "Seo"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/index.ts"
+  ],
+  "usedBy": [
+    "scripts/patch_resume.cjs",
+    "scripts/patch_resume.js",
+    "src/components/learning/LearningHubLayout.tsx",
+    "src/pages/About.tsx",
+    "src/pages/AetherLab.tsx",
+    "src/pages/Algorithms.tsx",
+    "src/pages/Article.tsx",
+    "src/pages/Contact.tsx",
+    "src/pages/Experience.tsx",
+    "src/pages/Home.tsx",
+    "src/pages/learning-algorithms/AlgorithmDP.tsx",
+    "src/pages/learning-algorithms/AlgorithmGraph.tsx",
+    "src/pages/learning-algorithms/AlgorithmGreedy.tsx",
+    "src/pages/learning-algorithms/AlgorithmSearch.tsx",
+    "src/pages/learning-algorithms/AlgorithmTrees.tsx",
+    "src/pages/learning-algorithms/CachingStrategies.tsx",
+    "src/pages/learning-algorithms/ConsistencyModels.tsx",
+    "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx",
+    "src/pages/learning-algorithms/DatabaseSharding.tsx",
+    "src/pages/learning-algorithms/LoadBalancing.tsx",
+    "src/pages/learning-algorithms/SlidingWindow.tsx",
+    "src/pages/MotionLab.tsx",
+    "src/pages/NotFound.tsx",
+    "src/pages/Projects.tsx",
+    "src/pages/Resume.tsx",
+    "src/pages/Writing.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f8ec29b12cb2d91d"
+}

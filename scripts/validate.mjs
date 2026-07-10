@@ -5,6 +5,8 @@
 import { spawnSync } from "node:child_process";
 
 const steps = [
+  ["Knowledge graph (cursor)", "npm run verify:kg"],
+  ["Arsenal context workspace", "npm run verify:arsenal"],
   ["Typecheck", "npm run typecheck"],
   ["Lint", "npm run lint"],
   ["Format check", "npm run format:check"],

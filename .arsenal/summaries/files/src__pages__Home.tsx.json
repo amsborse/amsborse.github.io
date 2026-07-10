@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/Home.tsx",
+  "purpose": "Defines Home and related symbols in Home.tsx",
+  "exports": [
+    "Home"
+  ],
+  "imports": [
+    "framer-motion",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "Home"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [
+    "src/App.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "786a8a4da10f687b"
+}

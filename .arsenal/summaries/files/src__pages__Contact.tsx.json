@@ -1,0 +1,25 @@
+{
+  "path": "src/pages/Contact.tsx",
+  "purpose": "Defines ContactPage and related symbols in Contact.tsx",
+  "exports": [
+    "ContactPage"
+  ],
+  "imports": [
+    "@/components/Seo",
+    "@/components/InteractiveCard",
+    "@/data"
+  ],
+  "keySymbols": [
+    "ContactPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/InteractiveCard.tsx",
+    "src/data/index.ts"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "0e670720d43e5494"
+}

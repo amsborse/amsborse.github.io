@@ -1,0 +1,18 @@
+{
+  "path": "scripts/verify-knowledge-graph.mjs",
+  "purpose": "Source module (verify-knowledge-graph.mjs)",
+  "exports": [],
+  "imports": [
+    "node:fs",
+    "node:path"
+  ],
+  "keySymbols": [],
+  "sideEffects": [
+    "console output"
+  ],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "f889d0037f7a9ff7"
+}

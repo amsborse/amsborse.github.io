@@ -1,0 +1,17 @@
+{
+  "path": "src/components/CosmicBackground.tsx",
+  "purpose": "Utility or entry module (CosmicBackground.tsx)",
+  "exports": [
+    "CosmicBackground"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "CosmicBackground"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "90f9d9497de8a80f"
+}

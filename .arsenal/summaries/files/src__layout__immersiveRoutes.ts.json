@@ -1,0 +1,21 @@
+{
+  "path": "src/layout/immersiveRoutes.ts",
+  "purpose": "Utility or entry module (immersiveRoutes.ts)",
+  "exports": [
+    "isImmersiveSandbox",
+    "shouldDisableGlobalEffects"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "isImmersiveSandbox",
+    "shouldDisableGlobalEffects"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/layout/RootLayout.tsx"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "a1dc1fbb09944bbf"
+}

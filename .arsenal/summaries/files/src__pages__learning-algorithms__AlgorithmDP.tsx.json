@@ -1,0 +1,24 @@
+{
+  "path": "src/pages/learning-algorithms/AlgorithmDP.tsx",
+  "purpose": "Defines AlgorithmDP and related symbols in AlgorithmDP.tsx",
+  "exports": [
+    "AlgorithmDP"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo",
+    "@/components/learning/LearningSandboxLayout"
+  ],
+  "keySymbols": [
+    "AlgorithmDP"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx",
+    "src/components/learning/LearningSandboxLayout.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "bf313e6a85b85b61"
+}

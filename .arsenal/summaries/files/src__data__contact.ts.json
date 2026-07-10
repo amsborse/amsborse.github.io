@@ -1,0 +1,23 @@
+{
+  "path": "src/data/contact.ts",
+  "purpose": "Defines contactPage and related symbols in contact.ts",
+  "exports": [
+    "contactPage"
+  ],
+  "imports": [
+    "./types"
+  ],
+  "keySymbols": [
+    "contactPage"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/types.ts"
+  ],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "05d7d7a5c234708b"
+}

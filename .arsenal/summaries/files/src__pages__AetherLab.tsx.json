@@ -1,0 +1,22 @@
+{
+  "path": "src/pages/AetherLab.tsx",
+  "purpose": "Defines AetherLab and related symbols in AetherLab.tsx",
+  "exports": [
+    "AetherLab"
+  ],
+  "imports": [
+    "react",
+    "@/components/Seo"
+  ],
+  "keySymbols": [
+    "AetherLab"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/Seo.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "ca4d94df833eb40e"
+}

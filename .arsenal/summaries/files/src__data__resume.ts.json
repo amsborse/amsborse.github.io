@@ -1,0 +1,19 @@
+{
+  "path": "src/data/resume.ts",
+  "purpose": "Utility or entry module (resume.ts)",
+  "exports": [
+    "resume"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "resume"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "c6c5908beadeb79a"
+}

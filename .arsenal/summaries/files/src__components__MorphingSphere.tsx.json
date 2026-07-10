@@ -1,0 +1,23 @@
+{
+  "path": "src/components/MorphingSphere.tsx",
+  "purpose": "Defines MorphingSphere and related symbols in MorphingSphere.tsx",
+  "exports": [
+    "MorphingSphere"
+  ],
+  "imports": [
+    "react"
+  ],
+  "keySymbols": [
+    "MorphingSphere"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/pages/MotionLab.tsx"
+  ],
+  "tests": [],
+  "risks": [
+    "large file — prefer summaries over full read"
+  ],
+  "lastHash": "ec6d015d0054c61d"
+}

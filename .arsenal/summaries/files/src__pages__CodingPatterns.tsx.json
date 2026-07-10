@@ -1,0 +1,28 @@
+{
+  "path": "src/pages/CodingPatterns.tsx",
+  "purpose": "Defines CodingPatterns and related symbols in CodingPatterns.tsx",
+  "exports": [
+    "CodingPatterns"
+  ],
+  "imports": [
+    "react",
+    "@/components/learning/LearningInteractiveCard",
+    "@/components/learning/LearningHubLayout",
+    "@/components/InteractiveCard",
+    "@/data/codingPatternTopics"
+  ],
+  "keySymbols": [
+    "CodingPatterns"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/components/learning/LearningInteractiveCard.tsx",
+    "src/components/learning/LearningHubLayout.tsx",
+    "src/components/InteractiveCard.tsx",
+    "src/data/codingPatternTopics.tsx"
+  ],
+  "usedBy": [],
+  "tests": [],
+  "risks": [],
+  "lastHash": "90d9367d3f2ed3df"
+}

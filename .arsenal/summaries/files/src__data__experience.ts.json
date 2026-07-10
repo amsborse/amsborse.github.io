@@ -1,0 +1,23 @@
+{
+  "path": "src/data/experience.ts",
+  "purpose": "Defines experience and related symbols in experience.ts",
+  "exports": [
+    "experience"
+  ],
+  "imports": [
+    "./types"
+  ],
+  "keySymbols": [
+    "experience"
+  ],
+  "sideEffects": [],
+  "dependsOn": [
+    "src/data/types.ts"
+  ],
+  "usedBy": [
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "8286c58461853c71"
+}

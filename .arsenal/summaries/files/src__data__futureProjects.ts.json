@@ -1,0 +1,22 @@
+{
+  "path": "src/data/futureProjects.ts",
+  "purpose": "Utility or entry module (futureProjects.ts)",
+  "exports": [
+    "futureProjects",
+    "FutureProject"
+  ],
+  "imports": [],
+  "keySymbols": [
+    "futureProjects",
+    "FutureProject"
+  ],
+  "sideEffects": [],
+  "dependsOn": [],
+  "usedBy": [
+    "src/components/FutureProjectsSection.tsx",
+    "src/data/index.ts"
+  ],
+  "tests": [],
+  "risks": [],
+  "lastHash": "bed126ec4ad542dc"
+}
