@@ -54,6 +54,10 @@ export default function App() {
           <Route path="learning" element={<Learning />} />
           <Route path="learning/coding-patterns" element={<CodingPatterns />} />
           <Route path="learning/coding-patterns/sliding-window" element={<SlidingWindow />} />
+          <Route
+            path="learning/coding-patterns/sliding-window/:problemId"
+            element={<SlidingWindow />}
+          />
           <Route path="learning/system-design-concepts" element={<SystemDesignConcepts />} />
           <Route
             path="learning/system-design-concepts/consistency"

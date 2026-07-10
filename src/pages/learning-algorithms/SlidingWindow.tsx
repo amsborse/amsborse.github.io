@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Seo } from "@/components/Seo";
 import {
@@ -8,7 +8,6 @@ import {
   type WindowValue,
   type WindowVisualStep,
 } from "@/data/slidingWindowProblems";
-import { SlidingWindowCatalog } from "@/components/learning/SlidingWindowCatalog";
 
 const CELL_W = 46;
 const CELL_GAP = 8;
@@ -29,17 +28,15 @@ function Panel({
     <section
       className={`rounded-lg border border-white/[0.08] bg-[#06101d]/72 shadow-[0_16px_42px_rgba(0,0,0,0.24)] backdrop-blur-md ${className}`}
     >
-      <div className="flex min-h-10 items-center justify-between gap-3 border-b border-white/[0.06] px-3 py-2">
-        <div>
-          {eyebrow ? (
-            <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200/60">
-              {eyebrow}
-            </p>
-          ) : null}
-          <h2 className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-100">
-            {title}
-          </h2>
-        </div>
+      <div className="border-b border-white/[0.06] px-3 py-2">
+        {eyebrow ? (
+          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200/60">
+            {eyebrow}
+          </p>
+        ) : null}
+        <h2 className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-100">
+          {title}
+        </h2>
       </div>
       <div className="p-3">{children}</div>
     </section>
@@ -58,17 +55,14 @@ function ValueCell({
   value,
   index,
   step,
-  inputKind,
 }: {
   value: WindowValue;
   index: number;
   step: WindowVisualStep;
-  inputKind: SlidingWindowProblem["inputKind"];
 }) {
   const isActive = step.active.includes(index);
   const isEntering = step.entering === index;
   const isLeaving = step.leaving === index;
-
   const stateClass = isLeaving
     ? "border-rose-300/65 bg-rose-400/[0.14] text-rose-100"
     : isEntering
@@ -92,18 +86,19 @@ function ValueCell({
     >
       <span>{value}</span>
       <span className="absolute -bottom-4 left-0 right-0 text-center font-mono text-[8px] text-slate-500">
-        {inputKind === "string" ? index : index}
+        {index}
       </span>
     </motion.div>
   );
 }
 
-function InputStrip({ problem, step }: { problem: SlidingWindowProblem; step: WindowVisualStep }) {
+function InputVisual({ problem, step }: { problem: SlidingWindowProblem; step: WindowVisualStep }) {
   const values = flattenInput(problem);
+  const activeLeft = Math.min(...step.active, step.left);
+  const windowLeft = activeLeft * CELL_STEP;
+  const windowWidth = Math.max(1, step.active.length) * CELL_STEP - CELL_GAP;
   const leftX = step.left * CELL_STEP + CELL_W / 2;
   const rightX = step.right * CELL_STEP + CELL_W / 2;
-  const windowLeft = Math.min(...step.active, step.left) * CELL_STEP;
-  const windowWidth = Math.max(1, step.active.length) * CELL_STEP - CELL_GAP;
 
   if (isMatrix(problem.input)) {
     const columns = problem.input[0]?.length ?? 1;
@@ -117,15 +112,7 @@ function InputStrip({ problem, step }: { problem: SlidingWindowProblem; step: Wi
           >
             {row.map((value, colIndex) => {
               const index = rowIndex * columns + colIndex;
-              return (
-                <ValueCell
-                  key={index}
-                  value={value}
-                  index={index}
-                  step={step}
-                  inputKind={problem.inputKind}
-                />
-              );
+              return <ValueCell key={index} value={value} index={index} step={step} />;
             })}
           </div>
         ))}
@@ -134,7 +121,7 @@ function InputStrip({ problem, step }: { problem: SlidingWindowProblem; step: Wi
   }
 
   return (
-    <div className="relative overflow-x-auto px-2 pb-8 pt-8">
+    <div className="overflow-x-auto px-2 pb-8 pt-8">
       <div className="relative mx-auto h-24 min-w-max" style={{ width: values.length * CELL_STEP }}>
         <motion.div
           className={`absolute top-3 h-14 rounded-lg border ${
@@ -147,13 +134,7 @@ function InputStrip({ problem, step }: { problem: SlidingWindowProblem; step: Wi
         />
         <div className="absolute left-0 top-4 flex gap-2">
           {values.map((value, index) => (
-            <ValueCell
-              key={`${problem.id}-${index}`}
-              value={value}
-              index={index}
-              step={step}
-              inputKind={problem.inputKind}
-            />
+            <ValueCell key={`${problem.id}-${index}`} value={value} index={index} step={step} />
           ))}
         </div>
         <motion.div
@@ -175,6 +156,29 @@ function InputStrip({ problem, step }: { problem: SlidingWindowProblem; step: Wi
   );
 }
 
+function VariablesPanel({ step }: { step: WindowVisualStep }) {
+  return (
+    <Panel title="Variables" eyebrow={step.valid ? "valid window" : "adjusting"}>
+      <div className="grid grid-cols-2 gap-2">
+        {Object.entries(step.variables).map(([key, value]) => (
+          <div key={key} className="rounded-md border border-white/[0.08] bg-black/20 px-2 py-2">
+            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-400">{key}</p>
+            <p className="mt-1 truncate font-mono text-sm font-bold text-slate-100">{value}</p>
+          </div>
+        ))}
+      </div>
+      {step.best !== undefined ? (
+        <div className="mt-3 rounded-md border border-amber-300/20 bg-amber-400/[0.06] px-2 py-2">
+          <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-amber-200">
+            Best / Answer
+          </p>
+          <p className="mt-1 font-display text-xl font-black text-amber-200">{step.best}</p>
+        </div>
+      ) : null}
+    </Panel>
+  );
+}
+
 function StructurePanel({
   problem,
   step,
@@ -192,22 +196,18 @@ function StructurePanel({
           ? step.stack
           : undefined;
 
-  if (problem.structure === "none" && !entries.length && !linear?.length) {
+  if (!entries.length && !linear?.length) {
     return (
-      <Panel title="State Structure" eyebrow="O(1)">
+      <Panel title="State Structure" eyebrow="scalar state">
         <p className="text-sm leading-6 text-slate-300">
-          This problem only needs scalar state. Watch the variable panel and the highlighted window.
+          This problem only needs scalar state. Watch the highlighted window and variable values.
         </p>
       </Panel>
     );
   }
 
   return (
-    <Panel
-      title="State Structure"
-      eyebrow={problem.structureLabel ?? problem.structure}
-      className="min-h-[190px]"
-    >
+    <Panel title="State Structure" eyebrow={problem.structureLabel ?? problem.structure}>
       {entries.length ? (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           {entries.map(([key, value]) => (
@@ -222,7 +222,6 @@ function StructurePanel({
           ))}
         </div>
       ) : null}
-
       {linear?.length ? (
         <div className="mt-1">
           <div className="flex items-center gap-2 overflow-x-auto pb-2">
@@ -243,32 +242,9 @@ function StructurePanel({
           </div>
           <p className="mt-3 text-xs leading-5 text-slate-400">
             {problem.structure === "deque"
-              ? "Front is the value/index that answers the current window; tail is trimmed to preserve monotonic order."
+              ? "Deque front is the current answer candidate; the tail is trimmed to keep order useful."
               : "The front leaves first, so the visual matches first-in-first-out behavior."}
           </p>
-        </div>
-      ) : null}
-    </Panel>
-  );
-}
-
-function VariablesPanel({ step }: { step: WindowVisualStep }) {
-  return (
-    <Panel title="Variables" eyebrow={step.valid ? "valid window" : "adjusting"}>
-      <div className="grid grid-cols-2 gap-2">
-        {Object.entries(step.variables).map(([key, value]) => (
-          <div key={key} className="rounded-md border border-white/[0.08] bg-black/20 px-2 py-2">
-            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-400">{key}</p>
-            <p className="mt-1 truncate font-mono text-sm font-bold text-slate-100">{value}</p>
-          </div>
-        ))}
-      </div>
-      {step.best !== undefined ? (
-        <div className="mt-3 rounded-md border border-amber-300/20 bg-amber-400/[0.06] px-2 py-2">
-          <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-amber-200">
-            Best / Answer
-          </p>
-          <p className="mt-1 font-display text-xl font-black text-amber-200">{step.best}</p>
         </div>
       ) : null}
     </Panel>
@@ -300,79 +276,92 @@ function CodePanel({ problem, activeLine }: { problem: SlidingWindowProblem; act
   );
 }
 
-function ProblemList({
-  selectedId,
-  onSelect,
-}: {
-  selectedId: string;
-  onSelect: (id: string) => void;
-}) {
+function ProblemIndex() {
   return (
-    <Panel
-      title="Interactive Lab"
-      eyebrow={`${SLIDING_WINDOW_PROBLEMS.length} live visuals`}
-      className="lg:sticky lg:top-24"
-    >
-      <div className="max-h-[520px] space-y-1.5 overflow-y-auto pr-1">
-        {SLIDING_WINDOW_PROBLEMS.map((problem) => {
-          const isSelected = selectedId === problem.id;
-          return (
-            <button
+    <>
+      <Seo
+        title="Sliding Window Problems"
+        description="Focused visual pages for 20 sliding window interview problems."
+        path="/learning/coding-patterns/sliding-window"
+      />
+      <PageShell>
+        <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2">
+          <Link
+            to="/learning/coding-patterns"
+            className="font-mono text-[9px] uppercase tracking-[0.2em] text-cyan-200/60 transition hover:text-cyan-200"
+          >
+            ← Patterns
+          </Link>
+          <h1 className="font-display text-2xl font-black tracking-normal text-white">
+            Sliding Window Problems
+          </h1>
+          <span className="text-[10px] text-slate-400">
+            {SLIDING_WINDOW_PROBLEMS.length} dedicated visual pages
+          </span>
+        </div>
+
+        <Panel title="Choose A Problem" eyebrow="learning order" className="mb-5">
+          <p className="max-w-3xl text-sm leading-6 text-slate-300">
+            Each page focuses on one problem with a statement, Python execution trace, variable
+            values, and the exact data structure visual needed for that solution.
+          </p>
+        </Panel>
+
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {SLIDING_WINDOW_PROBLEMS.map((problem) => (
+            <Link
               key={problem.id}
-              type="button"
-              onClick={() => onSelect(problem.id)}
-              className={`grid w-full grid-cols-[28px_1fr] gap-2 rounded-md border px-2 py-2 text-left transition ${
-                isSelected
-                  ? "border-cyan-300/45 bg-cyan-400/[0.1]"
-                  : "border-white/[0.06] bg-white/[0.025] hover:border-white/[0.14] hover:bg-white/[0.045]"
-              }`}
+              to={`/learning/coding-patterns/sliding-window/${problem.id}`}
+              className="grid min-h-36 rounded-lg border border-white/[0.08] bg-[#06101d]/72 p-4 transition hover:border-cyan-300/35 hover:bg-cyan-400/[0.06]"
             >
-              <span
-                className={`grid h-6 w-6 place-items-center rounded-full font-mono text-[10px] font-bold ${
-                  isSelected ? "bg-cyan-300 text-slate-950" : "bg-white/[0.07] text-slate-300"
-                }`}
-              >
-                {problem.level}
-              </span>
-              <span>
-                <span className="block text-xs font-semibold text-slate-100">{problem.title}</span>
-                <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.1em] text-slate-500">
-                  {problem.pattern}
+              <div className="flex items-start gap-3">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-300 text-sm font-black text-slate-950">
+                  {problem.level}
                 </span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </Panel>
+                <div>
+                  <h2 className="text-sm font-semibold leading-5 text-white">{problem.title}</h2>
+                  <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-cyan-200/60">
+                    {problem.pattern}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-3 text-xs leading-5 text-slate-400">{problem.goal}</p>
+            </Link>
+          ))}
+        </div>
+      </PageShell>
+    </>
   );
 }
 
-export default function SlidingWindowPage() {
-  const [selectedId, setSelectedId] = useState(SLIDING_WINDOW_PROBLEMS[0].id);
+function PageShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative min-h-screen overflow-x-hidden bg-transparent pb-24 pt-20 text-[#f1f3f7] selection:bg-cyan-400/20">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,18,0.14),rgba(3,7,18,0.94))]" />
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>
+    </div>
+  );
+}
+
+function ProblemDetail({ problem }: { problem: SlidingWindowProblem }) {
   const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const logRef = useRef<HTMLDivElement>(null);
-
-  const problem = useMemo(
-    () =>
-      SLIDING_WINDOW_PROBLEMS.find((item) => item.id === selectedId) ?? SLIDING_WINDOW_PROBLEMS[0],
-    [selectedId]
-  );
+  const problemIndex = SLIDING_WINDOW_PROBLEMS.findIndex((item) => item.id === problem.id);
+  const previousProblem = problemIndex > 0 ? SLIDING_WINDOW_PROBLEMS[problemIndex - 1] : undefined;
+  const nextProblem =
+    problemIndex >= 0 && problemIndex < SLIDING_WINDOW_PROBLEMS.length - 1
+      ? SLIDING_WINDOW_PROBLEMS[problemIndex + 1]
+      : undefined;
   const step = problem.steps[stepIndex] ?? problem.steps[0];
   const progressPct = (stepIndex / Math.max(problem.steps.length - 1, 1)) * 100;
+  const shownSteps = problem.steps.slice(0, stepIndex + 1);
 
   useEffect(() => {
     setStepIndex(0);
     setIsPlaying(false);
-  }, [selectedId]);
-
-  useEffect(() => {
-    if (stepIndex >= problem.steps.length) {
-      setStepIndex(Math.max(0, problem.steps.length - 1));
-    }
-  }, [problem.steps.length, stepIndex]);
+  }, [problem.id]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -385,7 +374,6 @@ export default function SlidingWindowPage() {
         return current + 1;
       });
     }, 2200 / speed);
-
     return () => window.clearInterval(id);
   }, [isPlaying, problem.steps.length, speed]);
 
@@ -393,202 +381,251 @@ export default function SlidingWindowPage() {
     if (logRef.current) {
       logRef.current.scrollTop = logRef.current.scrollHeight;
     }
-  }, [stepIndex, selectedId]);
-
-  const shownSteps = problem.steps.slice(0, stepIndex + 1);
-
-  const selectProblem = (id: string) => {
-    setSelectedId(id);
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" }));
-  };
+  }, [stepIndex, problem.id]);
 
   return (
     <>
       <Seo
-        title="Sliding Window Lab"
-        description="Visual execution guide and voteable roadmap for sliding window interview problems."
-        path="/learning/coding-patterns/sliding-window"
+        title={`${problem.title} - Sliding Window`}
+        description={problem.goal}
+        path={`/learning/coding-patterns/sliding-window/${problem.id}`}
       />
-
-      <div className="relative min-h-screen overflow-x-hidden bg-transparent pb-24 pt-20 text-[#f1f3f7] selection:bg-cyan-400/20">
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,18,0.14),rgba(3,7,18,0.94))]" />
-
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <Link
-              to="/learning/coding-patterns"
-              className="font-mono text-[9px] uppercase tracking-[0.2em] text-cyan-200/60 transition hover:text-cyan-200"
-            >
-              ← Patterns
-            </Link>
-            <h1 className="font-display text-xl font-black tracking-normal text-white sm:text-2xl">
-              Sliding Window Lab
-            </h1>
-            <span className="text-[10px] text-slate-400">
-              {SLIDING_WINDOW_PROBLEMS.length} live visuals · vote on {">"}100 roadmap problems
-            </span>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-[300px_1fr]">
-            <ProblemList selectedId={selectedId} onSelect={selectProblem} />
-
-            <main className="space-y-4">
-              <section className="rounded-lg border border-white/[0.08] bg-[#030816]/66 p-3 shadow-[0_20px_70px_rgba(0,0,0,0.34)] backdrop-blur-md">
-                <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200/60">
-                      Level {problem.level} · {problem.pattern}
-                    </p>
-                    <h2 className="mt-1 font-display text-lg font-black text-white">
-                      {problem.title}
-                    </h2>
-                    <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-300">
-                      {problem.goal}
-                    </p>
-                  </div>
-                  <div className="grid min-w-40 grid-cols-2 gap-2">
-                    <div className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2">
-                      <p className="font-mono text-[8px] uppercase text-slate-500">
-                        {problem.inputLabel}
-                      </p>
-                      <p className="font-mono text-xs font-bold text-slate-100">
-                        {problem.inputKind}
-                      </p>
-                    </div>
-                    <div className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2">
-                      <p className="font-mono text-[8px] uppercase text-slate-500">
-                        {problem.targetLabel ?? "mode"}
-                      </p>
-                      <p className="font-mono text-xs font-bold text-slate-100">
-                        {problem.targetValue ?? problem.structure}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-white/[0.08] bg-black/20">
-                  <InputStrip problem={problem} step={step} />
-                </div>
-
-                <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_260px]">
-                  <div className="rounded-lg border border-white/[0.08] bg-[#020712]/70 px-3 py-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div>
-                        <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">
-                          Step {stepIndex + 1}/{problem.steps.length}
-                        </p>
-                        <h3 className="mt-1 text-sm font-semibold text-white">{step.action}</h3>
-                      </div>
-                      <span
-                        className={`rounded-full border px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] ${
-                          step.valid
-                            ? "border-emerald-300/25 bg-emerald-400/[0.08] text-emerald-200"
-                            : "border-amber-300/25 bg-amber-400/[0.08] text-amber-200"
-                        }`}
-                      >
-                        {step.valid ? "valid" : "adjust"}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-slate-300">{step.note}</p>
-                  </div>
-
-                  <div className="rounded-lg border border-white/[0.08] bg-black/25 px-3 py-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setStepIndex((value) => Math.max(0, value - 1))}
-                        disabled={stepIndex === 0}
-                        className="h-8 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 font-mono text-[10px] font-bold text-slate-100 transition hover:border-cyan-300/35 disabled:cursor-not-allowed disabled:opacity-35"
-                      >
-                        Prev
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setIsPlaying((value) => !value)}
-                        className={`h-8 min-w-16 rounded-md border px-3 font-mono text-[10px] font-bold transition ${
-                          isPlaying
-                            ? "border-rose-300/35 bg-rose-400/[0.1] text-rose-100"
-                            : "border-cyan-300/45 bg-cyan-400/[0.12] text-cyan-100"
-                        }`}
-                      >
-                        {isPlaying ? "Pause" : "Play"}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setStepIndex((value) => Math.min(problem.steps.length - 1, value + 1))
-                        }
-                        disabled={stepIndex >= problem.steps.length - 1}
-                        className="h-8 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 font-mono text-[10px] font-bold text-slate-100 transition hover:border-cyan-300/35 disabled:cursor-not-allowed disabled:opacity-35"
-                      >
-                        Next
-                      </button>
-                    </div>
-                    <div className="mt-3 grid grid-cols-3 gap-1.5">
-                      {[0.5, 1, 2].map((value) => (
-                        <button
-                          key={value}
-                          type="button"
-                          onClick={() => setSpeed(value)}
-                          className={`h-7 rounded-md border font-mono text-[9px] transition ${
-                            speed === value
-                              ? "border-cyan-300/45 bg-cyan-400/[0.1] text-cyan-100"
-                              : "border-white/[0.08] bg-white/[0.025] text-slate-400 hover:text-white"
-                          }`}
-                        >
-                          {value}x
-                        </button>
-                      ))}
-                    </div>
-                    <div className="mt-3 h-1.5 rounded-full border border-white/[0.08] bg-black/35 p-px">
-                      <motion.div
-                        className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
-                        animate={{ width: `${progressPct}%` }}
-                        transition={{ ease: "easeOut", duration: 0.25 }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
-                <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-1">
-                  <VariablesPanel step={step} />
-                  <StructurePanel problem={problem} step={step} />
-                </div>
-                <CodePanel problem={problem} activeLine={step.line} />
-              </section>
-
-              <Panel title="Execution Log" eyebrow="current run">
-                <div
-                  ref={logRef}
-                  className="max-h-44 overflow-y-auto rounded-md border border-white/[0.06] bg-black/30 p-2 font-mono text-[10px] leading-5"
-                  style={{ scrollBehavior: "smooth" }}
-                >
-                  <AnimatePresence initial={false}>
-                    {shownSteps.map((item, index) => (
-                      <motion.div
-                        key={`${problem.id}-${index}-${item.action}`}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        className="grid gap-1 border-b border-white/[0.04] py-1 last:border-b-0"
-                      >
-                        <span className="text-cyan-200/70">
-                          {index + 1}. line {item.line}: {item.action}
-                        </span>
-                        <span className="text-slate-400">{item.note}</span>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
-              </Panel>
-            </main>
-          </div>
-
-          <SlidingWindowCatalog onOpenLive={selectProblem} />
+      <PageShell>
+        <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+          <Link
+            to="/learning/coding-patterns/sliding-window"
+            className="font-mono text-[9px] uppercase tracking-[0.2em] text-cyan-200/60 transition hover:text-cyan-200"
+          >
+            ← All Sliding Window
+          </Link>
+          <h1 className="font-display text-xl font-black tracking-normal text-white sm:text-2xl">
+            {problem.title}
+          </h1>
+          <span className="text-[10px] text-slate-400">
+            Level {problem.level} · {problem.pattern}
+          </span>
         </div>
-      </div>
+
+        <main className="space-y-4">
+          <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+            <Panel title="Problem" eyebrow={problem.inputLabel}>
+              <p className="text-sm leading-6 text-slate-300">{problem.goal}</p>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                <div className="rounded-md border border-white/[0.08] bg-black/20 px-2 py-2">
+                  <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                    Input
+                  </p>
+                  <p className="mt-1 break-words font-mono text-xs text-slate-100">
+                    {JSON.stringify(problem.input)}
+                  </p>
+                </div>
+                <div className="rounded-md border border-white/[0.08] bg-black/20 px-2 py-2">
+                  <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                    {problem.targetLabel ?? "Structure"}
+                  </p>
+                  <p className="mt-1 font-mono text-xs font-bold text-slate-100">
+                    {problem.targetValue ?? problem.structure}
+                  </p>
+                </div>
+              </div>
+            </Panel>
+
+            <Panel title="Code Explanation" eyebrow="what to watch">
+              <p className="text-sm leading-6 text-slate-300">
+                The highlighted Python line is the operation currently executing. The variable panel
+                shows values after that line, while the state-structure panel shows the live
+                frequency map, queue, stack, or deque whenever the solution needs one.
+              </p>
+            </Panel>
+          </section>
+
+          <section className="rounded-lg border border-white/[0.08] bg-[#030816]/66 p-3 shadow-[0_20px_70px_rgba(0,0,0,0.34)] backdrop-blur-md">
+            <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-200/60">
+                  Level {problem.level} · {problem.pattern}
+                </p>
+                <h2 className="mt-1 font-display text-lg font-black text-white">{problem.title}</h2>
+                <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-300">{problem.goal}</p>
+              </div>
+              <div className="grid min-w-40 grid-cols-2 gap-2">
+                <div className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2">
+                  <p className="font-mono text-[8px] uppercase text-slate-500">
+                    {problem.inputLabel}
+                  </p>
+                  <p className="font-mono text-xs font-bold text-slate-100">{problem.inputKind}</p>
+                </div>
+                <div className="rounded-md border border-white/[0.08] bg-white/[0.035] px-2 py-2">
+                  <p className="font-mono text-[8px] uppercase text-slate-500">
+                    {problem.targetLabel ?? "mode"}
+                  </p>
+                  <p className="font-mono text-xs font-bold text-slate-100">
+                    {problem.targetValue ?? problem.structure}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-white/[0.08] bg-black/20">
+              <InputVisual problem={problem} step={step} />
+            </div>
+
+            <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_260px]">
+              <div className="rounded-lg border border-white/[0.08] bg-[#020712]/70 px-3 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">
+                      Step {stepIndex + 1}/{problem.steps.length}
+                    </p>
+                    <h3 className="mt-1 text-sm font-semibold text-white">{step.action}</h3>
+                  </div>
+                  <span
+                    className={`rounded-full border px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] ${
+                      step.valid
+                        ? "border-emerald-300/25 bg-emerald-400/[0.08] text-emerald-200"
+                        : "border-amber-300/25 bg-amber-400/[0.08] text-amber-200"
+                    }`}
+                  >
+                    {step.valid ? "valid" : "adjust"}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{step.note}</p>
+              </div>
+
+              <div className="rounded-lg border border-white/[0.08] bg-black/25 px-3 py-3">
+                <div className="flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setStepIndex((value) => Math.max(0, value - 1))}
+                    disabled={stepIndex === 0}
+                    className="h-8 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 font-mono text-[10px] font-bold text-slate-100 transition hover:border-cyan-300/35 disabled:cursor-not-allowed disabled:opacity-35"
+                  >
+                    Prev
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsPlaying((value) => !value)}
+                    className={`h-8 min-w-16 rounded-md border px-3 font-mono text-[10px] font-bold transition ${
+                      isPlaying
+                        ? "border-rose-300/35 bg-rose-400/[0.1] text-rose-100"
+                        : "border-cyan-300/45 bg-cyan-400/[0.12] text-cyan-100"
+                    }`}
+                  >
+                    {isPlaying ? "Pause" : "Play"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setStepIndex((value) => Math.min(problem.steps.length - 1, value + 1))
+                    }
+                    disabled={stepIndex >= problem.steps.length - 1}
+                    className="h-8 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 font-mono text-[10px] font-bold text-slate-100 transition hover:border-cyan-300/35 disabled:cursor-not-allowed disabled:opacity-35"
+                  >
+                    Next
+                  </button>
+                </div>
+                <div className="mt-3 grid grid-cols-3 gap-1.5">
+                  {[0.5, 1, 2].map((value) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setSpeed(value)}
+                      className={`h-7 rounded-md border font-mono text-[9px] transition ${
+                        speed === value
+                          ? "border-cyan-300/45 bg-cyan-400/[0.1] text-cyan-100"
+                          : "border-white/[0.08] bg-white/[0.025] text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      {value}x
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-3 h-1.5 rounded-full border border-white/[0.08] bg-black/35 p-px">
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300"
+                    animate={{ width: `${progressPct}%` }}
+                    transition={{ ease: "easeOut", duration: 0.25 }}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
+            <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-1">
+              <VariablesPanel step={step} />
+              <StructurePanel problem={problem} step={step} />
+            </div>
+            <CodePanel problem={problem} activeLine={step.line} />
+          </section>
+
+          <Panel title="Execution Log" eyebrow="current run">
+            <div
+              ref={logRef}
+              className="max-h-44 overflow-y-auto rounded-md border border-white/[0.06] bg-black/30 p-2 font-mono text-[10px] leading-5"
+              style={{ scrollBehavior: "smooth" }}
+            >
+              <AnimatePresence initial={false}>
+                {shownSteps.map((item, index) => (
+                  <motion.div
+                    key={`${problem.id}-${index}-${item.action}`}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    className="grid gap-1 border-b border-white/[0.04] py-1 last:border-b-0"
+                  >
+                    <span className="text-cyan-200/70">
+                      {index + 1}. line {item.line}: {item.action}
+                    </span>
+                    <span className="text-slate-400">{item.note}</span>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </Panel>
+
+          <div className="grid gap-2 sm:grid-cols-2">
+            {previousProblem ? (
+              <Link
+                to={`/learning/coding-patterns/sliding-window/${previousProblem.id}`}
+                className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-3 text-sm text-slate-200 transition hover:border-cyan-300/35 hover:bg-cyan-400/[0.06]"
+              >
+                <span className="block font-mono text-[9px] uppercase tracking-[0.14em] text-slate-500">
+                  Previous
+                </span>
+                {previousProblem.title}
+              </Link>
+            ) : (
+              <span />
+            )}
+            {nextProblem ? (
+              <Link
+                to={`/learning/coding-patterns/sliding-window/${nextProblem.id}`}
+                className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-3 text-right text-sm text-slate-200 transition hover:border-cyan-300/35 hover:bg-cyan-400/[0.06]"
+              >
+                <span className="block font-mono text-[9px] uppercase tracking-[0.14em] text-slate-500">
+                  Next
+                </span>
+                {nextProblem.title}
+              </Link>
+            ) : null}
+          </div>
+        </main>
+      </PageShell>
     </>
   );
+}
+
+export default function SlidingWindowPage() {
+  const { problemId } = useParams();
+  const problem = useMemo(
+    () => SLIDING_WINDOW_PROBLEMS.find((item) => item.id === problemId),
+    [problemId]
+  );
+
+  if (!problemId || !problem) {
+    return <ProblemIndex />;
+  }
+
+  return <ProblemDetail problem={problem} />;
 }
