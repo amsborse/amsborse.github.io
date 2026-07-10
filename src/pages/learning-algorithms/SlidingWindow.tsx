@@ -65,6 +65,7 @@ export default function SlidingWindowPage() {
   const progressPct = (currentStep / Math.max(steps.length - 1, 1)) * 100;
   const activeWindowValues = step.elementsInWindow.map((idx) => array[idx]);
   const chamberW = K * STRIDE - CARD_GAP + CHAMBER_PAD * 2;
+  const isFillingWindow = step.right - step.left + 1 < K;
 
   const terminalLines = useMemo(() => {
     const lines: string[] = [];
@@ -99,6 +100,10 @@ export default function SlidingWindowPage() {
 
   const baseOffset = -((K - 1) * STRIDE) / 2;
   const cardX = (idx: number) => {
+    if (isFillingWindow && idx > step.right) {
+      return chamberW / 2 + OUTSIDE_GAP + CARD_W / 2 + (idx - step.right - 1) * STRIDE;
+    }
+
     const base = baseOffset + (idx - step.left) * STRIDE;
     if (idx < step.left) return base - OUTSIDE_GAP;
     if (idx > step.right) return base + OUTSIDE_GAP;
@@ -245,6 +250,18 @@ export default function SlidingWindowPage() {
                   </div>
                   <div className="absolute -left-1 top-1/2 h-8 w-2 -translate-y-1/2 rounded-l border-y border-l border-cyan-300/70" />
                   <div className="absolute -right-1 top-1/2 h-8 w-2 -translate-y-1/2 rounded-r border-y border-r border-cyan-300/70" />
+                  {Array.from({ length: K }, (_, slot) => (
+                    <div
+                      key={slot}
+                      className="absolute top-1/2 rounded-lg border border-dashed border-cyan-200/15 bg-cyan-200/[0.025]"
+                      style={{
+                        left: CHAMBER_PAD + slot * STRIDE,
+                        width: CARD_W,
+                        height: CARD_W,
+                        transform: "translateY(-50%)",
+                      }}
+                    />
+                  ))}
                   <motion.div
                     className="absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/60 to-transparent"
                     animate={{ y: [6, CHAMBER_H - 6] }}
@@ -338,7 +355,9 @@ export default function SlidingWindowPage() {
                 <span className="hidden text-base text-slate-500 sm:block">-</span>
                 <div>
                   <p className="text-[8px] uppercase text-rose-200">Out</p>
-                  <p className="text-base font-bold text-rose-300">{step.formula.outgoing ?? 0}</p>
+                  <p className="text-base font-bold text-rose-300">
+                    {step.formula.outgoing ?? "none"}
+                  </p>
                 </div>
                 <span className="hidden text-base text-slate-500 sm:block">+</span>
                 <div>
