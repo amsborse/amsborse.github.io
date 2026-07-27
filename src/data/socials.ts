@@ -8,12 +8,12 @@ import type { SocialLinks } from "./types";
 export const links = {
   /** Public site URL (no trailing slash) — canonical & Open Graph. */
   siteUrl: "https://amsborse.github.io",
-  email: "hello@example.com",
+  email: "amsborse@gmail.com",
   social: {
     github: "https://github.com/amsborse",
-    linkedin: "https://www.linkedin.com/in/akshay-borse-placeholder",
-    medium: "https://medium.com/@placeholder",
-    substack: "https://placeholder.substack.com",
+    linkedin: "https://linkedin.com/in/akshayborse",
+    medium: "https://medium.com/@amsborse",
+    substack: "https://substack.com/@amsborse",
   } satisfies SocialLinks,
 } as const;
 

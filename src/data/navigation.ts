@@ -6,13 +6,9 @@ import type { NavItem } from "./types";
 
 export const navItems: NavItem[] = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
   { to: "/experience", label: "Experience" },
   { to: "/projects", label: "Projects" },
-  { to: "/writing", label: "Writing" },
   { to: "/resume", label: "Resume" },
-  { to: "/motion", label: "Motion" },
   { to: "/learning", label: "Learning" },
-  { to: "/aether-lab", label: "Aether Lab" },
-  { to: "/contact", label: "Contact" },
+  { to: "/about", label: "About" },
 ];

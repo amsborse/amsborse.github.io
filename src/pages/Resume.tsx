@@ -1019,16 +1019,11 @@ body{background:white !important;color:black !important}
               <div className="section">
                 <div className="section-title">Summary</div>
                 <p className="summary-text">
-                  Platform engineer who builds the systems that protect organizations from threats
-                  they haven't imagined yet. Currently architecting Microsoft's agentic AI
-                  risk-scoring infrastructure — a pipeline processing 12.9M triggers/day across
-                  34,000+ enterprise tenants that decides in real time whether an AI agent is too
-                  dangerous to keep running, and automatically enforces protection through Entra ID
-                  and Conditional Access. Previously spent 6 years at Amazon building ML-integrated
-                  fulfillment systems that drove $28MM+ annual profit and reduced operational costs
-                  by $3M+/year. I design for sovereign-cloud compliance, billions-of-signals-per-day
-                  scale, and zero-downtime deployments — then ship it across 5 production cloud
-                  environments without waking anyone up.
+                  Senior Software Engineer with 8+ years building distributed systems, security
+                  services, and production ML systems at Microsoft and Amazon. Experience spans
+                  237K+ AI agents, 100K+ TPS workloads, and commercial and US government cloud
+                  deployments — from tenant-configurable AI governance to quantile-regression models
+                  with an estimated $28M annualized impact.
                 </p>
               </div>
 

@@ -5,41 +5,55 @@
 
 export const resume = {
   executiveSummary:
-    "Backend Engineer with 6+ years of experience building scalable, cloud-native systems. I’ve led high-impact projects—like an order optimization service that improved customer experience and cut operational costs by 25%. Skilled in microservices, infra-automation, and driving cross-team initiatives. Proactively led on-call reviews, design discussions, and knowledge-sharing sessions to improve system health and team alignment.",
+    "Senior Software Engineer with 8+ years building distributed systems, security services, and production ML systems at Microsoft and Amazon. Experience spans 237K+ AI agents, 100K+ TPS, and commercial and US government cloud deployments.",
 
   skills: {
-    languages: ["C#", ".NET", "Java", "Python", "TypeScript", "SQL", "HTML/CSS"],
+    languages: ["C", "C++", "C#", ".NET", "Java", "Python", "TypeScript", "JavaScript", "SQL"],
     systems: [
-      "Distributed systems",
+      "Distributed systems & microservices",
       "REST / gRPC",
-      "Microservices",
-      "Docker",
-      "AWS (ECS, DynamoDB, Lambda, SageMaker, Bedrock)",
-      "Azure (Functions, Cosmos DB, Event Hub)",
+      "AWS (ECS, Lambda, DynamoDB, Step Functions, SageMaker, Bedrock, Kinesis)",
+      "Azure (Cosmos DB, Event Hub, Functions, Bicep)",
+      "Kafka · Redis · Neo4j · Docker · Kubernetes",
     ],
     practices: [
+      "AI governance & agentic risk",
+      "RAG & LLM integration",
+      "Observability & cost optimization",
       "SLOs & incident response",
-      "Logging & metrics optimization",
-      "Prompt Engineering",
-      "Technical writing",
-      "Mentoring",
+      "Technical writing & mentoring",
     ],
   },
 
   achievements: [
-    "Designed a microservice bootstrap library that standardized service creation across Amazon teams—cutting setup time from weeks to hours and saving 40–50 weeks of developer time.",
-    "Architected and deployed backend integration infrastructure for Amazon SageMaker quantile regression model, driving statistically significant annualized ~$28MM profit gain.",
-    "Developed agentic risk detection and adaptive protection capabilities in Microsoft Purview to identify and flag high-risk agents based on behavioral patterns.",
-    "Received Amazon Just Do It Award for developing an Automated Service Creation tool that deploys microservices on AWS within an hour.",
+    "Built tenant-configurable AI risk evaluation covering 237K+ agents across 13K organizations at Microsoft.",
+    "Delivered quantile-regression delivery models with an estimated $28M annualized impact at Amazon.",
+    "Created a typed DSL and provisioning pipeline saving 40–50 engineering weeks across Amazon teams.",
+    "Cut CloudWatch costs by $250K+ per month through logging standards and shared libraries.",
+    "Received Amazon Just Do It Award for Automated Service Creation tooling.",
   ],
 
   focusAreas: [
-    "Reliable backends & cloud architecture under real-world load",
-    "Agentic risk & AI application integration (RAG, LLMs)",
-    "Observability, logging, and infrastructure automation",
+    "Enterprise AI governance & sovereign cloud deployments",
+    "High-scale distributed systems and platform engineering",
+    "Production ML, RAG pipelines, and developer productivity tooling",
   ],
 
-  /** Example: `/resume.pdf` (file in `public/`) or `https://...` */
+  education: [
+    {
+      school: "Santa Clara University, Santa Clara, CA",
+      degree: "Master's in Computer Science and Engineering",
+      period: "Sep 2017 – Jun 2019",
+      gpa: "3.77",
+    },
+    {
+      school: "Pune Institute of Computer Technology (PICT), India",
+      degree: "Bachelor's in Computer Science and Engineering",
+      period: "Jun 2012 – Jun 2016",
+      gpa: "3.34",
+    },
+  ],
+
   downloadUrl: "/resume.pdf",
   downloadLabel: "Download PDF",
 };

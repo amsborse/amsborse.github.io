@@ -14,7 +14,7 @@ function FeaturedWritingCard({ post, i }: { post: ParsedPost; i: number }) {
         id={post.slug}
         title={post.title}
         description={post.description}
-        path={`/writing/${post.slug}`}
+        path={`/arsenal/writing/${post.slug}`}
         status="active"
         statusLabel="Featured"
         tags={[...post.tags, `${post.readingMinutes} min`, post.date]}
@@ -51,7 +51,7 @@ export default function WritingPage() {
       <Seo
         title="Writing"
         description="Essays on systems, APIs, reliability, and engineering practice by Akshay Borse."
-        path="/writing"
+        path="/arsenal/writing"
       />
 
       <div className="writing-index writing-index--editorial article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
@@ -94,7 +94,7 @@ export default function WritingPage() {
                 {all.map((post) => (
                   <li key={post.slug}>
                     <Link
-                      to={`/writing/${post.slug}`}
+                      to={`/arsenal/writing/${post.slug}`}
                       className="group flex flex-col gap-1 py-5 transition-colors motion-reduce:transition-none sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-6"
                     >
                       <span className="font-display text-[1.05rem] font-semibold text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">

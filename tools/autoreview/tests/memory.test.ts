@@ -107,7 +107,7 @@ describe("memory capture and retrieval", () => {
       {
         feedback: "Keep forge sparks dramatic and continuous.",
         component: "ForgeCanvas",
-        route: "/aether-lab",
+        route: "/arsenal/anomaly-matrix",
         userApproved: true,
         tags: ["animation", "forge"],
         fixApplied: "Use continuous spark trails.",

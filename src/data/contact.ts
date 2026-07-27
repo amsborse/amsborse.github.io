@@ -7,7 +7,7 @@ import type { SocialLinks } from "./types";
 export const contactPage = {
   intro:
     "The best way to reach me is email. For open-source or side projects, GitHub works well too.",
-  emailNote: "Replace with your real address in `src/data/socials.ts` (email field).",
+  emailNote: "Based in Auburn, WA · also reachable at 425-336-9852.",
   socialRows: [
     { key: "github" as keyof SocialLinks, label: "GitHub", description: "Code and experiments" },
     {

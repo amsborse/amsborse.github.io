@@ -1,5 +1,5 @@
 /**
- * EDIT HERE: Core identity — name, headlines, SEO, hero/footer copy, CTAs, optional “artist–yogi” line, and Why Anthropic.
+ * EDIT HERE: Core identity — name, headlines, SEO, hero/footer copy, CTAs, optional “artist–yogi” line.
  * This file drives the home hero, SEO defaults, footer, and parts of About.
  */
 
@@ -53,19 +53,9 @@ export const profile = {
   artistYogiIdentity:
     "Off-screen: art, movement, and the kind of focus that doesn’t need an audience.",
 
-  /** Application / interest statement — shown on About when non-empty. */
-  whyAnthropic: {
-    heading: "Why Anthropic",
-    paragraphs: [
-      "I've always been drawn to building systems that have a broad, lasting impact. Throughout my career at Microsoft and Amazon, I've worked on large-scale distributed systems, AI infrastructure, and developer platforms because I enjoy building technology that helps other people do their best work.",
-      "Outside of work, I've spent much of my free time building AI-powered products, including agentic systems, developer tools, financial intelligence platforms, and interactive learning experiences. I believe AI is one of the biggest shifts in computing since the internet. It will fundamentally change how software is built and how people create, learn, and solve problems.",
-      "That's what draws me to Anthropic. I'm interested in solving the engineering challenges that make AI dependable, useful, and practical for real-world applications. Anthropic's focus on building reliable AI aligns closely with the kind of systems I want to build and the problems I want to spend my time solving.",
-    ],
-  },
-
   /** Primary + secondary hero buttons (paths must match routes in `App.tsx`). */
   cta: {
     primary: { label: "View projects", to: "/projects" },
-    secondary: { label: "Read writing", to: "/writing" },
+    secondary: { label: "About & contact", to: "/about#contact" },
   },
 } as const;

@@ -9,16 +9,14 @@ const PAGES = [
   { path: "/about", title: "About", selector: "h1" },
   { path: "/experience", title: "Experience", selector: "h1" },
   { path: "/projects", title: "Projects", selector: "h2" },
-  { path: "/writing", title: "Writing", selector: "h1" },
+  { path: "/arsenal/writing", title: "Writing", selector: "h1" },
   { path: "/resume", title: "Resume", selector: ".resume-container" },
-  { path: "/contact", title: "Contact", selector: "h1" },
-  { path: "/motion", title: "Motion Lab", selector: "h1" },
+  { path: "/about#contact", title: "About Contact", selector: "#contact" },
   {
     path: "/learning/algorithm",
     title: "Algorithm Hub",
     selector: "h1:has-text('Algorithm Visualizer Hub')",
   },
-  { path: "/aether-lab", title: "Aether Lab", selector: "h1" },
   { path: "/learning", title: "Learning", selector: "h1" },
   { path: "/learning/coding-patterns", title: "Coding Patterns", selector: "h1" },
   {
@@ -31,7 +29,8 @@ const PAGES = [
     title: "System Design Concepts",
     selector: "h1",
   },
-  { path: "/algorithm", title: "Algorithms", selector: "h1" },
+  { path: "/arsenal/algorithm", title: "Algorithms", selector: "h1" },
+  { path: "/arsenal", title: "Arsenal", selector: "h1" },
 ];
 
 for (const page of PAGES) {
@@ -50,9 +49,20 @@ for (const page of PAGES) {
 }
 
 test("Writing: article page loads for known slug", async ({ page }) => {
-  await page.goto("/writing/designing-for-reliability", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/writing/designing-for-reliability", { waitUntil: "networkidle" });
   await expect(page.locator("h1").first()).toBeVisible({ timeout: 10_000 });
   await expect(page.locator("body")).toContainText(/reliability/i);
+});
+
+test("Redirects: legacy routes forward to new locations", async ({ page }) => {
+  await page.goto("/writing", { waitUntil: "networkidle" });
+  await expect(page).toHaveURL(/\/arsenal\/writing/);
+
+  await page.goto("/contact", { waitUntil: "networkidle" });
+  await expect(page).toHaveURL(/\/about#contact/);
+
+  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await expect(page).toHaveURL(/\/arsenal\/algorithm/);
 });
 
 // =============================================================================
@@ -86,13 +96,13 @@ test("Navigation: 404 page renders for unknown routes", async ({ page }) => {
 test("Algorithms: sorting sandbox loads from hub", async ({ page }) => {
   await page.goto("/learning/algorithm", { waitUntil: "networkidle" });
   await expect(page.locator("h1")).toContainText("Algorithm Visualizer Hub");
-  await page.click('a[href="/algorithm"]');
-  await expect(page).toHaveURL(/\/algorithm/);
+  await page.click('a[href="/arsenal/algorithm"]');
+  await expect(page).toHaveURL(/\/arsenal\/algorithm/);
   await expect(page.locator("h1")).toContainText("Algorithm Visualizer");
 });
 
 test("Algorithms: page loads with theme dropdown", async ({ page }) => {
-  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/algorithm", { waitUntil: "networkidle" });
 
   // Title is visible
   await expect(page.locator("h1")).toContainText("Algorithm Visualizer");
@@ -106,7 +116,7 @@ test("Algorithms: can switch themes without errors", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (err) => errors.push(err.message));
 
-  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/algorithm", { waitUntil: "networkidle" });
 
   const themeSelect = page.locator("select").first();
 
@@ -120,7 +130,7 @@ test("Algorithms: can switch themes without errors", async ({ page }) => {
 });
 
 test("Algorithms: can switch visualization modes", async ({ page }) => {
-  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/algorithm", { waitUntil: "networkidle" });
 
   // Find the vis mode dropdown (second select)
   const selects = page.locator("select");
@@ -133,7 +143,7 @@ test("Algorithms: can switch visualization modes", async ({ page }) => {
 });
 
 test("Algorithms: generate and reset buttons work", async ({ page }) => {
-  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/algorithm", { waitUntil: "networkidle" });
 
   // Click Generate
   const generateBtn = page.locator("button", { hasText: "Generate" });
@@ -147,7 +157,7 @@ test("Algorithms: generate and reset buttons work", async ({ page }) => {
 });
 
 test("Algorithms: algorithm dossier updates when switching algorithms", async ({ page }) => {
-  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/algorithm", { waitUntil: "networkidle" });
 
   // Click on "Selection Sort" button
   const selectionBtn = page.locator("button", { hasText: "Selection Sort" });
@@ -161,26 +171,7 @@ test("Algorithms: algorithm dossier updates when switching algorithms", async ({
 });
 
 // =============================================================================
-// 4. MOTION LAB — Renders without errors
-// =============================================================================
-
-test("MotionLab: ignite button works and counter increments", async ({ page }) => {
-  await page.goto("/motion", { waitUntil: "networkidle" });
-
-  await expect(page.locator("h1")).toContainText("Motion Lab");
-
-  const igniteBtn = page.locator("button", { hasText: /Ignite/i });
-  await expect(igniteBtn).toBeVisible();
-
-  await igniteBtn.click();
-  await page.waitForTimeout(200);
-
-  // Counter should show 1
-  await expect(page.locator("body")).toContainText("1");
-});
-
-// =============================================================================
-// 5. RESUME — Morph toggle works
+// 4. RESUME — Morph toggle works
 // =============================================================================
 
 test("Resume: interactive mode toggle works", async ({ page }) => {
@@ -214,6 +205,6 @@ test("Performance: Algorithms page lazy loads correctly", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
   // Navigate to Algorithms — should lazy load
-  await page.goto("/algorithm", { waitUntil: "networkidle" });
+  await page.goto("/arsenal/algorithm", { waitUntil: "networkidle" });
   await expect(page.locator("h1")).toContainText("Algorithm Visualizer");
 });

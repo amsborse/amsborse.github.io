@@ -48,9 +48,13 @@ flowchart TB
     Algorithms["/algorithm"]
   end
 
-  subgraph visual [Visual]
-    Motion["/motion"]
-    Aether["/aether-lab"]
+  subgraph visual [Arsenal]
+    Arsenal["/arsenal"]
+    Celestial["/arsenal/celestial-grid"]
+    Particle["/arsenal/particle-core"]
+    Anomaly["/arsenal/anomaly-matrix"]
+    Gravity["/arsenal/gravity-well"]
+    Quantum["/arsenal/quantum-mesh"]
   end
 
   RootLayout --> core
@@ -64,6 +68,11 @@ flowchart TB
   Patterns --> Sliding
   Learning --> AlgoHub
   Learning --> SysDesign
+  Arsenal --> Celestial
+  Arsenal --> Particle
+  Arsenal --> Anomaly
+  Arsenal --> Gravity
+  Arsenal --> Quantum
 ```
 
 ## Layer stack

@@ -4,7 +4,6 @@ import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Seo } from "@/components/Seo";
 import { projectCategories, projects, type ProjectCategory } from "@/data";
-import { FutureProjectsSection } from "@/components/FutureProjectsSection";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");
@@ -83,8 +82,6 @@ export default function ProjectsPage() {
             </div>
           </>
         ) : null}
-
-        <FutureProjectsSection />
       </div>
     </>
   );

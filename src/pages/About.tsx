@@ -1,6 +1,6 @@
 import { Seo } from "@/components/Seo";
 import { ContentInteractiveCard } from "@/components/InteractiveCard";
-import { about, profile, site } from "@/data";
+import { about, contactPage, links, profile, site } from "@/data";
 
 function ValuesCard({ values }: { values: readonly string[] }) {
   return (
@@ -21,6 +21,54 @@ function BuildingCard({ text }: { text: string }) {
   return (
     <ContentInteractiveCard color="from-amber-500 to-orange-600" className="mt-6">
       <p className="text-sm leading-relaxed">{text}</p>
+    </ContentInteractiveCard>
+  );
+}
+
+function EmailCard() {
+  return (
+    <ContentInteractiveCard color="from-sky-500 to-cyan-600" className="mt-10">
+      <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Email</p>
+      <a
+        href={`mailto:${site.email}`}
+        className="mt-3 block w-fit font-display text-lg text-indigo-400 underline decoration-indigo-400/25 underline-offset-4 transition-colors hover:decoration-indigo-400/55 sm:text-xl"
+      >
+        {site.email}
+      </a>
+      <p className="mt-3 text-sm text-slate-400">{contactPage.emailNote}</p>
+    </ContentInteractiveCard>
+  );
+}
+
+function SocialCard() {
+  return (
+    <ContentInteractiveCard color="from-pink-500 to-rose-600" className="mt-8">
+      <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
+        Networks
+      </p>
+      <ul className="divide-y divide-white/5">
+        {contactPage.socialRows.map((row) => (
+          <li key={row.key} className="first:pt-0 last:pb-0">
+            <a
+              href={links.social[row.key]}
+              className="group flex items-start justify-between gap-4 py-4 transition-colors"
+            >
+              <div>
+                <span className="font-medium text-white group-hover:text-indigo-400">
+                  {row.label}
+                </span>
+                <p className="mt-0.5 text-xs text-slate-500">{row.description}</p>
+              </div>
+              <span
+                className="font-mono text-xs text-slate-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                aria-hidden
+              >
+                ↗
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </ContentInteractiveCard>
   );
 }
@@ -63,18 +111,17 @@ export default function About() {
         </h2>
         <BuildingCard text={about.building} />
 
-        {profile.whyAnthropic ? (
-          <>
-            <h2 className="mt-14 font-display text-xl font-medium tracking-tight text-[var(--color-ink)] sm:text-2xl">
-              {profile.whyAnthropic.heading}
-            </h2>
-            {profile.whyAnthropic.paragraphs.map((paragraph, i) => (
-              <p key={i} className="mt-6 text-lg leading-relaxed text-[var(--color-body)]">
-                {paragraph}
-              </p>
-            ))}
-          </>
-        ) : null}
+        <section id="contact" className="scroll-mt-24">
+          <h2 className="mt-14 font-display text-xl font-medium tracking-tight text-[var(--color-ink)] sm:text-2xl">
+            Contact
+          </h2>
+          <p className="mt-5 leading-relaxed text-[var(--color-ink-muted)]">{contactPage.intro}</p>
+          <EmailCard />
+          <SocialCard />
+          <p className="mt-12 text-sm text-[var(--color-ink-muted)] italic">
+            {contactPage.closingLine}
+          </p>
+        </section>
 
         {about.showQuickReference ? (
           <p className="mt-12 text-xs text-[var(--color-ink-muted)] font-mono">

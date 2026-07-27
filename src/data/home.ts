@@ -25,7 +25,7 @@ export const home = {
     "Essays and notes on reliability, API design, and how good teams ship when reality refuses to simplify.",
 
   highlights: {
-    yearsExperience: "10+",
+    yearsExperience: "8+",
     focusAreas: [
       "Distributed systems & APIs",
       "Data pipelines & observability",

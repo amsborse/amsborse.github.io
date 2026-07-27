@@ -15,7 +15,7 @@ export const ALGORITHM_CATEGORIES: LearningCardTopic[] = [
     description:
       "Full interactive lab for bubble, quick, merge, heap, radix, and more — with themes, telemetry, and spatial bar visualizations.",
     icon: "📊",
-    path: "/algorithm",
+    path: "/arsenal/algorithm",
     status: "active",
     tags: ["Comparison Sort", "O(n log n)", "In-place"],
     color: "from-indigo-500 to-purple-600",

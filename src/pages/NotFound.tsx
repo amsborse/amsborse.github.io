@@ -12,7 +12,7 @@ export default function NotFoundPage() {
           This page doesn’t exist
         </h1>
         <p className="mt-3 text-[var(--color-ink-muted)]">
-          The URL may be wrong, or the content moved. Try the home page or writing archive.
+          The URL may be wrong, or the content moved. Try the home page or the Arsenal hub.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
@@ -22,10 +22,10 @@ export default function NotFoundPage() {
             Home
           </Link>
           <Link
-            to="/writing"
+            to="/arsenal"
             className="rounded-md px-5 py-2.5 text-sm text-[var(--color-accent)] hover:underline"
           >
-            Writing
+            Arsenal
           </Link>
         </div>
       </div>

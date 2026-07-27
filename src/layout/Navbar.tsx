@@ -14,8 +14,8 @@ export function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-transparent mix-blend-difference pointer-events-none">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-10 pointer-events-auto">
+    <header className="site-header pointer-events-none">
+      <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-10">
         <NavLink
           to="/"
           className="font-display text-[1.0625rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)]"
@@ -68,7 +68,7 @@ export function Navbar() {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 md:hidden"
+          className="site-header__panel pointer-events-auto border-t border-[var(--color-border)] px-4 py-2 md:hidden"
         >
           <div className="flex flex-col">
             {navItems.map(({ to, label }) => {

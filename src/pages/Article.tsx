@@ -43,13 +43,17 @@ export default function Article() {
   return (
     <>
       <ReadingProgress />
-      <Seo title={post.title} description={post.description} path={`/writing/${post.slug}`} />
+      <Seo
+        title={post.title}
+        description={post.description}
+        path={`/arsenal/writing/${post.slug}`}
+      />
 
       <article className="article-reading pb-32 pt-8 sm:pt-10">
         <div className="article-shell max-w-6xl">
           <nav aria-label="Breadcrumb">
             <Link
-              to="/writing"
+              to="/arsenal/writing"
               className="inline-block text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-accent)]"
             >
               ← All writing
@@ -106,7 +110,7 @@ export default function Article() {
                   {site.name}
                   <span className="mx-2 opacity-30">·</span>
                   <Link
-                    to="/writing"
+                    to="/arsenal/writing"
                     className="text-[var(--color-accent)] underline decoration-[var(--color-accent)]/30 underline-offset-4 transition-colors hover:decoration-[var(--color-accent)]/55"
                   >
                     All writing

@@ -62,7 +62,7 @@ Default card density is **`quad`** (4 columns on `lg`). Changing defaults affect
 
 ### Immersive / perf routes
 
-Only **`/aether-lab`** disables Lenis, particles, and footer via `layout:immersive-routes`.  
+Only **`/arsenal/anomaly-matrix`** and **`/arsenal/gravity-well`** hide the footer via `layout:immersive-routes` (R3F leaves). Other Arsenal labs remain scrollable. Legacy `/motion` and `/aether-lab` redirect to `/arsenal`.  
 Learning sandboxes (including sliding window) are **scrollable** normal pages.
 
 ## Updating the graph

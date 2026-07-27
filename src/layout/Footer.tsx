@@ -4,7 +4,7 @@ import { contentPaths, links, site, socialNav } from "@/data";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-section-sage)_55%,var(--color-surface-alt)_45%)]">
+    <footer className="site-footer">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
           <div>
@@ -19,16 +19,16 @@ export function Footer() {
             <div className="flex flex-col gap-2.5">
               <p className="section-label">On this site</p>
               <Link
-                to="/contact"
+                to="/about#contact"
                 className="link-editorial link-editorial--from-body text-sm font-medium"
               >
                 Contact
               </Link>
               <Link
-                to="/writing"
+                to="/arsenal"
                 className="link-editorial link-editorial--from-body text-sm font-medium"
               >
-                Writing
+                Arsenal
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">

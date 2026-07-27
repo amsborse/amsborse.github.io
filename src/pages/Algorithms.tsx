@@ -1038,7 +1038,7 @@ export default function Algorithms() {
       <Seo
         title="Algorithms Visualizer — Akshay Borse"
         description="Interactive visualization of common sorting algorithms, bringing abstract concepts into the physical realm."
-        path="/algorithm"
+        path="/arsenal/algorithm"
       />
 
       <div
@@ -1073,7 +1073,7 @@ export default function Algorithms() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <Link
-            to="/learning/algorithm"
+            to="/arsenal"
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 hover:text-indigo-400 transition-colors mb-6"
           >
             ← Algorithm Hub

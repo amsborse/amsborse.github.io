@@ -49,28 +49,6 @@ export const futureProjects: FutureProject[] = [
     ranking: 1,
   },
   {
-    id: "arsenal",
-    title: "Arsenal",
-    tier: "S",
-    category: "Foundation Platforms",
-    description:
-      "Think of Arsenal as your personal engineering standard library. Instead of another npm package, it becomes the reusable backbone behind every AI system you build. It could include LLM clients, authentication, caching, tracing, prompt management, memory abstractions, vector database integrations, testing utilities, UI components, CLI tools, observability hooks, workflow primitives, and deployment helpers. Every future project becomes smaller because Arsenal already solves the common engineering problems. Recruiters see engineering maturity because you've built infrastructure rather than just applications.",
-    scores: {
-      resume: 10,
-      career: 10,
-      money: 9,
-      fun: 9,
-      cool: 9,
-      popularity: 8,
-      longevity: 10,
-      technicalDepth: 10,
-      learning: 10,
-      leverage: 10,
-      startupPotential: 8,
-    },
-    ranking: 2,
-  },
-  {
     id: "ai-observability",
     title: "AI Observability Platform",
     tier: "S",
@@ -90,7 +68,7 @@ export const futureProjects: FutureProject[] = [
       leverage: 8,
       startupPotential: 10,
     },
-    ranking: 3,
+    ranking: 2,
   },
   {
     id: "ai-deployment",

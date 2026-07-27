@@ -3,7 +3,7 @@
     "version": 1,
     "repo": "amsborse.github.io",
     "description": "Akshay Borse portfolio — React/Vite static site",
-    "lastUpdated": "2026-07-04",
+    "lastUpdated": "2026-07-26",
     "entrypoints": ["src/main.tsx", "src/App.tsx", "src/layout/RootLayout.tsx"]
   },
   "domains": [
@@ -12,7 +12,7 @@
     { "id": "domain:writing", "label": "Essays & articles" },
     { "id": "domain:resume", "label": "Résumé & career narrative" },
     { "id": "domain:learning", "label": "Learning lab & sandboxes" },
-    { "id": "domain:visual", "label": "Motion, 3D, particles" },
+    { "id": "domain:visual", "label": "Arsenal — motion, 3D, particles" },
     { "id": "domain:tooling", "label": "Build, CI, validation" }
   ],
   "nodes": [
@@ -39,7 +39,7 @@
       "id": "layout:immersive-routes",
       "type": "layout",
       "file": "src/layout/immersiveRoutes.ts",
-      "notes": "Aether Lab only — fixed viewport"
+      "notes": "R3F Arsenal leaves — fixed viewport"
     },
     { "id": "layout:navbar", "type": "layout", "file": "src/layout/Navbar.tsx" },
     { "id": "layout:footer", "type": "layout", "file": "src/layout/Footer.tsx" },
@@ -202,10 +202,22 @@
     },
     { "id": "route:/resume", "type": "route", "path": "/resume", "file": "src/pages/Resume.tsx" },
     {
+      "id": "route:/arsenal/*",
+      "type": "route",
+      "path": "/arsenal/*",
+      "notes": "Redirect → / (not in portfolio nav)"
+    },
+    {
       "id": "route:/motion",
       "type": "route",
       "path": "/motion",
-      "file": "src/pages/MotionLab.tsx"
+      "notes": "Redirect → /"
+    },
+    {
+      "id": "route:/aether-lab",
+      "type": "route",
+      "path": "/aether-lab",
+      "notes": "Redirect → /"
     },
     {
       "id": "route:/algorithm",
@@ -303,13 +315,6 @@
       "type": "route",
       "path": "/learning/system-design-concepts/cdn",
       "file": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx"
-    },
-    {
-      "id": "route:/aether-lab",
-      "type": "route",
-      "path": "/aether-lab",
-      "file": "src/pages/AetherLab.tsx",
-      "notes": "Immersive — no footer"
     },
     {
       "id": "route:/contact",
@@ -410,9 +415,6 @@
       "rel": "uses"
     },
     { "from": "route:/algorithm", "to": "data:algorithms-info", "rel": "reads" },
-    { "from": "route:/aether-lab", "to": "component:anomaly-matrix", "rel": "lazy_loads" },
-    { "from": "route:/aether-lab", "to": "component:gravity-well", "rel": "lazy_loads" },
-    { "from": "route:/aether-lab", "to": "component:quantum-mesh", "rel": "lazy_loads" },
     { "from": "component:anomaly-matrix", "to": "component:god-sphere", "rel": "uses" },
 
     { "from": "util:load-articles", "to": "data:articles", "rel": "reads" },
@@ -437,8 +439,6 @@
     { "from": "route:/learning/algorithm", "to": "domain:learning", "rel": "part_of" },
     { "from": "route:/learning/system-design-concepts", "to": "domain:learning", "rel": "part_of" },
     { "from": "route:/algorithm", "to": "domain:learning", "rel": "part_of" },
-    { "from": "route:/aether-lab", "to": "domain:visual", "rel": "part_of" },
-    { "from": "route:/motion", "to": "domain:visual", "rel": "part_of" },
     { "from": "route:/writing", "to": "domain:writing", "rel": "part_of" },
     { "from": "route:/resume", "to": "domain:resume", "rel": "part_of" },
 

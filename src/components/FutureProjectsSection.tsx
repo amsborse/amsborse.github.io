@@ -16,7 +16,7 @@ const METRIC_LABELS: Record<string, string> = {
   startupPotential: "Startup",
 };
 
-export function FutureProjectsSection() {
+export function FutureProjectsSection({ embedded = false }: { embedded?: boolean }) {
   const [activeTab, setActiveTab] = useState<"top10" | "all" | "S" | "A+" | "A">("top10");
   const [sortBy, setSortBy] = useState<keyof FutureProject["scores"] | "ranking" | null>("ranking");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -99,20 +99,24 @@ export function FutureProjectsSection() {
   ];
 
   return (
-    <section className="mt-24 border-t border-[var(--color-border)] pt-20">
+    <section className={embedded ? undefined : "mt-24 border-t border-[var(--color-border)] pt-20"}>
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-        <div>
-          <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--color-accent)]">
-            Roadmap
-          </span>
-          <h2 className="font-display text-3xl font-semibold tracking-tight text-[var(--color-ink)] mt-2">
-            Future Architecture & platforms
-          </h2>
-          <p className="mt-2 text-sm text-[var(--color-body)] max-w-2xl">
-            A strategic evaluation of potential portfolio expansions designed for maximum technical
-            depth, leverage, and longevity.
-          </p>
-        </div>
+        {!embedded ? (
+          <div>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--color-accent)]">
+              Roadmap
+            </span>
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-[var(--color-ink)] mt-2">
+              Future Architecture & platforms
+            </h2>
+            <p className="mt-2 text-sm text-[var(--color-body)] max-w-2xl">
+              A strategic evaluation of potential portfolio expansions designed for maximum
+              technical depth, leverage, and longevity.
+            </p>
+          </div>
+        ) : (
+          <div />
+        )}
 
         {/* Legend Panel */}
         <div className="flex flex-wrap gap-2 p-3 bg-white/[0.02] border border-white/5 rounded-xl max-w-sm">

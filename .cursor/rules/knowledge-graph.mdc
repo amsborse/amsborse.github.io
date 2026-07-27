@@ -23,7 +23,7 @@ When adding/removing routes, pages, shared components, or `src/data/*` files:
 - Hub cards: `src/components/InteractiveCard.tsx` — default `quad` density, 4-col grid
 - Learning hubs: `LearningHubLayout` + `LearningInteractiveCard`
 - Algorithm page path: `/algorithm` (singular)
-- Immersive (no scroll/footer): `/aether-lab` only
+- Immersive (no scroll/footer): `/arsenal/anomaly-matrix` and `/arsenal/gravity-well`
 - Do not remove `GodSphere` / Aether Lab canvas stack
 
 See also `AGENTS.md` for CI and test requirements.
