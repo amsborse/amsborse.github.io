@@ -189,42 +189,90 @@
       "file": "src/pages/Projects.tsx"
     },
     {
-      "id": "route:/writing",
+      "id": "route:/arsenal/writing",
       "type": "route",
-      "path": "/writing",
+      "path": "/arsenal/writing",
       "file": "src/pages/Writing.tsx"
     },
     {
-      "id": "route:/writing/:slug",
+      "id": "route:/arsenal/writing/:slug",
       "type": "route",
-      "path": "/writing/:slug",
+      "path": "/arsenal/writing/:slug",
       "file": "src/pages/Article.tsx"
     },
     { "id": "route:/resume", "type": "route", "path": "/resume", "file": "src/pages/Resume.tsx" },
     {
-      "id": "route:/arsenal/*",
+      "id": "route:/arsenal",
       "type": "route",
-      "path": "/arsenal/*",
-      "notes": "Redirect → / (not in portfolio nav)"
+      "path": "/arsenal",
+      "file": "src/pages/Arsenal.tsx",
+      "notes": "Extended portfolio hub (not in main nav)"
+    },
+    {
+      "id": "route:/arsenal/future-projects",
+      "type": "route",
+      "path": "/arsenal/future-projects",
+      "file": "src/pages/arsenal/FutureProjectsHub.tsx"
+    },
+    {
+      "id": "route:/arsenal/algorithm",
+      "type": "route",
+      "path": "/arsenal/algorithm",
+      "file": "src/pages/Algorithms.tsx"
+    },
+    {
+      "id": "route:/arsenal/celestial-grid",
+      "type": "route",
+      "path": "/arsenal/celestial-grid",
+      "file": "src/pages/arsenal/CelestialGridLab.tsx"
+    },
+    {
+      "id": "route:/arsenal/particle-core",
+      "type": "route",
+      "path": "/arsenal/particle-core",
+      "file": "src/pages/arsenal/ParticleCoreLab.tsx"
+    },
+    {
+      "id": "route:/arsenal/anomaly-matrix",
+      "type": "route",
+      "path": "/arsenal/anomaly-matrix",
+      "file": "src/pages/arsenal/AnomalyMatrixLab.tsx"
+    },
+    {
+      "id": "route:/arsenal/gravity-well",
+      "type": "route",
+      "path": "/arsenal/gravity-well",
+      "file": "src/pages/arsenal/GravityWellLab.tsx"
+    },
+    {
+      "id": "route:/arsenal/quantum-mesh",
+      "type": "route",
+      "path": "/arsenal/quantum-mesh",
+      "file": "src/pages/arsenal/QuantumMeshLab.tsx"
+    },
+    {
+      "id": "route:/writing",
+      "type": "route",
+      "path": "/writing",
+      "notes": "Redirect → /arsenal/writing"
     },
     {
       "id": "route:/motion",
       "type": "route",
       "path": "/motion",
-      "notes": "Redirect → /"
+      "notes": "Redirect → /arsenal/celestial-grid"
     },
     {
       "id": "route:/aether-lab",
       "type": "route",
       "path": "/aether-lab",
-      "notes": "Redirect → /"
+      "notes": "Redirect → /arsenal"
     },
     {
       "id": "route:/algorithm",
       "type": "route",
       "path": "/algorithm",
-      "file": "src/pages/Algorithms.tsx",
-      "notes": "Singular path"
+      "notes": "Redirect → /arsenal/algorithm"
     },
     {
       "id": "route:/learning",
@@ -320,7 +368,7 @@
       "id": "route:/contact",
       "type": "route",
       "path": "/contact",
-      "file": "src/pages/Contact.tsx"
+      "notes": "Redirect → /about#contact"
     },
     { "id": "route:404", "type": "route", "path": "/*", "file": "src/pages/NotFound.tsx" },
 
@@ -380,15 +428,15 @@
     { "from": "route:/about", "to": "data:profile", "rel": "reads" },
     { "from": "route:/experience", "to": "data:experience", "rel": "reads" },
     { "from": "route:/experience", "to": "component:experience-card", "rel": "uses" },
+    { "from": "route:/about", "to": "data:contact", "rel": "reads" },
     { "from": "route:/projects", "to": "data:projects", "rel": "reads" },
-    { "from": "route:/projects", "to": "data:future-projects", "rel": "reads" },
     { "from": "route:/projects", "to": "component:project-card", "rel": "uses" },
     { "from": "route:/projects", "to": "component:interactive-card", "rel": "uses" },
-    { "from": "route:/writing", "to": "util:load-articles", "rel": "reads" },
-    { "from": "route:/writing", "to": "component:interactive-card", "rel": "uses" },
-    { "from": "route:/writing/:slug", "to": "util:load-articles", "rel": "reads" },
-    { "from": "route:/writing/:slug", "to": "util:markdown", "rel": "depends_on" },
-    { "from": "route:/contact", "to": "data:contact", "rel": "reads" },
+    { "from": "route:/arsenal/writing", "to": "util:load-articles", "rel": "reads" },
+    { "from": "route:/arsenal/writing", "to": "component:interactive-card", "rel": "uses" },
+    { "from": "route:/arsenal/writing/:slug", "to": "util:load-articles", "rel": "reads" },
+    { "from": "route:/arsenal/writing/:slug", "to": "util:markdown", "rel": "depends_on" },
+    { "from": "route:/arsenal/future-projects", "to": "data:future-projects", "rel": "reads" },
     { "from": "route:/resume", "to": "data:resume", "rel": "reads" },
 
     { "from": "route:/learning", "to": "component:learning-hub-layout", "rel": "uses" },
@@ -414,7 +462,7 @@
       "to": "component:learning-hub-layout",
       "rel": "uses"
     },
-    { "from": "route:/algorithm", "to": "data:algorithms-info", "rel": "reads" },
+    { "from": "route:/arsenal/algorithm", "to": "data:algorithms-info", "rel": "reads" },
     { "from": "component:anomaly-matrix", "to": "component:god-sphere", "rel": "uses" },
 
     { "from": "util:load-articles", "to": "data:articles", "rel": "reads" },
@@ -438,8 +486,8 @@
     },
     { "from": "route:/learning/algorithm", "to": "domain:learning", "rel": "part_of" },
     { "from": "route:/learning/system-design-concepts", "to": "domain:learning", "rel": "part_of" },
-    { "from": "route:/algorithm", "to": "domain:learning", "rel": "part_of" },
-    { "from": "route:/writing", "to": "domain:writing", "rel": "part_of" },
+    { "from": "route:/arsenal/algorithm", "to": "domain:learning", "rel": "part_of" },
+    { "from": "route:/arsenal/writing", "to": "domain:writing", "rel": "part_of" },
     { "from": "route:/resume", "to": "domain:resume", "rel": "part_of" },
 
     { "from": "script:validate", "to": "script:check-bundle-size", "rel": "depends_on" },
