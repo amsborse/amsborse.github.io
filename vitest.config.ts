@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    include: ["tests/unit/**/*.test.ts"],
+    include: ["tests/unit/**/*.test.ts", "tools/autoreview/tests/**/*.test.ts"],
     coverage: {
       provider: "v8",
       include: ["src/utils/frontmatter.ts", "src/utils/markdown.ts"],

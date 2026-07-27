@@ -54,6 +54,21 @@ Open the URL shown in the terminal (default `http://localhost:1111`).
 
 **Quality & agent guardrails** — See [`AGENTS.md`](AGENTS.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md). Husky runs checks on commit/push. CI runs on every push/PR (`.github/workflows/ci.yml`). Enable branch protection: [`.github/BRANCH_PROTECTION.md`](.github/BRANCH_PROTECTION.md).
 
+## AI coding agent workflow
+
+All coding agents must read [`AGENTS.md`](AGENTS.md) before implementing changes.
+
+The repository-local task bootstrap, scoped validation, design-memory, and reporting workflow is mandatory for implementation tasks:
+
+```bash
+npm run agent:task -- --task "<request>"
+# …implement…
+npm run review:run
+npm run agent:finish
+```
+
+Fast mode is default. Thorough and cross-browser checks run only when explicitly requested.
+
 After changing routes or assets, use **`npm run preview`** to confirm behavior before deploying.
 
 ## Author guide: articles (hosted Markdown)

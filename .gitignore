@@ -13,4 +13,24 @@ cleaned_resume.html
 extracted_resume.html
 tmp_resume/
 
-.arsenal/cache/
+.autoreview/cache/
+.autoreview/screenshots/
+.autoreview/sessions/
+.autoreview/traces/
+.autoreview/current-task.json
+.autoreview/reports/latest.json
+.autoreview/reports/latest.md
+.autoreview/reports/current-scope.json
+.autoreview/reports/task-context.md
+.autoreview/reports/scope-fingerprint.json
+.autoreview/reports/interactions.json
+.autoreview/*.tmp
+.autoreview/**/*.tmp
+.autoreview/feedback/
+.autoreview/reports/visual-quality.json
+.autoreview/reports/state-matrix.json
+
+.agent-memory/feedback/raw/
+.agent-memory/screenshot-manifests/
+.agent-memory/compaction-report.json
+.agent-memory/**/*.tmp

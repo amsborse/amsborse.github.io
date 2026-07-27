@@ -1,0 +1,42 @@
+{
+  "component": "FeatureCard",
+  "rules": [
+    {
+      "id": "featurecard-20260714-04014377-003-2o5y",
+      "rule": "The action badge overlaps the title on mobile. Move it below the title.",
+      "reason": "The action badge overlaps the title on mobile. Move it below the title.",
+      "confidence": 0.8,
+      "level": "component-rule",
+      "category": "rejected-pattern",
+      "component": "FeatureCard",
+      "route": "/components",
+      "tags": ["card", "mobile", "overlap", "component"],
+      "status": "active",
+      "sourceFeedbackId": "feedback-20260714-04014373-001-22pb",
+      "sourceDecisionId": "decision-20260714-04014375-002-ivco",
+      "supersedes": [],
+      "createdAt": "2026-07-14T00:40:14.374Z",
+      "updatedAt": "2026-07-14T00:40:14.374Z",
+      "observationCount": 1,
+      "viewport": "mobile"
+    },
+    {
+      "id": "featurecard-20260714-04015661-003-wdbo",
+      "rule": "This looks too pale and feels generic on FeatureCard.",
+      "reason": "This looks too pale and feels generic on FeatureCard.",
+      "confidence": 0.75,
+      "level": "observation",
+      "category": "rejected-pattern",
+      "component": "FeatureCard",
+      "route": "/components",
+      "tags": ["contrast", "generic", "component"],
+      "status": "active",
+      "sourceFeedbackId": "feedback-20260714-04015656-001-85p4",
+      "sourceDecisionId": "decision-20260714-04015659-002-gvxe",
+      "supersedes": [],
+      "createdAt": "2026-07-14T00:40:15.657Z",
+      "updatedAt": "2026-07-14T00:40:15.657Z",
+      "observationCount": 1
+    }
+  ]
+}

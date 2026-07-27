@@ -1,0 +1,43 @@
+{
+  "components": {
+    "FeatureCard": [
+      "feedback-20260714-04014373-001-22pb",
+      "feedback-20260714-04015656-001-85p4",
+      "decision-20260714-04014375-002-ivco",
+      "decision-20260714-04015659-002-gvxe",
+      "featurecard-20260714-04014377-003-2o5y",
+      "featurecard-20260714-04015661-003-wdbo"
+    ]
+  },
+  "routes": {
+    "/components": [
+      "feedback-20260714-04014373-001-22pb",
+      "feedback-20260714-04015656-001-85p4",
+      "decision-20260714-04014375-002-ivco",
+      "decision-20260714-04015659-002-gvxe",
+      "featurecard-20260714-04014377-003-2o5y",
+      "featurecard-20260714-04015661-003-wdbo"
+    ]
+  },
+  "tags": {
+    "card": ["feedback-20260714-04014373-001-22pb", "featurecard-20260714-04014377-003-2o5y"],
+    "mobile": ["feedback-20260714-04014373-001-22pb", "featurecard-20260714-04014377-003-2o5y"],
+    "overlap": ["feedback-20260714-04014373-001-22pb", "featurecard-20260714-04014377-003-2o5y"],
+    "component": [
+      "feedback-20260714-04014373-001-22pb",
+      "feedback-20260714-04015656-001-85p4",
+      "featurecard-20260714-04014377-003-2o5y",
+      "featurecard-20260714-04015661-003-wdbo"
+    ],
+    "contrast": ["feedback-20260714-04015656-001-85p4", "featurecard-20260714-04015661-003-wdbo"],
+    "generic": ["feedback-20260714-04015656-001-85p4", "featurecard-20260714-04015661-003-wdbo"]
+  },
+  "files": {
+    "src/components/FeatureCard.tsx": ["feedback-20260714-04014373-001-22pb"]
+  },
+  "interactions": {},
+  "superseded": {},
+  "decisions": ["decision-20260714-04014375-002-ivco", "decision-20260714-04015659-002-gvxe"],
+  "feedback": ["feedback-20260714-04014373-001-22pb", "feedback-20260714-04015656-001-85p4"],
+  "updatedAt": "2026-07-14T01:11:11.879Z"
+}

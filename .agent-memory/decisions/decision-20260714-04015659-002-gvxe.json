@@ -1,0 +1,14 @@
+{
+  "id": "decision-20260714-04015659-002-gvxe",
+  "createdAt": "2026-07-14T00:40:15.657Z",
+  "task": "Improve component showcase cards",
+  "component": "FeatureCard",
+  "route": "/components",
+  "classification": "rejected",
+  "summary": "This looks too pale and feels generic on FeatureCard.",
+  "rejectedSolution": "Washed-out / too-pale surfaces that reduce hierarchy",
+  "rejectionReason": "This looks too pale and feels generic on FeatureCard.",
+  "ruleIds": ["featurecard-20260714-04015661-003-wdbo"],
+  "feedbackId": "feedback-20260714-04015656-001-85p4",
+  "conflictingRuleIds": []
+}

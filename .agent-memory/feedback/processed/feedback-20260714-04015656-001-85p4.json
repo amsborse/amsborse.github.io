@@ -1,0 +1,30 @@
+{
+  "id": "feedback-20260714-04015656-001-85p4",
+  "createdAt": "2026-07-14T00:40:15.657Z",
+  "task": "Improve component showcase cards",
+  "source": "user-feedback",
+  "rawFeedback": "This looks too pale and feels generic on FeatureCard.",
+  "scope": {
+    "repositoryWide": false,
+    "components": ["FeatureCard"],
+    "routes": ["/components"],
+    "files": [],
+    "viewports": []
+  },
+  "problem": {
+    "category": "contrast",
+    "description": "This looks too pale and feels generic on FeatureCard."
+  },
+  "lesson": {
+    "rule": "This looks too pale and feels generic on FeatureCard.",
+    "avoid": "Washed-out / too-pale surfaces that reduce hierarchy",
+    "prefer": "Prefer layout/flow that preserves hierarchy without overlap or clutter."
+  },
+  "confidence": 0.75,
+  "status": "active",
+  "supersedes": [],
+  "tags": ["contrast", "generic", "component"],
+  "classification": "rejected",
+  "level": "observation",
+  "decisionId": "decision-20260714-04015659-002-gvxe"
+}

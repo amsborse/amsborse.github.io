@@ -1,0 +1,30 @@
+{
+  "id": "feedback-20260714-04014373-001-22pb",
+  "createdAt": "2026-07-14T00:40:14.374Z",
+  "task": "Improve component showcase cards",
+  "source": "screenshot",
+  "rawFeedback": "The action badge overlaps the title on mobile. Move it below the title.",
+  "scope": {
+    "repositoryWide": false,
+    "components": ["FeatureCard"],
+    "routes": ["/components"],
+    "files": ["src/components/FeatureCard.tsx"],
+    "viewports": ["mobile"]
+  },
+  "problem": {
+    "category": "overlap",
+    "description": "The action badge overlaps the title on mobile. Move it below the title."
+  },
+  "lesson": {
+    "rule": "The action badge overlaps the title on mobile. Move it below the title.",
+    "avoid": "The action badge overlaps the title on mobile. Move it below the title.",
+    "prefer": "Place the badge in normal layout flow below the title."
+  },
+  "confidence": 0.8,
+  "status": "active",
+  "supersedes": [],
+  "tags": ["card", "mobile", "overlap", "component"],
+  "classification": "rejected",
+  "level": "component-rule",
+  "decisionId": "decision-20260714-04014375-002-ivco"
+}

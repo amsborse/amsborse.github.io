@@ -1,0 +1,24 @@
+{
+  "visualStyle": {
+    "preferred": [],
+    "avoid": []
+  },
+  "interaction": {
+    "preferred": [],
+    "avoid": []
+  },
+  "responsive": {
+    "avoid": []
+  },
+  "accessibility": {
+    "preferred": [],
+    "avoid": []
+  },
+  "animation": {
+    "preferred": [],
+    "avoid": []
+  },
+  "_meta": {
+    "note": "Only populated from explicit user feedback, repeated corrections, accepted decisions, or repo design docs. Do not invent defaults."
+  }
+}

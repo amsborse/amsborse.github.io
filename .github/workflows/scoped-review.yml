@@ -1,0 +1,98 @@
+# Scoped PR review (alias workflow)
+
+# Same behavior as `autoreview.yml`. Kept for agents/docs that reference `scoped-review.yml`.
+
+name: Scoped Review
+
+on:
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: scoped-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  scoped-review:
+    name: Scoped PR verification
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Collect PR changed files
+        id: changes
+        shell: bash
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1 || true
+          FILES=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD | tr '\n' ',' | sed 's/,$//')
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+
+      - name: Detect UI change
+        id: kind
+        shell: bash
+        run: |
+          FILES="${{ steps.changes.outputs.files }}"
+          if echo "$FILES" | grep -Eiq '\.(tsx|jsx|css|scss)$|/pages/|/components/|/layout/'; then
+            echo "ui=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ui=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bootstrap task session
+        run: npm run agent:task -- --task "PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
+
+      - name: Determine mode (deterministic on forks / no AI secret)
+        id: mode
+        shell: bash
+        run: |
+          TRUSTED=false
+          if [ "${{ github.event.pull_request.head.repo.full_name }}" = "${{ github.repository }}" ]; then
+            TRUSTED=true
+          fi
+          if [ "$TRUSTED" = "true" ] && [ -n "${{ secrets.AUTOREVIEW_AI }}" ]; then
+            echo "mode=fast" >> "$GITHUB_OUTPUT"
+            echo "AUTOREVIEW_AI=1" >> "$GITHUB_ENV"
+          else
+            echo "mode=deterministic" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build GitHub Pages app
+        run: npm run build
+
+      - name: Run scoped autoreview (fast/deterministic only — never thorough)
+        env:
+          AUTOREVIEW_SKIP_BROWSER: ${{ steps.kind.outputs.ui == 'false' && '1' || '' }}
+        run: |
+          ARGS=(review --mode "${{ steps.mode.outputs.mode }}")
+          if [ -n "${{ steps.changes.outputs.files }}" ]; then
+            ARGS+=(--files "${{ steps.changes.outputs.files }}")
+          fi
+          if [ "${{ steps.kind.outputs.ui }}" != "true" ]; then
+            ARGS+=(--skip-browser)
+          fi
+          npx tsx tools/autoreview/src/cli.ts "${ARGS[@]}"
+
+      - name: Upload report artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scoped-review-report
+          path: |
+            .autoreview/reports/
+            .autoreview/screenshots/
+          if-no-files-found: ignore

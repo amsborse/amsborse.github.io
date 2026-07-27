@@ -10,8 +10,10 @@ Read `AGENTS.md` before non-trivial changes.
 ## Required verification
 
 ```bash
-npm run validate        # after most code changes
-npm run test:e2e        # after pages, routing, layout, or resume changes
+npm run review:start -- --task "…"   # before implementing
+npm run review:fast                  # scoped review before claiming done
+npm run validate                     # after most code changes / before push
+npm run test:e2e                     # after pages, routing, layout, or resume changes
 ```
 
 ## Do not

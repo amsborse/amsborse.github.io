@@ -1,0 +1,26 @@
+---
+description: Required task-scoped implementation, repository-memory, and validation workflow
+alwaysApply: true
+---
+
+Before editing code, read `AGENTS.md`.
+
+For every implementation task:
+
+1. Run `npm run agent:task -- --task "<user request>"`.
+2. Read `.autoreview/reports/task-context.md` and listed `.agent-memory` files (`npm run agent:context`).
+3. Implement only the requested change.
+4. Run `npm run review:run` (fast mode — default).
+5. Fix critical and high-confidence scoped failures.
+6. Re-run affected checks via `review:run` again as needed.
+7. Run `npm run agent:finish`.
+8. Read `.autoreview/reports/latest.md`.
+9. Include an evidence summary in the final response (Implemented / Verified / Skipped / Remaining / Report / Final status).
+
+Do not run thorough or cross-browser checks unless explicitly requested.
+
+Do not inspect unrelated routes or the full site.
+
+Do not claim completion when required quality gates fail or the report is stale.
+
+Do not answer only “done”, “implemented”, or “tests pass”.

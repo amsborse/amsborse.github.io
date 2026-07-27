@@ -1,0 +1,46 @@
+---
+description: Scoped autoreview + repository design memory for agent UI work
+alwaysApply: true
+---
+
+# Scoped autoreview + design memory + Playwright visual quality
+
+Before implementing a non-trivial feature or UI change, follow `AGENTS.md` and:
+
+```bash
+npm run agent:task -- --task "<short task description>"
+```
+
+1. Identify requested files, components, and routes.
+2. Read `.autoreview/reports/task-context.md` / listed `.agent-memory` files.
+3. Implement the task.
+4. Run scoped verification with **fast mode only** by default: `npm run review:run`.
+5. Do **not** auto-run thorough, cross-browser, WebKit, Firefox, video, or full-site checks.
+6. You may **recommend** optional checks in the final report when risk warrants it, but only run them when explicitly requested.
+7. Run `npm run agent:finish` (refuses stale verification).
+8. Capture user feedback into `.agent-memory` after verified fixes / approvals.
+9. Approve visual baselines only via explicit command after user approval.
+10. Never crawl unrelated routes; never claim whole-site verification.
+11. Always cite `.autoreview/reports/latest.md` before finishing.
+
+## Modes
+
+| Command | When |
+| --- | --- |
+| `npm run review:run` / `review:fast` | Default agent completion — Chromium, task scope |
+| `npm run review:thorough` | **Explicit only** |
+| `npm run review:visual` | Chromium layout geometry / overlap / critic |
+| `npm run review:animation` | Changed motion only |
+| `npm run review:accessibility` | Scoped a11y + keyboard |
+| `npm run review:responsive` | Affected widths |
+| `npm run review:cross-browser` | Chromium + Firefox + WebKit (**explicit**) |
+| `npm run review:baseline` | Diff against approved baselines |
+| `npm run review:report` | Regenerate report from existing results |
+
+## Hard rules
+
+- Prefer component-level locator screenshots over full-page captures
+- Skip expensive browser visual checks when changed files do not affect runtime UI
+- Do not auto-approve screenshot baselines
+- Do not escalate to thorough because it “might be useful”
+- Exact completion wording: “Verification completed for the current task scope.”

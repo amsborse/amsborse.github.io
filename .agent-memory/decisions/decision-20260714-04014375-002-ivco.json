@@ -1,0 +1,14 @@
+{
+  "id": "decision-20260714-04014375-002-ivco",
+  "createdAt": "2026-07-14T00:40:14.374Z",
+  "task": "Improve component showcase cards",
+  "component": "FeatureCard",
+  "route": "/components",
+  "classification": "rejected",
+  "summary": "The action badge overlaps the title on mobile. Move it below the title.",
+  "rejectedSolution": "The action badge overlaps the title on mobile. Move it below the title.",
+  "rejectionReason": "The action badge overlaps the title on mobile. Move it below the title.",
+  "ruleIds": ["featurecard-20260714-04014377-003-2o5y"],
+  "feedbackId": "feedback-20260714-04014373-001-22pb",
+  "conflictingRuleIds": []
+}
