@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { readFlashcardAnimationPriority } from "@/lib/flashcardAnimationPriority";
 
 interface Particle {
   x: number; // relative baseline x coordinate
@@ -183,6 +184,16 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         return;
       }
 
+      const { motion: flashcardMotion, focused: flashcardFocused } =
+        readFlashcardAnimationPriority();
+      const throttleBackground = flashcardMotion || flashcardFocused;
+
+      if (throttleBackground && elapsedFrames % 2 !== 0) {
+        elapsedFrames += isReducedMotion ? 0 : 1;
+        animationFrameId = requestAnimationFrame(draw);
+        return;
+      }
+
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -201,6 +212,8 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       const rawFactor = Math.min(1, holdDuration / 1500); // 1.5s to reach full strength
       const easeFactor = Math.pow(rawFactor, 4); // Quartic ease-in curve (extremely slow start, fast finish)
       const attractionStrength = easeFactor * 0.22; // starts at 0.0, reaches 0.22
+
+      const skipPointerPhysics = flashcardMotion || isReducedMotion;
 
       const renderedParticles = particles.map((p) => {
         if (!isReducedMotion) {
@@ -235,7 +248,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         wrappedVisualY = ((((visualY + padding) % wrapHeight) + wrapHeight) % wrapHeight) - padding;
 
         // Click gathers the mesh; hovering only disturbs nearby life into mixed responses.
-        if (mouseRef.current.active && !isReducedMotion) {
+        if (mouseRef.current.active && !skipPointerPhysics) {
           if (mouseRef.current.isClicked) {
             // Target coordinate relative to pointer
             const targetOffsetX = mouseRef.current.x - p.x;

@@ -35,16 +35,15 @@ const SHELL_DENSITY: Record<
     height: "h-[240px]",
     radius: "rounded-[22px]",
     shadow: "shadow-xl",
-    hoverShadow: "hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)]",
-    border: "border-white/5 hover:border-cyan-500/30",
+    hoverShadow: "hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)]",
+    border: "border-[var(--hub-card-border)] hover:border-[var(--hub-card-border-hover)]",
   },
   quad: {
     height: "h-[320px]",
     radius: "rounded-[20px]",
-    shadow: "shadow-[0_8px_32px_rgba(0,0,0,0.45)]",
-    hoverShadow:
-      "hover:shadow-[0_24px_64px_rgba(0,0,0,0.58),0_0_0_1px_rgba(34,211,238,0.14),inset_0_1px_0_rgba(255,255,255,0.06)]",
-    border: "border-white/[0.08] hover:border-cyan-400/35",
+    shadow: "shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
+    hoverShadow: "hover:shadow-[0_24px_64px_rgba(0,0,0,0.16),0_0_0_1px_rgba(2,132,199,0.14)]",
+    border: "border-[var(--hub-card-border)] hover:border-[var(--hub-card-border-hover)]",
   },
 };
 
@@ -84,10 +83,7 @@ export function InteractiveCardShell({
       style={
         {
           ["--card-index"]: index,
-          background:
-            density === "quad"
-              ? "linear-gradient(155deg, #172234 0%, #111827 52%, #0c121c 100%)"
-              : "#131b29",
+          background: density === "quad" ? "var(--hub-card-bg-gradient)" : "var(--hub-card-bg)",
           ["--mouse-x"]: "50%",
           ["--mouse-y"]: "50%",
         } as CSSProperties
@@ -154,7 +150,7 @@ export function InteractiveCardSplit({
       </div>
       {portal ? (
         <div
-          className={`w-0 ${portalHover} opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out h-full relative border-l border-white/[0.07] flex items-center justify-center bg-black/40 overflow-hidden shrink-0`}
+          className={`w-0 ${portalHover} opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out h-full relative border-l border-[var(--color-border)] flex items-center justify-center bg-[var(--color-surface-wash)] overflow-hidden shrink-0`}
         >
           <div className="w-full h-full transform scale-90 group-hover:scale-100 transition-transform duration-500 ease-out flex items-center justify-center">
             {portal}
@@ -235,14 +231,14 @@ export function InteractiveCardBody({
   return (
     <>
       <h3
-        className={`font-bold text-white group-hover:text-indigo-300 transition-colors duration-300 ${
+        className={`font-bold text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors duration-300 ${
           density === "quad" ? "text-[13px] leading-snug mb-1" : "text-base mb-1.5"
         }`}
       >
         {title}
       </h3>
       <p
-        className={`text-slate-400 leading-snug ${clampClass} ${
+        className={`text-[var(--color-body)] leading-snug ${clampClass} ${
           density === "quad" ? "text-[10px] mb-2" : "text-[11px] leading-normal mb-3"
         }`}
       >

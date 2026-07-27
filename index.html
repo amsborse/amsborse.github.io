@@ -5,8 +5,24 @@
     <meta charset="UTF-8" />
     <!-- Favicon href uses Vite BASE_URL (see vite.config base) so project-repo deploys resolve assets correctly. -->
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#091413" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07080d" />
+    <script>
+      (function () {
+        var key = "portfolio-theme";
+        var stored = localStorage.getItem(key);
+        var theme =
+          stored === "light" || stored === "dark"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.style.colorScheme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "light" ? "#f6f4ef" : "#07080d");
+      })();
+    </script>
     <meta
       name="description"
       content="Akshay Borse — senior software engineer, backend systems, writing on engineering and systems."

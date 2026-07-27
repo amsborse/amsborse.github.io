@@ -1,0 +1,482 @@
+.cardCell {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 350px;
+  margin-inline: auto;
+  aspect-ratio: 7 / 10;
+  perspective: 1200px;
+}
+
+.cardSource {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  outline: none;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cardSource > :global(.precision-flashcard) {
+  transition: opacity 200ms ease;
+}
+
+.cardSource:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 8px;
+}
+
+.cardSource[data-expanded="true"] > :global(.precision-flashcard) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.portal {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+    env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  pointer-events: none;
+  isolation: isolate;
+  --flashcard-focus-scrim: rgba(3, 4, 8, 0.18);
+  --flashcard-focus-scrim-strong: rgba(3, 4, 8, 0.46);
+  --flashcard-focus-blur: 0px;
+  --flashcard-focus-saturate: 1;
+}
+
+:global(html[data-theme="light"]) .portal {
+  --flashcard-focus-scrim: rgba(246, 244, 239, 0.28);
+  --flashcard-focus-scrim-strong: rgba(246, 244, 239, 0.58);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: radial-gradient(
+    circle at 50% 46%,
+    transparent 0 14%,
+    color-mix(in srgb, var(--expanded-accent, #4b8dff) 5%, transparent) 42%,
+    var(--flashcard-focus-scrim) 100%
+  );
+  cursor: default;
+  opacity: 0;
+  pointer-events: auto;
+  transform: translateZ(0);
+  -webkit-backdrop-filter: blur(var(--flashcard-focus-blur))
+    saturate(var(--flashcard-focus-saturate));
+  backdrop-filter: blur(var(--flashcard-focus-blur)) saturate(var(--flashcard-focus-saturate));
+  transition:
+    opacity 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    background 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    -webkit-backdrop-filter 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    backdrop-filter 640ms cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.portal[data-phase="opening"] .backdrop,
+.portal[data-phase="open"] .backdrop {
+  opacity: 1;
+  --flashcard-focus-blur: 8px;
+  --flashcard-focus-saturate: 0.86;
+  background: radial-gradient(
+    circle at 50% 44%,
+    transparent 0 6%,
+    color-mix(in srgb, var(--expanded-accent, #4b8dff) 9%, transparent) 34%,
+    var(--flashcard-focus-scrim-strong) 100%
+  );
+}
+
+.portal[data-phase="closing"] .backdrop {
+  opacity: 0;
+  --flashcard-focus-blur: 0px;
+  --flashcard-focus-saturate: 1;
+  background: radial-gradient(
+    circle at 50% 46%,
+    transparent 0 14%,
+    color-mix(in srgb, var(--expanded-accent, #4b8dff) 5%, transparent) 42%,
+    var(--flashcard-focus-scrim) 100%
+  );
+  transition-duration: 540ms;
+}
+
+.transformCard {
+  position: fixed;
+  z-index: 2;
+  box-sizing: border-box;
+  border-radius: 24px;
+  perspective: 1400px;
+  pointer-events: auto;
+  transform-style: preserve-3d;
+  transition:
+    top 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    left 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    width 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    height 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    box-shadow 640ms cubic-bezier(0.2, 0.82, 0.2, 1);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.42);
+  contain: layout style paint;
+}
+
+.transformCard[data-motion="active"] {
+  will-change: top, left, width, height;
+}
+
+.transformCard[data-motion="active"] :global(.precision-flashcard__fit-text-content) {
+  transition: font-size 640ms cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.transformCard[data-phase="closing"][data-motion="active"]
+  :global(.precision-flashcard__fit-text-content) {
+  transition-duration: 540ms;
+}
+
+.transformCard[data-motion="idle"] :global(.precision-flashcard__fit-text-content) {
+  transition: none;
+}
+
+.transformCard[data-phase="open"]:not([data-focused="true"]) {
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.46);
+}
+
+.transformCard[data-phase="open"][data-focused="true"] {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--expanded-accent, #4b8dff) 28%, rgba(255, 255, 255, 0.14)),
+    0 0 0 10px color-mix(in srgb, var(--expanded-accent, #4b8dff) 7%, transparent),
+    0 32px 64px rgba(0, 0, 0, 0.56),
+    0 0 88px color-mix(in srgb, var(--expanded-accent, #4b8dff) 22%, transparent);
+  transition:
+    top 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    left 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    width 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    height 640ms cubic-bezier(0.2, 0.82, 0.2, 1),
+    box-shadow 360ms cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.transformCard[data-phase="closing"] {
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.42);
+  transition-duration: 540ms;
+}
+
+.dialog {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  outline: none;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.inner {
+  position: relative;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  transition: transform 640ms cubic-bezier(0.2, 0.82, 0.2, 1);
+  transform: translate3d(0, 0, 0);
+}
+
+.transformCard[data-motion="active"] .inner {
+  will-change: transform;
+}
+
+.transformCard[data-phase="open"] .inner {
+  transform: rotateY(180deg) translate3d(0, 0, 0);
+}
+
+.transformCard[data-phase="closing"] .inner {
+  transform: rotateY(0deg);
+  transition-duration: 520ms;
+}
+
+.transformCard[data-phase="closing"] .closeButton {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+.frontFace,
+.backFace {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.frontFace {
+  pointer-events: none;
+}
+
+.expandedFrontCard {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.expandedFrontCard :global(.precision-task-card__ambient-layer) {
+  animation: none;
+  transform: none;
+}
+
+.backFace {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  transform: rotateY(180deg);
+}
+
+.transformCard[data-phase="open"] .backFace {
+  pointer-events: auto;
+}
+
+.expandedBackCard {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.expandedBackCard :global(.precision-task-card__ambient-layer) {
+  animation: none;
+  transform: none;
+}
+
+.expandedBackCard :global(.precision-flashcard__body),
+.expandedFrontCard :global(.precision-flashcard__body) {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.expandedBackCard :global(.precision-flashcard__content--scroll-text),
+.expandedBackCard :global(.precision-flashcard__content--text-fill),
+.expandedBackCard :global(.precision-flashcard__content--expanded) {
+  flex: 1;
+  min-height: 0;
+}
+
+.expandedBackCard :global(.precision-flashcard__content--image-fill),
+.expandedFrontCard :global(.precision-flashcard__content--image-fill) {
+  height: 100%;
+}
+
+.expandedBackCard :global(.precision-flashcard__image--expanded),
+.expandedFrontCard :global(.precision-flashcard__image--expanded) {
+  max-height: 100%;
+}
+
+.expandedBackCard:global(.precision-task-card),
+.expandedFrontCard:global(.precision-task-card) {
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.closeButton {
+  position: absolute;
+  z-index: 5;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.045);
+  color: #f7f2e9;
+  cursor: pointer;
+  place-items: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.closeButton:hover {
+  border-color: color-mix(in srgb, var(--expanded-accent, #4b8dff) 60%, transparent);
+  background: color-mix(in srgb, var(--expanded-accent, #4b8dff) 12%, rgba(255, 255, 255, 0.045));
+  transform: rotate(4deg);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--expanded-accent, #4b8dff);
+  outline-offset: 3px;
+}
+
+.closeButton svg {
+  width: 17px;
+  height: 17px;
+}
+
+.cardActionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--card-surface-border, rgba(255, 255, 255, 0.14));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--card-text, #f4f1ea);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.cardActionButton:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--card-accent, #4b8dff) 55%, transparent);
+  background: color-mix(in srgb, var(--card-accent, #4b8dff) 12%, rgba(255, 255, 255, 0.04));
+}
+
+.cardActionButton:focus-visible {
+  outline: 2px solid var(--expanded-accent, #4b8dff);
+  outline-offset: 2px;
+}
+
+.cardActionButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.cardActionButtonDanger {
+  border-color: rgba(244, 63, 94, 0.28);
+  color: #fda4af;
+}
+
+.cardActionButtonDanger:hover:not(:disabled) {
+  border-color: rgba(244, 63, 94, 0.45);
+  background: rgba(244, 63, 94, 0.12);
+  color: #fecdd3;
+}
+
+.portal[data-reduced-motion="true"] .transformCard {
+  transition-duration: 220ms;
+}
+
+.portal[data-reduced-motion="true"] .backdrop,
+.portal[data-reduced-motion="true"][data-focused="true"] .backdrop {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.portal[data-reduced-motion="true"] .inner {
+  transform: none;
+  transition: none;
+}
+
+.portal[data-reduced-motion="true"] .frontFace,
+.portal[data-reduced-motion="true"] .backFace {
+  transform: none;
+  transition: opacity 120ms ease;
+}
+
+.portal[data-reduced-motion="true"] .frontFace {
+  opacity: 1;
+}
+
+.portal[data-reduced-motion="true"] .backFace {
+  opacity: 0;
+}
+
+.portal[data-reduced-motion="true"][data-phase="open"] .frontFace {
+  opacity: 0;
+}
+
+.portal[data-reduced-motion="true"][data-phase="open"] .backFace {
+  opacity: 1;
+}
+
+.portal[data-reduced-motion="true"][data-phase="closing"] .frontFace {
+  opacity: 1;
+}
+
+.portal[data-reduced-motion="true"][data-phase="closing"] .backFace {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .transformCard,
+  .inner,
+  .frontFace,
+  .backFace,
+  .closeButton {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .backdrop {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .transformCard {
+    border-radius: 20px;
+  }
+
+  .closeButton {
+    top: max(10px, env(safe-area-inset-top, 0px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    width: 44px;
+    height: 44px;
+  }
+
+  .closeButton svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cardActionButton {
+    min-height: 44px;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+  }
+
+  .expandedBackCard :global(.precision-task-card__surface),
+  .expandedFrontCard :global(.precision-task-card__surface),
+  .expandedBackCard :global(.precision-flashcard__surface),
+  .expandedFrontCard :global(.precision-flashcard__surface) {
+    padding: 16px;
+  }
+
+  .expandedBackCard :global(.precision-flashcard__footer) {
+    flex-wrap: wrap;
+    justify-content: stretch;
+    gap: 0.625rem;
+  }
+
+  .expandedBackCard :global(.precision-flashcard__footer) .cardActionButton {
+    flex: 1 1 calc(50% - 0.375rem);
+    justify-content: center;
+  }
+}

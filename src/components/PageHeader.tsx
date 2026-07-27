@@ -31,11 +31,9 @@ export function PageHeader({ eyebrow, title, subtitle, className = "" }: PageHea
       <p className="text-[0.6875rem] font-mono tracking-[0.25em] uppercase text-[var(--color-gold)] mb-3">
         {eyebrow}
       </p>
-      <h1 className="text-[2.25rem] sm:text-[3.25rem] font-display font-semibold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-[#e2e8f0] to-[#94a3b8]">
-        {title}
-      </h1>
+      <h1 className="hub-title text-[2.25rem] sm:text-[3.25rem]">{title}</h1>
       {subtitle && (
-        <p className="mt-4 text-sm max-w-lg mx-auto text-slate-400 leading-relaxed font-sans">
+        <p className="mt-4 text-sm max-w-lg mx-auto text-[var(--color-body)] leading-relaxed font-sans">
           {subtitle}
         </p>
       )}

@@ -26,12 +26,12 @@ export function ArsenalLabShell({
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={seo.path} />
-      <div className="relative min-h-screen overflow-hidden pb-32 pt-20 text-[#f1f3f7]">
+      <div className="hub-page overflow-hidden pb-32 pt-20">
         <CosmicBackground />
         <div className={`relative z-10 mx-auto px-4 sm:px-6 ${maxWidth}`}>
           <Link
             to={backLink.to}
-            className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-slate-500 transition-colors hover:text-indigo-400"
+            className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-accent)]"
           >
             {backLink.label}
           </Link>

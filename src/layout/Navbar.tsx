@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { navItems, site } from "@/data";
 
 function linkClass(isActive: boolean) {
@@ -35,34 +36,38 @@ export function Navbar() {
               {label}
             </NavLink>
           ))}
+          <ThemeToggle className="ml-1" />
         </nav>
 
-        <button
-          type="button"
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md text-[var(--color-ink)] md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">Menu</span>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-            {open ? (
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            ) : (
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md text-[var(--color-ink)] md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">Menu</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+              {open ? (
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              ) : (
+                <path
+                  d="M4 7h16M4 12h16M4 17h16"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open ? (

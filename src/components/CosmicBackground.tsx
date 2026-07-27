@@ -55,7 +55,7 @@ export function CosmicBackground({
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `linear-gradient(rgba(24,58,111,${gridOpacity}) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(24,58,111,${gridOpacity}) 1.5px, transparent 1.5px)`,
+            backgroundImage: `linear-gradient(rgba(var(--cosmic-grid-rgb), ${gridOpacity}) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(var(--cosmic-grid-rgb), ${gridOpacity}) 1.5px, transparent 1.5px)`,
             backgroundSize: "40px 40px",
           }}
         />

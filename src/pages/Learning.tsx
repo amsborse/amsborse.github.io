@@ -1,6 +1,7 @@
 import { LearningInteractiveCard } from "@/components/learning/LearningInteractiveCard";
 import type { LearningCardTopic } from "@/components/learning/LearningInteractiveCard";
 import { LearningHubLayout } from "@/components/learning/LearningHubLayout";
+import { FlashcardsSection } from "@/components/learning/flashcards/FlashcardsSection";
 import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 
 const TOPICS: LearningCardTopic[] = [
@@ -400,6 +401,8 @@ export default function Learning() {
           <LearningInteractiveCard key={topic.id} topic={topic} index={index} />
         ))}
       </div>
+
+      <FlashcardsSection />
     </LearningHubLayout>
   );
 }

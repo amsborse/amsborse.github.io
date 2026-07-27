@@ -54,7 +54,7 @@ function SocialCard() {
               className="group flex items-start justify-between gap-4 py-4 transition-colors"
             >
               <div>
-                <span className="font-medium text-white group-hover:text-indigo-400">
+                <span className="font-medium text-[var(--color-ink)] group-hover:text-[var(--color-accent)]">
                   {row.label}
                 </span>
                 <p className="mt-0.5 text-xs text-slate-500">{row.description}</p>

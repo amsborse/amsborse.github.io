@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { isImmersiveSandbox, shouldDisableGlobalEffects } from "@/layout/immersiveRoutes";
+import { readFlashcardAnimationPriority } from "@/lib/flashcardAnimationPriority";
 
 const LazyInteractiveParticles = lazy(() =>
   import("@/components/InteractiveParticles").then((mod) => ({
@@ -53,7 +54,8 @@ export function RootLayout() {
     document.addEventListener("visibilitychange", onVisibility);
 
     function raf(time: number) {
-      if (!paused) lenis.raf(time);
+      const { motion: flashcardMotion } = readFlashcardAnimationPriority();
+      if (!paused && !flashcardMotion) lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
 
@@ -77,7 +79,7 @@ export function RootLayout() {
         </Suspense>
       ) : null}
       {isHome ? (
-        <div className="pointer-events-none fixed inset-0 -z-10 bg-[#050505]" aria-hidden />
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-[var(--color-bg)]" aria-hidden />
       ) : null}
       <a
         href="#main"

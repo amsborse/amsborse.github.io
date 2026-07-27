@@ -1,0 +1,57 @@
+[
+  {
+    "id": "c79cdca0-8c60-489d-aa17-c622cc4406e3",
+    "deck": "coding-challenge",
+    "title": "Min Stack",
+    "front": {
+      "text": "Min Stack"
+    },
+    "back": {
+      "imagePath": "/flashcards/c79cdca0-8c60-489d-aa17-c622cc4406e3-back.png"
+    },
+    "createdAt": "2026-07-27T04:04:33.501Z",
+    "updatedAt": "2026-07-27T04:04:33.501Z"
+  },
+  {
+    "id": "4c0db894-c22d-41e2-9eac-40473a8006eb",
+    "deck": "sanskrit",
+    "title": "योग — Yoga",
+    "front": {
+      "text": "योग — Yoga"
+    },
+    "back": {
+      "text": "Yoga comes from the Sanskrit verbal root √yuj (युज्), whose basic sense is to yoke, harness, join, or bring under disciplined direction.\n\nImagine horses pulling a chariot in different directions. Yuj is the act of harnessing them so their energy moves together. Applied inwardly, yoga means organizing the body, breath, senses, mind, and attention so they no longer pull you in conflicting directions.\n\n",
+      "imagePath": "/flashcards/4c0db894-c22d-41e2-9eac-40473a8006eb-back.png"
+    },
+    "createdAt": "2026-07-27T08:00:14.976Z",
+    "updatedAt": "2026-07-27T08:45:47.953Z"
+  },
+  {
+    "id": "dc3d0a55-7640-455c-bbed-f5535f28c87e",
+    "deck": "system-design",
+    "title": "AI Gateway",
+    "front": {
+      "text": "AI Gateway"
+    },
+    "back": {
+      "text": "An AI Gateway is a centralized layer between applications and AI models that treats models as costly, rate-limited, nondeterministic dependencies. It handles model routing and fallbacks, authentication, token-based rate limits and budgets, retries and circuit breaking, semantic caching, prompt/output safety, sensitive-data protection, and observability for latency, tokens, cost, and response quality. It should remain stateless and horizontally scalable so it does not become a bottleneck or single point of failure, while business logic, RAG workflows, agent planning, and conversation memory stay outside it.",
+      "imagePath": "/flashcards/dc3d0a55-7640-455c-bbed-f5535f28c87e-back.png"
+    },
+    "createdAt": "2026-07-27T08:15:21.579Z",
+    "updatedAt": "2026-07-27T08:25:58.503Z"
+  },
+  {
+    "id": "badb28f4-61b1-4617-931f-dfeca25d1dc7",
+    "deck": "system-design",
+    "title": "Semantic caching",
+    "front": {
+      "text": "Semantic caching"
+    },
+    "back": {
+      "text": "Semantic caching reuses a previous AI response when a new request has sufficiently similar meaning, determined by generating an embedding and searching cached prompts in a vector database. It reduces model cost, latency, and provider load, but risks returning an incorrect, stale, personalized, or unauthorized response when prompts appear similar but differ in important context. Cache matching should account for the tenant, system prompt, model version, parameters, source-data version, permissions, response format, safety policy, similarity threshold, and TTL. It works best for stable, repetitive tasks such as FAQs, classification, and document queries, but should generally be avoided for real-time data, high-stakes answers, tool execution, sensitive personalization, and creative generation.\n",
+      "imagePath": "/flashcards/badb28f4-61b1-4617-931f-dfeca25d1dc7-back.png"
+    },
+    "createdAt": "2026-07-27T08:19:28.671Z",
+    "updatedAt": "2026-07-27T08:33:21.379Z"
+  }
+]

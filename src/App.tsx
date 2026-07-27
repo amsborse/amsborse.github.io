@@ -34,6 +34,7 @@ const ParticleCoreLab = lazy(() => import("@/pages/arsenal/ParticleCoreLab"));
 const AnomalyMatrixLab = lazy(() => import("@/pages/arsenal/AnomalyMatrixLab"));
 const GravityWellLab = lazy(() => import("@/pages/arsenal/GravityWellLab"));
 const QuantumMeshLab = lazy(() => import("@/pages/arsenal/QuantumMeshLab"));
+const FlashcardsDeck = lazy(() => import("@/pages/FlashcardsDeck"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
 function WritingSlugRedirect() {
@@ -104,6 +105,7 @@ export default function App() {
           <Route path="motion" element={<Navigate to="/arsenal/celestial-grid" replace />} />
           <Route path="aether-lab" element={<Navigate to="/arsenal" replace />} />
 
+          <Route path="learning/flashcards/:deckId" element={<FlashcardsDeck />} />
           <Route path="404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
