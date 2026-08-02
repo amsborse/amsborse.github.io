@@ -24,6 +24,7 @@ type ShellProps = {
   className?: string;
   height?: "fixed" | "auto";
   density?: "default" | "quad";
+  viewStyle?: "glass" | "nodes" | "weave";
   children: ReactNode;
 };
 
@@ -55,6 +56,7 @@ export function InteractiveCardShell({
   className = "",
   height = "fixed",
   density = "quad",
+  viewStyle = "glass",
   children,
 }: ShellProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -75,28 +77,42 @@ export function InteractiveCardShell({
         ? "min-h-[320px]"
         : "min-h-[240px]";
 
+  const variantClass =
+    viewStyle === "nodes"
+      ? "backdrop-blur-md bg-black/25 dark:bg-black/45 border-b border-[var(--color-border)] rounded-xl p-2 hover:bg-black/50 border-t-0 border-x-0 shadow-sm"
+      : viewStyle === "weave"
+        ? "bg-[var(--color-surface)]/25 backdrop-blur-md border border-dashed border-[var(--color-border-strong)] rounded-2xl hover:border-[var(--color-accent)] hover:bg-[var(--color-surface)]/60 shadow-lg"
+        : `backdrop-blur-xl bg-white/[0.03] dark:bg-black/30 border border-white/10 ${densityStyles.radius} ${densityStyles.shadow} ${densityStyles.hoverShadow}`;
+
   const card = (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`hub-card-enter group relative flex flex-col overflow-hidden transition-all duration-300 ${densityStyles.radius} ${densityStyles.border} ${densityStyles.shadow} ${densityStyles.hoverShadow} ${heightClass} ${disabled ? "cursor-not-allowed" : ""} ${className}`}
+      className={`hub-card-enter group relative flex flex-col overflow-hidden transition-all duration-300 ${variantClass} ${heightClass} ${disabled ? "cursor-not-allowed" : ""} ${className}`}
       style={
         {
           ["--card-index"]: index,
-          background: density === "quad" ? "var(--hub-card-bg-gradient)" : "var(--hub-card-bg)",
+          background:
+            viewStyle === "nodes"
+              ? "transparent"
+              : viewStyle === "weave"
+                ? "var(--color-surface-mid)"
+                : density === "quad"
+                  ? "var(--hub-card-bg-gradient)"
+                  : "var(--hub-card-bg)",
           ["--mouse-x"]: "50%",
           ["--mouse-y"]: "50%",
         } as CSSProperties
       }
     >
-      {density === "quad" ? (
+      {viewStyle === "nodes" ? (
+        <div className="absolute top-3 left-4 h-[2px] w-8 group-hover:w-16 bg-[var(--color-accent)] transition-all duration-500 ease-out" />
+      ) : null}
+      {density === "quad" && viewStyle === "glass" ? (
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(99,102,241,0.09),transparent_55%),radial-gradient(ellipse_at_80%_100%,rgba(34,211,238,0.06),transparent_50%)]" />
       ) : null}
       <div
         className={`absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] ${densityStyles.radius}`}
-      />
-      <div
-        className={`absolute top-[1px] left-[1px] right-[1px] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent ${density === "quad" ? "rounded-t-[20px]" : "rounded-t-[22px]"}`}
       />
       <div
         className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -342,6 +358,7 @@ export type HubCardProps = {
   clamp?: number;
   ctaLabel?: string;
   density?: "default" | "quad";
+  viewStyle?: "glass" | "nodes" | "weave";
 };
 
 export function ContentInteractiveCard({
@@ -349,12 +366,14 @@ export function ContentInteractiveCard({
   index = 0,
   className = "",
   density = "quad",
+  viewStyle = "glass",
   children,
 }: {
   color?: string;
   index?: number;
   className?: string;
   density?: InteractiveCardDensity;
+  viewStyle?: "glass" | "nodes" | "weave";
   children: ReactNode;
 }) {
   return (
@@ -363,6 +382,7 @@ export function ContentInteractiveCard({
       index={index}
       height="auto"
       density={density}
+      viewStyle={viewStyle}
       className={className}
     >
       <div className="relative z-10 p-5 text-slate-300">{children}</div>
@@ -387,6 +407,7 @@ export const HubInteractiveCard = memo(function HubInteractiveCard({
   clamp = 3,
   ctaLabel,
   density = "quad",
+  viewStyle = "glass",
 }: HubCardProps) {
   const link = path ?? href;
   const disabled = status === "coming-soon" || !link;
@@ -401,6 +422,7 @@ export const HubInteractiveCard = memo(function HubInteractiveCard({
       disabled={disabled}
       height={height}
       density={density}
+      viewStyle={viewStyle}
     >
       <InteractiveCardSplit
         density={density}

@@ -24,7 +24,7 @@ export function ArsenalSceneShell({
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={seo.path} />
-      <div className="hub-page overflow-hidden pb-20 pt-24">
+      <div className="hub-page overflow-x-hidden pb-20 pt-24">
         <div className="pointer-events-none absolute right-[-10%] top-[-10%] h-[50vw] w-[50vw] rounded-full bg-indigo-900/10 blur-[120px]" />
         <div className="pointer-events-none absolute bottom-[-10%] left-[-10%] h-[50vw] w-[50vw] rounded-full bg-purple-900/10 blur-[120px]" />
 

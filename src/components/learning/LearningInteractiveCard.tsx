@@ -13,11 +13,18 @@ export type LearningCardTopic = HubCardProps & {
 export function LearningInteractiveCard({
   topic,
   index,
+  viewStyle = "glass",
 }: {
   topic: LearningCardTopic;
   index: number;
+  viewStyle?: "glass" | "nodes" | "weave";
 }) {
   return (
-    <HubInteractiveCard {...topic} index={index} status={topic.status as InteractiveCardStatus} />
+    <HubInteractiveCard
+      {...topic}
+      index={index}
+      viewStyle={viewStyle}
+      status={topic.status as InteractiveCardStatus}
+    />
   );
 }

@@ -26,7 +26,7 @@ export function ArsenalLabShell({
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={seo.path} />
-      <div className="hub-page overflow-hidden pb-32 pt-20">
+      <div className="hub-page overflow-x-hidden pb-32 pt-20">
         <CosmicBackground />
         <div className={`relative z-10 mx-auto px-4 sm:px-6 ${maxWidth}`}>
           <Link

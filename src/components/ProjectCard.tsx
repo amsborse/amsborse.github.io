@@ -106,7 +106,15 @@ function renderProjectVisual(id: string) {
   }
 }
 
-export function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
+export function ProjectCard({
+  project,
+  index = 0,
+  viewStyle = "glass",
+}: {
+  project: Project;
+  index?: number;
+  viewStyle?: "glass" | "nodes" | "weave";
+}) {
   const categoryLabel =
     projectCategories.find((c) => c.id === project.category)?.label ?? project.category;
 
@@ -123,6 +131,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
       tags={project.stack}
       index={index}
       clamp={2}
+      viewStyle={viewStyle}
       renderPortalVisual={() => renderProjectVisual(project.id)}
       footer={
         <div className="flex flex-wrap gap-x-4 gap-y-1">
