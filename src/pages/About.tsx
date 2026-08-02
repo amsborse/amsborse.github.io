@@ -109,16 +109,6 @@ export default function About() {
           <ValuesSection values={about.values} />
         </div>
 
-        <div className="mt-16 pt-12 border-t border-[var(--color-border)]">
-          <h2 className="theme-heading text-2xl md:text-4xl font-display font-semibold text-[var(--color-ink)] uppercase tracking-wider">
-            {about.buildingHeading}
-          </h2>
-          <div className="mt-8 flex items-start gap-4 group">
-            <div className="h-[1px] w-8 mt-3 bg-[var(--color-border-strong)] group-hover:w-16 group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out shrink-0" />
-            <p className="text-lg leading-relaxed text-[var(--color-body)]">{about.building}</p>
-          </div>
-        </div>
-
         <section
           id="contact"
           className="scroll-mt-24 mt-16 pt-12 border-t border-[var(--color-border)]"

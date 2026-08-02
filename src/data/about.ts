@@ -22,8 +22,7 @@ export const about = {
     "Connection: Building relationships that feel secure, honest, and meaningful.",
     "Inner peace: Finding steadiness and clarity instead of being controlled by ambition, conflict, or desire.",
   ],
-  buildingHeading: "What I like building",
-  building:
-    "Data-heavy APIs, internal platforms, and the glue between product intent and infrastructure reality. I am drawn to teams that respect craft, debate tradeoffs openly, and treat on-call as a learning loop—not a punishment.",
+  buildingHeading: "",
+  building: "",
   showQuickReference: false,
 } as const;
