@@ -87,7 +87,7 @@ export default function App() {
           <Route path="learning/algorithm/greedy" element={<AlgorithmGreedy />} />
           <Route path="learning/algorithm/trees" element={<AlgorithmTrees />} />
 
-          <Route path="arsenal" element={<Arsenal />} />
+          <Route path="arsenal" element={<Navigate to="/projects" replace />} />
           <Route path="arsenal/writing" element={<Writing />} />
           <Route path="arsenal/writing/:slug" element={<Article />} />
           <Route path="arsenal/future-projects" element={<FutureProjectsHub />} />

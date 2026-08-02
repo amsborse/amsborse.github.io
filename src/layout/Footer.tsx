@@ -22,7 +22,7 @@ export function Footer() {
                 to="/projects"
                 className="link-editorial link-editorial--from-body text-sm font-medium"
               >
-                Projects & Arsenal
+                Projects
               </Link>
               <Link
                 to="/arsenal/writing"

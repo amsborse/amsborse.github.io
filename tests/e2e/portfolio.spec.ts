@@ -30,7 +30,6 @@ const PAGES = [
     selector: "h1",
   },
   { path: "/arsenal/algorithm", title: "Algorithms", selector: "h1" },
-  { path: "/arsenal", title: "Arsenal", selector: "h1" },
 ];
 
 for (const page of PAGES) {
