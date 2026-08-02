@@ -1,0 +1,15 @@
+{
+  "id": "tempcard1785645929278__default__desktop__tmp-visual",
+  "component": "TempCard1785645929278",
+  "route": "/tmp-visual",
+  "selector": "main",
+  "state": "default",
+  "viewport": "desktop",
+  "screenshotHash": "66840dda154e8a113c31dd0ad32f7f3a366a80e8136979d8f5a101d3d29d6f72",
+  "screenshotPath": "C:/Users/amsbo/AppData/Local/Temp/baseline-FMKTe0/a.png",
+  "sourceCommit": "9e1ea2696197713ee24df806b8c8d2be5a32b20d",
+  "approvalStatus": "revoked",
+  "approvedAt": "2026-08-02T04:45:29.334Z",
+  "memoryDecisionIds": [],
+  "maskSelectors": []
+}

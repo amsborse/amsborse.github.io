@@ -79,10 +79,10 @@ export function InteractiveCardShell({
 
   const variantClass =
     viewStyle === "nodes"
-      ? "backdrop-blur-xl bg-[var(--color-chrome-bg)] border border-[var(--color-border)] rounded-2xl p-2 shadow-sm hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-surface)] transition-all duration-300"
+      ? "backdrop-blur-2xl bg-[var(--color-surface)]/95 border border-[var(--color-border)] rounded-2xl p-2 shadow-md hover:border-[var(--color-accent)]/60 transition-all duration-300"
       : viewStyle === "weave"
-        ? "bg-[var(--color-surface)]/25 backdrop-blur-md border border-dashed border-[var(--color-border-strong)] rounded-2xl hover:border-[var(--color-accent)] hover:bg-[var(--color-surface)]/60 shadow-lg"
-        : `backdrop-blur-xl bg-white/[0.03] dark:bg-black/30 border border-white/10 ${densityStyles.radius} ${densityStyles.shadow} ${densityStyles.hoverShadow}`;
+        ? "bg-[var(--color-surface)]/45 backdrop-blur-xl border border-dashed border-[var(--color-border-strong)] rounded-2xl hover:border-[var(--color-accent)] hover:bg-[var(--color-surface)]/80 shadow-lg"
+        : `backdrop-blur-2xl bg-white/[0.12] dark:bg-black/60 border border-white/10 ${densityStyles.radius} ${densityStyles.shadow} ${densityStyles.hoverShadow}`;
 
   const card = (
     <div
