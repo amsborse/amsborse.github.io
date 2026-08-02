@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { ProjectCard } from "@/components/ProjectCard";
 import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -27,7 +28,7 @@ export default function ProjectsPage() {
       <div className="article-shell max-w-[1440px] py-16 sm:py-20 lg:py-24">
         <SectionHeading
           eyebrow="Portfolio"
-          title="Projects"
+          title="Projects & Arsenal"
           subtitle="Problem, stack, and outcome—structured for scanning without noise."
         />
 
@@ -82,6 +83,30 @@ export default function ProjectsPage() {
             </div>
           </>
         ) : null}
+
+        {/* Arsenal Labs & Interactive Systems Callout */}
+        <div className="mt-24 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 sm:p-10">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">
+                Interactive Labs & Experiments
+              </p>
+              <h3 className="mt-2 font-display text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
+                Explore the Systems Arsenal
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                Dive into real-time WebGL simulations, algorithm visualizers, anomaly matrices, and
+                live telemetry labs built to test system trade-offs.
+              </p>
+            </div>
+            <Link
+              to="/arsenal"
+              className="inline-flex shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent)] px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
+            >
+              Open Arsenal Labs →
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -57,6 +57,8 @@ function EmailLink() {
     <div className="mt-6">
       <a
         href={`mailto:${site.email}`}
+        target="_blank"
+        rel="noopener noreferrer"
         className="flex items-center gap-4 group py-1 pointer-events-auto w-fit"
       >
         <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out" />

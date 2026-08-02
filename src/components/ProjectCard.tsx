@@ -130,6 +130,8 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
             <a
               key={link.label}
               href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent)] hover:text-[var(--color-accent-bright)] transition-colors"
             >
               {link.label} ➔

@@ -1,0 +1,15 @@
+{
+  "id": "tempcard1785643664578__default__desktop__tmp-visual",
+  "component": "TempCard1785643664578",
+  "route": "/tmp-visual",
+  "selector": "main",
+  "state": "default",
+  "viewport": "desktop",
+  "screenshotHash": "66840dda154e8a113c31dd0ad32f7f3a366a80e8136979d8f5a101d3d29d6f72",
+  "screenshotPath": "C:/Users/amsbo/AppData/Local/Temp/baseline-fDjvpg/a.png",
+  "sourceCommit": "98191b28ba9a3e0c90b21d88325b4b2853b9161c",
+  "approvalStatus": "revoked",
+  "approvedAt": "2026-08-02T04:07:44.621Z",
+  "memoryDecisionIds": [],
+  "maskSelectors": []
+}

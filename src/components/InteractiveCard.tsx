@@ -118,6 +118,15 @@ export function InteractiveCardShell({
   );
 
   if (href && !disabled) {
+    const isExternal =
+      href.startsWith("http://") || href.startsWith("https://") || href.startsWith("mailto:");
+    if (isExternal) {
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="h-full block">
+          {card}
+        </a>
+      );
+    }
     return (
       <Link to={href} className="h-full block">
         {card}

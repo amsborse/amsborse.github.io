@@ -19,16 +19,28 @@ export function Footer() {
             <div className="flex flex-col gap-2.5">
               <p className="section-label">On this site</p>
               <Link
+                to="/projects"
+                className="link-editorial link-editorial--from-body text-sm font-medium"
+              >
+                Projects & Arsenal
+              </Link>
+              <Link
+                to="/arsenal/writing"
+                className="link-editorial link-editorial--from-body text-sm font-medium"
+              >
+                Writing & Essays
+              </Link>
+              <Link
+                to="/learning"
+                className="link-editorial link-editorial--from-body text-sm font-medium"
+              >
+                Learning Hub
+              </Link>
+              <Link
                 to="/about#contact"
                 className="link-editorial link-editorial--from-body text-sm font-medium"
               >
                 Contact
-              </Link>
-              <Link
-                to="/arsenal"
-                className="link-editorial link-editorial--from-body text-sm font-medium"
-              >
-                Arsenal
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
@@ -37,6 +49,8 @@ export function Footer() {
                 <a
                   key={key}
                   href={links.social[key]}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="link-editorial link-editorial--from-body text-sm font-medium"
                 >
                   {label}
