@@ -109,7 +109,7 @@ function renderProjectVisual(id: string) {
 export function ProjectCard({
   project,
   index = 0,
-  viewStyle = "glass",
+  viewStyle = "nodes",
 }: {
   project: Project;
   index?: number;

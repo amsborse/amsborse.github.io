@@ -13,7 +13,7 @@ export type LearningCardTopic = HubCardProps & {
 export function LearningInteractiveCard({
   topic,
   index,
-  viewStyle = "glass",
+  viewStyle = "nodes",
 }: {
   topic: LearningCardTopic;
   index: number;
