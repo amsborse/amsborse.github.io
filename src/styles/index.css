@@ -211,7 +211,9 @@
   }
 
   :focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-[var(--color-accent)]/45;
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 

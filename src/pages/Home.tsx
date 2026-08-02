@@ -17,11 +17,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-              className="home-hero-blend text-center"
+              className="home-hero-blend text-center max-w-4xl mx-auto px-4"
             >
-              <h1 className="home-hero-title text-6xl sm:text-8xl md:text-9xl">Akshay Borse</h1>
+              <h1 className="home-hero-title text-6xl sm:text-8xl md:text-9xl tracking-tight">
+                Akshay Borse
+              </h1>
               <motion.p
-                className="mt-6 text-sm sm:text-lg md:text-xl font-mono text-[var(--color-ink-muted)] tracking-[0.2em] uppercase"
+                className="mt-6 text-xs sm:text-base md:text-lg font-mono text-[var(--color-ink-muted)] tracking-[0.16em] uppercase leading-relaxed max-w-2xl mx-auto"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5, delay: 1 }}
@@ -35,7 +37,7 @@ export default function Home() {
         <section className="h-[200vh] relative">
           <div className="sticky top-0 h-screen w-full flex items-center p-8 md:p-24">
             <div className="max-w-2xl">
-              <h2 className="theme-heading text-4xl md:text-6xl font-display font-semibold mb-6">
+              <h2 className="theme-heading text-3xl sm:text-4xl md:text-6xl font-display font-semibold mb-6 tracking-tight">
                 LIVING SYSTEMS
               </h2>
               <p className="text-lg text-[var(--color-body)] leading-relaxed font-sans">
@@ -46,9 +48,10 @@ export default function Home() {
                 {["Architect", "Developer", "Creator"].map((item) => (
                   <div
                     key={item}
-                    className="flex items-center gap-4 group cursor-pointer pointer-events-auto"
+                    tabIndex={0}
+                    className="flex items-center gap-4 group cursor-pointer pointer-events-auto rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] p-1 -ml-1 transition-all"
                   >
-                    <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out" />
+                    <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-accent)] transition-all duration-500 ease-out shrink-0" />
                     <span className="font-mono uppercase tracking-widest text-sm text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)] transition-colors">
                       {item}
                     </span>

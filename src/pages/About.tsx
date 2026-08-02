@@ -35,9 +35,9 @@ function SocialLinksList() {
           href={links.social[row.key]}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-4 group py-1 pointer-events-auto w-fit"
+          className="flex items-center gap-4 group py-1 pointer-events-auto w-fit rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
         >
-          <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out" />
+          <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-accent)] transition-all duration-500 ease-out" />
           <div className="flex items-baseline gap-3">
             <span className="font-mono uppercase tracking-widest text-sm text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)] transition-colors">
               {row.label}
@@ -59,14 +59,14 @@ function EmailLink() {
         href={`mailto:${site.email}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-4 group py-1 pointer-events-auto w-fit"
+        className="flex items-center gap-4 group py-1 pointer-events-auto w-fit rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
       >
-        <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out" />
+        <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-accent)] transition-all duration-500 ease-out" />
         <div className="flex items-baseline gap-3">
           <span className="font-mono uppercase tracking-widest text-sm text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)] transition-colors">
             Email
           </span>
-          <span className="text-sm font-sans text-[var(--color-ink)] underline decoration-[var(--color-border-strong)] underline-offset-4 group-hover:decoration-[var(--color-ink)] transition-colors">
+          <span className="text-sm font-sans text-[var(--color-ink)] underline decoration-[var(--color-border-strong)] underline-offset-4 group-hover:decoration-[var(--color-accent)] transition-colors">
             {site.email}
           </span>
         </div>

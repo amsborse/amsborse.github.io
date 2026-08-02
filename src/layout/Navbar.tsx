@@ -19,7 +19,7 @@ export function Navbar() {
       <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-10">
         <NavLink
           to="/"
-          className="font-display text-[1.0625rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)]"
+          className="font-display text-[1.0625rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
           onClick={() => setOpen(false)}
         >
           {site.name}
@@ -30,7 +30,9 @@ export function Navbar() {
             <NavLink
               key={to}
               to={to}
-              className={({ isActive }) => `${linkClass(isActive)} px-2.5 lg:px-3`}
+              className={({ isActive }) =>
+                `${linkClass(isActive)} px-2.5 lg:px-3 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded`
+              }
               end={to === "/"}
             >
               {label}
@@ -43,7 +45,7 @@ export function Navbar() {
           <ThemeToggle />
           <button
             type="button"
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md text-[var(--color-ink)] md:hidden"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md text-[var(--color-ink)] hover:bg-[var(--color-surface-mid)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}

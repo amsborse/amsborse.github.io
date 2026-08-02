@@ -20,25 +20,25 @@ export function Footer() {
               <p className="section-label">On this site</p>
               <Link
                 to="/projects"
-                className="link-editorial link-editorial--from-body text-sm font-medium"
+                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Projects
               </Link>
               <Link
                 to="/arsenal/writing"
-                className="link-editorial link-editorial--from-body text-sm font-medium"
+                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Writing & Essays
               </Link>
               <Link
                 to="/learning"
-                className="link-editorial link-editorial--from-body text-sm font-medium"
+                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Learning Hub
               </Link>
               <Link
                 to="/about#contact"
-                className="link-editorial link-editorial--from-body text-sm font-medium"
+                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Contact
               </Link>
@@ -51,7 +51,7 @@ export function Footer() {
                   href={links.social[key]}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-editorial link-editorial--from-body text-sm font-medium"
+                  className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
                 >
                   {label}
                 </a>

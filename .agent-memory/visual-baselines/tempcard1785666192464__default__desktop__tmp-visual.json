@@ -1,0 +1,15 @@
+{
+  "id": "tempcard1785666192464__default__desktop__tmp-visual",
+  "component": "TempCard1785666192464",
+  "route": "/tmp-visual",
+  "selector": "main",
+  "state": "default",
+  "viewport": "desktop",
+  "screenshotHash": "66840dda154e8a113c31dd0ad32f7f3a366a80e8136979d8f5a101d3d29d6f72",
+  "screenshotPath": "C:/Users/amsbo/AppData/Local/Temp/baseline-9sEVox/a.png",
+  "sourceCommit": "7a92bcf067bac2243463cce832587e905778c1a5",
+  "approvalStatus": "revoked",
+  "approvedAt": "2026-08-02T10:23:12.628Z",
+  "memoryDecisionIds": [],
+  "maskSelectors": []
+}
