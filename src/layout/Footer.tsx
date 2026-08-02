@@ -45,16 +45,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <p className="mt-14 text-[0.8125rem] leading-relaxed text-[var(--color-ink-muted)]">
-          Edit copy in{" "}
-          <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">
-            {contentPaths.dataFolder}
-          </code>{" "}
-          · Articles in{" "}
-          <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8em]">
-            {contentPaths.articlesFolder}
-          </code>
-        </p>
+
         <p className="mt-6 text-[0.75rem] text-[var(--color-ink-muted)]">
           © {year} {site.name}
         </p>

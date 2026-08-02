@@ -29,9 +29,23 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
   const mouseRef = useRef({ x: -1000, y: -1000, active: false, isClicked: false, clickTime: 0 });
   const scrollRef = useRef({ lastScrollY: 0, velocity: 0 });
   const [mounted, setMounted] = useState(false);
+  const [themeMode, setThemeMode] = useState<string>("dark");
 
   useEffect(() => {
     setMounted(true);
+    const updateTheme = () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      setThemeMode(current);
+    };
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -80,24 +94,44 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       return Math.min(max, Math.max(min, target));
     };
 
-    // Neon Cosmic Theme colors (Cyan, Purple, Gold)
-    const colors = {
-      bg: [
-        "rgba(56, 189, 248, 0.16)", // Neon Cyan faint
-        "rgba(168, 85, 247, 0.14)", // Neon Purple faint
-      ],
-      mid: [
-        "rgba(56, 189, 248, 0.35)", // Neon Cyan medium
-        "rgba(245, 158, 11, 0.3)", // Cosmic Gold medium
-        "rgba(168, 85, 247, 0.28)", // Purple medium
-      ],
-      fg: [
-        "rgba(56, 189, 248, 0.72)", // Neon Cyan bright
-        "rgba(245, 158, 11, 0.65)", // Cosmic Gold bright
-        "rgba(236, 72, 153, 0.65)", // Nebula Pink bright
-        "rgba(74, 222, 128, 0.58)", // Living green bright
-      ],
-    };
+    const isLightMode = document.documentElement.getAttribute("data-theme") === "light";
+
+    // Theme-aware particle color palette
+    const colors = isLightMode
+      ? {
+          bg: [
+            "rgba(2, 132, 199, 0.28)", // Soft Sky Blue
+            "rgba(194, 65, 12, 0.24)", // Warm Terracotta / Burnt Amber
+          ],
+          mid: [
+            "rgba(2, 132, 199, 0.52)", // Azure Blue
+            "rgba(180, 83, 9, 0.50)", // Warm Amber Gold
+            "rgba(126, 34, 206, 0.44)", // Warm Violet
+          ],
+          fg: [
+            "rgba(3, 105, 161, 0.85)", // Deep Cyan-Blue
+            "rgba(194, 65, 12, 0.82)", // Vibrant Warm Terracotta
+            "rgba(180, 83, 9, 0.82)", // Rich Gold
+            "rgba(15, 118, 110, 0.78)", // Emerald Teal
+          ],
+        }
+      : {
+          bg: [
+            "rgba(56, 189, 248, 0.16)", // Neon Cyan faint
+            "rgba(168, 85, 247, 0.14)", // Neon Purple faint
+          ],
+          mid: [
+            "rgba(56, 189, 248, 0.35)", // Neon Cyan medium
+            "rgba(245, 158, 11, 0.3)", // Cosmic Gold medium
+            "rgba(168, 85, 247, 0.28)", // Purple medium
+          ],
+          fg: [
+            "rgba(56, 189, 248, 0.72)", // Neon Cyan bright
+            "rgba(245, 158, 11, 0.65)", // Cosmic Gold bright
+            "rgba(236, 72, 153, 0.65)", // Nebula Pink bright
+            "rgba(74, 222, 128, 0.58)", // Living green bright
+          ],
+        };
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -309,12 +343,19 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
         ctx.beginPath();
         ctx.arc(p.visualX, p.visualY, particleRadius, 0, Math.PI * 2);
-        ctx.fillStyle =
-          influenceGlow > 0.08 ? `rgba(167, 243, 208, ${0.3 + influenceGlow * 0.55})` : p.color;
+        const activeColor = isLightMode
+          ? `rgba(180, 83, 9, ${0.45 + influenceGlow * 0.45})`
+          : `rgba(167, 243, 208, ${0.3 + influenceGlow * 0.55})`;
+        ctx.fillStyle = influenceGlow > 0.08 ? activeColor : p.color;
 
         if (p.depth > 0.6) {
-          ctx.shadowBlur = 8 + influenceGlow * 12;
-          ctx.shadowColor = influenceGlow > 0.08 ? "rgba(74, 222, 128, 0.75)" : p.color;
+          ctx.shadowBlur = (isLightMode ? 4 : 8) + influenceGlow * 12;
+          ctx.shadowColor =
+            influenceGlow > 0.08
+              ? isLightMode
+                ? "rgba(180, 83, 9, 0.6)"
+                : "rgba(74, 222, 128, 0.75)"
+              : p.color;
         } else {
           ctx.shadowBlur = 0;
         }
@@ -345,12 +386,21 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
               (p1.depth > 0.8 ? (isIntense ? 0.75 : 0.55) : isIntense ? 0.55 : 0.35) *
               (1 + influence * 0.75);
 
-            ctx.strokeStyle =
-              influence > 0.08
-                ? `rgba(167, 243, 208, ${Math.min(0.9, alpha + influence * 0.35)})`
-                : p1.depth > 0.8
-                  ? `rgba(56, 189, 248, ${alpha})`
-                  : `rgba(245, 158, 11, ${alpha})`;
+            if (isLightMode) {
+              ctx.strokeStyle =
+                influence > 0.08
+                  ? `rgba(180, 83, 9, ${Math.min(0.9, alpha + influence * 0.35)})`
+                  : p1.depth > 0.8
+                    ? `rgba(2, 132, 199, ${alpha * 0.85})`
+                    : `rgba(194, 65, 12, ${alpha * 0.85})`;
+            } else {
+              ctx.strokeStyle =
+                influence > 0.08
+                  ? `rgba(167, 243, 208, ${Math.min(0.9, alpha + influence * 0.35)})`
+                  : p1.depth > 0.8
+                    ? `rgba(56, 189, 248, ${alpha})`
+                    : `rgba(245, 158, 11, ${alpha})`;
+            }
 
             ctx.lineWidth = 0.8 + influence * 1.15;
             ctx.beginPath();
@@ -371,7 +421,9 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           if (mdist < maxMouseDist) {
             const alpha =
               ((maxMouseDist - mdist) / maxMouseDist) * (isIntense ? 0.8 : 0.58) * p1.depth;
-            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+            ctx.strokeStyle = isLightMode
+              ? `rgba(2, 132, 199, ${alpha * 0.95})`
+              : `rgba(56, 189, 248, ${alpha})`;
             ctx.lineWidth = isIntense ? 1.25 : 0.85;
             ctx.beginPath();
             ctx.moveTo(p1.visualX, p1.visualY);
@@ -391,9 +443,15 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
           mouseRef.current.y,
           rippleRadius
         );
-        gradient.addColorStop(0, "rgba(167, 243, 208, 0.2)");
-        gradient.addColorStop(0.45, "rgba(56, 189, 248, 0.1)");
-        gradient.addColorStop(1, "rgba(56, 189, 248, 0)");
+        if (isLightMode) {
+          gradient.addColorStop(0, "rgba(180, 83, 9, 0.22)");
+          gradient.addColorStop(0.45, "rgba(2, 132, 199, 0.14)");
+          gradient.addColorStop(1, "rgba(2, 132, 199, 0)");
+        } else {
+          gradient.addColorStop(0, "rgba(167, 243, 208, 0.2)");
+          gradient.addColorStop(0.45, "rgba(56, 189, 248, 0.1)");
+          gradient.addColorStop(1, "rgba(56, 189, 248, 0)");
+        }
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -490,14 +548,14 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       mediaQuery.removeEventListener("change", handleMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [intensity]);
+  }, [intensity, themeMode]);
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
       style={{
-        mixBlendMode: "screen",
+        mixBlendMode: themeMode === "light" ? "normal" : "screen",
         opacity: mounted ? (intensity === "intense" ? 0.95 : 0.85) : 0,
         transition: "opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1)",
       }}

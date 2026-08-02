@@ -44,14 +44,12 @@ export const profile = {
     "The same discipline I bring to diagrams and APIs—edges, constraints, room to breathe—I bring to how I think and write.",
 
   /** Footer one-liner under your name. */
-  footerIntro:
-    "Engineering with attention, writing with patience, and taste that stays under the surface.",
+  footerIntro: "The life you live is shaped by the choices you stop questioning.",
 
   /**
    * Optional extra line on About — quiet, human, non-doctrinal (shown when non-empty).
    */
-  artistYogiIdentity:
-    "Off-screen: art, movement, and the kind of focus that doesn’t need an audience.",
+  artistYogiIdentity: "",
 
   /** Primary + secondary hero buttons (paths must match routes in `App.tsx`). */
   cta: {

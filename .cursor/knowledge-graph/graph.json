@@ -89,6 +89,8 @@
       "file": "src/data/codingPatternTopics.tsx"
     },
     { "id": "data:algorithms-info", "type": "data", "file": "src/data/algorithmsInfo.ts" },
+    { "id": "data:flashcards", "type": "data", "file": "src/data/flashcards.json" },
+    { "id": "data:flashcard-decks", "type": "data", "file": "src/data/flashcardDecks.ts" },
 
     {
       "id": "util:markdown",
@@ -365,6 +367,12 @@
       "file": "src/pages/learning-algorithms/ContentDeliveryNetwork.tsx"
     },
     {
+      "id": "route:/learning/flashcards/:deckId",
+      "type": "route",
+      "path": "/learning/flashcards/:deckId",
+      "file": "src/pages/FlashcardsDeck.tsx"
+    },
+    {
       "id": "route:/contact",
       "type": "route",
       "path": "/contact",
@@ -441,6 +449,8 @@
 
     { "from": "route:/learning", "to": "component:learning-hub-layout", "rel": "uses" },
     { "from": "route:/learning", "to": "component:learning-interactive-card", "rel": "uses" },
+    { "from": "route:/learning", "to": "data:flashcard-decks", "rel": "reads" },
+    { "from": "route:/learning", "to": "data:flashcards", "rel": "reads" },
     {
       "from": "route:/learning/coding-patterns",
       "to": "data:coding-pattern-topics",
@@ -486,6 +496,21 @@
     },
     { "from": "route:/learning/algorithm", "to": "domain:learning", "rel": "part_of" },
     { "from": "route:/learning/system-design-concepts", "to": "domain:learning", "rel": "part_of" },
+    {
+      "from": "route:/learning/flashcards/:deckId",
+      "to": "domain:learning",
+      "rel": "part_of"
+    },
+    {
+      "from": "route:/learning/flashcards/:deckId",
+      "to": "data:flashcards",
+      "rel": "reads"
+    },
+    {
+      "from": "route:/learning/flashcards/:deckId",
+      "to": "data:flashcard-decks",
+      "rel": "reads"
+    },
     { "from": "route:/arsenal/algorithm", "to": "domain:learning", "rel": "part_of" },
     { "from": "route:/arsenal/writing", "to": "domain:writing", "rel": "part_of" },
     { "from": "route:/resume", "to": "domain:resume", "rel": "part_of" },

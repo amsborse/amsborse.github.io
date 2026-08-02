@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import Lenis from "lenis";
@@ -29,12 +29,17 @@ function PageSkeleton() {
 export function RootLayout() {
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
+  const lenisRef = useRef<Lenis | null>(null);
+
   const isHome = location.pathname === "/";
   const isImmersive = isImmersiveSandbox(location.pathname);
   const disableGlobalEffects = shouldDisableGlobalEffects(location.pathname);
 
   useEffect(() => {
-    if (disableGlobalEffects || prefersReducedMotion) return;
+    if (disableGlobalEffects || prefersReducedMotion) {
+      lenisRef.current = null;
+      return;
+    }
 
     const lenis = new Lenis({
       duration: 1.5,
@@ -43,6 +48,8 @@ export function RootLayout() {
       gestureOrientation: "vertical",
       smoothWheel: true,
     });
+
+    lenisRef.current = lenis;
 
     let rafId = 0;
     let paused = document.hidden;
@@ -65,8 +72,31 @@ export function RootLayout() {
       document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      lenisRef.current = null;
     };
-  }, [disableGlobalEffects, prefersReducedMotion, location.pathname]);
+  }, [disableGlobalEffects, prefersReducedMotion]);
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(element, { immediate: true });
+        } else {
+          element.scrollIntoView();
+        }
+        return;
+      }
+    }
+
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }, [location.pathname, location.hash]);
 
   return (
     <div

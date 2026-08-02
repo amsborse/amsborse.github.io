@@ -11,7 +11,7 @@ export const links = {
   email: "amsborse@gmail.com",
   social: {
     github: "https://github.com/amsborse",
-    linkedin: "https://linkedin.com/in/akshayborse",
+    linkedin: "https://www.linkedin.com/in/amsborse/",
     medium: "https://medium.com/@amsborse",
     substack: "https://substack.com/@amsborse",
   } satisfies SocialLinks,

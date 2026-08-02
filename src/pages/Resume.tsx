@@ -504,7 +504,7 @@ body{background:white !important;color:black !important}
                   </a>{" "}
                   |{" "}
                   <a
-                    href="https://linkedin.com/in/akshayborse"
+                    href="https://www.linkedin.com/in/amsborse/"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ color: "#0000ee", textDecoration: "underline" }}
@@ -962,7 +962,7 @@ body{background:white !important;color:black !important}
                   <a href="mailto:amsborse@gmail.com">amsborse@gmail.com</a>
                   <span className="sep">|</span>
                   <a
-                    href="https://linkedin.com/in/akshayborse"
+                    href="https://www.linkedin.com/in/amsborse/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

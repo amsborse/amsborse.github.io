@@ -70,28 +70,29 @@
   --backdrop-scrim: rgba(3, 4, 8, 0.72);
   --body-noise-opacity: 0.12;
   --body-glow-opacity: 0.65;
-  --cosmic-grid-rgb: 24, 58, 111;
+  --color-chrome-bg: rgba(7, 8, 13, 0.72);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --color-ink: #1a1d21;
-  --color-ink-soft: #2d3339;
-  --color-body: #4a5568;
-  --color-ink-muted: #6b7280;
-  --color-bg: #f6f4ef;
-  --color-surface: rgba(255, 255, 255, 0.82);
-  --color-surface-alt: rgba(255, 255, 255, 0.92);
-  --color-surface-mid: rgba(248, 246, 241, 0.95);
-  --color-surface-elevated: rgba(255, 255, 255, 0.94);
-  --color-surface-wash: rgba(255, 255, 255, 0.55);
+  --color-ink: #1c1917;
+  --color-ink-soft: #292524;
+  --color-body: #44403c;
+  --color-ink-muted: #78716c;
+  --color-bg: #f5f0e6;
+  --color-chrome-bg: rgba(245, 240, 230, 0.72);
+  --color-surface: rgba(255, 252, 247, 0.85);
+  --color-surface-alt: rgba(255, 252, 247, 0.95);
+  --color-surface-mid: rgba(247, 242, 233, 0.96);
+  --color-surface-elevated: rgba(255, 253, 249, 0.96);
+  --color-surface-wash: rgba(255, 252, 247, 0.6);
   --color-section-sage: var(--color-bg);
   --color-section-lavender: var(--color-bg);
   --color-section-blush: var(--color-bg);
   --color-section-parchment: var(--color-bg);
-  --color-border: rgba(32, 35, 38, 0.1);
-  --color-border-strong: rgba(32, 35, 38, 0.16);
+  --color-border: rgba(68, 64, 60, 0.12);
+  --color-border-strong: rgba(68, 64, 60, 0.2);
   --color-accent: #0284c7;
   --color-accent-bright: #0369a1;
   --color-accent-dim: #075985;
@@ -102,29 +103,29 @@
   --color-gold-faint: rgba(180, 83, 9, 0.06);
   --color-accent-line: rgba(2, 132, 199, 0.35);
   --color-on-accent: #ffffff;
-  --color-reading-canvas: #faf8f4;
+  --color-reading-canvas: #fbf8f2;
   --shadow-card:
-    0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 16px -8px rgba(61, 78, 86, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 16px -8px rgba(68, 64, 60, 0.1),
     0 10px 28px -12px rgba(2, 132, 199, 0.08);
   --shadow-card-hover:
-    0 1px 0 rgba(255, 255, 255, 1), 0 8px 20px -6px rgba(61, 78, 86, 0.16),
+    0 1px 0 rgba(255, 255, 255, 1), 0 8px 20px -6px rgba(68, 64, 60, 0.14),
     0 26px 52px -18px rgba(2, 132, 199, 0.12), 0 0 0 1px rgba(180, 83, 9, 0.12);
   --motif-crease: linear-gradient(
     168deg,
     transparent 0%,
-    rgba(32, 35, 38, 0.03) 48%,
+    rgba(68, 64, 60, 0.04) 48%,
     transparent 100%
   );
-  --hub-title-gradient: linear-gradient(to right, #1a1d21, #374151, #6b7280);
-  --hub-card-bg: #ffffff;
-  --hub-card-bg-gradient: linear-gradient(155deg, #ffffff 0%, #f8f6f1 52%, #f0ece4 100%);
-  --hub-card-border: rgba(32, 35, 38, 0.1);
+  --hub-title-gradient: linear-gradient(to right, #1c1917, #44403c, #78716c);
+  --hub-card-bg: #fffdf9;
+  --hub-card-bg-gradient: linear-gradient(155deg, #fffdf9 0%, #f7f2e9 52%, #efe8dc 100%);
+  --hub-card-border: rgba(68, 64, 60, 0.12);
   --hub-card-border-hover: rgba(2, 132, 199, 0.35);
-  --chrome-shadow: 0 1px 0 rgba(32, 35, 38, 0.06);
-  --backdrop-scrim: rgba(246, 244, 239, 0.82);
+  --chrome-shadow: 0 1px 0 rgba(68, 64, 60, 0.08);
+  --backdrop-scrim: rgba(245, 240, 230, 0.85);
   --body-noise-opacity: 0.05;
   --body-glow-opacity: 0.42;
-  --cosmic-grid-rgb: 148, 163, 184;
+  --cosmic-grid-rgb: 120, 113, 108;
 }
 
 @layer base {
@@ -223,20 +224,26 @@
     left: 0;
     z-index: 50;
     isolation: isolate;
-    background-color: var(--color-bg);
+    background-color: var(--color-chrome-bg);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
     border-bottom: 1px solid var(--color-border);
     box-shadow: var(--chrome-shadow);
   }
 
   .site-header__panel {
-    background-color: var(--color-bg);
+    background-color: var(--color-chrome-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   .site-footer {
     position: relative;
     z-index: 20;
     isolation: isolate;
-    background-color: var(--color-bg);
+    background-color: var(--color-chrome-bg);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
     border-top: 1px solid var(--color-border);
     box-shadow: var(--chrome-shadow);
   }

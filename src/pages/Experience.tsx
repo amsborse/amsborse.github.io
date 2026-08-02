@@ -16,13 +16,6 @@ export default function ExperiencePage() {
         <h1 className="mt-4 font-display text-[2.25rem] font-semibold tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
           Work history
         </h1>
-        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-[var(--color-ink-muted)] sm:text-[0.9375rem]">
-          A recruiter-friendly view of roles and impact. Edit entries in{" "}
-          <code className="rounded bg-black/[0.05] px-1.5 py-0.5 font-mono text-[0.8125rem] text-[var(--color-body)]">
-            {contentPaths.experienceFile}
-          </code>
-          .
-        </p>
 
         <div className="mt-14">
           {experience.map((entry, idx) => (

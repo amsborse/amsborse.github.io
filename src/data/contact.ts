@@ -18,13 +18,13 @@ export const contactPage = {
     {
       key: "medium" as keyof SocialLinks,
       label: "Medium",
-      description: "Essays (if you cross-post)",
+      description: "Blog",
     },
     {
       key: "substack" as keyof SocialLinks,
       label: "Substack",
-      description: "Newsletter / longer notes",
+      description: "Blog",
     },
   ],
-  closingLine: "No form, no tracking.",
+  closingLine: "",
 } as const;

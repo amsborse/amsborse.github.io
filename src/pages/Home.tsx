@@ -26,7 +26,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5, delay: 1 }}
               >
-                Intelligence Becoming Visible
+                Creativity is a choice to see the world differently and create your own reality
               </motion.p>
             </motion.div>
           </div>
