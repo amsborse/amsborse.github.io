@@ -169,3 +169,32 @@ Update `graph.json` whenever you add routes, pages, or shared components. After 
 ### 3. Repository design memory (`.agent-memory/`)
 
 Scoped design lessons for UI work. Loaded automatically by `agent:task` / `review:run`. Do not load the entire directory into a model.
+
+---
+
+## Design System & Repository Architecture Rules
+
+Every agent modifying UI components or pages in this repository must strictly adhere to the following rules:
+
+### 1. Mandatory CSS Variable Design Tokens
+
+- **No hardcoded Slate/Gray or Hex color utilities** in shared UI components (do NOT use `text-slate-400`, `bg-slate-900`, `text-indigo-400`, or raw `#hex` values for core text and borders).
+- **Always use global semantic design tokens**:
+  - Ink / Text: `text-[var(--color-ink)]`, `text-[var(--color-ink-muted)]`, `text-[var(--color-body)]`
+  - Backgrounds & Surfaces: `bg-[var(--color-bg)]`, `bg-[var(--color-surface)]`
+  - Borders: `border-[var(--color-border)]`, `border-[var(--color-border-strong)]`
+  - Accents: `text-[var(--color-accent)]`, `bg-[var(--color-accent)]`, `hover:text-[var(--color-accent-bright)]`
+- **Why**: CSS variable design tokens automatically support theme toggles (Dark/Light mode). Hardcoded color classes break theme switching.
+
+### 2. Dual Visual Paradigms
+
+- **Minimal Editorial Style** (`Home`, `About`, `Contact`, `Article`):
+  - **No background card boxes**.
+  - High whitespace, serif typography (`font-display`), monospace tracking labels (`font-mono uppercase tracking-widest text-xs`), and expanding line-hover indicators (`h-[1px] w-12 group-hover:w-24 bg-[var(--color-border-strong)] group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out`).
+- **Glassmorphic Interactive Spotlight Cards** (`Projects`, `Experience`, `Writing`, `Arsenal`, `Learning`):
+  - Use `HubInteractiveCard` or `ContentInteractiveCard` with mouse-tracking radial spotlight grids, subtle border glows, and top gradient accent bars.
+
+### 3. Container Grid & Layout Rules
+
+- **Editorial & Text Pages** (`About`, `Contact`, `Article`): Standardize on `max-w-3xl`.
+- **Showcase & Grid Pages** (`Projects`, `Experience`, `Writing`, `Arsenal`, `Learning`): Standardize on `max-w-6xl`.

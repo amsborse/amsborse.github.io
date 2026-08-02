@@ -1,0 +1,15 @@
+{
+  "id": "tempcard1785123703664__default__desktop__tmp-visual",
+  "component": "TempCard1785123703664",
+  "route": "/tmp-visual",
+  "selector": "main",
+  "state": "default",
+  "viewport": "desktop",
+  "screenshotHash": "66840dda154e8a113c31dd0ad32f7f3a366a80e8136979d8f5a101d3d29d6f72",
+  "screenshotPath": "C:/Users/amsbo/AppData/Local/Temp/baseline-NyLE4d/a.png",
+  "sourceCommit": "cb200ee69c2d563bf78c771b5e6db2620a984e72",
+  "approvalStatus": "revoked",
+  "approvedAt": "2026-07-27T03:41:43.727Z",
+  "memoryDecisionIds": [],
+  "maskSelectors": []
+}

@@ -1,6 +1,6 @@
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { Seo } from "@/components/Seo";
-import { contentPaths, experience } from "@/data";
+import { experience } from "@/data";
 
 export default function ExperiencePage() {
   return (
@@ -11,13 +11,15 @@ export default function ExperiencePage() {
         path="/experience"
       />
 
-      <div className="article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
-        <p className="section-label">Experience</p>
+      <div className="article-shell max-w-6xl py-16 sm:py-20 lg:py-24">
+        <p className="section-label font-mono uppercase tracking-widest text-xs text-[var(--color-ink-muted)]">
+          Experience
+        </p>
         <h1 className="mt-4 font-display text-[2.25rem] font-semibold tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
           Work history
         </h1>
 
-        <div className="mt-14">
+        <div className="mt-12">
           {experience.map((entry, idx) => (
             <ExperienceCard key={entry.id} entry={entry} index={idx} />
           ))}

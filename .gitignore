@@ -33,5 +33,4 @@ tmp_resume/
 .agent-memory/feedback/raw/
 .agent-memory/screenshot-manifests/
 .agent-memory/compaction-report.json
-.agent-memory/visual-baselines/tempcard*.json
 .agent-memory/**/*.tmp

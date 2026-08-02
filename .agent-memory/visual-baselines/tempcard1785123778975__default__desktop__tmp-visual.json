@@ -1,0 +1,15 @@
+{
+  "id": "tempcard1785123778975__default__desktop__tmp-visual",
+  "component": "TempCard1785123778975",
+  "route": "/tmp-visual",
+  "selector": "main",
+  "state": "default",
+  "viewport": "desktop",
+  "screenshotHash": "66840dda154e8a113c31dd0ad32f7f3a366a80e8136979d8f5a101d3d29d6f72",
+  "screenshotPath": "C:/Users/amsbo/AppData/Local/Temp/baseline-6DSAHL/a.png",
+  "sourceCommit": "60c3cd9a122ced43d9f78873e266e8c552feaa21",
+  "approvalStatus": "revoked",
+  "approvedAt": "2026-07-27T03:42:59.029Z",
+  "memoryDecisionIds": [],
+  "maskSelectors": []
+}

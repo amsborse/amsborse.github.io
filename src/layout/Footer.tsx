@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { contentPaths, links, site, socialNav } from "@/data";
+import { links, site, socialNav } from "@/data";
 
 export function Footer() {
   const year = new Date().getFullYear();
