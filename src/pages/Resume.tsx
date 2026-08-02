@@ -321,7 +321,7 @@ body{background:white !important;color:black !important}
               className="pdf-view-content"
               style={{
                 fontFamily: '"Times New Roman", Times, serif',
-                color: "#000000",
+                color: "var(--text)",
                 lineHeight: 1.25,
                 padding: "10px 0",
               }}
@@ -333,18 +333,18 @@ body{background:white !important;color:black !important}
                     fontWeight: "bold",
                     margin: "0 0 4px",
                     fontFamily: '"Times New Roman", Times, serif',
-                    color: "#000000",
+                    color: "var(--text)",
                   }}
                 >
                   Akshay Borse
                 </h1>
-                <div style={{ fontSize: "9.5pt", color: "#000000", marginBottom: "4px" }}>
+                <div style={{ fontSize: "9.5pt", color: "var(--text-light)", marginBottom: "4px" }}>
                   425-336-9852 |{" "}
                   <a
                     href="mailto:amsborse@gmail.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#0000ee", textDecoration: "underline" }}
+                    style={{ color: "var(--accent)", textDecoration: "underline" }}
                   >
                     amsborse@gmail.com
                   </a>{" "}
@@ -353,7 +353,7 @@ body{background:white !important;color:black !important}
                     href="https://www.linkedin.com/in/amsborse/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#0000ee", textDecoration: "underline" }}
+                    style={{ color: "var(--accent)", textDecoration: "underline" }}
                   >
                     LinkedIn
                   </a>{" "}
@@ -362,7 +362,7 @@ body{background:white !important;color:black !important}
                     href="https://github.com/amsborse"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#0000ee", textDecoration: "underline" }}
+                    style={{ color: "var(--accent)", textDecoration: "underline" }}
                   >
                     GitHub
                   </a>{" "}
@@ -371,7 +371,7 @@ body{background:white !important;color:black !important}
                     href="https://amsborse.github.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#0000ee", textDecoration: "underline" }}
+                    style={{ color: "var(--accent)", textDecoration: "underline" }}
                   >
                     Portfolio
                   </a>
@@ -380,7 +380,7 @@ body{background:white !important;color:black !important}
                   style={{
                     fontSize: "9.5pt",
                     fontStyle: "italic",
-                    color: "#333333",
+                    color: "var(--text-light)",
                     marginTop: "3px",
                   }}
                 >
@@ -394,7 +394,7 @@ body{background:white !important;color:black !important}
                   style={{
                     fontSize: "11pt",
                     fontWeight: "bold",
-                    borderBottom: "1.5px solid #000000",
+                    borderBottom: "1.5px solid var(--text)",
                     paddingBottom: "2px",
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",
@@ -424,7 +424,7 @@ body{background:white !important;color:black !important}
                   style={{
                     fontSize: "11pt",
                     fontWeight: "bold",
-                    borderBottom: "1.5px solid #000000",
+                    borderBottom: "1.5px solid var(--text)",
                     paddingBottom: "2px",
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",
@@ -671,7 +671,7 @@ body{background:white !important;color:black !important}
                   style={{
                     fontSize: "11pt",
                     fontWeight: "bold",
-                    borderBottom: "1.5px solid #000000",
+                    borderBottom: "1.5px solid var(--text)",
                     paddingBottom: "2px",
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",
@@ -697,7 +697,7 @@ body{background:white !important;color:black !important}
                   style={{
                     fontSize: "11pt",
                     fontWeight: "bold",
-                    borderBottom: "1.5px solid #000000",
+                    borderBottom: "1.5px solid var(--text)",
                     paddingBottom: "2px",
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",

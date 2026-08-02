@@ -440,6 +440,10 @@
 }
 
 @media (max-width: 640px) {
+  .cardCell {
+    max-width: 175px;
+  }
+
   .transformCard {
     border-radius: 20px;
   }

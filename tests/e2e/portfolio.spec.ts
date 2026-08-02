@@ -37,7 +37,7 @@ for (const page of PAGES) {
     const errors: string[] = [];
     p.on("pageerror", (err) => errors.push(err.message));
 
-    await p.goto(page.path, { waitUntil: "networkidle" });
+    await p.goto(page.path, { waitUntil: "domcontentloaded" });
 
     // Key element is visible
     await expect(p.locator(page.selector).first()).toBeVisible({ timeout: 10_000 });

@@ -164,7 +164,7 @@ export function FlashcardsDeckView({ deckId }: FlashcardsDeckViewProps) {
             : "No flashcards in this deck yet."}
         </p>
       ) : (
-        <ul className="grid gap-8 sm:gap-10 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="grid grid-cols-2 gap-3 sm:gap-10 sm:grid-cols-2 xl:grid-cols-3">
           {cards.map((card) => (
             <li key={card.id}>
               <FlashcardItem

@@ -1,4 +1,4 @@
-﻿/* Precision task card */
+/* Precision task card */
 .precision-task-card {
   --card-accent: #4b8dff;
   --energy-color: #d79a3b;
@@ -3411,4 +3411,31 @@
 .precision-task-card[data-mixed-surface="true"][data-color-scheme="light"] {
   --card-text: #202326;
   --card-muted: rgba(32, 35, 38, 0.58);
+}
+
+@media (max-width: 640px) {
+  .precision-task-card {
+    width: min(175px, calc(50vw - 16px));
+    min-width: 140px;
+    max-width: 175px;
+    border-radius: 14px;
+  }
+
+  .precision-task-card__surface {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .precision-task-card__header {
+    min-height: 24px;
+  }
+
+  .precision-task-card__eyebrow {
+    font-size: 8px;
+  }
+
+  .precision-task-card__energy-label,
+  .precision-task-card__energy-value {
+    font-size: 9px;
+  }
 }
