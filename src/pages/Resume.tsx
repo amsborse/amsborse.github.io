@@ -376,6 +376,16 @@ body{background:white !important;color:black !important}
                     Portfolio
                   </a>
                 </div>
+                <div
+                  style={{
+                    fontSize: "9.5pt",
+                    fontStyle: "italic",
+                    color: "#333333",
+                    marginTop: "3px",
+                  }}
+                >
+                  "The life you live is shaped by the choices you stop questioning."
+                </div>
               </div>
 
               <div className="section" style={{ marginTop: "5px" }}>
@@ -833,6 +843,9 @@ body{background:white !important;color:black !important}
                     Substack
                   </a>
                 </div>
+                <p className="mt-2.5 font-mono italic text-xs text-[var(--text-light)]">
+                  "The life you live is shaped by the choices you stop questioning."
+                </p>
               </div>
 
               {/* Stats bar with active animations */}
