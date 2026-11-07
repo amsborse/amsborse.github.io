@@ -87,7 +87,11 @@ export default function About() {
           motif="about"
           eyebrow="About"
           title={about.pageTitle}
-          lede={profile.artistYogiIdentity ? <p className="italic">{profile.artistYogiIdentity}</p> : null}
+          lede={
+            profile.artistYogiIdentity ? (
+              <p className="italic">{profile.artistYogiIdentity}</p>
+            ) : null
+          }
         />
 
         <div className="space-y-6">

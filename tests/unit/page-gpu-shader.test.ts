@@ -11,13 +11,37 @@ describe("page stage tone shader", () => {
   });
 
   // A WGSL reserved word used as a name fails shader parsing (Writing used `active`).
-  const reserved = ["active", "common", "filter", "handle", "input", "output", "resource", "self", "sample", "target", "texture", "unless", "using", "precision", "module", "new", "null", "of", "static", "this"];
+  const reserved = [
+    "active",
+    "common",
+    "filter",
+    "handle",
+    "input",
+    "output",
+    "resource",
+    "self",
+    "sample",
+    "target",
+    "texture",
+    "unless",
+    "using",
+    "precision",
+    "module",
+    "new",
+    "null",
+    "of",
+    "static",
+    "this",
+  ];
   it.each(Object.entries(motifs))("%s motif declares no WGSL reserved names", (_, code) => {
     const names = [...code.matchAll(/\b(?:let|var)\s+(\w+)/g)].map((m) => m[1]);
     expect(names.filter((n) => reserved.includes(n!))).toEqual([]);
   });
   // WGSL pow(x, y) is undefined for x < 0: Writing produced NaN pixels that bloom smeared into black blocks.
-  it.each(Object.entries(motifs))("%s motif avoids pow() on possibly negative values", (_, code) => {
-    expect(code).not.toMatch(/(^|[^\w])pow\(/);
-  });
+  it.each(Object.entries(motifs))(
+    "%s motif avoids pow() on possibly negative values",
+    (_, code) => {
+      expect(code).not.toMatch(/(^|[^\w])pow\(/);
+    }
+  );
 });
