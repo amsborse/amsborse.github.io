@@ -99,4 +99,20 @@ export const showcase: ShowcaseProject[] = [
     ],
     links: [{ label: "Code", href: "https://github.com/amsborse/KarmaSimulator" }],
   },
+  {
+    id: "careeros",
+    title: "CareerOS",
+    summary:
+      "An AI-powered career operating system: job-application autofill, résumé and cover-letter tooling, and application tracking in one workspace.",
+    tags: ["Next.js", "Chrome MV3", "FastAPI", "Python"],
+    images: [
+      projectImage(
+        "careeros-landing.webp",
+        'CareerOS landing page with the headline "Your career, orchestrated" and links to the application tracker and ApplyPilot.',
+        1440,
+        850
+      ),
+    ],
+    links: [{ label: "Code", href: "https://github.com/Oblivion-Labs-Dev/CareerOS" }],
+  },
 ];
