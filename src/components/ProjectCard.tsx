@@ -135,6 +135,11 @@ export function ProjectCard({
       renderPortalVisual={() => renderProjectVisual(project.id)}
       footer={
         <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {project.links.length === 0 ? (
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-ink-muted)]">
+              Private repository
+            </span>
+          ) : null}
           {project.links.map((link) => (
             <a
               key={link.label}

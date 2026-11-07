@@ -25,7 +25,7 @@ export const projects: Project[] = [
     stack: ["TypeScript", "React", "Node.js", "Kafka", "Redis", "Neo4j", "WebSockets"],
     impact:
       "Turns abstract design patterns into runnable simulations teams can stress-test before production.",
-    links: [{ label: "GitHub", href: "https://github.com/amsborse" }],
+    links: [],
   },
   {
     id: "financeos",
@@ -39,21 +39,24 @@ export const projects: Project[] = [
     stack: ["TypeScript", "React", "Node.js", "LLM APIs", "Progressive Web App"],
     impact:
       "Transforms raw transactions into explainable insights with a hybrid deterministic + LLM pipeline.",
-    links: [{ label: "GitHub", href: "https://github.com/amsborse" }],
+    links: [
+      { label: "Live", href: "https://finance-os-lilac.vercel.app" },
+      { label: "GitHub", href: "https://github.com/Oblivion-Labs-Dev/FinanceOS" },
+    ],
   },
   {
-    id: "orbit",
-    title: "Orbit",
+    id: "careeros",
+    title: "CareerOS",
     featured: true,
-    category: "product",
+    category: "ai",
     summary:
-      "Offline-first life-management platform for organizing tasks, habits, recurring routines, and workload insights.",
+      "AI-powered career operating system. Its first module, ApplyPilot, is a Chrome extension and backend for job-application autofill, résumé attachment, cover letters and application tracking.",
     problem:
-      "Productivity apps break down without connectivity and rarely surface meaningful patterns across habits and workload.",
-    stack: ["TypeScript", "React", "Offline-First Architecture", "PWA", "Vitest", "Playwright"],
+      "Every job application repeats the same forms; tools that autofill them rarely learn new fields or keep a record of what was sent.",
+    stack: ["TypeScript", "Next.js", "Chrome MV3", "FastAPI", "Python", "Zod"],
     impact:
-      "Delivers reliable task and habit tracking with sync when online and actionable workload insights.",
-    links: [{ label: "GitHub", href: "https://github.com/amsborse" }],
+      "Learns unknown form fields over time and keeps applications, résumés and cover letters in one dashboard.",
+    links: [{ label: "GitHub", href: "https://github.com/Oblivion-Labs-Dev/CareerOS" }],
   },
   {
     id: "arsenal-tooling",
@@ -67,7 +70,7 @@ export const projects: Project[] = [
     stack: ["TypeScript", "Node.js", "Monorepo", "CLI", "Workflow Automation"],
     impact:
       "Standardizes scaffolding and agent context so new projects start with structure, not boilerplate hunting.",
-    links: [{ label: "GitHub", href: "https://github.com/amsborse" }],
+    links: [],
   },
   {
     id: "ad-infinitum",
@@ -81,6 +84,6 @@ export const projects: Project[] = [
     stack: ["C", "Linux Kernel", "F2FS", "Benchmarking", "Performance Analysis"],
     impact:
       "Characterized GC behavior under realistic workloads to inform latency and wear trade-offs.",
-    links: [{ label: "GitHub", href: "https://github.com/amsborse" }],
+    links: [{ label: "GitHub", href: "https://github.com/amsborse/Ad-infinitum" }],
   },
 ];

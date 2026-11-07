@@ -54,20 +54,22 @@ export default function ProjectsPage() {
           >
             All
           </button>
-          {projectCategories.map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => setFilter(c.id)}
-              className={`px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded ${
-                filter === c.id
-                  ? "border-b border-[var(--color-accent)]/45 text-[var(--color-ink)]"
-                  : "border-b border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
+          {projectCategories
+            .filter((c) => projects.some((p) => p.category === c.id))
+            .map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setFilter(c.id)}
+                className={`px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded ${
+                  filter === c.id
+                    ? "border-b border-[var(--color-accent)]/45 text-[var(--color-ink)]"
+                    : "border-b border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
           <button
             type="button"
             onClick={() => setFilter("labs")}

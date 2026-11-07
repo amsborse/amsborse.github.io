@@ -22,3 +22,14 @@ describe("site structure", () => {
     }
   });
 });
+
+describe("project cards", () => {
+  it("never link to the bare GitHub profile instead of a real repository", async () => {
+    const { projects } = await import("@/data");
+    for (const project of projects) {
+      for (const link of project.links) {
+        expect(link.href, project.id).not.toMatch(/^https:\/\/github\.com\/[^/]+\/?$/);
+      }
+    }
+  });
+});
