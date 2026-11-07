@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/Reveal";
+import { SutraThread } from "@/components/SutraThread";
 import { showcase } from "@/data";
 import { useTheme } from "@/theme/ThemeProvider";
 
@@ -84,9 +85,9 @@ export function SelectedWork({ embedded = false }: { embedded?: boolean }) {
 
       {sutra ? (
         <Reveal className="selected-work__feature">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.65fr)_minmax(15rem,0.75fr)] lg:items-stretch">
-            <ShowcaseImage image={sutra.images[0]} />
-            <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
+          <div className="grid gap-4">
+            <SutraThread />
+            <div className="grid grid-cols-2 gap-4">
               {sutra.images.slice(1).map((image) => (
                 <ShowcaseImage key={image.src} image={image} />
               ))}

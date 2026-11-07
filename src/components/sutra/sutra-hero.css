@@ -1,0 +1,483 @@
+/* Copied from Sutra apps/web/src/home.css (hero section, lines 366-805) and scoped under
+   .sutra-embed so its generic class names stay inside the embed. Do not edit by hand beyond
+   the scoping header; re-copy from Sutra instead. */
+@font-face {
+  font-family: "Gambetta";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/gambetta-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Gambetta";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/gambetta-400-italic.woff2") format("woff2");
+}
+.sutra-embed {
+  color-scheme: dark;
+  --editorial: "Gambetta", Georgia, "Times New Roman", serif;
+  --bg: #0e1618;
+  --fg: #eeeade;
+  --muted: #b2b9b5;
+  --line: #344044;
+  --accent: #e3be80;
+  --accent-fg: #211b12;
+  --gold-soft: rgba(222, 181, 111, 0.1);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    vertical-align: middle;
+  }
+  .home-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--journey-base);
+    color: var(--fg);
+  }
+  .home-hero .hero-scene,
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+  .home-hero .hero-scene {
+    object-fit: cover;
+    object-position: 30% center;
+    opacity: var(--journey-photo);
+  }
+  .hero-shade {
+    z-index: -1;
+    background:
+      linear-gradient(90deg, var(--journey-base), transparent 95%),
+      linear-gradient(0deg, var(--journey-base) 4%, transparent 85%);
+  }
+  .hero-copy {
+    padding: 1.6rem 0 1.4rem 2.5rem;
+    min-width: 0;
+  }
+  .hero-copy .eyebrow {
+    color: var(--accent);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    margin: 0;
+  }
+  .hero-copy .eyebrow span {
+    font-size: 1.2rem;
+    margin-right: 0.6rem;
+  }
+  .hero-greeting {
+    color: var(--muted);
+    margin: 1rem 0 0.4rem;
+    font-size: 0.85rem;
+  }
+  .hero-copy h2 {
+    margin: 0;
+    font: 400 clamp(2.3rem, 3.3vw, 3.7rem)/0.98 var(--editorial);
+    letter-spacing: -0.045em;
+  }
+  .hero-copy h2 em {
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .hero-lede {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0.9rem 0 1.1rem;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: #e3be80;
+    color: #211b12;
+    border: 1px solid #e3be80;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    min-height: 44px;
+  }
+  .home-hero .hero-cta:hover {
+    background: #f0cf99;
+  }
+  .home-hero :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  @media (max-width: 55rem) {
+    .hero-copy h2 {
+      font-size: 2.9rem;
+    }
+  }
+  @media (max-width: 38rem) {
+    .home-hero {
+      grid-template-columns: 1fr;
+    }
+    .hero-copy {
+      padding: 1.1rem 1.25rem 0;
+    }
+    .hero-copy .eyebrow {
+      font-size: 0.52rem;
+      letter-spacing: 0.09em;
+    }
+    .hero-greeting {
+      margin-top: 0.6rem;
+    }
+    .hero-copy h2 {
+      font-size: clamp(2.3rem, 10vw, 3rem);
+    }
+    .hero-lede {
+      font-size: 0.8rem;
+      margin: 0.6rem 0 0.8rem;
+    }
+  }
+
+  /* The parent map keeps its dark stage in both shell themes: light is drawn over it (#402). */
+  .home-hero {
+    --journey-base: #0b1517;
+    --journey-photo: 0.4;
+    --fg: #f6eddc;
+    --muted: #c3cbc2;
+    --accent: #e3be80;
+    --line: #3b4843;
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+  .hero-shade {
+    background:
+      radial-gradient(ellipse 42% 60% at 62% 45%, #0000 0%, #070d0f8c 100%),
+      linear-gradient(90deg, var(--journey-base) 8%, transparent 70%),
+      linear-gradient(0deg, var(--journey-base) 4%, transparent 60%);
+  }
+  /* The GPU canvas spans the hero so incoming light can cross it; content stays above it. */
+  .hero-gpu {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .hero-intelligence {
+    margin: 0;
+    padding: 0.9rem 1.25rem 0.8rem 0.5rem;
+    min-width: 0;
+  }
+  .hero-intelligence[data-renderer="gpu"] .hero-gpu {
+    opacity: 1;
+  }
+  /* The static hero is the immediate baseline (#perf-progressive-first-paint): it stays visible
+   through "pending" (WebGPU's adapter/device/pipeline setup, up to a few seconds) and fades out
+   only once the GPU scene is actually ready to draw, so the page never waits on WebGPU to show a
+   useful hero and the swap reads as one crossfade rather than an empty gap. */
+  .hero-intelligence[data-renderer="gpu"] .map-static {
+    opacity: 0;
+  }
+  .thread-art {
+    position: relative;
+    width: 100%;
+  }
+  .map-canvas {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 640 / 290;
+  }
+  .map-static * {
+    vector-effect: non-scaling-stroke;
+  }
+  .map-static {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.6s ease;
+  }
+  .journey-modules {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .journey-modules li {
+    position: absolute;
+    left: 70.6%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  .journey-modules button,
+  .journey-modules a,
+  .module-quiet {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.55rem;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 0.6rem;
+    padding: 0.3rem 0.45rem 0.3rem 0;
+    background: transparent;
+    color: var(--muted);
+    text-align: left;
+    text-decoration: none;
+    font: inherit;
+  }
+  .module-symbol {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    /* The size of the 3D emblem the GPU scene draws here, so nothing moves when it arrives. */
+    width: 3.3rem;
+    height: 3.3rem;
+    border: 1px solid #5e6b61;
+    border-radius: 50%;
+    color: #aeb5a6;
+    background: radial-gradient(circle at 35% 30%, #22332f, #0d1719 70%);
+  }
+  .module-symbol .icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .map-smriti[data-active="true"] .module-symbol {
+    --glow: #79e0cd;
+  }
+  [data-active="true"] .module-symbol {
+    color: var(--glow, #f3c77c);
+    border-color: color-mix(in srgb, var(--glow, #f3c77c) 70%, transparent);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--glow, #f3c77c) 10%, transparent),
+      0 0 22px color-mix(in srgb, var(--glow, #f3c77c) 28%, transparent);
+  }
+  .map-kriya .module-symbol {
+    border-style: dashed;
+  }
+  /* With the GPU scene, each symbol's space holds a 3D emblem the scene draws behind it (#462). */
+  .hero-intelligence[data-renderer="gpu"] .module-symbol {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+  }
+  .hero-intelligence[data-renderer="gpu"] .module-symbol .icon {
+    opacity: 0;
+  }
+  /* A selected label keeps its panel clear of the emblem, which shows the selection itself. */
+  .hero-intelligence[data-renderer="gpu"]
+    .journey-modules
+    :is(button, a):is(:hover, [aria-pressed="true"]),
+  .hero-intelligence[data-renderer="gpu"] .journey-modules [data-active="true"] > :is(a, button) {
+    border-color: transparent;
+    background: linear-gradient(90deg, transparent 3.6rem, #0d1a1bcc 3.6rem);
+  }
+  .module-name {
+    display: flex;
+    gap: 0.45rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    line-height: 1.2;
+  }
+  .module-name strong {
+    font: 400 1rem/1.15 var(--editorial);
+    color: var(--fg);
+  }
+  .module-name > span {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  .journey-modules small {
+    font-size: 0.62rem;
+    line-height: 1.35;
+    min-height: 1.35em;
+    color: var(--muted);
+  }
+  [data-active="true"] small {
+    color: var(--accent);
+  }
+  .journey-modules button:hover,
+  .journey-modules a:hover,
+  .journey-modules button[aria-pressed="true"],
+  .journey-modules [data-active="true"] > a,
+  .journey-modules [data-active="true"] > button {
+    background: #0d1a1bcc;
+    border-color: #a58b5840;
+  }
+  .hero-intelligence figcaption {
+    color: var(--muted);
+    font: italic 0.85rem/1.5 var(--editorial);
+    text-align: right;
+    margin: 0.2rem 0 0;
+    font-size: 0.78rem;
+  }
+  .hero-intelligence .journey-example {
+    text-align: left;
+    font-style: normal;
+    border-top: 1px solid #75806a44;
+    padding: 0.55rem 0.25rem 0;
+    height: 4.6rem;
+  }
+  .journey-example > span {
+    color: var(--accent);
+    font:
+      0.62rem/1.5 "Switzer",
+      system-ui,
+      sans-serif;
+    letter-spacing: 0.05em;
+  }
+  .journey-example p {
+    font: 0.88rem/1.45 var(--editorial);
+    margin: 0.3rem 0 0;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+  }
+  .hero-actions > a {
+    color: var(--fg);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    text-underline-offset: 0.3em;
+  }
+  .landing .home-hero {
+    margin: 0;
+  }
+  .landing.sutra-landing {
+    max-width: none;
+    padding: 0 0 4rem;
+    gap: 3.5rem;
+  }
+  .sutra-landing-hero .hero-copy h2 {
+    font-size: clamp(2.4rem, 3.3vw, 3.6rem);
+    line-height: 1.04;
+  }
+  .landing-invitation {
+    grid-column: 1 / -1;
+    padding: 0.8rem 2.5rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: #102023e8;
+  }
+  .landing-invitation p {
+    font-size: 0.85rem;
+    margin: 0;
+    max-width: 34rem;
+    color: var(--muted);
+  }
+  .landing-invitation p > span {
+    color: var(--accent);
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+  .landing-invitation strong {
+    font-weight: 500;
+    color: var(--fg);
+  }
+  .landing-invitation > span {
+    color: var(--muted);
+    font-size: 0.72rem;
+    max-width: 12rem;
+  }
+  @media (max-width: 55rem) {
+    .home-hero {
+      grid-template-columns: 1fr;
+    }
+    .hero-copy {
+      padding: 1.3rem 1.5rem 0;
+    }
+    .hero-intelligence {
+      padding: 0.3rem 1.5rem 0.8rem;
+    }
+    .landing-invitation {
+      padding: 0.8rem 1.2rem;
+    }
+    .sutra-landing-hero .hero-copy h2 {
+      font-size: 2.7rem;
+    }
+  }
+  @media (max-width: 38rem) {
+    .hero-intelligence {
+      padding: 0.2rem 1rem 0.8rem;
+    }
+    /* A little taller on phones so the three labels keep clear of each other. */
+    .map-canvas {
+      aspect-ratio: 640 / 360;
+    }
+    .journey-modules li {
+      left: 62%;
+    }
+    .module-symbol {
+      width: 2.3rem;
+      height: 2.3rem;
+    }
+    .module-symbol .icon {
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+    .journey-modules button,
+    .journey-modules a,
+    .module-quiet {
+      column-gap: 0.4rem;
+      padding: 0.2rem 0.2rem 0.2rem 0;
+    }
+    .module-name strong {
+      font-size: 0.85rem;
+    }
+    .module-name > span {
+      display: none;
+    }
+    .journey-modules small {
+      font-size: 0.56rem;
+      line-height: 1.2;
+    }
+    .hero-intelligence figcaption {
+      font-size: 0.72rem;
+      text-align: left;
+    }
+    .hero-intelligence .journey-example {
+      height: 5.4rem;
+    }
+    .journey-example p {
+      font-size: 0.82rem;
+    }
+    .landing-invitation {
+      display: block;
+      font-size: 0.8rem;
+    }
+    .landing-invitation > span {
+      display: block;
+      margin-top: 0.35rem;
+      max-width: none;
+    }
+    .sutra-landing-hero .hero-copy h2 {
+      font-size: clamp(2.2rem, 9.5vw, 2.9rem);
+    }
+    .hero-actions {
+      flex-wrap: nowrap;
+      gap: 1.1rem;
+    }
+  }
+  /* Portfolio embed: no outer margin. */
+  .home-hero {
+    margin: 0;
+  }
+}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Seo } from "@/components/Seo";
 import { SelectedWork } from "@/components/SelectedWork";
 import { experience } from "@/data";
@@ -27,6 +27,11 @@ const proofPoints = [
 ].filter((point): point is { value: string; label: string } => point.value !== null);
 
 export default function Home() {
+  const prefersReducedMotion =
+    useReducedMotion() ?? window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const creativityWords =
+    "Creativity is a choice to see the world differently and create your own reality".split(" ");
+
   return (
     <>
       <Seo
@@ -99,12 +104,32 @@ export default function Home() {
                   Resume
                 </Link>
               </div>
-
-              <p className="mt-6 max-w-md font-mono text-[0.65rem] uppercase leading-relaxed tracking-[0.12em] text-[var(--color-ink-muted)] sm:text-xs">
-                “Creativity is a choice to see the world differently and create your own reality”
-              </p>
             </div>
           </motion.div>
+        </section>
+
+        <section
+          aria-label="A creative point of view"
+          className="article-shell flex min-h-[68svh] max-w-5xl items-center justify-center py-16 sm:py-20"
+        >
+          <blockquote className="max-w-4xl text-center font-display text-[clamp(2.05rem,5.2vw,4.4rem)] leading-[1.12] tracking-[-0.03em] text-[var(--color-ink)]">
+            {creativityWords.map((word, index) => (
+              <motion.span
+                key={`${word}-${index}`}
+                initial={prefersReducedMotion ? false : { color: "var(--color-ink-muted)" }}
+                whileInView={prefersReducedMotion ? undefined : { color: "var(--color-ink)" }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : { duration: 0.62, delay: index * 0.055, ease: [0.22, 1, 0.36, 1] }
+                }
+              >
+                {word}
+                {index < creativityWords.length - 1 ? " " : ""}
+              </motion.span>
+            ))}
+          </blockquote>
         </section>
 
         <div id="work" className="scroll-mt-24">

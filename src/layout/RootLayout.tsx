@@ -30,6 +30,7 @@ export function RootLayout() {
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
   const lenisRef = useRef<Lenis | null>(null);
+  const lastPathRef = useRef(location.pathname);
 
   const isHome = location.pathname === "/";
   const isImmersive = isImmersiveSandbox(location.pathname);
@@ -47,6 +48,7 @@ export function RootLayout() {
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
+      anchors: { offset: -80 },
     });
 
     lenisRef.current = lenis;
@@ -77,12 +79,18 @@ export function RootLayout() {
   }, [disableGlobalEffects, prefersReducedMotion]);
 
   useEffect(() => {
+    const samePage = lastPathRef.current === location.pathname;
+    lastPathRef.current = location.pathname;
+    // In-page anchor clicks are already glided by Lenis; a second scrollTo here
+    // would restart the motion mid-way.
+    if (samePage && location.hash && lenisRef.current) return;
+
     if (location.hash) {
       const id = location.hash.replace("#", "");
       const element = document.getElementById(id);
       if (element) {
         if (lenisRef.current) {
-          lenisRef.current.scrollTo(element, { immediate: true });
+          lenisRef.current.scrollTo(element);
         } else {
           element.scrollIntoView();
         }
