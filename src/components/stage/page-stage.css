@@ -1,0 +1,157 @@
+/*
+ * Cinematic page stage: a lit dark stage (like the Sutra hero) in both themes. It breaks out of the
+ * page's reading column to one shared width so every inner page opens with the same frame; copy sits
+ * left, the scene is weighted right. Dark mode feathers the edges into the page; light mode gives it
+ * rounded corners and a soft paper shadow instead.
+ */
+.page-stage {
+  --stage-w: min(72rem, calc(100vw - 2rem));
+  position: relative;
+  isolation: isolate;
+  width: var(--stage-w);
+  margin: 0 calc(50% - var(--stage-w) / 2) 3.5rem;
+  min-height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: #f4f1e9;
+  background:
+    radial-gradient(60% 90% at 72% 55%, rgba(30, 78, 72, 0.42), transparent 70%),
+    radial-gradient(40% 60% at 70% 80%, rgba(120, 84, 34, 0.16), transparent 70%),
+    radial-gradient(70% 120% at 10% 40%, rgba(12, 22, 30, 0.9), transparent 75%),
+    linear-gradient(180deg, #0a1216, #071013 60%, #0a0f0f);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent),
+    linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent),
+    linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
+  mask-composite: intersect;
+}
+.page-stage__gpu,
+.page-stage__static {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.page-stage__gpu {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.page-stage__static {
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 1.2s ease;
+}
+.page-stage[data-renderer="gpu"] .page-stage__gpu {
+  opacity: 1;
+}
+.page-stage[data-renderer="gpu"] .page-stage__static {
+  opacity: 0;
+}
+.page-stage__copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 34rem;
+  padding: 3.5rem clamp(1.5rem, 5vw, 4.5rem);
+  pointer-events: none;
+}
+.page-stage__copy a {
+  pointer-events: auto;
+}
+.page-stage__copy h1 {
+  margin: 0.85rem 0 0;
+  font: 600 clamp(2.5rem, 4.6vw, 4.1rem) / 1.04 var(--font-display, Georgia, serif);
+  letter-spacing: -0.035em;
+  color: #fbfaf6;
+  text-wrap: balance;
+}
+.page-stage__eyebrow {
+  margin: 0;
+  color: #e3c07c;
+  font:
+    500 0.7rem/1.5 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.page-stage__lede {
+  max-width: 30rem;
+  margin-top: 1.15rem;
+  color: #dfe6e3;
+  font: 400 1.05rem/1.7 var(--font-sans, system-ui, sans-serif);
+  text-wrap: pretty;
+}
+.page-stage__lede a,
+.page-stage__links a {
+  color: #f3d08f;
+  text-decoration: underline;
+  text-decoration-color: rgba(243, 208, 143, 0.45);
+  text-underline-offset: 4px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+.page-stage__lede a:hover,
+.page-stage__links a:hover {
+  color: #fff0cb;
+  text-decoration-color: currentColor;
+}
+.page-stage__lede a:focus-visible,
+.page-stage__links a:focus-visible {
+  outline: 2px solid #f3d08f;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.page-stage__links {
+  margin-top: 1.35rem;
+}
+
+/* Light theme: the stage stays a lit dark stage, set on the paper like a print, not feathered. */
+[data-theme="light"] .page-stage {
+  -webkit-mask-image: none;
+  mask-image: none;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 2px 6px rgba(60, 45, 22, 0.08),
+    0 22px 50px -12px rgba(60, 45, 22, 0.28);
+}
+
+@media (max-width: 767px) {
+  .page-stage {
+    min-height: 340px;
+    align-items: flex-end;
+    border-radius: 1.1rem;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  /* Scrim under the copy so text stays crisp over the scene. */
+  .page-stage__copy {
+    padding: 7rem 1.35rem 2rem;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(6, 11, 13, 0.82) 45%,
+      rgba(6, 11, 13, 0.92)
+    );
+  }
+  .page-stage__copy h1 {
+    font-size: 2.35rem;
+  }
+  .page-stage__lede {
+    font-size: 0.97rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-stage__gpu,
+  .page-stage__static {
+    transition: none;
+  }
+}

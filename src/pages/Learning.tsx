@@ -394,6 +394,7 @@ export default function Learning() {
       }}
       eyebrow="CS Theory & Interactive Sandboxes"
       title="Learning Lab"
+      motif="learning"
       description="Explore complex concepts made tangible through interactive simulations. Move values, tweak parameters, and analyze real-time telemetry."
     >
       <div className={HUB_CARD_GRID}>

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ReactNode } from "react";
 import { Seo } from "@/components/Seo";
 import { HUB_PAGE_CONTAINER } from "@/components/InteractiveCard";
+import { PageStage, type PageMotif } from "@/components/stage/PageStage";
 
 type BlobVariant = "indigo" | "blue" | "purple";
 
@@ -29,6 +30,7 @@ type LearningHubLayoutProps = {
   blobVariant?: BlobVariant;
   toolbar?: ReactNode;
   headerMb?: string;
+  motif?: PageMotif;
   children: ReactNode;
 };
 
@@ -41,6 +43,7 @@ export function LearningHubLayout({
   blobVariant = "indigo",
   toolbar,
   headerMb = "mb-12",
+  motif,
   children,
 }: LearningHubLayoutProps) {
   const blobs = BLOB_CLASSES[blobVariant];
@@ -67,17 +70,21 @@ export function LearningHubLayout({
             </Link>
           ) : null}
 
-          <header className={`text-center ${headerMb}`}>
-            <p className="hub-header-enter text-[0.6875rem] font-mono tracking-[0.25em] uppercase text-[var(--color-gold)] mb-3">
-              {eyebrow}
-            </p>
-            <h1 className="hub-header-enter hub-header-enter--1 hub-title text-[2.25rem] sm:text-[3.25rem]">
-              {title}
-            </h1>
-            <p className="hub-header-enter hub-header-enter--2 mt-4 text-sm max-w-xl mx-auto text-[var(--color-body)] leading-relaxed">
-              {description}
-            </p>
-          </header>
+          {motif ? (
+            <PageStage motif={motif} eyebrow={eyebrow} title={title} lede={description} />
+          ) : (
+            <header className={`text-center ${headerMb}`}>
+              <p className="hub-header-enter text-[0.6875rem] font-mono tracking-[0.25em] uppercase text-[var(--color-gold)] mb-3">
+                {eyebrow}
+              </p>
+              <h1 className="hub-header-enter hub-header-enter--1 hub-title text-[2.25rem] sm:text-[3.25rem]">
+                {title}
+              </h1>
+              <p className="hub-header-enter hub-header-enter--2 mt-4 text-sm max-w-xl mx-auto text-[var(--color-body)] leading-relaxed">
+                {description}
+              </p>
+            </header>
+          )}
 
           {toolbar}
 

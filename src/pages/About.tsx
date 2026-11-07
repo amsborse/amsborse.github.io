@@ -1,4 +1,5 @@
 import { Seo } from "@/components/Seo";
+import { PageStage } from "@/components/stage/PageStage";
 import { about, contactPage, links, profile, site } from "@/data";
 
 function ValuesSection({ values }: { values: readonly string[] }) {
@@ -82,19 +83,14 @@ export default function About() {
       <Seo title="About" description={about.seoDescription} path="/about" />
 
       <div className="article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
-        <p className="section-label font-mono uppercase tracking-widest text-xs text-[var(--color-ink-muted)]">
-          About
-        </p>
-        <h1 className="mt-4 font-display text-[2.25rem] font-semibold tracking-tight text-[var(--color-ink)] sm:text-[2.65rem]">
-          {about.pageTitle}
-        </h1>
-        {profile.artistYogiIdentity ? (
-          <p className="mt-6 text-lg italic leading-relaxed text-[var(--color-ink-muted)] border-l-2 border-[var(--color-border-strong)] pl-4">
-            {profile.artistYogiIdentity}
-          </p>
-        ) : null}
+        <PageStage
+          motif="about"
+          eyebrow="About"
+          title={about.pageTitle}
+          lede={profile.artistYogiIdentity ? <p className="italic">{profile.artistYogiIdentity}</p> : null}
+        />
 
-        <div className="mt-8 space-y-6">
+        <div className="space-y-6">
           {about.intro.map((paragraph, i) => (
             <p key={i} className="text-lg leading-relaxed text-[var(--color-body)] font-sans">
               {paragraph}

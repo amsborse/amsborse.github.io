@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
+import { PageStage } from "@/components/stage/PageStage";
 import { HubInteractiveCard } from "@/components/InteractiveCard";
 import { getAllPosts, getFeaturedPosts } from "@/utils/loadArticles";
 import type { ParsedPost } from "@/utils/markdown";
@@ -54,17 +55,12 @@ export default function WritingPage() {
       />
 
       <div className="writing-index writing-index--editorial article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
-        <Reveal>
-          <p className="section-label">Writing</p>
-          <h1 className="mt-5 font-display text-[2.35rem] font-semibold tracking-[-0.03em] text-[var(--color-ink)] sm:text-[2.75rem]">
-            Essays
-          </h1>
-          <p className="mt-7 max-w-xl text-[1.0625rem] leading-[1.78] text-[var(--color-body)]">
-            Notes on building systems that hold up — reliability, API design, observability, and why
-            writing things down is part of the engineering.
-          </p>
-        </Reveal>
-
+        <PageStage
+          motif="writing"
+          eyebrow="Writing"
+          title="Essays"
+          lede="Notes on building systems that hold up — reliability, API design, observability, and why writing things down is part of the engineering."
+        />
         {loading ? (
           <p className="mt-16 text-sm text-[var(--color-ink-muted)]">Loading essays…</p>
         ) : (
