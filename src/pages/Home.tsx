@@ -51,7 +51,7 @@ export default function Home() {
           >
             <div>
               <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-[var(--color-accent)] sm:text-sm">
-                Engineer · Maker · Learner
+                Engineer · Builder · Writer · Creative
               </p>
               <h1 className="theme-heading max-w-[9ch] font-display text-[clamp(3.6rem,10vw,7.75rem)] font-semibold leading-[0.88] tracking-[-0.045em]">
                 Akshay

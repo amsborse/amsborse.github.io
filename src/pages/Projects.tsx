@@ -5,6 +5,7 @@ import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Seo } from "@/components/Seo";
 import { SelectedWork } from "@/components/SelectedWork";
+import { EarlierWork } from "@/components/EarlierWork";
 import { projectCategories, projects, type ProjectCategory } from "@/data";
 import { ARSENAL_HUB_SECTIONS } from "@/data/arsenalTopics";
 
@@ -129,6 +130,8 @@ export default function ProjectsPage() {
             </div>
           </>
         ) : null}
+
+        {filter === "all" ? <EarlierWork /> : null}
       </div>
     </>
   );

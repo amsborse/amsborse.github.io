@@ -14,6 +14,7 @@ export type Facet = {
 export const facetsIntro = {
   label: "More than the job title",
   title: "Engineering is one part of the story.",
+  note: "The rest shows up in the work — each of these links to it.",
 };
 
 export const facets: readonly Facet[] = [
@@ -26,18 +27,34 @@ export const facets: readonly Facet[] = [
     cta: "Experience & résumé",
   },
   {
-    id: "maker",
-    label: "Maker",
-    title: "Calm, crafted software",
-    body: "Products I design and build on my own time — Sutra with its Kriya and Artha workspaces, and an ambient home screen for the TV.",
+    id: "builder",
+    label: "Builder",
+    title: "Products, idea to ship",
+    body: "Sutra, FinanceOS, CareerOS and LeetDesign — products I design, build and run end to end on my own time.",
     to: "/projects",
     cta: "Projects",
+  },
+  {
+    id: "writer",
+    label: "Writer",
+    title: "Writing things down",
+    body: "Essays on reliability, API design and observability, and Invisible Loops — a reading platform where ideas unfold visually.",
+    to: "/writing",
+    cta: "Writing",
+  },
+  {
+    id: "creative",
+    label: "Creative",
+    title: "Creativity is a choice",
+    body: "Living visuals and motion — Sutra’s WebGPU thread, particle and gravity labs, and an ambient home screen for the TV.",
+    to: "/arsenal",
+    cta: "Visual labs",
   },
   {
     id: "mind",
     label: "Mind",
     title: "How people think and change",
-    body: "Thought Loop Explorer, Karma Simulator and Invisible Loops — tools and essays about patterns, habits and choice.",
+    body: "Thought Loop Explorer and Karma Simulator — tools for seeing patterns, habits and choice.",
     to: "/projects",
     cta: "See the work",
   },

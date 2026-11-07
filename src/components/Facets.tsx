@@ -16,16 +16,19 @@ export function Facets() {
       >
         {facetsIntro.title}
       </h2>
+      <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--color-body)]">
+        {facetsIntro.note}
+      </p>
 
-      <ol className="mt-10 grid grid-cols-1 border-t border-[var(--color-border)] sm:grid-cols-2">
+      <ol className="mt-10 grid grid-cols-1 gap-x-10 border-t border-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
         {facets.map((facet, index) => (
           <motion.li
             key={facet.id}
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="border-b border-[var(--color-border)] sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:pr-10 sm:[&:nth-child(even)]:pl-10"
+            transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="border-b border-[var(--color-border)]"
           >
             <Link
               to={facet.to}
@@ -35,7 +38,7 @@ export function Facets() {
                 <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
                 <span className="text-[var(--color-accent)]">{facet.label}</span>
               </span>
-              <span className="font-display text-2xl font-semibold tracking-[-0.02em] text-[var(--color-ink)] sm:text-[1.75rem]">
+              <span className="font-display text-2xl font-semibold tracking-[-0.02em] text-[var(--color-ink)]">
                 {facet.title}
               </span>
               <span className="max-w-md text-base leading-relaxed text-[var(--color-body)]">

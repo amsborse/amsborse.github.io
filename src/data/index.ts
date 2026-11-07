@@ -6,6 +6,8 @@ export type { ArticleSlug } from "./articles";
 export { articleOrder } from "./articles";
 export { about } from "./about";
 export { facets, facetsIntro } from "./facets";
+export { earlierWork } from "./earlierWork";
+export type { EarlierWork } from "./earlierWork";
 export type { Facet } from "./facets";
 export { contactPage } from "./contact";
 export { contentPaths } from "./paths";

@@ -33,3 +33,20 @@ describe("project cards", () => {
     }
   });
 });
+
+describe("earlier work list", () => {
+  it("lists each repository once with a real year", async () => {
+    const { earlierWork } = await import("@/data");
+    const repos = earlierWork.map((w) => w.repo);
+    expect(new Set(repos).size).toBe(repos.length);
+    for (const w of earlierWork) expect(w.year).toBeGreaterThanOrEqual(2015);
+  });
+});
+
+describe("home facets", () => {
+  it("include writing, building and creativity", async () => {
+    const { facets } = await import("@/data");
+    const ids = facets.map((f) => f.id);
+    expect(ids).toEqual(expect.arrayContaining(["writer", "builder", "creative"]));
+  });
+});

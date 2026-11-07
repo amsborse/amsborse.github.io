@@ -25,7 +25,7 @@ export const projects: Project[] = [
     stack: ["TypeScript", "React", "Node.js", "Kafka", "Redis", "Neo4j", "WebSockets"],
     impact:
       "Turns abstract design patterns into runnable simulations teams can stress-test before production.",
-    links: [],
+    links: [{ label: "GitHub", href: "https://github.com/Oblivion-Labs-Dev/Leetdesign" }],
   },
   {
     id: "financeos",
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     stack: ["TypeScript", "Node.js", "Monorepo", "CLI", "Workflow Automation"],
     impact:
       "Standardizes scaffolding and agent context so new projects start with structure, not boilerplate hunting.",
-    links: [],
+    links: [{ label: "GitHub", href: "https://github.com/Oblivion-Labs-Dev/Arsenal" }],
   },
   {
     id: "ad-infinitum",
