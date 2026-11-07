@@ -4,6 +4,7 @@ import { LearningInteractiveCard } from "@/components/learning/LearningInteracti
 import { HUB_CARD_GRID } from "@/components/InteractiveCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Seo } from "@/components/Seo";
+import { SelectedWork } from "@/components/SelectedWork";
 import { projectCategories, projects, type ProjectCategory } from "@/data";
 import { ARSENAL_HUB_SECTIONS } from "@/data/arsenalTopics";
 
@@ -35,6 +36,10 @@ export default function ProjectsPage() {
           title="Projects & Systems Arsenal"
           subtitle="Software builds, product systems, interactive labs, and algorithm visualizers."
         />
+
+        <div className="mb-16">
+          <SelectedWork embedded />
+        </div>
 
         {/* Category Filters */}
         <div className="mt-10 flex flex-wrap gap-x-1 gap-y-2 border-b border-[var(--color-border)] pb-2">

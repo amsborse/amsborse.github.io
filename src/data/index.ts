@@ -13,6 +13,7 @@ export { links, socialNav } from "./socials";
 export { navItems } from "./navigation";
 export { profile } from "./profile";
 export { projectCategories, projects } from "./projects";
+export { showcase } from "./showcase";
 export { futureProjects } from "./futureProjects";
 export type { FutureProject } from "./futureProjects";
 export { resume } from "./resume";
@@ -23,6 +24,8 @@ export type {
   ProjectCategory,
   ProjectCategoryDef,
   SocialLinks,
+  ShowcaseImage,
+  ShowcaseProject,
 } from "./types";
 
 import { home } from "./home";

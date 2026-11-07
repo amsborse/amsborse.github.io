@@ -33,6 +33,24 @@ export type Project = {
 
 export type ProjectCategoryDef = { id: ProjectCategory; label: string };
 
+export type ShowcaseImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  lightSrc?: string;
+};
+
+export type ShowcaseProject = {
+  id: string;
+  title: string;
+  summary: string;
+  tags: string[];
+  images: ShowcaseImage[];
+  status?: string;
+  links: { label: string; href: string }[];
+};
+
 export type NavItem = { to: string; label: string };
 
 export type SocialLinks = {
