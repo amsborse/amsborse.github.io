@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/Reveal";
 import { Seo } from "@/components/Seo";
-import { HubInteractiveCard, HUB_CARD_GRID } from "@/components/InteractiveCard";
-import { contentPaths } from "@/data";
+import { HubInteractiveCard } from "@/components/InteractiveCard";
 import { getAllPosts, getFeaturedPosts } from "@/utils/loadArticles";
 import type { ParsedPost } from "@/utils/markdown";
 
@@ -61,15 +60,8 @@ export default function WritingPage() {
             Essays
           </h1>
           <p className="mt-7 max-w-xl text-[1.0625rem] leading-[1.78] text-[var(--color-body)]">
-            Long-form pieces meant to be read slowly. Markdown files live in{" "}
-            <code className="rounded border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-1.5 py-0.5 font-mono text-[0.85em] text-[var(--color-ink-soft)]">
-              {contentPaths.articlesFolder}
-            </code>
-            ; order is set in{" "}
-            <code className="rounded border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-1.5 py-0.5 font-mono text-[0.85em] text-[var(--color-ink-soft)]">
-              {contentPaths.articlesOrderFile}
-            </code>
-            .
+            Notes on building systems that hold up — reliability, API design, observability, and why
+            writing things down is part of the engineering.
           </p>
         </Reveal>
 
@@ -81,7 +73,7 @@ export default function WritingPage() {
               <h2 className="section-label">Featured</h2>
             </Reveal>
             <Reveal className="mt-8" stagger staggerMs={72}>
-              <ul className={HUB_CARD_GRID}>
+              <ul className="grid grid-cols-1 gap-5 sm:grid-cols-3 items-stretch">
                 {featured.map((post, i) => (
                   <FeaturedWritingCard key={post.slug} post={post} i={i} />
                 ))}

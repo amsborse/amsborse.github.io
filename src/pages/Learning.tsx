@@ -397,7 +397,10 @@ export default function Learning() {
       description="Explore complex concepts made tangible through interactive simulations. Move values, tweak parameters, and analyze real-time telemetry."
     >
       <div className={HUB_CARD_GRID}>
-        {TOPICS.map((topic, index) => (
+        {[
+          ...TOPICS.filter((t) => t.status === "active"),
+          ...TOPICS.filter((t) => t.status !== "active"),
+        ].map((topic, index) => (
           <LearningInteractiveCard key={topic.id} topic={topic} index={index} />
         ))}
       </div>

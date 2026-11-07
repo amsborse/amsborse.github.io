@@ -3,7 +3,7 @@ import { about, contactPage, links, profile, site } from "@/data";
 
 function ValuesSection({ values }: { values: readonly string[] }) {
   return (
-    <ul className="mt-8 flex flex-col gap-5">
+    <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
       {values.map((line) => {
         const colonIdx = line.indexOf(": ");
         const hasColon = colonIdx !== -1;
@@ -42,7 +42,7 @@ function SocialLinksList() {
             <span className="font-mono uppercase tracking-widest text-sm text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)] transition-colors">
               {row.label}
             </span>
-            <span className="text-xs text-[var(--color-ink-muted)]/70 font-sans">
+            <span className="text-xs text-[var(--color-ink-muted)] font-sans">
               — {row.description}
             </span>
           </div>

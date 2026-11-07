@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { Seo } from "@/components/Seo";
 import { SelectedWork } from "@/components/SelectedWork";
+import { Facets } from "@/components/Facets";
 import { experience } from "@/data";
 
 const microsoft = experience.find((entry) => entry.id === "microsoft");
@@ -50,7 +51,7 @@ export default function Home() {
           >
             <div>
               <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-[var(--color-accent)] sm:text-sm">
-                Senior Software Engineer at Microsoft
+                Engineer · Maker · Learner
               </p>
               <h1 className="theme-heading max-w-[9ch] font-display text-[clamp(3.6rem,10vw,7.75rem)] font-semibold leading-[0.88] tracking-[-0.045em]">
                 Akshay
@@ -61,8 +62,9 @@ export default function Home() {
 
             <div className="max-w-xl lg:pb-1">
               <p className="text-lg leading-[1.55] text-[var(--color-ink)] sm:text-xl sm:leading-[1.6]">
-                I build AI governance and risk-detection systems at enterprise scale — and premium
-                interfaces on the side.
+                At Microsoft I build AI governance and risk-detection systems at enterprise scale.
+                On my own time I make calm, crafted software — and stay a student of how people
+                think.
               </p>
 
               <ul
@@ -131,6 +133,8 @@ export default function Home() {
             ))}
           </blockquote>
         </section>
+
+        <Facets />
 
         <div id="work" className="scroll-mt-24">
           <SelectedWork />

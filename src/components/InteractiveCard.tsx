@@ -40,7 +40,7 @@ const SHELL_DENSITY: Record<
     border: "border-[var(--hub-card-border)] hover:border-[var(--hub-card-border-hover)]",
   },
   quad: {
-    height: "h-[320px]",
+    height: "",
     radius: "rounded-[20px]",
     shadow: "shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
     hoverShadow: "hover:shadow-[0_24px_64px_rgba(0,0,0,0.16),0_0_0_1px_rgba(2,132,199,0.14)]",
@@ -71,11 +71,7 @@ export function InteractiveCardShell({
   }
 
   const heightClass =
-    height === "fixed"
-      ? densityStyles.height
-      : density === "quad"
-        ? "min-h-[320px]"
-        : "min-h-[240px]";
+    height === "fixed" ? densityStyles.height : density === "quad" ? "" : "min-h-[240px]";
 
   const variantClass =
     viewStyle === "nodes"
