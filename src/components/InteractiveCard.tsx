@@ -198,10 +198,10 @@ export function InteractiveCardHeader({
   const label = statusLabel ?? STATUS_LABELS[status];
   const statusClass =
     status === "active" || status === "sandbox"
-      ? "bg-indigo-500/12 border-indigo-400/35 text-indigo-300"
+      ? "bg-indigo-500/12 border-indigo-400/35 text-indigo-300 [[data-theme=light]_&]:bg-indigo-600/10 [[data-theme=light]_&]:border-indigo-600/35 [[data-theme=light]_&]:text-indigo-700"
       : status === "coming-soon"
-        ? "bg-slate-500/10 border-slate-500/25 text-slate-500"
-        : "bg-white/5 border-white/10 text-slate-400";
+        ? "bg-slate-500/10 border-slate-500/25 text-slate-400 [[data-theme=light]_&]:text-stone-600"
+        : "bg-white/5 border-white/10 text-slate-400 [[data-theme=light]_&]:bg-stone-900/5 [[data-theme=light]_&]:border-stone-900/10 [[data-theme=light]_&]:text-stone-600";
 
   return (
     <div
@@ -283,7 +283,7 @@ export function InteractiveCardTags({
       {tags.map((tag) => (
         <span
           key={tag}
-          className={`font-mono text-slate-500 bg-white/[0.04] border border-white/[0.06] rounded ${
+          className={`font-mono text-slate-400 bg-white/[0.04] border border-white/[0.06] rounded [[data-theme=light]_&]:text-stone-600 [[data-theme=light]_&]:bg-stone-900/[0.04] [[data-theme=light]_&]:border-stone-900/10 ${
             density === "quad" ? "text-[7px] px-1 py-px" : "text-[8px] px-1.5 py-0.5"
           }`}
         >
@@ -312,7 +312,7 @@ export function InteractiveCardFooter({
   if (href && (status === "active" || status === "sandbox")) {
     return (
       <div
-        className={`flex items-center gap-1 font-mono uppercase tracking-wider text-indigo-300 group-hover:translate-x-1 transition-transform duration-300 ${
+        className={`flex items-center gap-1 font-mono uppercase tracking-wider text-indigo-300 [[data-theme=light]_&]:text-indigo-700 group-hover:translate-x-1 transition-transform duration-300 ${
           density === "quad" ? "text-[9px]" : "text-[10px]"
         }`}
       >
@@ -324,7 +324,7 @@ export function InteractiveCardFooter({
   if (status === "coming-soon") {
     return (
       <div
-        className={`font-mono uppercase tracking-wider text-slate-600 ${
+        className={`font-mono uppercase tracking-wider text-slate-400 [[data-theme=light]_&]:text-stone-600 ${
           density === "quad" ? "text-[9px]" : "text-[10px]"
         }`}
       >
