@@ -57,6 +57,12 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          // Vite's preload helper is needed by every lazy import(). Left alone, Rollup puts it
+          // inside the first manual chunk that uses it (three), so the entry imported all of
+          // three.js on every page. scripts/verify-dist.mjs guards this.
+          if (id.includes("vite/preload-helper") || id.includes("vite/modulepreload-polyfill")) {
+            return "vite-runtime";
+          }
           if (id.includes("node_modules/three") || id.includes("@react-three")) {
             return "three";
           }

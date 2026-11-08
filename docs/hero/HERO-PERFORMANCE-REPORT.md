@@ -26,8 +26,18 @@ The LCP rows were measured with the first (v1) plate, which was 133 / 162 KB; th
 
 On the desktop, LCP lands on a header link, not on the hero. The hero heading fades in, and the plate image sits under the shader canvas, so neither counts. The ~1 s desktop figure only shows up on the first page in a fresh browser: on a warm browser the same build measures about 200 ms. The 3D path shows the same cold-start pattern. The master baseline (624 ms) came from an earlier script run, so it is not directly comparable.
 
-## Known issue outside the hero's scope: three.js loads on every page
+## Milestone 4 (2026-11-08): three.js off the default path, cheaper particle background
 
-The home page downloads the 970 KB `three` chunk even in plate mode. The cause is in `vite.config.ts`: `manualChunks` lets Rollup put Vite's small `preload-helper` module inside the `three` chunk. The entry bundle needs that helper for every lazy `import()`, so it imports `three` statically on every route. Master has the same config, and its ~1280 KB baseline is consistent with it loading `three` too.
+Measured on a `vite preview` build in headless Chromium (ANGLE D3D11). Mobile is 390x844 at 3x DPR with 4x CPU throttling.
 
-I checked this with a throwaway build that put `vite/preload-helper` in its own chunk. `/` then loaded **517 KB** of JS instead of 1486 KB, and `three` loaded only for `?hero=3d`. Warm LCP did not change. This touches the site-wide build config, so it is not part of this hero change. It is listed as a follow-up for approval.
+**three.js on every page — fixed.** `manualChunks` let Rollup put Vite's `preload-helper` inside the `three` chunk, so the entry imported all of three.js on every route. `vite.config.ts` now gives the helper its own `vite-runtime` chunk. `scripts/verify-dist.mjs` fails the build if any statically loaded chunk is `three-*`; it failed before the fix. JS loaded on `/`: desktop 1486 KB → 277 KB, mobile 184 KB, reduced motion 226 KB. LCP: desktop 1272 ms, mobile 980 ms, reduced motion 324 ms. Hero plate at 60 fps (p95 frame 16.7 ms). No console errors. `three` loads only for `?hero=3d`. That route still loads about 1.3 MB of JS, with about 4.8 s of long tasks before LCP on desktop; this is listed as a follow-up.
+
+**Site-wide particle canvas (`InteractiveParticles`).** Under reduced motion it now draws only when scroll, the pointer or the size changes, instead of every frame. Its pixel ratio is capped at 2, so a 3x phone draws 780x1688 instead of 1170x2532. Both are guarded by `tests/e2e/performance.spec.ts`, which failed before the fix.
+
+| Profile (main-thread busy ms per second, top of page) | Before | After |
+|---|---|---|
+| Desktop | 77 | 63 |
+| Mobile (4x CPU) | 304 | 289 |
+| Reduced motion | 68 | 2 |
+
+Mobile is still about 290 ms/s under 4x throttling, but it holds 60 fps. Further cuts, such as fewer particles or no `shadowBlur` on touch devices, would change how the background looks, so they are left for the design-system milestone.

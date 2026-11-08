@@ -57,4 +57,38 @@ if (fs.existsSync(path.join(dist, "404.html"))) {
   verifyHtmlFile("404.html", "dist/404.html");
 }
 
+/**
+ * Chunks every page loads up front: the entry scripts and modulepreloads in index.html plus
+ * everything they import statically. Lazy `import()` targets are not followed.
+ */
+export function staticChunks(distDir) {
+  const html = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
+  const queue = [...html.matchAll(/(?:src|href)=["'][^"']*\/assets\/([^"'/]+\.js)["']/g)].map(
+    (m) => m[1]
+  );
+  const seen = new Set();
+  while (queue.length) {
+    const name = queue.pop();
+    if (seen.has(name)) continue;
+    seen.add(name);
+    const file = path.join(distDir, "assets", name);
+    if (!fs.existsSync(file)) continue;
+    const code = fs.readFileSync(file, "utf8");
+    // Static forms only: `import x from"./a.js"`, `import"./a.js"`, `export * from"./a.js"`.
+    for (const m of code.matchAll(/(?:from|import)\s*["']\.\/([^"']+\.js)["']/g)) {
+      queue.push(m[1]);
+    }
+  }
+  return [...seen];
+}
+
+// three.js (~970 KB) is only for the optional 3D hero and canvas pages; it must stay lazy.
+const eagerThree = staticChunks(dist).filter((name) => /^three-/.test(name));
+if (eagerThree.length) {
+  console.error(
+    `verify-dist: every page statically loads ${eagerThree.join(", ")}. Keep three.js behind a lazy import().`
+  );
+  process.exit(1);
+}
+
 console.log("verify-dist: dist HTML looks like a production build (root site /assets/*).");

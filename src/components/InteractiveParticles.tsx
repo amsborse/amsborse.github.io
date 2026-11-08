@@ -60,14 +60,22 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
     const handleMotionChange = (e: MediaQueryListEvent) => {
       isReducedMotion = e.matches;
+      requestDraw();
     };
     mediaQuery.addEventListener("change", handleMotionChange);
 
-    let animationFrameId: number;
+    let animationFrameId = 0;
+    // With motion allowed the field animates every frame. Under reduced motion nothing moves on
+    // its own, so a frame is drawn only when scroll, the pointer or the size changes.
+    const requestDraw = () => {
+      if (!animationFrameId) animationFrameId = requestAnimationFrame(draw);
+    };
+    // Dots and hairlines look the same at 2x as at 3x; a 3x phone drew 2.25x the pixels.
+    const canvasDpr = () => Math.min(window.devicePixelRatio || 1, 2);
     let resizeFrameId = 0;
     let width = 0;
     let height = 0;
-    let lastDpr = window.devicePixelRatio || 1;
+    let lastDpr = canvasDpr();
     let viewportScale = 1;
     let particles: Particle[] = [];
     let elapsedFrames = 0;
@@ -135,7 +143,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = canvasDpr();
       const nextWidth = rect.width;
       const nextHeight = rect.height;
 
@@ -155,6 +163,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       viewportScale = getViewportScale();
       initParticles();
+      requestDraw();
     };
 
     const scheduleResize = () => {
@@ -213,8 +222,9 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     };
 
     const draw = () => {
+      animationFrameId = 0;
       if (width < 1 || height < 1) {
-        animationFrameId = requestAnimationFrame(draw);
+        if (!isReducedMotion) requestDraw();
         return;
       }
 
@@ -222,9 +232,9 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         readFlashcardAnimationPriority();
       const throttleBackground = flashcardMotion || flashcardFocused;
 
-      if (throttleBackground && elapsedFrames % 2 !== 0) {
-        elapsedFrames += isReducedMotion ? 0 : 1;
-        animationFrameId = requestAnimationFrame(draw);
+      if (throttleBackground && elapsedFrames % 2 !== 0 && !isReducedMotion) {
+        elapsedFrames += 1;
+        requestDraw();
         return;
       }
 
@@ -459,7 +469,10 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
         ctx.fill();
       }
 
-      animationFrameId = requestAnimationFrame(draw);
+      if (!isReducedMotion) requestDraw();
+    };
+    const handleScroll = () => {
+      if (isReducedMotion) requestDraw();
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -467,11 +480,13 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       mouseRef.current.x = e.clientX - rect.left;
       mouseRef.current.y = e.clientY - rect.top;
       mouseRef.current.active = true;
+      if (isReducedMotion) requestDraw();
     };
 
     const handleMouseLeave = () => {
       mouseRef.current.active = false;
       mouseRef.current.isClicked = false;
+      if (isReducedMotion) requestDraw();
     };
 
     const handleMouseDown = (e: MouseEvent) => {
@@ -517,6 +532,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     window.addEventListener("resize", scheduleResize);
     window.visualViewport?.addEventListener("resize", scheduleResize);
     window.addEventListener("orientationchange", scheduleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("mousemove", handleMouseMove, { capture: true, passive: true });
     document.addEventListener("mouseleave", handleMouseLeave, { capture: true });
     window.addEventListener("mousedown", handleMouseDown, { capture: true, passive: true });
@@ -528,7 +544,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
     window.addEventListener("touchend", handleTouchEnd, { capture: true, passive: true });
 
     scheduleResize();
-    draw();
+    requestDraw();
 
     return () => {
       if (resizeFrameId) cancelAnimationFrame(resizeFrameId);
@@ -536,6 +552,7 @@ export function InteractiveParticles({ intensity = "normal" }: InteractivePartic
       window.removeEventListener("resize", scheduleResize);
       window.visualViewport?.removeEventListener("resize", scheduleResize);
       window.removeEventListener("orientationchange", scheduleResize);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouseMove, { capture: true });
       document.removeEventListener("mouseleave", handleMouseLeave, { capture: true });
       window.removeEventListener("mousedown", handleMouseDown, { capture: true });
