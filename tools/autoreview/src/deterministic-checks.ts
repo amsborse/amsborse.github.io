@@ -158,16 +158,21 @@ export async function runDeterministicChecks(
       }
     }
 
-    // Simple overlap among positioned siblings (sample)
+    // Overlap between elements that own visible text. Page wrappers (a full-page <main> under
+    // a fixed header) contain text but their boxes say nothing about where it is drawn.
+    const textBoxes = boxes
+      // Off-screen text (a skip link parked at left:-9999px until focused) is not on the page.
+      .filter((b) => ownsText(b.el) && b.rect.right > 0 && b.rect.left < window.innerWidth)
+      .map((b) => ({ el: b.el, rect: textRect(b.el) ?? b.rect }));
     let overlapCount = 0;
-    for (let i = 0; i < Math.min(boxes.length, 120); i++) {
-      for (let j = i + 1; j < Math.min(boxes.length, 120); j++) {
-        const a = boxes[i];
-        const b = boxes[j];
+    for (let i = 0; i < Math.min(textBoxes.length, 200); i++) {
+      for (let j = i + 1; j < Math.min(textBoxes.length, 200); j++) {
+        const a = textBoxes[i];
+        const b = textBoxes[j];
         if (!a.el.contains(b.el) && !b.el.contains(a.el) && overlaps(a.rect, b.rect)) {
-          const za = Number(getComputedStyle(a.el).zIndex) || 0;
-          const zb = Number(getComputedStyle(b.el).zIndex) || 0;
-          if (Math.abs(za - zb) > 10 && bothHaveText(a.el, b.el)) {
+          const za = stackZ(a.el);
+          const zb = stackZ(b.el);
+          if (Math.abs(za - zb) > 10) {
             overlapCount += 1;
             if (overlapCount <= 5) {
               findings.push({
@@ -194,8 +199,9 @@ export async function runDeterministicChecks(
     });
     if (fixedHeaders.length) {
       const headerBottom = Math.max(...fixedHeaders.map((h) => h.rect.bottom));
-      for (const b of boxes.slice(0, 50)) {
-        if (b.rect.top < headerBottom && b.rect.bottom > 0 && b.el.innerText.trim().length > 0) {
+      for (const b of textBoxes.slice(0, 200)) {
+        if (b.rect.top < headerBottom && b.rect.bottom > 0) {
+          if (fixedHeaders.some((h) => h.el.contains(b.el))) continue;
           const s = getComputedStyle(b.el);
           if (s.position === "fixed" || s.position === "sticky") continue;
           if (b.rect.top < headerBottom - 4 && b.rect.top >= 0) {
@@ -216,8 +222,40 @@ export async function runDeterministicChecks(
     function overlaps(a: DOMRect, b: DOMRect): boolean {
       return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
     }
-    function bothHaveText(a: HTMLElement, b: HTMLElement): boolean {
-      return Boolean(a.innerText?.trim() && b.innerText?.trim());
+    /** True when the element itself draws text (a direct, non-blank text node). */
+    function ownsText(el: HTMLElement): boolean {
+      for (const node of el.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim()) return true;
+      }
+      return false;
+    }
+    /** Where the element's own text is drawn, without its padding or empty space. */
+    function textRect(el: HTMLElement): DOMRect | null {
+      const range = document.createRange();
+      let box: DOMRect | null = null;
+      for (const node of el.childNodes) {
+        if (node.nodeType !== Node.TEXT_NODE || !node.textContent?.trim()) continue;
+        range.selectNodeContents(node);
+        const r = range.getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) continue;
+        box = box
+          ? new DOMRect(
+              Math.min(box.left, r.left),
+              Math.min(box.top, r.top),
+              Math.max(box.right, r.right) - Math.min(box.left, r.left),
+              Math.max(box.bottom, r.bottom) - Math.min(box.top, r.top)
+            )
+          : r;
+      }
+      return box;
+    }
+    /** The z-index the element paints at: its own, or that of the nearest ancestor that sets one. */
+    function stackZ(el: HTMLElement): number {
+      for (let cur: HTMLElement | null = el; cur; cur = cur.parentElement) {
+        const z = Number(getComputedStyle(cur).zIndex);
+        if (Number.isFinite(z)) return z;
+      }
+      return 0;
     }
     function cssPath(el: Element): string {
       if ((el as HTMLElement).dataset?.testid) {

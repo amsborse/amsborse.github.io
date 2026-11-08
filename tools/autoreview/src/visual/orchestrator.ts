@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Page } from "playwright";
 import { firefox, webkit } from "playwright";
 import { ROOT, joinAppUrl } from "../config.ts";
+import { prepareReviewPage } from "../browser-runner.ts";
 import type {
   AutoreviewConfig,
   Finding,
@@ -262,6 +263,7 @@ export async function runAdvancedVisualSuite(options: {
           reducedMotion: def.reducedMotion ? "reduce" : undefined,
         });
         const p = await ctx.newPage();
+        await prepareReviewPage(p);
         await p.goto(joinAppUrl(options.config, routes[0]), {
           waitUntil: "domcontentloaded",
           timeout: 30_000,

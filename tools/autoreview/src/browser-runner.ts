@@ -13,6 +13,17 @@ export interface BrowserSession {
   failedRequests: string[];
 }
 
+/**
+ * The review runs under tsx, which compiles with esbuild's keepNames: a named function inside a
+ * `page.evaluate` callback is serialized as `__name(fn, "name")`. That helper only exists in
+ * Node, so the browser threw "__name is not defined". Define a no-op twin on every page.
+ */
+export const KEEP_NAMES_SHIM = "globalThis.__name = globalThis.__name || ((fn) => fn);";
+
+export async function prepareReviewPage(page: Page): Promise<void> {
+  await page.addInitScript(KEEP_NAMES_SHIM);
+}
+
 async function waitForUrl(url: string, timeoutMs: number): Promise<boolean> {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
@@ -94,6 +105,7 @@ export async function openScopedBrowser(
 
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
+  await prepareReviewPage(page);
 
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());

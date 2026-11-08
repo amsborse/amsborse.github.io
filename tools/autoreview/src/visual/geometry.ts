@@ -100,8 +100,26 @@ export async function runLayoutGeometryValidation(
         selector: string;
         explanation: string;
         recommendedFix?: string;
-        rects?: DOMRect[];
+        rects?: Array<{ x: number; y: number; width: number; height: number }>;
       }> = [];
+
+      const stackZ = (el: Element) => {
+        for (let node: Element | null = el; node; node = node.parentElement) {
+          const z = Number.parseInt(getComputedStyle(node).zIndex, 10);
+          if (Number.isFinite(z)) return z;
+        }
+        return 0;
+      };
+      // A positioned layer that ignores the pointer and paints at or below the other element
+      // is scenery (a hero image, a glow), not something covering content. Its own callouts
+      // and hotspots are still checked against each other because they live inside it.
+      const behindAsBackdrop = (layer: Element, other: Element) => {
+        const style = getComputedStyle(layer);
+        const decorative =
+          layer.closest("[aria-hidden='true']") !== null ||
+          (style.pointerEvents === "none" && /absolute|fixed/.test(style.position));
+        return decorative && !layer.contains(other) && stackZ(layer) <= stackZ(other);
+      };
 
       const intersects = (a: DOMRect, b: DOMRect) =>
         !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
@@ -119,6 +137,7 @@ export async function runLayoutGeometryValidation(
           const b = geos[j];
           if (a.el.contains(b.el) || b.el.contains(a.el)) continue;
           if (intentional(a.el) || intentional(b.el)) continue;
+          if (behindAsBackdrop(a.el, b.el) || behindAsBackdrop(b.el, a.el)) continue;
           if (!intersects(a.boundingRect, b.boundingRect)) continue;
           const area = intersectionArea(a.boundingRect, b.boundingRect);
           if (area < 24) continue;
@@ -151,7 +170,14 @@ export async function runLayoutGeometryValidation(
               explanation: `Meaningful overlap between ${a.selector} and ${b.selector} (~${Math.round(area)}px²)`,
               recommendedFix:
                 "Reserve layout space or adjust stacking so badges/actions do not cover text or controls.",
-              rects: [a.boundingRect, b.boundingRect],
+              // Copy to plain objects: Playwright returns a DOMRect seen twice as null, so an
+              // element overlapping two others crashed the check with "reading 'x'".
+              rects: [a.boundingRect, b.boundingRect].map(({ x, y, width, height }) => ({
+                x,
+                y,
+                width,
+                height,
+              })),
             });
           }
         }

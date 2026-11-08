@@ -386,7 +386,16 @@ export async function runReview(options: {
         } catch (err) {
           checksSkipped.push({
             name: "advanced-visual",
-            reason: `Advanced visual suite error: ${String(err)}`,
+            reason: `Advanced visual suite error: ${String(err)}${
+              err instanceof Error && err.stack
+                ? ` (at ${
+                    err.stack
+                      .split("\n")
+                      .find((l) => l.includes("autoreview"))
+                      ?.trim() ?? "unknown"
+                  })`
+                : ""
+            }`,
           });
         }
       } else if (stale.has("screenshots")) {
