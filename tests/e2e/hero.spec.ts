@@ -177,6 +177,53 @@ test.describe("home hero", () => {
       await expect(page.getByRole("dialog")).toContainText("Model Inference");
     });
 
+    test("the camera eases toward a selected module and follows the pointer", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto("/?heroWebGL=off");
+      await expect(hero(page)).toHaveAttribute("data-hero-ready", "true", { timeout: 30_000 });
+      const stage = page.locator(".hero-plate-stage");
+      await expect(stage).toHaveAttribute("data-camera", "live");
+      const transform = () => stage.evaluate((el) => (el as HTMLElement).style.transform);
+      const rest = await transform();
+      await page.mouse.move(1300, 200);
+      await expect.poll(transform).not.toBe(rest);
+      const parallax = await transform();
+      await page.getByRole("button", { name: "Model Inference details" }).click();
+      await expect.poll(transform).not.toBe(parallax);
+      // The move eases and then stops: the transform settles instead of drifting forever.
+      await expect
+        .poll(
+          async () => {
+            const a = await transform();
+            await page.waitForTimeout(250);
+            return a === (await transform());
+          },
+          { timeout: 5_000 }
+        )
+        .toBe(true);
+      expect(await transform()).toMatch(/scale\(1\.0[1-9]/);
+    });
+
+    test("reduced motion and pinned time hold the camera still", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      for (const setup of ["reduced", "pinned"] as const) {
+        await page.emulateMedia({
+          reducedMotion: setup === "reduced" ? "reduce" : "no-preference",
+        });
+        await page.goto(setup === "reduced" ? "/?heroWebGL=off" : "/?heroWebGL=off&heroTime=12");
+        await expect(hero(page)).toHaveAttribute("data-hero-ready", "true", { timeout: 30_000 });
+        const stage = page.locator(".hero-plate-stage");
+        await expect(stage).toHaveAttribute("data-camera", "still");
+        const before = await stage.evaluate((el) => (el as HTMLElement).style.transform);
+        expect(before).toMatch(/scale\(1\)$/);
+        await page.mouse.move(1300, 200);
+        await page.getByRole("button", { name: "Model Inference details" }).click();
+        await page.waitForTimeout(400);
+        expect(await stage.evaluate((el) => (el as HTMLElement).style.transform)).toBe(before);
+        await page.keyboard.press("Escape");
+      }
+    });
+
     test("a failed service marks its hotspot", async ({ page }) => {
       await page.setViewportSize({ width: 1440, height: 900 });
       await page.goto("/?heroTime=12&heroState=failure:inference");

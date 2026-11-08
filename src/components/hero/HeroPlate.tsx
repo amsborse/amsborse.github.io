@@ -1,4 +1,12 @@
 import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
+import {
+  IDENTITY_POSE,
+  cameraTarget,
+  poseSettled,
+  springStep,
+  stageTransform,
+  type CameraPose,
+} from "./plateCamera";
 import { createPlateRenderer, MODULE_COUNT, type PlateFrame, type PlateRenderer } from "./plateGL";
 import {
   edgeCurve,
@@ -139,6 +147,12 @@ export function HeroPlate({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<PlateRenderer | null>(null);
   const drawRef = useRef<(now: number) => void>(() => {});
+  const fitRef = useRef<{ fit: ReturnType<typeof fitPlate>; width: number; height: number } | null>(
+    null
+  );
+  const poseRef = useRef<CameraPose>({ ...IDENTITY_POSE });
+  const applyCameraRef = useRef<() => void>(() => {});
+  const kickCameraRef = useRef<() => void>(() => {});
   const live = useRef({ state, lightMode, reducedMotion, fixedTime });
   live.current = { state, lightMode, reducedMotion, fixedTime };
   const theme = lightMode ? "light" : "dark";
@@ -163,7 +177,8 @@ export function HeroPlate({
       const fit = fitPlate(width, height);
       stage.style.width = `${PLATE_W * fit.scale}px`;
       stage.style.height = `${PLATE_H * fit.scale}px`;
-      stage.style.transform = `translate3d(${fit.x}px, ${fit.y}px, 0)`;
+      fitRef.current = { fit, width, height };
+      applyCameraRef.current();
       stage.style.setProperty("--plate-s", fit.scale.toFixed(4));
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const cw = Math.min(Math.round(PLATE_W * fit.scale * dpr), MAX_CANVAS_WIDTH);
@@ -307,11 +322,118 @@ export function HeroPlate({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webgl]);
 
+  // Camera: springs the stage toward the pointer, the framed module, the live request and the
+  // scroll position. Independent of WebGL so the static plate moves the same way. Reduced
+  // motion and pinned screenshot time hold the fitted composition exactly.
+  useEffect(() => {
+    const frame = frameRef.current;
+    const stage = stageRef.current;
+    if (!frame || !stage) return;
+    const pose = poseRef.current;
+    const velocity: CameraPose = { x: 0, y: 0, scale: 0 };
+    const pointer = { x: 0, y: 0 };
+    const packet = new Float32Array(2);
+    const finePointer = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches ?? false;
+    let scroll = 0;
+    let visible = true;
+    let raf = 0;
+    let last = 0;
+
+    const still = () => live.current.reducedMotion || live.current.fixedTime !== null;
+    const apply = () => {
+      const placed = fitRef.current;
+      if (!placed) return;
+      const t = stageTransform(placed.fit, placed, still() ? IDENTITY_POSE : pose);
+      stage.style.transform = `translate3d(${t.x.toFixed(2)}px, ${t.y.toFixed(2)}px, 0) scale(${t.scale.toFixed(4)})`;
+      stage.dataset.camera = still() ? "still" : "live";
+    };
+    applyCameraRef.current = apply;
+
+    const target = (): CameraPose => {
+      const placed = fitRef.current;
+      const s = live.current.state;
+      const focusId = s.failed ?? s.selected;
+      const sample = s.mode === "request" ? sampleRef.current : null;
+      if (sample) curvePoint(sample.edgeId, sample.progress, packet);
+      return cameraTarget(
+        {
+          pointer,
+          focus: focusId ? PLATE_MODULES[focusId] : null,
+          packet: sample ? { x: packet[0], y: packet[1] } : null,
+          scroll,
+        },
+        { scale: placed?.fit.scale ?? 1 }
+      );
+    };
+
+    const tick = (now: number) => {
+      raf = 0;
+      const dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60;
+      last = now;
+      const goal = target();
+      const omega = 5.5;
+      [pose.x, velocity.x] = springStep(pose.x, velocity.x, goal.x, omega, dt);
+      [pose.y, velocity.y] = springStep(pose.y, velocity.y, goal.y, omega, dt);
+      [pose.scale, velocity.scale] = springStep(pose.scale, velocity.scale, goal.scale, omega, dt);
+      apply();
+      const busy = live.current.state.mode === "request" || !poseSettled(pose, goal, velocity);
+      if (busy && visible && !document.hidden) raf = requestAnimationFrame(tick);
+      else last = 0;
+    };
+    const kick = () => {
+      if (still()) {
+        Object.assign(pose, IDENTITY_POSE);
+        Object.assign(velocity, { x: 0, y: 0, scale: 0 });
+        apply();
+        return;
+      }
+      if (!raf && visible) raf = requestAnimationFrame(tick);
+    };
+    kickCameraRef.current = kick;
+
+    const onPointer = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      const rect = frame.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+      pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+      kick();
+    };
+    const onScroll = () => {
+      const rect = frame.getBoundingClientRect();
+      scroll = rect.height > 0 ? Math.min(1, Math.max(0, -rect.top / rect.height)) : 0;
+      kick();
+    };
+    const intersection = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) kick();
+    });
+    intersection.observe(frame);
+    if (finePointer) window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", kick);
+    apply();
+    onScroll();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      intersection.disconnect();
+      window.removeEventListener("pointermove", onPointer);
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", kick);
+      applyCameraRef.current = () => {};
+      kickCameraRef.current = () => {};
+    };
+    // Lifetime is the component's; live values flow through `live`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Any state, theme or motion change: draw (and resume the loop if it should run).
   useEffect(() => {
     const canvas = canvasRef.current as (HTMLCanvasElement & { __kick?: () => void }) | null;
     canvas?.__kick?.();
-  }, [state, lightMode, reducedMotion]);
+    kickCameraRef.current();
+  }, [state, lightMode, reducedMotion, fixedTime]);
 
   const failedId = state.failed;
 

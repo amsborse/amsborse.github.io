@@ -54,3 +54,19 @@ Re-checked against `references/hero-composition.png`: the proof strip (icon, val
 
 Owner question: the reference shows "Book a Call", but the site has no booking link. The pill says "Get in touch" and goes to the existing contact section until a booking URL exists.
 
+
+## Milestone 3 camera log (brief section 1.6)
+
+The plate "camera" is a small pan and zoom of the fitted stage (`plateCamera.ts`), driven by one critically damped spring (no overshoot, stable at any frame time). It only runs while the hero is visible, the tab is in front, and the camera has not settled. Reduced motion and pinned time (`?heroTime=`) hold it still (`data-camera="still"`).
+
+| State | Behaviour | Evidence |
+| --- | --- | --- |
+| Idle | Holds the fitted composition. A mouse pointer adds at most 9 px / 5 px of parallax against its movement; touch adds none | unit "keeps pointer parallax small…", e2e "the camera eases toward a selected module…" |
+| Service selected | Eases about 7% of the way toward the module's axis and zooms in by 3.5% | live capture at 1440×900: `translate3d(-33.6px, 79.8px) scale(1.023)`, panel and sculpture both clear |
+| Request running | Follows the request packet gently (2.5% pull, 1.2% zoom); a selection or failure outweighs it | unit "draws the frame toward a selected module…" |
+| Failure | Frames the failed module, the same way as a selection | shares the selection path (`failed ?? selected` in `HeroPlate.tsx`); no dedicated failure test yet |
+| Recovery | The spring returns to idle once the failure clears | unit "springs to the target without overshoot and settles" |
+| Scroll | Lifts by up to 28 px and pushes in by 5% as the hero leaves; scrolling is never captured | unit "pushes in gradually as the hero scrolls away" |
+| Edges | The pan is limited so any frame edge the plate covered stays covered, at 1440×900, 1024×768 and 390×360 | unit "never pans the plate off an edge it covered" |
+
+Owner question: the camera strengths are deliberately small. They are constants at the top of `plateCamera.ts` if you want more or less movement.
