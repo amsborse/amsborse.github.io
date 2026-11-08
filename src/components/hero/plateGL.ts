@@ -1,7 +1,7 @@
 /**
  * One-pass WebGL renderer for the hero art plate: a single full-screen triangle that
  * samples the plate and adds the live layers (lake ripples, waterfall flow, ring light,
- * core sparkle, beam pulse, module glow, failure and recovery, request packet).
+ * orbiting ring lights, core sparkle, beam pulse, module glow, failure and recovery, request packet).
  * One draw call per frame, no allocations per frame, WebGL 1 for reach.
  */
 import {
@@ -9,6 +9,7 @@ import {
   PLATE_FALLS,
   PLATE_H,
   PLATE_HORIZON_Y,
+  PLATE_ORBITS,
   PLATE_RINGS,
   PLATE_RIPPLE,
   PLATE_SPHERE,
@@ -85,6 +86,31 @@ float inRect(vec2 p, vec4 r, float soft) {
   return a.x * a.y * b.x * b.y;
 }
 
+// Lights orbiting one glass ring: a hot head with a fading tail, dimmer on the far half
+// and hidden where the far half passes behind the sphere.
+float orbitLights(vec2 p, vec2 c, vec2 ab, float rot, float phase, float dir, float sphereMask) {
+  float cr = cos(rot);
+  float sr = sin(rot);
+  vec2 d = p - c;
+  vec2 q = vec2(cr * d.x + sr * d.y, -sr * d.x + cr * d.y) / ab;
+  float len = max(length(q), 1e-4);
+  float grad = length((q / len) / ab);
+  float dist = abs(len - 1.0) / grad;
+  float theta = atan(q.y, q.x);
+  float total = 0.0;
+  for (int k = 0; k < 2; k++) {
+    float head = phase + float(k) * 3.14159;
+    // delta < 0 is behind the head along its direction of travel.
+    float delta = (mod(theta - head + 3.14159, 6.28318) - 3.14159) * dir;
+    float tail = smoothstep(-0.95, 0.0, delta) * (1.0 - smoothstep(0.0, 0.035, delta));
+    float core = exp(-delta * delta / 0.0012);
+    total += tail * 0.55 + core * 1.6;
+  }
+  float far = step(q.y, 0.0);
+  float across = exp(-dist * dist / 7.0) + exp(-dist * dist / 60.0) * 0.35;
+  return total * across * mix(1.0, 0.45, far) * (1.0 - far * sphereMask);
+}
+
 void main() {
   vec2 p = vec2(vUv.x, 1.0 - vUv.y) * PLATE;
   float t = uTime;
@@ -138,6 +164,20 @@ void main() {
     + luma(texture2D(uTex, uv + vec2(0.0, px.y)).rgb) + luma(texture2D(uTex, uv - vec2(0.0, px.y)).rgb));
   glass *= mix(1.0, smoothstep(0.015, 0.06, abs(l - around)), uLight);
   col += AMBER * streak * glass * ringZone * 0.55 * glowScale;
+
+  // Orbiting lights: ${PLATE_ORBITS.length} rings, two lights each.
+  float behind = 1.0 - smoothstep(${f(PLATE_SPHERE.r - 6)}, ${f(PLATE_SPHERE.r + 2)}, sdist);
+  float orbit = 0.0;
+  ${PLATE_ORBITS.map(
+    (o, i) =>
+      `orbit += orbitLights(p, vec2(${f(o.cx)}, ${f(o.cy)}), vec2(${f(o.a)}, ${f(o.b)}), ${((o.rot * Math.PI) / 180).toFixed(5)}, t * ${o.speed.toFixed(3)} + ${(i * 2.1).toFixed(2)}, ${o.speed < 0 ? "-1.0" : "1.0"}, behind);`
+  ).join("\n  ")}
+  orbit *= 1.0 - uOutage * 0.6;
+  // On the cream light plate an additive glow washes out, so the lights there take a deeper
+  // orange and mix toward it instead of only adding.
+  vec3 orbitDark = mix(AMBER, vec3(1.0, 0.93, 0.8), clamp(orbit - 0.8, 0.0, 1.0)) * orbit * 0.75;
+  vec3 orbitLight = mix(col, vec3(0.95, 0.45, 0.08), clamp(orbit * 0.55, 0.0, 0.85)) - col;
+  col += mix(orbitDark, orbitLight, uLight);
 
   // Core: gold nodes twinkle, the beam pulses down into the island.
   float core = 1.0 - smoothstep(${f(PLATE_SPHERE.r - 12)}, ${f(PLATE_SPHERE.r)}, sdist);

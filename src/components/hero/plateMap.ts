@@ -37,6 +37,36 @@ export const PLATE_MODULES: Readonly<Record<ServiceId, PlatePoint>> = {
 
 export const PLATE_SPHERE = { x: 1130, y: 343, r: 92 } as const;
 export const PLATE_RINGS: PlateRect = { x0: 770, y0: 118, x1: 1452, y1: 480 };
+/**
+ * The three glass orbit rings as ellipses fitted to the plate: centre, semi-axes and
+ * rotation (degrees, clockwise in screen space). Lights travel along these.
+ */
+export interface PlateOrbit {
+  cx: number;
+  cy: number;
+  a: number;
+  b: number;
+  rot: number;
+  /** Radians per second; the sign sets the direction. */
+  speed: number;
+}
+export const PLATE_ORBITS: readonly PlateOrbit[] = [
+  { cx: 1110, cy: 297, a: 336, b: 85, rot: -4, speed: 0.32 },
+  { cx: 1130, cy: 400, a: 255, b: 85, rot: -10, speed: -0.41 },
+  { cx: 1110, cy: 325, a: 209, b: 118, rot: 75.5, speed: 0.27 },
+];
+
+/** A point on an orbit at parameter angle `theta` (radians), in plate px. */
+export function orbitPoint(o: PlateOrbit, theta: number): PlatePoint {
+  const r = (o.rot * Math.PI) / 180;
+  const x = o.a * Math.cos(theta);
+  const y = o.b * Math.sin(theta);
+  return {
+    x: o.cx + x * Math.cos(r) - y * Math.sin(r),
+    y: o.cy + x * Math.sin(r) + y * Math.cos(r),
+  };
+}
+
 export const PLATE_FALLS: readonly PlateRect[] = [
   { x0: 898, y0: 605, x1: 1008, y1: 722 },
   { x0: 1036, y0: 645, x1: 1146, y1: 735 },
