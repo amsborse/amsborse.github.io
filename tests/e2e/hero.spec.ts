@@ -1,4 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+async function openConsole(page: Page) {
+  const trigger = page.getByRole("button", { name: "Explore the system" });
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+}
 
 test.describe("home hero", () => {
   test("renders the art plate, a WebGL scene or the static fallback", async ({ page }) => {
@@ -11,17 +17,62 @@ test.describe("home hero", () => {
 
   test("keyboard opens service details and Escape restores focus", async ({ page }) => {
     await page.goto("/");
-    const picker = page.getByRole("combobox", { name: "Choose service to inspect" });
+    await openConsole(page);
+    const picker = page.getByRole("combobox", { name: "Target service" });
     await picker.focus();
     await page.keyboard.press("End");
     await page.keyboard.press("Enter");
-    const inspect = page.getByRole("button", { name: "Inspect service" });
+    const inspect = page.getByRole("button", { name: "Inspect a service" });
     await inspect.focus();
     await page.keyboard.press("Enter");
     await expect(page.getByRole("dialog")).toContainText("Observability");
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog")).toHaveCount(0);
     await expect(inspect).toBeFocused();
+  });
+
+  test("system console opens, explains each action and closes with Escape", async ({ page }) => {
+    await page.goto("/");
+    const trigger = page.getByRole("button", { name: "Explore the system" });
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByRole("button", { name: "Send a request" })).toBeHidden();
+    await openConsole(page);
+    const panel = page.getByRole("group", { name: "System simulation" });
+    for (const action of ["Send a request", "Inspect a service", "Simulate failure"]) {
+      await expect(panel.getByRole("button", { name: action })).toBeEnabled();
+    }
+    await expect(panel.getByRole("button", { name: "Observe recovery" })).toBeDisabled();
+    await expect(panel).toContainText("traffic reroutes");
+    // Inspect and fail both act on the shared target picker.
+    await panel.getByRole("combobox", { name: "Target service" }).selectOption("gateway");
+    await panel.getByRole("button", { name: "Simulate failure" }).click();
+    await expect(page.getByTestId("hero-caption")).toContainText("API Gateway is down");
+    await expect(panel.getByRole("button", { name: "Observe recovery" })).toBeEnabled();
+    await panel.getByRole("button", { name: "Observe recovery" }).focus();
+    await page.keyboard.press("Escape");
+    await expect(panel).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("open console fits the desktop viewport and sits above the proof strip", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1672, height: 941 });
+    await page.goto("/");
+    await openConsole(page);
+    const panel = page.getByRole("group", { name: "System simulation" });
+    const box = await panel.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y + box!.height).toBeLessThanOrEqual(941);
+    // The lowest tile overlaps the proof strip's band; it must be the element hit there.
+    const recovery = panel.getByRole("button", { name: "Observe recovery" });
+    const tile = await recovery.boundingBox();
+    const hitInsidePanel = await page.evaluate(
+      ([x, y]) => Boolean(document.elementFromPoint(x, y)?.closest(".hero-console-panel")),
+      [tile!.x + 12, tile!.y + tile!.height - 6]
+    );
+    expect(hitInsidePanel).toBe(true);
   });
 
   test("request, failure and recovery update the live caption", async ({ page }) => {
@@ -31,11 +82,12 @@ test.describe("home hero", () => {
     await page.goto("/");
     await page.clock.pauseAt(Date.now() + 1_000);
     const caption = page.getByTestId("hero-caption");
-    await page.getByRole("button", { name: "Send request" }).click();
+    await openConsole(page);
+    await page.getByRole("button", { name: "Send a request" }).click();
     await expect(caption).toContainText("A request enters the gateway");
     await page.getByRole("button", { name: "Simulate failure" }).click();
     await expect(caption).toContainText("Model Inference is down");
-    await page.getByRole("button", { name: "Recover" }).click();
+    await page.getByRole("button", { name: "Observe recovery" }).click();
     await expect(caption).toContainText("Model Inference is back");
   });
 
@@ -47,7 +99,8 @@ test.describe("home hero", () => {
       "true",
       { timeout: 30_000 }
     );
-    await page.getByRole("button", { name: "Send request" }).click();
+    await openConsole(page);
+    await page.getByRole("button", { name: "Send a request" }).click();
     await expect(page.getByTestId("hero-caption")).toContainText("A request enters the gateway");
   });
 

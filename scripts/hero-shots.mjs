@@ -96,6 +96,9 @@ async function capture(name, query = "", options = {}) {
       await fallback.decode().catch(() => undefined);
     }
   });
+  if (options.openConsole) {
+    await page.getByRole("button", { name: "Explore the system" }).click();
+  }
   await page.waitForTimeout(350);
   await page.screenshot({ path: path.join(shotsDir, `${name}.png`), fullPage: false });
   if (
@@ -164,6 +167,17 @@ try {
   await capture("request-processing", "heroTime=12&heroState=request:1.1&heroCamera=wide");
   await capture("failure", "heroTime=12&heroState=failure:inference&heroCamera=wide");
   await capture("recovery", "heroTime=12&heroState=recover:inference&heroCamera=wide");
+  await capture("console-open", "heroTime=12&heroState=failure:inference&heroCamera=wide", {
+    openConsole: true,
+  });
+  await capture("console-open-light", "heroTime=12&heroState=idle&heroCamera=wide", {
+    openConsole: true,
+    light: true,
+  });
+  await capture("console-open-mobile", "heroTime=12&heroState=idle&heroCamera=wide", {
+    openConsole: true,
+    viewport: { width: 390, height: 844 },
+  });
   await capture("mobile-390x844", "heroTime=12&heroState=idle&heroCamera=wide", {
     viewport: { width: 390, height: 844 },
   });

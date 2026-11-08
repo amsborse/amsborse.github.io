@@ -13,10 +13,16 @@ function linkClass(isActive: boolean) {
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  // On the home page the bar shares the hero's gutter, so the mark and the headline align.
+  const isHome = pathname === "/";
 
   return (
-    <header className="site-header pointer-events-none">
-      <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-10">
+    <header className={`site-header pointer-events-none${isHome ? " site-header--home" : ""}`}>
+      <div
+        className={`pointer-events-auto mx-auto flex items-center justify-between gap-4 py-4 ${
+          isHome ? "site-header__bar--hero" : "max-w-6xl px-4 sm:px-6 lg:px-10"
+        }`}
+      >
         <NavLink
           to="/"
           className="font-display text-[1.0625rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"

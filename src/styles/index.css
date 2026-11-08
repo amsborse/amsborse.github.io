@@ -233,6 +233,22 @@
     box-shadow: var(--chrome-shadow);
   }
 
+  .site-header--home {
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+
+  /* Matches .hero-section's horizontal padding in hero.css at every breakpoint. */
+  .site-header__bar--hero {
+    padding-inline: max(5vw, calc((100vw - 1500px) / 2));
+  }
+
+  @media (max-width: 600px) {
+    .site-header__bar--hero {
+      padding-inline: 1.35rem;
+    }
+  }
+
   .site-header__panel {
     background-color: var(--color-chrome-bg);
     backdrop-filter: blur(16px);

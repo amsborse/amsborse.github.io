@@ -11,10 +11,11 @@ import {
 import { Link } from "react-router-dom";
 import { profile } from "@/data/profile";
 import { heroReducer, describeState, sampleRoute, type RouteSample } from "./simulation";
-import { serviceById, SERVICES, type ServiceId } from "./topology";
+import { serviceById, type ServiceId } from "./topology";
 import { parseHeroUrl } from "./heroUrlState";
 import { qualityForViewport } from "./heroQuality";
 import { HeroPlate, type PlateRendererKind } from "./HeroPlate";
+import { HeroConsole } from "./HeroConsole";
 import "./hero.css";
 
 const HeroCanvas = lazy(() =>
@@ -77,8 +78,7 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
     []
   );
   const [state, dispatch] = useReducer(heroReducer, urlState.state);
-  const [failTarget, setFailTarget] = useState<ServiceId>("inference");
-  const [inspectTarget, setInspectTarget] = useState<ServiceId>("gateway");
+  const [consoleOpen, setConsoleOpen] = useState(false);
   const [canvasRequested, setCanvasRequested] = useState(false);
   const [canvasFailed, setCanvasFailed] = useState(false);
   const [renderer, setRenderer] = useState<"plate" | "webgl" | "static">("static");
@@ -305,10 +305,11 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
       <div className="hero-copy">
         <p className="hero-eyebrow">Akshay Borse · Engineer · Builder · Writer</p>
         <h1 id="hero-heading" className="hero-heading">
-          <span>{words[0]}</span>
-          <br />
-          <span>{words.slice(1).join(" ")}</span>
-          <span className="hero-period">.</span>
+          <span className="hero-heading-line">{words[0]}</span>{" "}
+          <span className="hero-heading-line">
+            {words.slice(1).join(" ")}
+            <span className="hero-period">.</span>
+          </span>
         </h1>
         <p className="hero-body">
           At Microsoft I build AI governance and risk-detection systems at enterprise scale. On my
@@ -326,94 +327,17 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
           </Link>
         </div>
 
-        <div className="hero-controls" role="group" aria-label="System simulation controls">
-          <div className="hero-control-row">
-            <div className="hero-control-buttons">
-              <button
-                type="button"
-                aria-label="Send request"
-                title="Send request"
-                onClick={() => dispatch({ type: "sendRequest", now: now() })}
-              >
-                Send
-              </button>
-              <label>
-                <span className="sr-only">Service to fail</span>
-                <select
-                  aria-label="Service to fail"
-                  title="Choose a service to fail"
-                  value={failTarget}
-                  onChange={(event) => setFailTarget(event.target.value as ServiceId)}
-                >
-                  {SERVICES.map((service) => (
-                    <option key={service.id} value={service.id}>
-                      {service.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button
-                aria-label="Simulate failure"
-                title="Simulate failure"
-                type="button"
-                onClick={() => dispatch({ type: "fail", id: failTarget, now: now() })}
-              >
-                Fail
-              </button>
-              <button
-                type="button"
-                onClick={() => dispatch({ type: "recover", now: now() })}
-                disabled={!state.failed}
-              >
-                Recover
-              </button>
-            </div>
-            <div className="hero-inspect-row">
-              <label>
-                <span className="sr-only">Service to inspect</span>
-                <select
-                  aria-label="Choose service to inspect"
-                  title="Choose service to inspect"
-                  value={inspectTarget}
-                  onChange={(event) => setInspectTarget(event.target.value as ServiceId)}
-                >
-                  {SERVICES.map((service) => (
-                    <option key={service.id} value={service.id}>
-                      {service.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button
-                ref={inspectButtonRef}
-                className="hero-inspect-button"
-                type="button"
-                aria-label="Inspect service"
-                title="Inspect selected service"
-                onClick={() => openService(inspectTarget)}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  aria-hidden="true"
-                >
-                  <circle cx="10.8" cy="10.8" r="6.4" />
-                  <path d="m15.5 15.5 5 5" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <p
-            aria-live="polite"
-            aria-atomic="true"
-            className="hero-live-caption"
-            data-testid="hero-caption"
-          >
-            {describeState(state)}
-          </p>
-        </div>
+        <HeroConsole
+          open={consoleOpen}
+          onOpenChange={setConsoleOpen}
+          failed={Boolean(state.failed)}
+          caption={describeState(state)}
+          inspectButtonRef={inspectButtonRef}
+          onSend={() => dispatch({ type: "sendRequest", now: now() })}
+          onInspect={openService}
+          onFail={(id) => dispatch({ type: "fail", id, now: now() })}
+          onRecover={() => dispatch({ type: "recover", now: now() })}
+        />
       </div>
 
       <ul className="hero-proof-strip" aria-label="Engineering impact">

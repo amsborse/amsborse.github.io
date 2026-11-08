@@ -18,7 +18,7 @@ The default renderer is now the **art plate**: a generated, text-free illustrati
 | Idle | Calm motion, nothing flashing | Ring streaks, falls and ripples at low amplitude | None | — |
 | Explore (hover / focus) | The module highlights and the info panel opens | The hotspot ring highlights; click or Enter opens the panel (e2e test) | None | — |
 | Request | A visible packet travels the route | An SVG packet moves along `edgeCurve` paths driven by `routeSample` (`request-processing.png`) | None | — |
-| Failure | The failed module turns red; routes reroute | Red shader tint at the failed module, the hotspot gets `is-failed`, the caption updates (`failure.png`) | The info panel covers the right side of the sculpture at 1440 px (existing panel behaviour); callouts now hide while it is open, so nothing peeks out from behind it | Open. Dock the panel lower or narrower in a later pass |
+| Failure | The failed module turns red; routes reroute | Red shader tint at the failed module, the hotspot gets `is-failed`, the caption updates (`failure.png`) | Was: the info panel covered the right side of the sculpture | Fixed (Milestone 1): the panel docks lower right, above the scroll cue; rings and the red failed module stay visible |
 | Recovery | Green or gold recovery glow, then back to idle | Recovery glow, then idle (`recovery.png`) | None | — |
 | Light theme | Designed, not inverted: warm paper and soft shadows | A separate light plate (`light-theme.png`). Ring streaks use a local-contrast gate, so no rectangle artifact | Ring streaks read as soft golden edging rather than light | Accepted |
 | Tablet 834×1112 | The sculpture is visible below the copy | `fitPlate` keeps the whole focus rect visible (`tablet-834x1112.png`) | None | — |
@@ -27,3 +27,16 @@ The default renderer is now the **art plate**: a generated, text-free illustrati
 | Static fallback | Art is still visible without WebGL | `?heroWebGL=off` (or a failed context) shows the plate `<img>`, `data-hero-renderer="static"` (`webgl-unavailable.png`, e2e test) | None | — |
 | Above 1672 px | Crisp | The plate is upscaled slightly past its native 1672 px width | Slight softness on very wide screens | Open. A 2560 px plate export would fix it (about +150 KB) |
 | Parallax | Subtle depth on pointer move | Dropped: a single flat plate cannot parallax convincingly | The plate path has no pointer parallax | Accepted |
+
+## Milestone 1 defect log (1672×941, real captures in `shots/`)
+
+| # | Defect | Status | Evidence |
+| --- | --- | --- | --- |
+| 1 | The headline wrapped to 3 lines | Fixed: two lines, "Clarity / under load." | `desktop-idle.png` |
+| 2 | The nav was not aligned with the hero column | Fixed: the home header bar shares the hero gutter | `desktop-idle.png` |
+| 3 | Developer-style controls under the CTA | Replaced by an "Explore the system" console with four numbered actions (Send a request, Inspect a service, Simulate failure, Observe recovery), each with a one-line explanation, a shared target picker and a live status line. Keyboard: focus moves into it on open, Escape closes and returns focus, and "Observe recovery" stays disabled until something has failed. Touch targets are at least 44 px on mobile | `console-open.png`, `console-open-light.png`, `console-open-mobile.png`, e2e |
+| 4 | The open console ran past the viewport bottom and sat under the proof strip | Fixed: a compact 2×2 grid, with the hero copy layered above the proof strip | e2e regression "open console fits the desktop viewport…" (fails before the fix) |
+| 5 | The info panel covered the sculpture | Fixed: docked lower right | `failure.png` |
+| 6 | Hard seam between the hero and the next section | Fixed: a bottom fade into the page background, in both themes | manual seam captures |
+
+Owner decisions (2026-11-08): (a) Keep the art plate plus live layers instead of real PBR and camera choreography. (b) Water and shader upgrades, which need the arsenal-scene source, are a follow-up task for Codex.
