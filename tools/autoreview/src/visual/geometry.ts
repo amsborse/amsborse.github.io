@@ -121,6 +121,19 @@ export async function runLayoutGeometryValidation(
         return decorative && !layer.contains(other) && stackZ(layer) <= stackZ(other);
       };
 
+      // Exact tags: a bare /button|a|input/ matched any tag containing "a" (main, header,
+      // section, span), which made page wrappers count as controls.
+      const isInteractive = (g: { tag: string; el: HTMLElement }) =>
+        /^(button|a|input|select|textarea)$/.test(g.tag) || g.el.tabIndex >= 0;
+      // What a reader actually sees: text the element draws itself, a control, or media.
+      const carriesContent = (g: { tag: string; el: HTMLElement }) =>
+        isInteractive(g) ||
+        /^(img|svg|video|canvas|picture|iframe)$/.test(g.tag) ||
+        [...g.el.childNodes].some((n) => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+      // A box laid over the flow that still catches the pointer (a fixed header, a stray layer).
+      const isOverlay = (g: { position: string; pointerEvents: string }) =>
+        /absolute|fixed/.test(g.position) && g.pointerEvents !== "none";
+
       const intersects = (a: DOMRect, b: DOMRect) =>
         !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
 
@@ -138,13 +151,17 @@ export async function runLayoutGeometryValidation(
           if (a.el.contains(b.el) || b.el.contains(a.el)) continue;
           if (intentional(a.el) || intentional(b.el)) continue;
           if (behindAsBackdrop(a.el, b.el) || behindAsBackdrop(b.el, a.el)) continue;
+          // Plain wrappers (<main>, a section) under a fixed header say nothing about where
+          // content is drawn; their text and controls are compared on their own.
+          if (!(carriesContent(a) || isOverlay(a)) || !(carriesContent(b) || isOverlay(b)))
+            continue;
           if (!intersects(a.boundingRect, b.boundingRect)) continue;
           const area = intersectionArea(a.boundingRect, b.boundingRect);
           if (area < 24) continue;
           const aText = Boolean(a.text);
           const bText = Boolean(b.text);
-          const aInteractive = /button|a|input|select|textarea/.test(a.tag) || a.el.tabIndex >= 0;
-          const bInteractive = /button|a|input|select|textarea/.test(b.tag) || b.el.tabIndex >= 0;
+          const aInteractive = isInteractive(a);
+          const bInteractive = isInteractive(b);
           const badgeLike = /badge|chip|pill|icon|label|action/i.test(
             a.selector + b.selector + a.el.className + b.el.className
           );
@@ -193,7 +210,7 @@ export async function runLayoutGeometryValidation(
         const right = pr.right - g.boundingRect.right;
         const top = g.boundingRect.top - pr.top;
         const bottom = pr.bottom - g.boundingRect.bottom;
-        const interactive = /button|a|input|select|textarea/.test(g.tag) || g.el.tabIndex >= 0;
+        const interactive = isInteractive(g);
         const min = interactive ? thresholds.interactiveToEdgePx : thresholds.textToEdgePx;
         if (g.text || interactive) {
           if (left < min || right < min || top < min || bottom < min) {

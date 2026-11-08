@@ -50,7 +50,13 @@ export async function runTypographyValidation(
             recommendedFix: `Increase font-size to at least ${minFontPx}px.`,
           });
         }
-        if (el.scrollWidth > el.clientWidth + 2 && style.whiteSpace === "nowrap") {
+        // A visually hidden (sr-only) node is 1px wide on purpose; its text is for screen readers.
+        const visuallyHidden = rect.width <= 1 || rect.height <= 1;
+        if (
+          !visuallyHidden &&
+          el.scrollWidth > el.clientWidth + 2 &&
+          style.whiteSpace === "nowrap"
+        ) {
           issues.push({
             category: "typography",
             severity: "high",

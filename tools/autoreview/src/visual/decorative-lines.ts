@@ -38,6 +38,7 @@ export async function runDecorativeLineValidation(
       ].filter((el) => !excluded(el) && (el as HTMLElement).innerText?.trim()) as HTMLElement[];
 
       const protectedRects = protectedEls.map((el) => ({
+        el,
         selector: cssPath(el),
         rect: el.getBoundingClientRect(),
       }));
@@ -64,6 +65,9 @@ export async function runDecorativeLineValidation(
             shape.getBoundingClientRect();
           if (box.width < 1 && box.height < 1) continue;
           for (const p of protectedRects) {
+            // An icon inside its own button or list item is part of that content, not a line
+            // crossing it.
+            if (p.el.contains(shape)) continue;
             if (!intersects(box, p.rect)) continue;
             const area =
               Math.max(0, Math.min(box.right, p.rect.right) - Math.max(box.left, p.rect.left)) *

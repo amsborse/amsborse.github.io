@@ -54,6 +54,9 @@ export async function runDeterministicChecks(
       const interactive =
         tag === "button" || tag === "a" || el.getAttribute("role") === "button" || el.tabIndex >= 0;
       if (!interactive) continue;
+      // Not rendered at all (inside a [hidden] panel or a breakpoint-hidden menu): nothing to
+      // click and nothing to see, so it is not a zero-size control.
+      if (el.getClientRects().length === 0) continue;
       const rect = el.getBoundingClientRect();
       if (rect.width < 1 || rect.height < 1) {
         findings.push({
