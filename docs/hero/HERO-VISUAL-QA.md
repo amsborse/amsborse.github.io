@@ -40,3 +40,17 @@ The default renderer is now the **art plate**: a generated, text-free illustrati
 | 6 | Hard seam between the hero and the next section | Fixed: a bottom fade into the page background, in both themes | manual seam captures |
 
 Owner decisions (2026-11-08): (a) Keep the art plate plus live layers instead of real PBR and camera choreography. (b) Water and shader upgrades, which need the arsenal-scene source, are a follow-up task for Codex.
+
+## Milestone 2 fidelity log (header and eyebrow against the reference)
+
+| # | Gap against the reference | Status | Evidence |
+| --- | --- | --- | --- |
+| 1 | Plain name in place of the "AB." monogram, divider and role line | Fixed: the monogram has a gold dot, then a divider, then the name and "Engineer & Writer". The text drops out between 768 and 1023 px | `desktop-idle.png`, `light-theme.png`, `tablet-834x1112.png` |
+| 2 | Nav was left-packed instead of centred | Fixed: a three-column header grid. Tailwind's `flex` had silently overridden the grid, so `md:grid` is now on the element | e2e "nav is centred and nothing overflows" at 1024, 1280 and 1672 px (fails before the fix) |
+| 3 | No profile icons or contact pill on the right | Fixed: GitHub, LinkedIn and Medium icons (from `site.social`, open in a new tab, labelled), a gold outline "Get in touch" pill to `/about#contact`, and the theme toggle | e2e "profile links…" and "monogram goes home…" |
+| 4 | Eyebrow repeated the name | Fixed: "Engineer / Builder / Writer" with a trailing rule, as in the reference | `desktop-idle.png` |
+
+Re-checked against `references/hero-composition.png`: the proof strip (icon, value, caption, dividers, short top rule) and the scroll cue (circle with an arrow, gentle pulse) already match. The reference has one primary pill and no secondary links; our extra text links (Experience, Resume) and the outlined "Explore the system" pill are kept because they are existing functionality. No open fidelity gaps remain in the header or hero copy column.
+
+Owner question: the reference shows "Book a Call", but the site has no booking link. The pill says "Get in touch" and goes to the existing contact section until a booking URL exists.
+

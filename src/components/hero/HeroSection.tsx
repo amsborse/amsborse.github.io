@@ -303,7 +303,9 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
       )}
 
       <div className="hero-copy">
-        <p className="hero-eyebrow">Akshay Borse · Engineer · Builder · Writer</p>
+        <p className="hero-eyebrow">
+          Engineer&nbsp;&nbsp;/&nbsp;&nbsp;Builder&nbsp;&nbsp;/&nbsp;&nbsp;Writer
+        </p>
         <h1 id="hero-heading" className="hero-heading">
           <span className="hero-heading-line">{words[0]}</span>{" "}
           <span className="hero-heading-line">

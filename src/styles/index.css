@@ -249,6 +249,109 @@
     }
   }
 
+  /* Brand left, primary nav centred, profiles + contact + theme right. */
+  @media (min-width: 768px) {
+    .site-header__bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    }
+    .site-header__tools {
+      justify-self: end;
+    }
+  }
+
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--color-ink);
+  }
+
+  .site-brand__mark {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .site-brand__dot {
+    color: var(--color-gold);
+  }
+
+  .site-brand__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-left: 0.9rem;
+    border-left: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+    line-height: 1.15;
+  }
+
+  /* Between tablet and laptop the centred nav needs the room. */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .site-brand__text {
+      display: none;
+    }
+  }
+
+  .site-brand__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .site-brand__role {
+    color: color-mix(in srgb, var(--color-ink) 70%, transparent);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .site-socials {
+    gap: 0.15rem;
+    margin: 0 0.4rem 0 0;
+    padding: 0 0.6rem 0 0;
+    border-right: 1px solid var(--color-border);
+    list-style: none;
+  }
+
+  .site-social {
+    display: inline-flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    color: color-mix(in srgb, var(--color-ink) 82%, transparent);
+    transition: color var(--duration-micro) var(--ease-out-luxe);
+  }
+
+  .site-social:hover {
+    color: var(--color-gold);
+  }
+
+  .site-header__cta {
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.5rem;
+    padding: 0 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-gold) 75%, transparent);
+    border-radius: 999px;
+    color: var(--color-ink);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition:
+      background-color var(--duration-micro) var(--ease-out-luxe),
+      box-shadow var(--duration-micro) var(--ease-out-luxe);
+  }
+
+  .site-header__cta:hover {
+    background: color-mix(in srgb, var(--color-gold) 12%, transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-gold) 28%, transparent);
+  }
+
   .site-header__panel {
     background-color: var(--color-chrome-bg);
     backdrop-filter: blur(16px);
@@ -558,6 +661,15 @@
         transparent
       );
     }
+  }
+
+  .nav-item--idle {
+    color: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  }
+
+  /* On the hero the active marker takes the scene's gold instead of the site accent. */
+  .site-header--home .nav-item--active::after {
+    background: var(--color-gold);
   }
 
   .nav-item--active {

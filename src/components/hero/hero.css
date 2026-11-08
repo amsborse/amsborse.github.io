@@ -110,6 +110,24 @@
   text-transform: uppercase;
 }
 
+/* Reference: quiet, wide-tracked ink with a trailing hairline, not a gold code label. */
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  color: var(--color-ink);
+  font-family: inherit;
+  font-size: 0.74rem;
+  letter-spacing: 0.32em;
+}
+
+.hero-eyebrow::after {
+  content: "";
+  width: 4.5rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}
+
 .hero-heading {
   margin: 0;
   color: var(--color-ink);
