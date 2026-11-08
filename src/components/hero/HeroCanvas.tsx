@@ -113,7 +113,7 @@ function Scene({
   }, [camera, gl, lightMode, onContextLost, onReady, scene]);
 
   useEffect(() => {
-    if (size.width < 700) {
+    if (size.width <= 600) {
       perspective.fov = 43;
       camera.position.set(0, 0.5, 10.9);
       cameraTarget.set(0, 0.35, 0);
@@ -134,10 +134,23 @@ function Scene({
   }, [camera, cameraTarget, perspective, size.width, urlState.camera]);
 
   useFrame((frame, delta) => {
-    const mobile = size.width < 700;
+    const mobile = size.width <= 600;
+    const tablet = size.width <= 900;
     if (artRef.current) {
-      artRef.current.position.set(mobile ? 0 : medium ? 0.9 : 2.35, mobile ? 2.5 : 0, 0);
-      artRef.current.scale.setScalar(mobile ? 0.62 : medium ? 0.65 : 1);
+      if (urlState.camera === "node" || urlState.camera === "profile") {
+        artRef.current.position.set(0, 0, 0);
+        artRef.current.scale.set(1, 1, 1);
+      } else {
+        artRef.current.position.set(
+          mobile ? 0.55 : tablet ? 0.55 : medium ? 1.45 : 2.2,
+          mobile || tablet ? -0.35 : -0.2,
+          0
+        );
+        if (mobile) artRef.current.scale.set(0.83, 0.83, 0.83);
+        else if (tablet) artRef.current.scale.set(0.78, 0.78, 0.78);
+        else if (medium) artRef.current.scale.set(0.86, 0.76, 0.86);
+        else artRef.current.scale.set(0.95, 0.82, 0.95);
+      }
     }
     if (!reducedMotion && urlState.fixedTime === null) {
       slowTime.current =
@@ -149,11 +162,12 @@ function Scene({
       const pointerX = pointer.x * 0.12;
       const pointerY = pointer.y * 0.08;
       const scroll = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1) * 0.09;
-      camera.position.x +=
-        (CAMERA.position[0] + pointerX + (mobile ? 0 : 0.2) - camera.position.x) *
-        Math.min(delta * 1.1, 1);
+      const cameraBaseX = mobile ? 0 : CAMERA.position[0] + 0.2;
+      const cameraBaseY = mobile ? 0.5 : CAMERA.position[1];
+      camera.position.x += (cameraBaseX + pointerX - camera.position.x) * Math.min(delta * 1.1, 1);
       camera.position.y +=
-        (CAMERA.position[1] + pointerY - scroll - camera.position.y) * Math.min(delta * 1.1, 1);
+        (cameraBaseY + pointerY - (mobile ? 0 : scroll) - camera.position.y) *
+        Math.min(delta * 1.1, 1);
       camera.lookAt(cameraTarget.x, cameraTarget.y, cameraTarget.z);
     }
     if (frame.clock.elapsedTime - lastStatsAt.current > 1) {
@@ -166,15 +180,58 @@ function Scene({
     <>
       <Lighting lightMode={lightMode} />
       <group ref={artRef}>
-        <CoreSphere state={state} now={now} reducedMotion={reducedMotion} lightMode={lightMode} />
-        <OrbitRings now={now} state={state} reducedMotion={reducedMotion} lightMode={lightMode} />
-        <ServiceModules state={state} now={now} onHover={onHover} onSelect={onSelect} />
-        <DataPaths state={state} now={now} sampleRef={sampleRef} reducedMotion={reducedMotion} />
+        <CoreSphere
+          state={state}
+          now={now}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          reducedMotion={reducedMotion}
+          lightMode={lightMode}
+        />
+        <OrbitRings
+          now={now}
+          state={state}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          reducedMotion={reducedMotion}
+          lightMode={lightMode}
+        />
+        <ServiceModules
+          state={state}
+          now={now}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          lightMode={lightMode}
+          onHover={onHover}
+          onSelect={onSelect}
+        />
+        <DataPaths
+          state={state}
+          now={now}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          lightMode={lightMode}
+          sampleRef={sampleRef}
+          reducedMotion={reducedMotion}
+        />
         <Island quality={quality} lightMode={lightMode} />
-        <Bonsai now={now} quality={quality} reducedMotion={reducedMotion} lightMode={lightMode} />
-        <Waterfall now={now} lightMode={lightMode} reducedMotion={reducedMotion} />
-        <Pool now={now} lightMode={lightMode} quality={quality} reducedMotion={reducedMotion} />
-        <Callouts />
+        <Bonsai
+          now={now}
+          quality={quality}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          reducedMotion={reducedMotion}
+          lightMode={lightMode}
+        />
+        <Waterfall
+          now={now}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          lightMode={lightMode}
+          reducedMotion={reducedMotion}
+        />
+        <Pool
+          now={now}
+          animate={!reducedMotion && urlState.fixedTime === null}
+          lightMode={lightMode}
+          quality={quality}
+          reducedMotion={reducedMotion}
+        />
+        <Callouts lightMode={lightMode} />
       </group>
       <Effects enabled={!lightMode && !reducedMotion && quality === "high"} />
       <AdaptiveDpr pixelated />
@@ -189,7 +246,7 @@ export function HeroCanvas(props: HeroCanvasProps) {
   const [contextLost, setContextLost] = useState(false);
   const host = useRef<HTMLDivElement>(null);
   const [mobile, setMobile] = useState(
-    () => typeof window !== "undefined" && window.innerWidth < 700
+    () => typeof window !== "undefined" && window.innerWidth <= 600
   );
   const visible = inView && pageVisible;
   const { onContextLost, onReady } = props;
@@ -203,7 +260,7 @@ export function HeroCanvas(props: HeroCanvasProps) {
   }, [onReady]);
 
   useEffect(() => {
-    const updateViewport = () => setMobile(window.innerWidth < 700);
+    const updateViewport = () => setMobile(window.innerWidth <= 600);
     window.addEventListener("resize", updateViewport);
     return () => window.removeEventListener("resize", updateViewport);
   }, []);

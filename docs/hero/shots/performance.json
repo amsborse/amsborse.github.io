@@ -1,6 +1,6 @@
 {
   "renderer": "webgl",
-  "drawCalls": 284,
-  "triangles": 99743,
-  "fps": 44.1
+  "drawCalls": 118,
+  "triangles": 119779,
+  "fps": 60.2
 }

@@ -4,13 +4,14 @@ import * as THREE from "three";
 import { ORBITS } from "../topology";
 import type { HeroState } from "../simulation";
 
-function makeBand(radius: number, width: number, thickness: number) {
-  const segments = 192;
+function makeBand(radius: number, width: number, thickness: number, span = Math.PI * 2) {
+  const segments = span < Math.PI * 2 ? 40 : 192;
   const sides = 12;
   const positions: number[] = [];
   const indices: number[] = [];
+  const start = span < Math.PI * 2 ? -span * 0.5 : 0;
   for (let i = 0; i <= segments; i++) {
-    const angle = (i / segments) * Math.PI * 2;
+    const angle = start + (i / segments) * span;
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
     for (let j = 0; j <= sides; j++) {
@@ -37,25 +38,32 @@ function makeBand(radius: number, width: number, thickness: number) {
 export function OrbitRings({
   now,
   state,
+  animate,
   reducedMotion,
   lightMode = false,
 }: {
   now: number;
   state: HeroState;
+  animate: boolean;
   reducedMotion: boolean;
   lightMode?: boolean;
 }) {
-  const streakRefs = useRef<(THREE.Mesh | null)[]>([]);
-  const geometries = useMemo(() => ORBITS.map((orbit) => makeBand(orbit.radius, 0.075, 0.045)), []);
+  const streakRefs = useRef<(THREE.Group | null)[]>([]);
+  const geometries = useMemo(() => ORBITS.map((orbit) => makeBand(orbit.radius, 0.14, 0.075)), []);
+  const streaks = useMemo(
+    () => ORBITS.map((orbit) => makeBand(orbit.radius, 0.105, 0.065, 0.52)),
+    []
+  );
   const active = state.hovered ?? state.selected;
 
-  useFrame(() => {
+  useFrame((frame) => {
     for (let index = 0; index < ORBITS.length; index++) {
       const orbit = ORBITS[index];
       const streak = streakRefs.current[index];
       if (!streak) continue;
-      const phase = reducedMotion ? 0.14 : (now / orbit.periodSec) * Math.PI * 2;
-      streak.position.set(Math.cos(phase) * orbit.radius, 0, Math.sin(phase) * orbit.radius);
+      const time = animate ? frame.clock.elapsedTime : now;
+      const phase = reducedMotion ? 0.14 : (time / orbit.periodSec) * Math.PI * 2;
+      streak.rotation.y = phase;
     }
   });
 
@@ -65,28 +73,34 @@ export function OrbitRings({
         <group key={orbit.id} rotation={[orbit.tilt[0], 0, orbit.tilt[1]]}>
           <mesh geometry={geometries[index]}>
             <meshPhysicalMaterial
-              color={lightMode ? "#aa9577" : "#9e8b70"}
-              metalness={0.62}
-              roughness={0.21}
+              color={lightMode ? "#c4b193" : "#94a1a4"}
+              metalness={0.28}
+              roughness={0.14}
               clearcoat={1}
-              clearcoatRoughness={0.1}
-              transmission={0.18}
+              clearcoatRoughness={0.08}
+              transmission={0.38}
               transparent
-              opacity={active ? 0.94 : 0.76}
-              emissive={lightMode ? "#33291b" : "#492a0d"}
-              emissiveIntensity={lightMode ? 0.04 : active ? 0.28 : 0.12}
+              opacity={active ? 0.94 : 0.72}
+              emissive={lightMode ? "#392d1c" : "#472a0e"}
+              emissiveIntensity={lightMode ? 0.015 : active ? 0.24 : 0.1}
               depthWrite={false}
             />
           </mesh>
-          <mesh
-            ref={(mesh) => {
-              streakRefs.current[index] = mesh;
+          <group
+            ref={(group) => {
+              streakRefs.current[index] = group;
             }}
-            scale={0.075}
           >
-            <sphereGeometry args={[1, 12, 10]} />
-            <meshBasicMaterial color="#ffc766" />
-          </mesh>
+            <mesh geometry={streaks[index]}>
+              <meshBasicMaterial
+                color={lightMode ? "#a56d2e" : "#ffc766"}
+                transparent
+                opacity={lightMode ? 0.58 : 0.82}
+                toneMapped={false}
+                depthWrite={false}
+              />
+            </mesh>
+          </group>
         </group>
       ))}
     </group>

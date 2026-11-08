@@ -1,12 +1,27 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { ISLAND } from "../layout";
 
 type WindShader = { uniforms: { uWindTime: { value: number } } };
 
+const PAD_LAYOUT = [
+  [-0.55, 0.98, 0.02, 0.42, 0.13, 0.28],
+  [-0.04, 1.01, 0, 0.45, 0.14, 0.3],
+  [0.47, 1.04, -0.02, 0.38, 0.13, 0.26],
+  [-0.42, 1.29, 0.01, 0.45, 0.14, 0.29],
+  [0.12, 1.32, -0.02, 0.48, 0.15, 0.3],
+  [0.58, 1.36, -0.03, 0.34, 0.13, 0.24],
+  [-0.25, 1.6, 0.02, 0.41, 0.14, 0.28],
+  [0.2, 1.64, -0.02, 0.43, 0.14, 0.27],
+  [0.27, 1.9, -0.01, 0.3, 0.11, 0.22],
+] as const;
+const PAD_COLORS = ["#20392b", "#29452e", "#344e35", "#253e2d", "#3a5437"];
+const PAD_COLORS_LIGHT = ["#40513b", "#4c5c40", "#586547", "#455840", "#65714c"];
+
 function makeBranches() {
-  const curves: THREE.TubeGeometry[] = [];
+  const curves: THREE.BufferGeometry[] = [];
   const trunk = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, 0, 0),
     new THREE.Vector3(-0.1, 0.35, 0.02),
@@ -54,58 +69,61 @@ function makeBranches() {
     );
     curves.push(new THREE.TubeGeometry(curve, 18, 0.032 - index * 0.0022, 6, false));
   }
-  return curves;
+  const merged = mergeGeometries(curves, false);
+  curves.forEach((geometry) => geometry.dispose());
+  if (!merged) throw new Error("Could not merge hero bonsai branches");
+  return merged;
 }
 
-function foliageInstances(count: number) {
-  const geometry = new THREE.DodecahedronGeometry(0.29, 1);
+function foliageInstances(count: number, lightMode: boolean) {
+  const geometry = new THREE.SphereGeometry(1, 20, 12);
   const material = new THREE.MeshStandardMaterial({
-    color: "#809344",
-    roughness: 0.78,
-    metalness: 0.02,
+    color: "#ffffff",
+    roughness: 0.86,
+    metalness: 0.01,
   });
   const mesh = new THREE.InstancedMesh(geometry, material, count);
   const dummy = new THREE.Object3D();
   for (let index = 0; index < count; index++) {
-    const angle = index * 2.3999632297;
-    const layer = Math.floor(index / 7);
-    const within = index % 7;
-    const radius = 0.25 + (within % 3) * 0.16;
-    dummy.position.set(
-      Math.cos(angle) * radius + (layer === 1 ? 0.18 : 0),
-      0.83 + layer * 0.32 + (within % 2) * 0.08,
-      Math.sin(angle) * radius * 0.72
-    );
-    dummy.scale.set(0.88 + (within % 3) * 0.15, 0.44 + (layer % 2) * 0.08, 0.72);
-    dummy.rotation.set(0.05 * Math.sin(angle), angle, 0.14 * Math.cos(angle));
+    const [x, y, z, sx, sy, sz] = PAD_LAYOUT[index];
+    dummy.position.set(x, y, z);
+    dummy.scale.set(sx, sy, sz);
+    dummy.rotation.set(0.015 * (index % 3), 0.08 * (index % 2), 0.012 * (index % 4));
     dummy.updateMatrix();
     mesh.setMatrixAt(index, dummy.matrix);
+    mesh.setColorAt(index, new THREE.Color((lightMode ? PAD_COLORS_LIGHT : PAD_COLORS)[index % 5]));
   }
   mesh.instanceMatrix.needsUpdate = true;
+  if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   return mesh;
 }
 
 export function Bonsai({
   now,
   quality = "high",
+  animate,
   reducedMotion = false,
   lightMode = false,
 }: {
   now: number;
   quality?: "high" | "medium" | "low";
+  animate: boolean;
   reducedMotion?: boolean;
   lightMode?: boolean;
 }) {
   const treeRef = useRef<THREE.Group>(null);
   const shaderRef = useRef<WindShader | null>(null);
   const branches = useMemo(makeBranches, []);
-  const foliageCount = quality === "high" ? 28 : quality === "medium" ? 20 : 14;
-  const foliage = useMemo(() => foliageInstances(foliageCount), [foliageCount]);
+  const foliageCount = quality === "high" ? 9 : quality === "medium" ? 7 : 5;
+  const foliage = useMemo(
+    () => foliageInstances(foliageCount, lightMode),
+    [foliageCount, lightMode]
+  );
   const foliageMaterial = useMemo(() => {
     const material = new THREE.MeshStandardMaterial({
-      color: "#8b9a44",
-      roughness: 0.76,
-      metalness: 0.02,
+      color: "#ffffff",
+      roughness: 0.86,
+      metalness: 0.01,
     });
     material.onBeforeCompile = (shader) => {
       shader.uniforms.uWindTime = { value: 0 };
@@ -116,17 +134,18 @@ export function Bonsai({
       );
       shader.vertexShader = shader.vertexShader.replace(
         "#include <begin_vertex>",
-        "#include <begin_vertex>\ntransformed.x += sin(uWindTime * 0.8 + position.y * 2.3) * 0.018;"
+        "#include <begin_vertex>\ntransformed.x += sin(uWindTime * 0.7 + position.y * 2.3) * 0.008;"
       );
     };
-    material.customProgramCacheKey = () => "bonsai-wind-v1";
+    material.customProgramCacheKey = () => "bonsai-wind-v2";
     return material;
   }, []);
 
-  useFrame(() => {
-    if (shaderRef.current) shaderRef.current.uniforms.uWindTime.value = reducedMotion ? 0 : now;
-    if (treeRef.current && !reducedMotion) {
-      treeRef.current.rotation.z = Math.sin((now * Math.PI * 2) / 9) * 0.006;
+  useFrame((frame) => {
+    const time = animate ? frame.clock.elapsedTime : now;
+    if (shaderRef.current) shaderRef.current.uniforms.uWindTime.value = reducedMotion ? 0 : time;
+    if (treeRef.current) {
+      treeRef.current.rotation.z = reducedMotion ? 0 : Math.sin((time * Math.PI * 2) / 9) * 0.004;
     }
   });
 
@@ -134,30 +153,16 @@ export function Bonsai({
     <group
       ref={treeRef}
       position={[ISLAND.center[0] + ISLAND.tree[0], ISLAND.center[1] + 0.08, ISLAND.tree[2]]}
-      scale={[1.05, 1.27, 1]}
+      scale={[0.92, 1, 0.92]}
     >
-      {branches.map((geometry, index) => (
-        <mesh key={index} geometry={geometry} castShadow>
-          <meshStandardMaterial
-            color={
-              lightMode
-                ? index === 0
-                  ? "#765b3e"
-                  : "#866644"
-                : index === 0
-                  ? "#5b432e"
-                  : "#674d31"
-            }
-            roughness={0.88}
-            metalness={0.02}
-          />
-        </mesh>
-      ))}
-      <primitive object={foliage} material={foliageMaterial} castShadow />
-      <mesh position={[0.23, 1.78, 0.04]} scale={[0.19, 0.14, 0.19]}>
-        <icosahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color={lightMode ? "#838b4c" : "#9b9f4e"} roughness={0.87} />
+      <mesh geometry={branches} castShadow>
+        <meshStandardMaterial
+          color={lightMode ? "#785e42" : "#59432f"}
+          roughness={0.88}
+          metalness={0.02}
+        />
       </mesh>
+      <primitive object={foliage} material={foliageMaterial} castShadow />
     </group>
   );
 }

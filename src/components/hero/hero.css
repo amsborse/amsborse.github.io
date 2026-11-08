@@ -169,18 +169,24 @@
 }
 
 .hero-controls {
-  max-width: 30rem;
-  margin-top: 1.55rem;
+  display: block;
+  max-width: min(39vw, 32rem);
+  margin-top: 1.05rem;
   border-top: 1px solid var(--color-border-strong);
-  padding-top: 0.65rem;
+  padding-top: 0.55rem;
+}
+
+.hero-control-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
 }
 
 .hero-control-buttons,
 .hero-inspect-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 0.55rem;
+  display: contents;
 }
 
 .hero-controls button,
@@ -189,10 +195,29 @@
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   background: var(--color-bg);
-  padding: 0.25rem 0.7rem;
+  padding: 0.2rem 0.55rem;
   color: var(--color-ink-soft);
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
+}
+
+.hero-controls select {
+  width: 5.6rem;
+  max-width: 5.6rem;
+  text-overflow: ellipsis;
+}
+
+.hero-controls .hero-inspect-button {
+  display: inline-grid;
+  width: 1.8rem;
+  flex: 0 0 1.8rem;
+  place-items: center;
+  padding: 0;
+}
+
+.hero-inspect-button svg {
+  width: 0.86rem;
+  height: 0.86rem;
 }
 
 .hero-controls button {
@@ -214,15 +239,16 @@
 }
 
 .hero-inspect-row {
-  margin-top: 0.4rem;
+  margin: 0;
 }
 
 .hero-live-caption {
-  max-width: 34rem;
-  min-height: 2.25em;
-  margin: 0.52rem 0 0;
+  width: 100%;
+  max-width: 32rem;
+  min-height: 1.45em;
+  margin: 0.28rem 0 0;
   color: var(--color-ink-soft);
-  font-size: 0.73rem;
+  font-size: 0.68rem;
   line-height: 1.45;
 }
 
@@ -233,7 +259,7 @@
   bottom: 4.4rem;
   left: max(3.8vw, calc((100vw - 1530px) / 2));
   display: flex;
-  width: min(53vw, 790px);
+  width: min(49vw, 740px);
   align-items: center;
   gap: 0;
   margin: 0;
@@ -332,7 +358,7 @@
 .hero-callout {
   position: relative;
   display: flex;
-  width: 13rem;
+  width: 8.5rem;
   flex-direction: column;
   gap: 0.24rem;
   color: var(--color-ink);
@@ -340,21 +366,6 @@
   font-size: 0.7rem;
   line-height: 1.35;
   text-shadow: 0 1px 8px var(--color-bg);
-}
-
-.hero-callout::before {
-  position: absolute;
-  top: 0.42rem;
-  left: -2.1rem;
-  width: 1.7rem;
-  height: 1px;
-  background: var(--color-gold-muted);
-  content: "";
-}
-
-.hero-callout-right::before {
-  right: -2.1rem;
-  left: auto;
 }
 
 .hero-callout strong {
@@ -505,13 +516,13 @@
 }
 
 :root[data-theme="light"] .hero-callout {
-  text-shadow: 0 1px 8px #f5f0e6;
+  text-shadow: 0 1px 8px var(--color-bg);
 }
 
 :root[data-theme="light"] .hero-primary-cta {
   box-shadow:
     0 1px 0 color-mix(in srgb, var(--color-gold) 24%, transparent),
-    0 5px 18px color-mix(in srgb, #6d5b42 11%, transparent);
+    0 5px 18px color-mix(in srgb, var(--color-ink) 11%, transparent);
 }
 
 .hero-section[data-hero-fixed="true"] .hero-scroll-cue span,
@@ -530,6 +541,24 @@
     width: min(47vw, 480px);
   }
 
+  .hero-canvas {
+    right: 0;
+    bottom: auto;
+    left: 0;
+    height: min(48vh, 34rem);
+  }
+
+  .hero-scene-backdrop {
+    height: min(48vh, 34rem);
+  }
+
+  .hero-static-art,
+  .hero-context-fallback {
+    object-fit: contain;
+    object-position: center top;
+    mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+  }
+
   .hero-heading {
     font-size: clamp(3.25rem, 7.1vw, 4.3rem);
   }
@@ -546,7 +575,7 @@
 @media (max-width: 600px) {
   .hero-section {
     min-height: max(100svh, 54rem);
-    padding: 20rem 1.35rem 8rem;
+    padding: 22rem 1.35rem 8rem;
   }
 
   .hero-copy {
@@ -584,7 +613,34 @@
 
   .hero-controls {
     max-width: 100%;
-    margin-top: 1.15rem;
+    margin-top: 0.9rem;
+  }
+
+  .hero-control-row {
+    gap: 0.2rem;
+  }
+
+  .hero-controls button,
+  .hero-controls select {
+    min-height: 2.75rem;
+    padding-inline: 0.32rem;
+    font-size: 0.68rem;
+  }
+
+  .hero-controls select {
+    width: 4.5rem;
+    max-width: 4.5rem;
+    padding-right: 0.8rem;
+  }
+
+  .hero-inspect-row select {
+    width: 5rem;
+    max-width: 5rem;
+  }
+
+  .hero-live-caption {
+    margin-top: 0.28rem;
+    font-size: 0.7rem;
   }
 
   .hero-proof-strip {
@@ -630,6 +686,11 @@
     display: none;
   }
 
+  .hero-controls .hero-inspect-button {
+    width: 2.75rem;
+    flex-basis: 2.75rem;
+  }
+
   .hero-info-panel {
     top: auto;
     right: 1rem;
@@ -642,6 +703,39 @@
   .hero-loading {
     top: 22%;
     left: 38%;
+  }
+
+  .hero-canvas {
+    height: 22rem;
+  }
+
+  .hero-scene-backdrop {
+    height: 22rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .hero-section {
+    min-height: max(100svh, 76rem);
+    padding-top: clamp(28rem, 48vh, 34rem);
+    padding-bottom: 9rem;
+  }
+
+  .hero-copy {
+    width: min(78vw, 35rem);
+    padding-top: 0;
+  }
+
+  .hero-heading {
+    font-size: clamp(3.5rem, 7.8vw, 4.5rem);
+  }
+
+  .hero-controls {
+    max-width: min(78vw, 35rem);
+  }
+
+  .hero-proof-strip {
+    width: min(82vw, 760px);
   }
 }
 

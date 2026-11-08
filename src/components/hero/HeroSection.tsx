@@ -293,56 +293,84 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
           </Link>
         </div>
 
-        <div className="hero-controls" aria-label="System simulation controls">
-          <div className="hero-control-buttons">
-            <button type="button" onClick={() => dispatch({ type: "sendRequest", now: now() })}>
-              Send request
-            </button>
-            <label>
-              <span className="sr-only">Service to fail</span>
-              <select
-                value={failTarget}
-                onChange={(event) => setFailTarget(event.target.value as ServiceId)}
+        <div className="hero-controls" role="group" aria-label="System simulation controls">
+          <div className="hero-control-row">
+            <div className="hero-control-buttons">
+              <button
+                type="button"
+                aria-label="Send request"
+                title="Send request"
+                onClick={() => dispatch({ type: "sendRequest", now: now() })}
               >
-                {SERVICES.map((service) => (
-                  <option key={service.id} value={service.id}>
-                    {service.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button
-              type="button"
-              onClick={() => dispatch({ type: "fail", id: failTarget, now: now() })}
-            >
-              Simulate failure
-            </button>
-            <button
-              type="button"
-              onClick={() => dispatch({ type: "recover", now: now() })}
-              disabled={!state.failed}
-            >
-              Recover
-            </button>
-          </div>
-          <div className="hero-inspect-row">
-            <label>
-              <span className="sr-only">Service to inspect</span>
-              <select
-                aria-label="Choose service to inspect"
-                value={inspectTarget}
-                onChange={(event) => setInspectTarget(event.target.value as ServiceId)}
+                Send
+              </button>
+              <label>
+                <span className="sr-only">Service to fail</span>
+                <select
+                  aria-label="Service to fail"
+                  title="Choose a service to fail"
+                  value={failTarget}
+                  onChange={(event) => setFailTarget(event.target.value as ServiceId)}
+                >
+                  {SERVICES.map((service) => (
+                    <option key={service.id} value={service.id}>
+                      {service.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                aria-label="Simulate failure"
+                title="Simulate failure"
+                type="button"
+                onClick={() => dispatch({ type: "fail", id: failTarget, now: now() })}
               >
-                {SERVICES.map((service) => (
-                  <option key={service.id} value={service.id}>
-                    {service.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button ref={inspectButtonRef} type="button" onClick={() => openService(inspectTarget)}>
-              Inspect service
-            </button>
+                Fail
+              </button>
+              <button
+                type="button"
+                onClick={() => dispatch({ type: "recover", now: now() })}
+                disabled={!state.failed}
+              >
+                Recover
+              </button>
+            </div>
+            <div className="hero-inspect-row">
+              <label>
+                <span className="sr-only">Service to inspect</span>
+                <select
+                  aria-label="Choose service to inspect"
+                  title="Choose service to inspect"
+                  value={inspectTarget}
+                  onChange={(event) => setInspectTarget(event.target.value as ServiceId)}
+                >
+                  {SERVICES.map((service) => (
+                    <option key={service.id} value={service.id}>
+                      {service.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                ref={inspectButtonRef}
+                className="hero-inspect-button"
+                type="button"
+                aria-label="Inspect service"
+                title="Inspect selected service"
+                onClick={() => openService(inspectTarget)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  aria-hidden="true"
+                >
+                  <circle cx="10.8" cy="10.8" r="6.4" />
+                  <path d="m15.5 15.5 5 5" />
+                </svg>
+              </button>
+            </div>
           </div>
           <p
             aria-live="polite"

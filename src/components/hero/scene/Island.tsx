@@ -6,6 +6,8 @@ function seededNoise(x: number, z: number) {
   return Math.sin(x * 9.13 + z * 4.77) * Math.cos(z * 11.3 - x * 2.19);
 }
 
+const STRATA_PROFILE = [1.01, 0.96, 1.03, 1.08, 0.98, 0.9, 0.78, 0.62, 0.43, 0.27];
+
 function islandTop(lightMode: boolean) {
   const radial = 14;
   const around = 72;
@@ -46,18 +48,25 @@ function islandTop(lightMode: boolean) {
 
 function islandStrata(lightMode: boolean) {
   const around = 72;
-  const levels = 8;
+  const levels = 12;
   const positions: number[] = [];
   const colors: number[] = [];
   const indices: number[] = [];
   for (let level = 0; level <= levels; level++) {
     const t = level / levels;
-    const y = 0.03 - t * ISLAND.height;
-    const scale = 1.02 + t * 0.13 + Math.sin(t * Math.PI * 3) * 0.025;
+    const profilePosition = t * (STRATA_PROFILE.length - 1);
+    const profileIndex = Math.min(Math.floor(profilePosition), STRATA_PROFILE.length - 2);
+    const profileMix = profilePosition - profileIndex;
+    const profile =
+      STRATA_PROFILE[profileIndex] * (1 - profileMix) +
+      STRATA_PROFILE[profileIndex + 1] * profileMix;
+    const shelf = level > 0 && level % 4 === 0 ? 0.035 : 0;
+    const y = 0.03 - t * ISLAND.height * 1.18 + Math.sin(t * Math.PI * 12) * 0.012;
+    const scale = profile + shelf + Math.sin(t * Math.PI * 6) * 0.012;
     for (let segment = 0; segment <= around; segment++) {
       const angle = (segment / around) * Math.PI * 2;
       const rough =
-        seededNoise(Math.cos(angle) * 3 + t, Math.sin(angle) * 2 - t) * (0.045 + t * 0.05);
+        seededNoise(Math.cos(angle) * 3 + t, Math.sin(angle) * 2 - t) * (0.055 + t * 0.065);
       positions.push(
         Math.cos(angle) * (ISLAND.width * 0.5) * scale * (1 + rough),
         y + rough * 0.18,
@@ -76,7 +85,8 @@ function islandStrata(lightMode: boolean) {
               ? "#292824"
               : "#514b3f"
       );
-      const variation = 0.88 + Math.max(0, seededNoise(segment, level) * 0.1);
+      const layerTone = level % 4 === 1 ? 1.08 : level % 4 === 2 ? 0.88 : 1;
+      const variation = layerTone * (0.88 + Math.max(0, seededNoise(segment, level) * 0.12));
       colors.push(stone.r * variation, stone.g * variation, stone.b * variation);
     }
   }
@@ -86,6 +96,13 @@ function islandStrata(lightMode: boolean) {
       const b = a + around + 1;
       indices.push(a, a + 1, b, a + 1, b + 1, b);
     }
+  }
+  const bottom = positions.length / 3;
+  positions.push(0, -ISLAND.height * 1.24, 0);
+  colors.push(lightMode ? 0.19 : 0.045, lightMode ? 0.18 : 0.043, lightMode ? 0.16 : 0.04);
+  const bottomRing = levels * (around + 1);
+  for (let segment = 0; segment < around; segment++) {
+    indices.push(bottomRing + segment, bottomRing + segment + 1, bottom);
   }
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
@@ -140,7 +157,7 @@ export function Island({
         new THREE.ConeGeometry(0.06, 0.28, 5),
         0.3,
         2.15,
-        lightMode ? "#718045" : "#596034"
+        lightMode ? "#556346" : "#304733"
       ),
     [leaves, lightMode]
   );
@@ -164,17 +181,23 @@ export function Island({
       <mesh geometry={top} position={[0, 0.025, 0]} receiveShadow>
         <meshStandardMaterial vertexColors roughness={0.94} metalness={0.02} />
       </mesh>
+      <mesh position={[0.72, 0.092, -0.02]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.22, 0.42, 1]}>
+        <circleGeometry args={[1, 64]} />
+        <meshPhysicalMaterial
+          color={lightMode ? "#b7aa91" : "#172226"}
+          metalness={lightMode ? 0.16 : 0.4}
+          roughness={lightMode ? 0.2 : 0.12}
+          clearcoat={1}
+          clearcoatRoughness={0.08}
+          transmission={lightMode ? 0.22 : 0.42}
+          thickness={0.14}
+          transparent
+          opacity={lightMode ? 0.72 : 0.86}
+          depthWrite={false}
+        />
+      </mesh>
       <primitive object={foliage} />
       <primitive object={rocks} />
-      <mesh
-        position={[-0.65, -0.38, 0.1]}
-        rotation={[0, 0.2, 0.08]}
-        scale={[0.74, 0.1, 0.34]}
-        castShadow
-      >
-        <icosahedronGeometry args={[1, 1]} />
-        <meshStandardMaterial color={lightMode ? "#534e43" : "#242520"} roughness={0.93} />
-      </mesh>
     </group>
   );
 }

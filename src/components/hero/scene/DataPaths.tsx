@@ -1,27 +1,45 @@
-import { useMemo, useRef, type MutableRefObject } from "react";
+import { useLayoutEffect, useMemo, useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { EDGES, type Edge, type ServiceId } from "../topology";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { EDGES, type Edge, type EdgeKind } from "../topology";
 import { dimmedEdges, type HeroState, type RouteSample } from "../simulation";
 import { servicePosition } from "../layout";
 
-const EDGE_COLOR: Record<Edge["kind"], string> = {
+const EDGE_COLOR: Record<EdgeKind, string> = {
   request: "#ffc766",
   response: "#dec89e",
   telemetry: "#89949a",
   fallback: "#ffb74f",
 };
+const LIGHT_EDGE_COLOR: Record<EdgeKind, string> = {
+  request: "#9b6429",
+  response: "#756b59",
+  telemetry: "#7a807e",
+  fallback: "#a15d26",
+};
 const PACKET_AMBER = new THREE.Color("#ffc766");
 const PACKET_ERROR = new THREE.Color("#ff686b");
+const PATH_KINDS: readonly EdgeKind[] = ["request", "response", "telemetry", "fallback"];
 
-interface PathMesh {
+interface PathData {
   edge: Edge;
   curve: THREE.QuadraticBezierCurve3;
-  geometry: THREE.BufferGeometry;
-  line?: THREE.Line<THREE.BufferGeometry, THREE.LineDashedMaterial>;
 }
 
-function makePath(edge: Edge) {
+interface EdgeRange {
+  edge: Edge;
+  start: number;
+  count: number;
+}
+
+interface MergedPath {
+  kind: EdgeKind;
+  geometry: THREE.BufferGeometry;
+  ranges: EdgeRange[];
+}
+
+function makeCurve(edge: Edge) {
   const from = servicePosition(edge.from);
   const to = servicePosition(edge.to);
   const start = new THREE.Vector3(from[0], from[1] + 1.12, from[2]);
@@ -37,40 +55,80 @@ function makePath(edge: Edge) {
 }
 
 function buildPaths() {
-  return EDGES.map((edge): PathMesh => {
-    const curve = makePath(edge);
-    if (edge.kind === "telemetry") {
-      const points = curve.getPoints(48);
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const line = new THREE.Line(
-        geometry,
-        new THREE.LineDashedMaterial({
-          color: EDGE_COLOR.telemetry,
-          dashSize: 0.095,
-          gapSize: 0.085,
-          transparent: true,
-          opacity: 0.18,
-        })
-      );
-      line.computeLineDistances();
-      return { edge, curve, geometry, line };
-    }
-    return { edge, curve, geometry: new THREE.TubeGeometry(curve, 32, 0.014, 5, false) };
+  const paths = EDGES.map((edge): PathData => ({ edge, curve: makeCurve(edge) }));
+  const byKind = new Map<EdgeKind, THREE.BufferGeometry[]>(PATH_KINDS.map((kind) => [kind, []]));
+  const ranges = new Map<EdgeKind, EdgeRange[]>(PATH_KINDS.map((kind) => [kind, []]));
+
+  for (const { edge, curve } of paths) {
+    const geometry = new THREE.TubeGeometry(
+      curve,
+      edge.kind === "telemetry" ? 24 : 32,
+      edge.kind === "telemetry" ? 0.008 : 0.014,
+      5,
+      false
+    );
+    const count = geometry.getAttribute("position").count;
+    const opacity = new Float32Array(count);
+    geometry.setAttribute("aOpacity", new THREE.BufferAttribute(opacity, 1));
+    const pieces = byKind.get(edge.kind)!;
+    const edgeRanges = ranges.get(edge.kind)!;
+    const start = edgeRanges.reduce((total, range) => total + range.count, 0);
+    pieces.push(geometry);
+    edgeRanges.push({ edge, start, count });
+  }
+
+  const merged = PATH_KINDS.flatMap((kind): MergedPath[] => {
+    const pieces = byKind.get(kind)!;
+    if (pieces.length === 0) return [];
+    const geometry = mergeGeometries(pieces, false);
+    pieces.forEach((piece) => piece.dispose());
+    if (!geometry) throw new Error(`Could not merge ${kind} hero paths`);
+    return [{ kind, geometry, ranges: ranges.get(kind)! }];
   });
+  return { paths, merged };
 }
+
+const pathVertexShader = `
+  attribute float aOpacity;
+  varying float vOpacity;
+  void main() {
+    vOpacity = aOpacity;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const pathFragmentShader = `
+  uniform vec3 uColor;
+  varying float vOpacity;
+  void main() {
+    gl_FragColor = vec4(uColor, vOpacity);
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
+  }
+`;
 
 interface DataPathsProps {
   state: HeroState;
   now: number;
+  animate: boolean;
+  lightMode?: boolean;
   sampleRef: MutableRefObject<RouteSample | null>;
   reducedMotion: boolean;
 }
 
-export function DataPaths({ state, now, sampleRef, reducedMotion }: DataPathsProps) {
+export function DataPaths({
+  state,
+  now,
+  animate,
+  lightMode = false,
+  sampleRef,
+  reducedMotion,
+}: DataPathsProps) {
   const packet = useRef<THREE.Mesh>(null);
-  const telemetryPackets = useRef<(THREE.Mesh | null)[]>([]);
+  const requestMarker = useRef<THREE.Mesh>(null);
+  const telemetryPackets = useRef<THREE.InstancedMesh>(null);
   const dimmed = useMemo(() => dimmedEdges(state.failed), [state.failed]);
-  const paths = useMemo(buildPaths, []);
+  const { paths, merged } = useMemo(buildPaths, []);
   const curves = useMemo(() => new Map(paths.map(({ edge, curve }) => [edge.id, curve])), [paths]);
   const telemetry = useMemo(() => EDGES.filter((edge) => edge.kind === "telemetry"), []);
   const usedFallbacks = useMemo(
@@ -82,122 +140,124 @@ export function DataPaths({ state, now, sampleRef, reducedMotion }: DataPathsPro
       ),
     [state.route]
   );
-  const endpointActive = (id: ServiceId) => state.hovered === id || state.selected === id;
+  const telemetryTransform = useMemo(() => new THREE.Object3D(), []);
+  const telemetryGeometry = useMemo(() => new THREE.SphereGeometry(1, 8, 8), []);
+  const telemetryMaterial = useMemo(
+    () => new THREE.MeshBasicMaterial({ color: "#9ca8ad", transparent: true, opacity: 0.62 }),
+    []
+  );
+  const pathMaterials = useMemo(
+    () =>
+      new Map(
+        PATH_KINDS.map((kind) => [
+          kind,
+          new THREE.ShaderMaterial({
+            uniforms: {
+              uColor: {
+                value: new THREE.Color(lightMode ? LIGHT_EDGE_COLOR[kind] : EDGE_COLOR[kind]),
+              },
+            },
+            vertexShader: pathVertexShader,
+            fragmentShader: pathFragmentShader,
+            transparent: true,
+            depthWrite: false,
+          }),
+        ])
+      ),
+    [lightMode]
+  );
 
-  useFrame(() => {
-    for (let index = 0; index < telemetry.length; index++) {
-      const edge = telemetry[index];
-      const mesh = telemetryPackets.current[index];
-      const curve = curves.get(edge.id);
-      if (!mesh || !curve) continue;
-      if (reducedMotion) {
-        mesh.visible = false;
-        continue;
-      }
-      mesh.visible = true;
-      curve.getPointAt((now * 0.13 + index / telemetry.length) % 1, mesh.position);
-    }
-    const sample = sampleRef.current;
-    const mesh = packet.current;
-    if (!mesh) return;
-    if (!sample || reducedMotion) {
-      mesh.visible = false;
-      return;
-    }
-    const curve = curves.get(sample.edgeId);
-    if (!curve) {
-      mesh.visible = false;
-      return;
-    }
-    mesh.visible = true;
-    curve.getPointAt(sample.progress, mesh.position);
-    const material = mesh.material as THREE.MeshBasicMaterial;
-    material.color.copy(sample.status === "blocked" ? PACKET_ERROR : PACKET_AMBER);
-    material.opacity = sample.status === "blocked" ? Math.max(0.08, 1 - sample.progress * 2) : 0.95;
-  });
-
-  return (
-    <group>
-      {paths.map(({ edge, geometry, line }) => {
-        const active = endpointActive(edge.from) || endpointActive(edge.to);
-        const visible = edge.kind !== "fallback" || usedFallbacks.has(edge.id);
-        const focus = state.hovered ?? state.selected;
+  useLayoutEffect(() => {
+    for (const path of merged) {
+      const attribute = path.geometry.getAttribute("aOpacity") as THREE.BufferAttribute;
+      for (const range of path.ranges) {
+        const active =
+          state.hovered === range.edge.from ||
+          state.hovered === range.edge.to ||
+          state.selected === range.edge.from ||
+          state.selected === range.edge.to;
+        const visible = range.edge.kind !== "fallback" || usedFallbacks.has(range.edge.id);
         const opacity = !visible
           ? 0
-          : dimmed.has(edge.id)
+          : dimmed.has(range.edge.id)
             ? 0.13
-            : edge.kind === "telemetry"
+            : range.edge.kind === "telemetry"
               ? active
                 ? 0.42
                 : 0.18
               : active
                 ? 0.82
                 : 0.29;
-        const showDirection = visible && focus === edge.from && edge.kind !== "telemetry";
-        const curve = curves.get(edge.id)!;
-        const arrowPosition = showDirection ? curve.getPointAt(0.68) : null;
-        const arrowQuaternion = showDirection
-          ? new THREE.Quaternion().setFromUnitVectors(
-              new THREE.Vector3(0, 1, 0),
-              curve.getTangentAt(0.68)
-            )
-          : null;
-        if (line) {
-          line.material.opacity = opacity;
+        for (let vertex = range.start; vertex < range.start + range.count; vertex++) {
+          attribute.setX(vertex, opacity);
         }
-        return (
-          <group key={edge.id}>
-            {line ? (
-              <primitive object={line} />
-            ) : (
-              <mesh geometry={geometry}>
-                <meshBasicMaterial
-                  color={EDGE_COLOR[edge.kind]}
-                  transparent
-                  opacity={opacity}
-                  depthWrite={false}
-                />
-              </mesh>
-            )}
-            {arrowPosition && arrowQuaternion && (
-              <mesh
-                position={arrowPosition}
-                quaternion={arrowQuaternion}
-                visible={opacity > 0.3}
-                scale={0.62}
-              >
-                <coneGeometry args={[0.045, 0.12, 5]} />
-                <meshBasicMaterial color={EDGE_COLOR[edge.kind]} />
-              </mesh>
-            )}
-          </group>
-        );
-      })}
+      }
+      attribute.needsUpdate = true;
+    }
+  }, [dimmed, merged, state.hovered, state.selected, usedFallbacks]);
+
+  useFrame((frame) => {
+    const time = animate ? frame.clock.elapsedTime : now;
+    const telemetryMesh = telemetryPackets.current;
+    if (telemetryMesh) {
+      for (let index = 0; index < telemetry.length; index++) {
+        const curve = curves.get(telemetry[index].id);
+        if (!curve) continue;
+        const phase = reducedMotion ? 0 : (time * 0.13 + index / telemetry.length) % 1;
+        curve.getPointAt(phase, telemetryTransform.position);
+        telemetryTransform.scale.setScalar(reducedMotion ? 0.0001 : 0.022);
+        telemetryTransform.updateMatrix();
+        telemetryMesh.setMatrixAt(index, telemetryTransform.matrix);
+      }
+      telemetryMesh.instanceMatrix.needsUpdate = true;
+    }
+
+    const sample = sampleRef.current;
+    const packetMesh = packet.current;
+    if (packetMesh) {
+      if (!sample || reducedMotion) packetMesh.visible = false;
+      else {
+        const curve = curves.get(sample.edgeId);
+        if (!curve) packetMesh.visible = false;
+        else {
+          packetMesh.visible = true;
+          curve.getPointAt(sample.progress, packetMesh.position);
+          const material = packetMesh.material as THREE.MeshBasicMaterial;
+          material.color.copy(sample.status === "blocked" ? PACKET_ERROR : PACKET_AMBER);
+          material.opacity =
+            sample.status === "blocked" ? Math.max(0.08, 1 - sample.progress * 2) : 0.95;
+        }
+      }
+    }
+
+    if (requestMarker.current) {
+      const markerTime = reducedMotion ? 0 : time;
+      requestMarker.current.position.y = 1.12 + 0.86 + Math.sin(markerTime * 0.8) * 0.06;
+    }
+  });
+
+  return (
+    <group>
+      {merged.map(({ kind, geometry }) => (
+        <mesh key={kind} geometry={geometry} material={pathMaterials.get(kind)} />
+      ))}
       <mesh ref={packet} visible={false} scale={0.055}>
         <sphereGeometry args={[1, 12, 10]} />
         <meshBasicMaterial color="#ffc766" transparent opacity={1} />
       </mesh>
-      {telemetry.map((edge, index) => (
-        <mesh
-          key={edge.id}
-          ref={(mesh) => {
-            telemetryPackets.current[index] = mesh;
-          }}
-          scale={0.022}
-        >
-          <sphereGeometry args={[1, 8, 8]} />
-          <meshBasicMaterial color="#9ca8ad" transparent opacity={0.62} />
-        </mesh>
-      ))}
-      <group visible={state.mode === "request"} position={[0, 1.12, 0]}>
-        <mesh
-          position={[0, 0.86 + Math.sin(now * (reducedMotion ? 0.02 : 0.8)) * 0.06, 0]}
-          scale={0.03}
-        >
-          <sphereGeometry args={[1, 8, 8]} />
-          <meshBasicMaterial color="#ffc766" />
-        </mesh>
-      </group>
+      <instancedMesh
+        ref={telemetryPackets}
+        args={[telemetryGeometry, telemetryMaterial, telemetry.length]}
+      />
+      <mesh
+        ref={requestMarker}
+        visible={state.mode === "request"}
+        position={[0, 1.98, 0]}
+        scale={0.03}
+      >
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshBasicMaterial color="#ffc766" />
+      </mesh>
     </group>
   );
 }

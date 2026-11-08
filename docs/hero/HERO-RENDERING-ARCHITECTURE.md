@@ -24,3 +24,24 @@ Default: R3F on `WebGLRenderer`, procedural reusable meshes and small custom GLS
 - Pause the render loop when the hero leaves the viewport or the document is hidden. Compile materials before readiness; no hover path creates a new shader variant.
 
 The procedural route is intentional: no Blender executable or supplied glTF exists in this worktree, and the shape language in the reference is achievable with a few deterministic custom meshes. It avoids external downloads, keeps the asset graph inspectable, and allows all service positions and data paths to come from the existing topology.
+
+## Round 2 draw-call budget estimate
+
+The scene batches repeated geometry before it reaches the renderer: all service platforms/roofs share an instanced structure batch; service bodies, window details and status rings each use one instanced batch; network tubes merge into one geometry per edge kind; core nodes, telemetry packets, pool ripples and bonsai pads are instanced; the six bonsai branch tubes merge into one geometry. No downloaded models or textures were added.
+
+| Component | Estimated scene draws |
+| --- | ---: |
+| Core (smoked shell, transmission shell, fresnel rim, topology edges, instanced nodes, center glow, energy column) | 7 |
+| Orbit rings (three glass bands and three moving highlights) | 6 |
+| Service modules (structure, bodies, windows/status details, focus/failure rings) | 4 |
+| Data paths (four merged edge kinds, request packet, telemetry batch, request marker) | 7 |
+| Island (top, strata, top pool, moss batch, rock batch) | 5 |
+| Bonsai (merged branches, instanced canopy pads) | 2 |
+| Waterfalls (two sheets, one instanced mist cluster) | 3 |
+| Lower pool (reflective plane and instanced ripples) | 2 |
+| Callouts (one merged leader geometry; labels are HTML) | 1 |
+| **Scene subtotal** | **37** |
+
+This is a design estimate, not a measured result. A frame with bloom is expected to render the main scene and a similar-size planar reflection, then add roughly a dozen post-processing draws; that places the estimate near 80–110 total draws. State visibility, shadow rendering, renderer behavior and the active quality tier can change the count. Claude should confirm data-hero-drawcalls from the desktop-high screenshot run before treating the under-150 budget as verified. The runtime hero fallback in public/hero is 294,341 bytes; this round adds no runtime assets.
+
+The animation loops mutate existing refs, transforms, instance matrices, and shader uniforms. They do not update React state per frame or allocate vectors, colors, matrices, or geometry in `useFrame`. The request simulation continues on its existing timer and uses the shared topology and simulation semantics.

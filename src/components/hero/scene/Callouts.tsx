@@ -1,21 +1,52 @@
+import { useMemo } from "react";
 import { Html } from "@react-three/drei";
-import { ORBITS } from "../topology";
+import * as THREE from "three";
+import { ORBITS, type ServiceId } from "../topology";
+import { servicePosition } from "../layout";
 
-const anchors = [
-  { id: "ingestion", side: "right", position: [-2.65, 2.28, 0] as [number, number, number] },
-  { id: "processing", side: "left", position: [2.65, 2.02, -0.05] as [number, number, number] },
-  { id: "persistence", side: "left", position: [2.7, -0.12, 0.05] as [number, number, number] },
+const SERVICE_Y = 1.12;
+const anchors: {
+  id: (typeof ORBITS)[number]["id"];
+  service: ServiceId;
+  position: [number, number, number];
+}[] = [
+  { id: "ingestion", service: "policy", position: [-3.5, 1.05, 0] },
+  { id: "processing", service: "orchestrator", position: [2.45, 1.35, -0.05] },
+  { id: "persistence", service: "storage", position: [2.45, -1.25, 0.05] },
 ];
 
-export function Callouts() {
+function makeLeaderGeometry() {
+  const positions: number[] = [];
+  for (const anchor of anchors) {
+    const start = servicePosition(anchor.service);
+    const [endX, endY, endZ] = anchor.position;
+    const elbow: [number, number, number] = [endX, start[1], endZ];
+    positions.push(...start, ...elbow, ...elbow, endX, endY, endZ);
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  return geometry;
+}
+
+export function Callouts({ lightMode = false }: { lightMode?: boolean }) {
+  const leaders = useMemo(makeLeaderGeometry, []);
+
   return (
-    <group position={[0, 1.12, 0]}>
-      {anchors.map(({ id, position, side }) => {
+    <group position={[0, SERVICE_Y, 0]}>
+      <lineSegments geometry={leaders} frustumCulled={false}>
+        <lineBasicMaterial
+          color={lightMode ? "#9b6a32" : "#ffc766"}
+          transparent
+          opacity={lightMode ? 0.55 : 0.68}
+          depthWrite={false}
+        />
+      </lineSegments>
+      {anchors.map(({ id, position }) => {
         const orbit = ORBITS.find((candidate) => candidate.id === id);
         if (!orbit) return null;
         return (
           <Html key={id} position={position} center={false} style={{ pointerEvents: "none" }}>
-            <div className={`hero-callout hero-callout-${side}`}>
+            <div className="hero-callout">
               <strong>{orbit.label}</strong>
               <span>{orbit.meaning}</span>
             </div>

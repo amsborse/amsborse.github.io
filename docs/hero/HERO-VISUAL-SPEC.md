@@ -33,3 +33,15 @@ Ring band width is about 3.2% of its radius and its minor thickness about 1.9% (
 - Calls to action: 1 px amber outline, 28 px radius, 48–56 px height; hover glow stays within 8 px. Labels use 15–16 px sans serif.
 
 Light mode keeps the same geometry with daylight key and paper `#F5F0E6`; remove bloom and replace emissive glow with soft shadows. AA text contrast is required for every HTML label and control.
+
+## Round 2 composition calibration
+
+- Wide desktop framing keeps the sculptural group on the right half, with the island and reflected pool low in the frame. The sculpture spans about 33–88% of viewport width and 13–78% of its height; vertical compression and a small downward group offset keep the ring tops clear of the 76 px site header.
+- Tablet and phone layouts use a bounded artwork band above the copy. The full orbit, core, tree and island remain inside that band, starting below the 76 px header; tablet uses a 0.78 scene scale and phones use 0.83. Text and controls flow below the artwork.
+- Desktop callouts sit outside the sculpture edges at roughly 15–55% viewport height. One merged, thin leader geometry connects the labels to representative topology nodes; labels never carry inferred throughput or latency metrics.
+- Simulation controls stay in one compact row at 390 px: send, service selection and failure, recovery, and the visible inspection picker/action. Accessible names remain stable for keyboard and e2e use.
+- The island has a broad mossy shelf, irregular overhang strata and a tapered underside. A separate shallow, environment-lit pool sits on its top; two translucent falling sheets meet the lower pool with soft impact mist.
+- The canopy uses small, horizontal cloud-pruned pads in deep green. The core is smoked glass with only the seven topology-defined nodes and edges, a restrained fresnel rim and a translucent energy column.
+- Orbit bands use the topology radii and tilts, with moving amber glass highlights. Service hardware is represented by compact windowed modules. Status uses amber in healthy state, red pulses during failure and a calm return through recovery.
+- Callouts keep the topology's descriptive labels and meanings. No throughput, latency or other operational metric is inferred from this illustrative model.
+- Light theme keeps the warm paper surface, subdued reflections and low-emission materials. Reduced motion holds the scene in a static pose.
