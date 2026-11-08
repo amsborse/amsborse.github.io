@@ -125,19 +125,7 @@ export async function openScopedBrowser(
       }
       // GitHub Pages base-path asset probe
       if (config.githubPages.validateBasePath) {
-        const broken = await page.evaluate((basePath) => {
-          const imgs = [...document.querySelectorAll("img")];
-          return imgs
-            .filter((img) => {
-              const src = img.getAttribute("src") || "";
-              if (!src || src.startsWith("data:") || src.startsWith("http")) return false;
-              if (basePath !== "/" && src.startsWith("/") && !src.startsWith(basePath)) {
-                return true;
-              }
-              return (img as HTMLImageElement).naturalWidth === 0 && src.length > 0;
-            })
-            .map((img) => img.getAttribute("src") || "");
-        }, config.app.basePath);
+        const broken = await findBrokenImages(page, config.app.basePath);
         for (const src of broken) {
           findings.push({
             id: `asset-${src}`,
@@ -206,6 +194,24 @@ export async function openScopedBrowser(
       findings,
     },
   };
+}
+
+/**
+ * Images whose src escapes the base path, or that finished loading without pixels.
+ * A lazy image below the fold has not started loading yet (`complete` is false); it is
+ * not broken, so only settled images are judged by `naturalWidth`.
+ */
+export async function findBrokenImages(page: Page, basePath: string): Promise<string[]> {
+  return page.evaluate((base) => {
+    return [...document.querySelectorAll("img")]
+      .filter((img) => {
+        const src = img.getAttribute("src") || "";
+        if (!src || src.startsWith("data:") || src.startsWith("http")) return false;
+        if (base !== "/" && src.startsWith("/") && !src.startsWith(base)) return true;
+        return img.complete && img.naturalWidth === 0;
+      })
+      .map((img) => img.getAttribute("src") || "");
+  }, basePath);
 }
 
 export async function closeBrowserSession(session: BrowserSession): Promise<void> {

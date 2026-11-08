@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Page } from "playwright";
+import type { Locator, Page } from "playwright";
 import { ROOT, joinAppUrl } from "./config.ts";
 import type {
   AutoreviewConfig,
@@ -46,6 +46,27 @@ export function inferInteractions(scope: ScopeResult, root = ROOT): InteractionS
   return specs;
 }
 
+/**
+ * True when a person could click the element: a native control or one with a button-like
+ * role that is not visually hidden (an sr-only 1px box or a zero clip).
+ */
+export async function isUserClickable(locator: Locator): Promise<boolean> {
+  return locator
+    .evaluate((el) => {
+      const control = el.closest(
+        "a[href], button, input, select, textarea, summary, label, [role='button'], [role='link'], [role='tab'], [role='menuitem'], [role='checkbox'], [role='switch'], [onclick]"
+      );
+      if (!control) return false;
+      const rect = control.getBoundingClientRect();
+      const style = getComputedStyle(control);
+      const clippedAway =
+        /^rect\(0(px)?,? 0(px)?,? 0(px)?,? 0(px)?\)$/.test(style.clip) ||
+        style.clipPath.includes("inset(50%)");
+      return rect.width > 2 && rect.height > 2 && !clippedAway;
+    })
+    .catch(() => false);
+}
+
 export async function runInteractions(options: {
   page: Page;
   config: AutoreviewConfig;
@@ -65,6 +86,10 @@ export async function runInteractions(options: {
       const count = await locator.count();
       if (count === 0) {
         // Not a failure if selector isn't present on this surface — skip quietly
+        continue;
+      }
+      if (spec.trigger.type === "click" && !(await isUserClickable(locator))) {
+        // A test id on a live region or other non-control is not something a user clicks.
         continue;
       }
       if (spec.trigger.type === "click") {
