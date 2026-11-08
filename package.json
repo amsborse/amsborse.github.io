@@ -59,6 +59,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@amsborse/arsenal-scene": "file:vendor/amsborse-arsenal-scene-0.1.0.tgz",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "framer-motion": "^12.40.0",
