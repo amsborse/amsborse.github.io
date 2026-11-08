@@ -6,19 +6,19 @@ The default renderer is now the **art plate**: a generated, text-free illustrati
 
 | Component | Reference requirement | Current result | Defect | Fix |
 | --- | --- | --- | --- | --- |
-| Overall composition | Headline left; sculpture right ~40–92% of width; dark pool below | Matches: the sculpture fills the right half, and the left column stays empty for type (`desktop-idle.png`) | The bonsai crown reaches toward the end of the body copy at 1440 px | Open. Shift the focus rect right or crop the plate's left edge if it reads as crowded |
+| Overall composition | Headline left; sculpture right ~40–92% of width; dark pool below | Matches: on desktop the plate spans the full width with the lake at the bottom edge and a soft fade under the header (`fitPlate` bottom-aligns, unit-tested at 1440×900 and 1920×980) | None | — |
 | Island | Broad stratified rock shelf, moss, pavilions | Photoreal strata, moss and two island pavilions from the plate | None | — |
 | Bonsai | Windswept crown left of the core, rooted on the island | Present and rooted, with sharp detail | None | — |
-| Waterfalls | Narrow cascades from the front lip, falling to the pool | 3 cascades in the plate; the shader adds downward flow streaks inside `PLATE_FALLS` | The reference shows 2 cascades | Accepted; the generated art has 3 |
+| Waterfalls | Narrow cascades from the front lip, falling to the pool | 2 cascades in the plate (v2), matching the reference; the shader adds downward flow streaks inside `PLATE_FALLS` | None | — |
 | Lake | Reflective pool with ripples, fading to black | Plate reflection, plus shader ripples around `PLATE_RIPPLE` and below the horizon | None | — |
-| Glass core sphere | Clear glass sphere with a gold node network | Plate glass with a gold network; the shader adds a gentle pulse | None | — |
-| Orbit rings | 3 crossing glass bands | 2 bands read clearly; the shader runs light streaks along them | The topology has 3 orbits; only 2 are visible | Open. Needs a regenerated plate with a third, near-vertical band |
+| Glass core sphere | Clear glass sphere with a gold node network | A smaller sphere (v2 plate, about 184 plate px across) with a gold network; the shader adds a gentle pulse with smooth noise | None. A per-cell twinkle drew 16 px blocks; replaced (unit test) | — |
+| Orbit rings | 3 crossing glass bands | 3 bands read clearly in the v2 plate, one near-vertical; the shader runs light streaks along them | None | — |
 | Service modules (7) | 7 lantern modules on the rings and island | 5 ring lanterns plus 2 island pavilions, each with a hotspot button and an accessible name | None | — |
-| Callouts | Thin gold leader lines with label and caption | 3 idle callouts (gateway, inference, observability); labels and leaders show and hide together (e2e regression test) | Hidden below 1100 px, by design | — |
+| Callouts | Thin gold leader lines with label and caption | 4 idle callouts (gateway, policy, inference, observability), each with a line icon, name, its engineering concept as caption, and an elbow leader. They stay inside the viewport at 1280, 1440 and 1920 px, captions are distinct, and they give way while the info panel is open (e2e regression tests) | Hidden below 1100 px, by design. A specificity slip had left them visible on tablet; fixed | — |
 | Idle | Calm motion, nothing flashing | Ring streaks, falls and ripples at low amplitude | None | — |
 | Explore (hover / focus) | The module highlights and the info panel opens | The hotspot ring highlights; click or Enter opens the panel (e2e test) | None | — |
 | Request | A visible packet travels the route | An SVG packet moves along `edgeCurve` paths driven by `routeSample` (`request-processing.png`) | None | — |
-| Failure | The failed module turns red; routes reroute | Red shader tint at the failed module, the hotspot gets `is-failed`, the caption updates (`failure.png`) | The info panel covers the right side of the sculpture at 1440 px. This is existing panel behaviour | Open. Dock the panel lower or narrower in a later pass |
+| Failure | The failed module turns red; routes reroute | Red shader tint at the failed module, the hotspot gets `is-failed`, the caption updates (`failure.png`) | The info panel covers the right side of the sculpture at 1440 px (existing panel behaviour); callouts now hide while it is open, so nothing peeks out from behind it | Open. Dock the panel lower or narrower in a later pass |
 | Recovery | Green or gold recovery glow, then back to idle | Recovery glow, then idle (`recovery.png`) | None | — |
 | Light theme | Designed, not inverted: warm paper and soft shadows | A separate light plate (`light-theme.png`). Ring streaks use a local-contrast gate, so no rectangle artifact | Ring streaks read as soft golden edging rather than light | Accepted |
 | Tablet 834×1112 | The sculpture is visible below the copy | `fitPlate` keeps the whole focus rect visible (`tablet-834x1112.png`) | None | — |

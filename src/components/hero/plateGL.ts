@@ -47,7 +47,8 @@ void main() {
   gl_Position = vec4(aPos, 0.0, 1.0);
 }`;
 
-const FRAGMENT = `
+/** Exported for tests only. */
+export const FRAGMENT = `
 precision highp float;
 varying vec2 vUv;
 uniform sampler2D uTex;
@@ -140,8 +141,7 @@ void main() {
 
   // Core: gold nodes twinkle, the beam pulses down into the island.
   float core = 1.0 - smoothstep(${f(PLATE_SPHERE.r - 12)}, ${f(PLATE_SPHERE.r)}, sdist);
-  vec2 cell = floor(p / 16.0);
-  float twinkle = 0.5 + 0.5 * sin(t * (1.2 + hash(cell) * 1.8) + hash(cell + 7.0) * 6.283);
+  float twinkle = 0.5 + 0.5 * sin(t * 1.6 + noise(p * 0.045) * 9.0);
   col += col * core * smoothstep(0.45, 0.85, l) * (twinkle - 0.35) * 0.7 * glowScale;
   float bx = abs(p.x - ${f(PLATE_BEAM.x)});
   float beamY = smoothstep(${f(PLATE_BEAM.y0)}, ${f(PLATE_BEAM.y0 + 12)}, p.y) * (1.0 - smoothstep(${f(PLATE_BEAM.y1 - 15)}, ${f(PLATE_BEAM.y1)}, p.y));

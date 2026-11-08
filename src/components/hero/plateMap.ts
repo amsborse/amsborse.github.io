@@ -24,30 +24,29 @@ export interface PlateRect {
   y1: number;
 }
 
-/** Where each service sits on the plate: five ring modules, two island pavilions. */
+/** Where each service sits on the plate: four ring modules, three on the island. */
 export const PLATE_MODULES: Readonly<Record<ServiceId, PlatePoint>> = {
-  gateway: { x: 1003, y: 258 },
-  policy: { x: 1295, y: 125 },
-  ingest: { x: 1530, y: 232 },
-  orchestrator: { x: 1243, y: 402 },
-  inference: { x: 1447, y: 347 },
-  storage: { x: 1072, y: 507 },
-  observability: { x: 1415, y: 515 },
+  gateway: { x: 923, y: 243 },
+  policy: { x: 1317, y: 207 },
+  ingest: { x: 1022, y: 541 },
+  orchestrator: { x: 953, y: 492 },
+  inference: { x: 1399, y: 416 },
+  storage: { x: 1148, y: 572 },
+  observability: { x: 1240, y: 596 },
 };
 
-export const PLATE_SPHERE = { x: 1252, y: 298, r: 147 } as const;
-export const PLATE_RINGS: PlateRect = { x0: 960, y0: 105, x1: 1590, y1: 435 };
+export const PLATE_SPHERE = { x: 1130, y: 343, r: 92 } as const;
+export const PLATE_RINGS: PlateRect = { x0: 770, y0: 118, x1: 1452, y1: 480 };
 export const PLATE_FALLS: readonly PlateRect[] = [
-  { x0: 916, y0: 572, x1: 950, y1: 745 },
-  { x0: 972, y0: 565, x1: 1016, y1: 745 },
-  { x0: 1074, y0: 560, x1: 1113, y1: 735 },
+  { x0: 898, y0: 605, x1: 1008, y1: 722 },
+  { x0: 1036, y0: 645, x1: 1146, y1: 735 },
 ];
-export const PLATE_HORIZON_Y = 714;
-export const PLATE_RIPPLE: PlatePoint = { x: 1400, y: 752 };
-export const PLATE_BEAM = { x: 1263, y0: 420, y1: 545 } as const;
+export const PLATE_HORIZON_Y = 712;
+export const PLATE_RIPPLE: PlatePoint = { x: 1000, y: 716 };
+export const PLATE_BEAM = { x: 1148, y0: 436, y1: 576 } as const;
 
 /** The part of the plate that must stay visible on narrow screens. */
-export const PLATE_FOCUS: PlateRect = { x0: 880, y0: 85, x1: 1610, y1: 790 };
+export const PLATE_FOCUS: PlateRect = { x0: 640, y0: 100, x1: 1470, y1: 770 };
 
 export interface StageFit {
   /** CSS px per plate px. */
@@ -60,22 +59,30 @@ export interface StageFit {
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
 /**
+ * Up to this share of the container height may go uncovered at the top, so desktop
+ * frames the full plate width like the reference instead of zooming in to cover height.
+ * The plate's sky fades into the page background there.
+ */
+const TOP_SLACK = 0.1;
+
+/**
  * Place the plate inside a container like `object-fit: cover`, but anchored on the
  * focus rect: the sculpture stays as centred as the cover crop allows, and when the
  * cover crop would cut into it the plate shrinks until the whole focus rect fits.
+ * A plate shorter than the container sits on the bottom edge, so the lake meets the fold.
  */
 export function fitPlate(width: number, height: number, focus: PlateRect = PLATE_FOCUS): StageFit {
   if (width <= 0 || height <= 0) return { scale: 0, x: 0, y: 0 };
-  const cover = Math.max(width / PLATE_W, height / PLATE_H);
+  const cover = Math.max(width / PLATE_W, (height * (1 - TOP_SLACK)) / PLATE_H);
   const fitFocus = Math.min(width / (focus.x1 - focus.x0), height / (focus.y1 - focus.y0));
   const scale = Math.min(cover, fitFocus);
   const w = PLATE_W * scale;
   const h = PLATE_H * scale;
   const cx = ((focus.x0 + focus.x1) / 2) * scale;
   const cy = ((focus.y0 + focus.y1) / 2) * scale;
-  const place = (size: number, content: number, centre: number) =>
-    content <= size ? (size - content) / 2 : clamp(size / 2 - centre, size - content, 0);
-  return { scale, x: place(width, w, cx), y: place(height, h, cy) };
+  const place = (size: number, content: number, centre: number, slack: number) =>
+    content <= size ? (size - content) * slack : clamp(size / 2 - centre, size - content, 0);
+  return { scale, x: place(width, w, cx, 0.5), y: place(height, h, cy, 1) };
 }
 
 /** Plate pixel → percentage of the plate, for CSS positioning. */

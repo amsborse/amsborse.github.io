@@ -151,5 +151,39 @@ test.describe("home hero", () => {
         expect(await shown(leaders)).toBe(visible ? await leaders.count() : 0);
       }
     });
+
+    // Regression: the right-hand callouts ran past the viewport edge at desktop widths.
+    test("callouts stay inside the viewport on desktop", async ({ page }) => {
+      for (const width of [1440, 1280, 1920]) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto("/?heroTime=12&heroState=idle");
+        const callouts = page.locator(".hero-plate-callout");
+        await expect(callouts.first()).toBeVisible();
+        const overflow = await callouts.evaluateAll(
+          (els) =>
+            els
+              .map((el) => el.getBoundingClientRect())
+              .filter((r) => r.left < 0 || r.right > window.innerWidth).length
+        );
+        expect(overflow, `at ${width}px`).toBe(0);
+      }
+    });
+
+    // Regression: a clipped callout peeked out from behind the open info panel.
+    test("callouts give way while the info panel is open", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto("/?heroTime=12&heroState=failure:inference");
+      await expect(page.locator("#hero-info-title")).toBeVisible();
+      await expect(page.locator(".hero-plate-callout")).toHaveCount(0);
+      await expect(page.locator(".hero-plate-leader")).toHaveCount(0);
+    });
+
+    test("callout captions are distinct per service", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto("/?heroTime=12&heroState=idle");
+      const captions = await page.locator(".hero-plate-callout-text > span").allTextContents();
+      expect(captions.length).toBeGreaterThan(1);
+      expect(new Set(captions).size).toBe(captions.length);
+    });
   });
 });

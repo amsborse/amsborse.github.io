@@ -10,7 +10,7 @@ import {
   type PlatePoint,
 } from "./plateMap";
 import { dimmedEdges, type HeroState, type RouteSample } from "./simulation";
-import { EDGES, ORBITS, SERVICES, dependenciesOf, edgeById, type ServiceId } from "./topology";
+import { EDGES, SERVICES, dependenciesOf, edgeById, type ServiceId } from "./topology";
 
 export type PlateRendererKind = "plate" | "static";
 
@@ -29,15 +29,44 @@ interface HeroPlateProps {
 
 /** Callout anchors in plate px; `side` says which way the label extends from the anchor. */
 const CALLOUTS: Record<ServiceId, PlatePoint & { side: "left" | "right" }> = {
-  gateway: { x: 925, y: 196, side: "left" },
-  policy: { x: 1240, y: 68, side: "left" },
-  ingest: { x: 1556, y: 158, side: "left" },
-  orchestrator: { x: 1330, y: 446, side: "right" },
-  inference: { x: 1500, y: 382, side: "right" },
-  storage: { x: 1040, y: 452, side: "left" },
-  observability: { x: 1538, y: 598, side: "right" },
+  gateway: { x: 868, y: 178, side: "left" },
+  policy: { x: 1378, y: 146, side: "right" },
+  ingest: { x: 900, y: 600, side: "left" },
+  orchestrator: { x: 860, y: 470, side: "left" },
+  inference: { x: 1446, y: 350, side: "right" },
+  storage: { x: 1300, y: 660, side: "right" },
+  observability: { x: 1400, y: 556, side: "right" },
 };
-const IDLE_CALLOUTS: readonly ServiceId[] = ["gateway", "inference", "observability"];
+const IDLE_CALLOUTS: readonly ServiceId[] = ["gateway", "policy", "inference", "observability"];
+
+/** Small line icons for the callouts, drawn in the same stroke style as the proof strip. */
+function CalloutIcon({ id }: { id: ServiceId }) {
+  const paths: Record<ServiceId, string> = {
+    gateway: "m3 8 9-5 9 5-9 5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5",
+    policy:
+      "m12 6-6 10m6-10 6 10M6 16h12M14.4 5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0ZM7.4 17a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0ZM21.4 17a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0Z",
+    ingest: "M4 6h16M4 12h10M4 18h6M17 14l3 3-3 3",
+    orchestrator: "M12 3v4M12 17v4M3 12h4M17 12h4M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
+    inference: "M12 3 4.5 6v5.5c0 4.6 3.1 8.2 7.5 9.5 4.4-1.3 7.5-4.9 7.5-9.5V6L12 3Z",
+    storage:
+      "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3Zm0 0v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
+    observability: "M4 20V12M9 20V6M14 20v-9M19 20V9M3 20h18",
+  };
+  return (
+    <svg
+      className="hero-plate-callout-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.35"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d={paths[id]} />
+    </svg>
+  );
+}
 
 function curvePoint(edgeId: string, t: number, out: Float32Array) {
   const edge = edgeById(edgeId);
@@ -90,11 +119,6 @@ function routesFor(state: HeroState): { id: string; d: string; kind: RouteKind }
   return [...out.values()];
 }
 
-const orbitLabel = (id: ServiceId) => {
-  const service = SERVICES.find((s) => s.id === id);
-  return ORBITS.find((orbit) => orbit.id === service?.orbit)?.label ?? "";
-};
-
 const MAX_CANVAS_WIDTH = 2400;
 
 export function HeroPlate({
@@ -120,12 +144,14 @@ export function HeroPlate({
   const theme = lightMode ? "light" : "dark";
   const routes = useMemo(() => routesFor(state), [state]);
   const callouts = useMemo(() => {
+    // The info panel already names the selected service and sits over the right of the plate.
+    if (state.selected) return [];
     const ids = new Set<ServiceId>(state.mode === "idle" ? IDLE_CALLOUTS : []);
     if (state.hovered) ids.add(state.hovered);
     if (state.failed) ids.add(state.failed);
     if (state.recovering) ids.add(state.recovering);
     return [...ids];
-  }, [state.mode, state.hovered, state.failed, state.recovering]);
+  }, [state.selected, state.mode, state.hovered, state.failed, state.recovering]);
 
   // Fit the stage to the frame: cover, anchored on the sculpture. Runs on resize only.
   useEffect(() => {
@@ -322,13 +348,10 @@ export function HeroPlate({
             const from = PLATE_MODULES[id];
             const to = CALLOUTS[id];
             return (
-              <line
+              <polyline
                 key={`leader-${id}`}
                 className={`hero-plate-leader${id === failedId ? " is-failed" : ""}`}
-                x1={from.x}
-                y1={from.y}
-                x2={to.x}
-                y2={to.y}
+                points={`${from.x},${from.y} ${to.x + (to.side === "left" ? 34 : -34)},${to.y} ${to.x},${to.y}`}
               />
             );
           })}
@@ -340,18 +363,32 @@ export function HeroPlate({
           const anchor = CALLOUTS[id];
           const service = SERVICES.find((s) => s.id === id)!;
           const status =
-            id === failedId ? "Down" : id === state.recovering ? "Recovering" : orbitLabel(id);
+            id === failedId
+              ? "Down"
+              : id === state.recovering
+                ? "Recovering"
+                : service.concept.name;
           return (
             <div
               key={`callout-${id}`}
               className={`hero-callout hero-plate-callout is-${anchor.side}${
                 id === failedId ? " is-failed" : ""
               }`}
-              style={platePercent(anchor)}
+              style={{
+                ...platePercent(anchor),
+                // Room between the anchor and the plate edge, so long captions wrap instead of clipping.
+                maxWidth: `min(13rem, calc(${(
+                  ((anchor.side === "right" ? PLATE_W - anchor.x : anchor.x) / PLATE_W) *
+                  100
+                ).toFixed(2)}% - 1.25rem))`,
+              }}
               aria-hidden="true"
             >
-              <strong>{service.name}</strong>
-              <span>{status}</span>
+              <CalloutIcon id={id} />
+              <span className="hero-plate-callout-text">
+                <strong>{service.name}</strong>
+                <span>{status}</span>
+              </span>
             </div>
           );
         })}

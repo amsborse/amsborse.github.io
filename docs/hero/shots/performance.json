@@ -3,12 +3,12 @@
     "renderer": "plate",
     "drawCalls": 1,
     "triangles": 1,
-    "fps": 60.3
+    "fps": 60.5
   },
   "desktop-idle-3d": {
     "renderer": "webgl",
     "drawCalls": 118,
     "triangles": 119779,
-    "fps": 60.2
+    "fps": 60.1
   }
 }

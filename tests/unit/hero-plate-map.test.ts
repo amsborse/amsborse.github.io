@@ -8,6 +8,7 @@ import {
   edgeCurve,
   fitPlate,
 } from "@/components/hero/plateMap";
+import { FRAGMENT } from "@/components/hero/plateGL";
 import { SERVICES } from "@/components/hero/topology";
 
 describe("hero plate map", () => {
@@ -21,12 +22,22 @@ describe("hero plate map", () => {
     }
   });
 
-  it("covers a desktop viewport and keeps the focus rect on screen", () => {
+  // Regression: at 1440x900 a strict height cover blew the plate up ~11%, pushing the
+  // bonsai into the copy and the right-hand callouts off screen. The reference frames the
+  // whole plate width, so a short vertical shortfall is taken at the top (sky) instead.
+  it("frames the full plate width on a desktop viewport, lake at the bottom", () => {
     const fit = fitPlate(1440, 900);
-    expect(fit.scale).toBeCloseTo(900 / PLATE_H, 3);
-    expect(PLATE_W * fit.scale + fit.x).toBeGreaterThanOrEqual(1440 - 0.5);
-    expect(fit.x + PLATE_FOCUS.x1 * fit.scale).toBeLessThanOrEqual(1440 + 0.5);
-    expect(fit.y).toBe(0);
+    expect(fit.scale).toBeCloseTo(1440 / PLATE_W, 3);
+    expect(fit.x).toBeCloseTo(0, 3);
+    expect(fit.y + PLATE_H * fit.scale).toBeCloseTo(900, 1);
+    expect(fit.y).toBeLessThan(100);
+  });
+
+  it("still covers a wide desktop viewport edge to edge", () => {
+    const fit = fitPlate(1920, 980);
+    expect(fit.x).toBeLessThanOrEqual(0);
+    expect(PLATE_W * fit.scale + fit.x).toBeGreaterThanOrEqual(1920 - 0.5);
+    expect(fit.y).toBeLessThanOrEqual(0.5);
   });
 
   it("shrinks below cover on a narrow band so the whole sculpture fits", () => {
@@ -49,5 +60,11 @@ describe("hero plate map", () => {
     const dist = (p: { x: number; y: number }) =>
       Math.hypot(p.x - PLATE_SPHERE.x, p.y - PLATE_SPHERE.y);
     expect(dist(c)).toBeGreaterThan(dist(mid));
+  });
+
+  // Regression: the core twinkle used per-16px-cell random phases, which showed as hard
+  // square blocks on the bright underside of the sphere.
+  it("keeps the core twinkle free of per-cell blocks", () => {
+    expect(FRAGMENT).not.toMatch(/floor\(p \/ \d/);
   });
 });

@@ -6,8 +6,8 @@ All numbers come from production builds (`vite build` plus `vite preview`) measu
 
 | Renderer | Draw calls / frame | Triangles | FPS (desktop idle) |
 | --- | --- | --- | --- |
-| Art plate (default) | 1 | 1 | 60.3 |
-| 3D scene (`?hero=3d`) | 118 | 119,779 | 60.2 |
+| Art plate (default) | 1 | 1 | 60.5 |
+| 3D scene (`?hero=3d`) | 118 | 119,779 | 60.1 |
 
 Both renderers hold 60 fps at 1440×900, 834×1112 and 390×844, in both themes. The plate shader stops drawing when the hero is offscreen, when the tab is hidden, or under reduced motion. Reduced motion draws one still frame.
 
@@ -18,9 +18,11 @@ Both renderers hold 60 fps at 1440×900, 834×1112 and 390×844, in both themes.
 | LCP, desktop 1440×900, warm browser | 196–260 ms | 208–244 ms | — |
 | LCP, desktop, first page in a cold browser | ~1.0 s | ~0.8 s | 624 ms |
 | LCP, tablet / mobile | 200–312 ms | 268–344 ms | — |
-| Plate image | 133 KB dark / 162 KB light (49 / 58 KB at 960 px) | — | — |
+| Plate image (v2) | 101 KB dark / 90 KB light (43 / 39 KB at 960 px) | — | — |
 | JS downloaded, `/` (response bodies) | 1486 KB | 1517 KB | ~1280 KB |
-| Build total | 2004.9 KiB (budget 2200) | | |
+| Build total | 2005.9 KiB (budget 2200) | | |
+
+The LCP rows were measured with the first (v1) plate, which was 133 / 162 KB; they have not been re-measured with the smaller v2 plate.
 
 On the desktop, LCP lands on a header link, not on the hero. The hero heading fades in, and the plate image sits under the shader canvas, so neither counts. The ~1 s desktop figure only shows up on the first page in a fresh browser: on a warm browser the same build measures about 200 ms. The 3D path shows the same cold-start pattern. The master baseline (624 ms) came from an earlier script run, so it is not directly comparable.
 
