@@ -14,6 +14,7 @@ import { heroReducer, describeState, sampleRoute, type RouteSample } from "./sim
 import { serviceById, SERVICES, type ServiceId } from "./topology";
 import { parseHeroUrl } from "./heroUrlState";
 import { qualityForViewport } from "./heroQuality";
+import { HeroPlate, type PlateRendererKind } from "./HeroPlate";
 import "./hero.css";
 
 const HeroCanvas = lazy(() =>
@@ -80,7 +81,7 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
   const [inspectTarget, setInspectTarget] = useState<ServiceId>("gateway");
   const [canvasRequested, setCanvasRequested] = useState(false);
   const [canvasFailed, setCanvasFailed] = useState(false);
-  const [renderer, setRenderer] = useState<"webgl" | "static">("static");
+  const [renderer, setRenderer] = useState<"plate" | "webgl" | "static">("static");
   const [ready, setReady] = useState(false);
   const [lightMode, setLightMode] = useState(document.documentElement.dataset.theme === "light");
   const [reducedMotion, setReducedMotion] = useState(
@@ -103,7 +104,14 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
     .replace(/[.!?]+$/, "");
   const words = headline.split(/\s+/);
 
+  const plateMode = urlState.scene === "plate";
+  const plateWebGL = useMemo(
+    () => new URLSearchParams(window.location.search).get("heroWebGL") !== "off",
+    []
+  );
+
   useEffect(() => {
+    if (plateMode) return;
     const timer = window.setTimeout(() => {
       if (new URLSearchParams(window.location.search).get("heroWebGL") === "off") {
         setCanvasFailed(true);
@@ -129,7 +137,7 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
       }
     }, 120);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [plateMode]);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -207,6 +215,15 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
     setRenderer("static");
     setReady(true);
   }, []);
+  const onPlateStatus = useCallback(
+    (kind: PlateRendererKind, isReady: boolean) => {
+      setRenderer(kind);
+      setCanvasFailed(kind === "static" && plateWebGL);
+      if (isReady) setReady(true);
+    },
+    [plateWebGL]
+  );
+  const onHover = useCallback((id: ServiceId | null) => dispatch({ type: "hover", id }), []);
   const onStats = useCallback((calls: number, triangles: number) => {
     rootRef.current?.setAttribute("data-hero-drawcalls", String(calls));
     rootRef.current?.setAttribute("data-hero-triangles", String(triangles));
@@ -225,19 +242,35 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
       data-hero-drawcalls="0"
       data-hero-triangles="0"
     >
-      <div
-        className={`hero-scene-backdrop ${renderer === "webgl" ? "hero-scene-backdrop-hidden" : ""}`}
-        aria-hidden="true"
-      >
-        <img
-          className="hero-static-art"
-          src="/hero/hero-fallback.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          fetchPriority="low"
+      {plateMode && (
+        <HeroPlate
+          state={state}
+          sampleRef={routeSample}
+          lightMode={lightMode}
+          reducedMotion={reducedMotion}
+          fixedTime={urlState.fixedTime}
+          webgl={plateWebGL}
+          onHover={onHover}
+          onSelect={openService}
+          onStatus={onPlateStatus}
+          onStats={onStats}
         />
-      </div>
+      )}
+      {!plateMode && (
+        <div
+          className={`hero-scene-backdrop ${renderer === "webgl" ? "hero-scene-backdrop-hidden" : ""}`}
+          aria-hidden="true"
+        >
+          <img
+            className="hero-static-art"
+            src="/hero/hero-fallback.png"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+          />
+        </div>
+      )}
       {canvasRequested && !canvasFailed && (
         <Suspense fallback={null}>
           <HeroCanvas
@@ -246,7 +279,7 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
             sampleRef={routeSample}
             lightMode={lightMode}
             reducedMotion={reducedMotion}
-            onHover={(id) => dispatch({ type: "hover", id })}
+            onHover={onHover}
             onSelect={openService}
             onReady={onCanvasReady}
             onFailure={onCanvasFailure}

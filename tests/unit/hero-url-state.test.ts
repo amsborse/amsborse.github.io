@@ -36,4 +36,10 @@ describe("parseHeroUrl", () => {
     expect(parseHeroUrl("?heroTime=Infinity").fixedTime).toBeNull();
     expect(parseHeroUrl("?heroState=request:NaN").state.mode).toBe("idle");
   });
+
+  it("defaults to the art plate and opts into the 3D scene with hero=3d", () => {
+    expect(parseHeroUrl("").scene).toBe("plate");
+    expect(parseHeroUrl("?hero=3d").scene).toBe("3d");
+    expect(parseHeroUrl("?hero=webgl").scene).toBe("plate");
+  });
 });

@@ -1,6 +1,18 @@
 # Hero rendering architecture
 
-Default: R3F on `WebGLRenderer`, procedural reusable meshes and small custom GLSL materials, drei low-resolution `MeshReflectorMaterial`, procedural `Environment` lightformers, and thresholded bloom. Existing three/R3F/Drei dependencies are sufficient; no npm dependency is added.
+## Default: art plate + live layers
+
+`HeroPlate.tsx` is the default renderer (`data-hero-renderer="plate"`). A generated, text-free plate (`public/hero/plate-{dark,light}{,-960}.webp`, 1672×941) is the base. `fitPlate` in `plateMap.ts` sizes a stage like `object-fit: cover`, but anchored on `PLATE_FOCUS` so the sculpture is never cropped. Every live layer is positioned in plate pixels, as percentages of that stage:
+
+- `plateGL.ts`: one raw WebGL1 full-screen pass (1 draw call) that samples the plate and adds lake ripples, waterfall flow, ring light streaks, a core pulse, failure red and recovery glow. It pauses offscreen, on hidden tabs and under reduced motion. If context creation fails it falls back to the static `<img>` (`data-hero-renderer="static"`).
+- An SVG overlay draws request routes with `edgeCurve`. Packets move along it via `routeSample` in a rAF loop, with no per-frame React state.
+- Module hotspot buttons and HTML callouts open the existing info panel.
+
+The 3D scene below stays available at `?hero=3d` and is lazy loaded only there. Measurements: `HERO-PERFORMANCE-REPORT.md`; reference comparison: `HERO-VISUAL-QA.md`.
+
+## 3D scene (`?hero=3d`)
+
+R3F on `WebGLRenderer`, procedural reusable meshes and small custom GLSL materials, drei low-resolution `MeshReflectorMaterial`, procedural `Environment` lightformers, and thresholded bloom. Existing three/R3F/Drei dependencies are sufficient; no npm dependency is added.
 
 | Choice | Visual benefit | CPU / GPU, calls and passes | Compatibility / fallback | Complexity |
 | --- | --- | --- | --- | --- |

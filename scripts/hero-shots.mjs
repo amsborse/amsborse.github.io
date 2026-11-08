@@ -54,7 +54,7 @@ if (!(await isReady())) {
 await mkdir(shotsDir, { recursive: true });
 await mkdir(fallbackDir, { recursive: true });
 let browser;
-let desktopMetrics = null;
+const desktopMetrics = {};
 
 async function capture(name, query = "", options = {}) {
   const context = await browser.newContext({
@@ -64,13 +64,16 @@ async function capture(name, query = "", options = {}) {
     colorScheme: options.light ? "light" : "dark",
   });
   const page = await context.newPage();
+  if (options.light) {
+    await page.addInitScript(() => localStorage.setItem("portfolio-theme", "light"));
+  }
   await page.goto(`${baseUrl}/${query ? `?${query}` : ""}`, { waitUntil: "networkidle" });
   if (options.light) {
     await page.evaluate(() => document.documentElement.setAttribute("data-theme", "light"));
   }
   await page.evaluate(async () => {
     await document.fonts.ready;
-    const fallback = document.querySelector(".hero-static-art");
+    const fallback = document.querySelector(".hero-plate-art, .hero-static-art");
     if (fallback instanceof HTMLImageElement && fallback.complete)
       await fallback.decode().catch(() => undefined);
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
@@ -85,7 +88,7 @@ async function capture(name, query = "", options = {}) {
   );
   await page.evaluate(async () => {
     const hero = document.querySelector("[aria-labelledby='hero-heading']");
-    const fallback = document.querySelector(".hero-static-art");
+    const fallback = document.querySelector(".hero-plate-art, .hero-static-art");
     if (
       hero?.getAttribute("data-hero-renderer") === "static" &&
       fallback instanceof HTMLImageElement
@@ -96,12 +99,17 @@ async function capture(name, query = "", options = {}) {
   await page.waitForTimeout(350);
   await page.screenshot({ path: path.join(shotsDir, `${name}.png`), fullPage: false });
   if (
-    name === "desktop-idle" &&
-    (await page.locator("[aria-labelledby='hero-heading']").getAttribute("data-hero-renderer")) ===
-      "webgl"
+    (name === "desktop-idle" || name === "desktop-idle-3d") &&
+    ["plate", "webgl"].includes(
+      await page.locator("[aria-labelledby='hero-heading']").getAttribute("data-hero-renderer")
+    )
   ) {
+    const renderer = await page
+      .locator("[aria-labelledby='hero-heading']")
+      .getAttribute("data-hero-renderer");
     const box = await page.locator("[aria-labelledby='hero-heading']").boundingBox();
-    if (box) {
+    // The 3D scene still uses the cropped fallback image; the plate is its own fallback.
+    if (box && renderer === "webgl") {
       await page.screenshot({
         path: path.join(fallbackDir, "hero-fallback.png"),
         clip: {
@@ -133,12 +141,14 @@ async function capture(name, query = "", options = {}) {
       });
       return Math.round((frames / ((performance.now() - start) / 1000)) * 10) / 10;
     });
-    desktopMetrics = await page.locator("[aria-labelledby='hero-heading']").evaluate((element) => ({
-      renderer: element.getAttribute("data-hero-renderer"),
-      drawCalls: Number(element.getAttribute("data-hero-drawcalls")),
-      triangles: Number(element.getAttribute("data-hero-triangles")),
-    }));
-    desktopMetrics.fps = frameRate;
+    desktopMetrics[name] = await page
+      .locator("[aria-labelledby='hero-heading']")
+      .evaluate((element) => ({
+        renderer: element.getAttribute("data-hero-renderer"),
+        drawCalls: Number(element.getAttribute("data-hero-drawcalls")),
+        triangles: Number(element.getAttribute("data-hero-triangles")),
+      }));
+    desktopMetrics[name].fps = frameRate;
   }
   await context.close();
 }
@@ -149,6 +159,7 @@ try {
     args: ["--use-angle=d3d11", "--enable-gpu", "--ignore-gpu-blocklist"],
   });
   await capture("desktop-idle", "heroTime=12&heroState=idle&heroCamera=wide");
+  await capture("desktop-idle-3d", "hero=3d&heroTime=12&heroState=idle&heroCamera=wide");
   await capture("node-hover", "heroTime=12&heroState=hover:inference&heroCamera=node");
   await capture("request-processing", "heroTime=12&heroState=request:1.1&heroCamera=wide");
   await capture("failure", "heroTime=12&heroState=failure:inference&heroCamera=wide");
@@ -170,7 +181,7 @@ try {
     `${JSON.stringify(desktopMetrics, null, 2)}\n`
   );
   process.stdout.write(
-    `Captured 10 hero states in ${shotsDir}; desktop metrics: ${JSON.stringify(desktopMetrics)}\n`
+    `Captured 11 hero states in ${shotsDir}; desktop metrics: ${JSON.stringify(desktopMetrics)}\n`
   );
 } finally {
   if (browser) await browser.close();

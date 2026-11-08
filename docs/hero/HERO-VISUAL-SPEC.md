@@ -2,6 +2,10 @@
 
 Reference canvas: 1672 × 941 px. Coordinates below are normalized to the full viewport; values are measured from the approved composition and rounded to the nearest 1%.
 
+## Art plate calibration
+
+The default plate renderer uses plate-pixel anchors in `src/components/hero/plateMap.ts`: module positions, sphere centre and radius, ring bounds, waterfall rectangles, horizon, ripple centre and the focus rect that must stay visible. They were measured on the 1672×941 plate itself. Change them there, and `tests/unit/hero-plate-map.test.ts` checks that they stay on the plate. The bounds below describe the reference and the `?hero=3d` scene.
+
 ## Composition bounds
 
 | Element | Viewport box (x, y, w, h) | Measured intent |

@@ -1,6 +1,6 @@
 # Hero scene guide
 
-The home hero is a lazy WebGL scene under ordinary HTML content. Its static fallback is `public/hero/hero-fallback.png`; regenerate it from the real idle render by running `node scripts/hero-shots.mjs` after a production build. The screenshot script writes ten review images to `docs/hero/shots/` and starts `vite preview` on port 4173 if it is not already running.
+The home hero renders a generated art plate with a one-pass WebGL effects layer, SVG request routes and hotspot buttons (`HeroPlate.tsx`, `plateMap.ts`, `plateGL.ts`). The procedural 3D scene is lazy loaded at `?hero=3d`. Its static fallback is `public/hero/hero-fallback.png`; regenerate it from the real 3D idle render by running `node scripts/hero-shots.mjs` after a production build. The screenshot script writes eleven review images (including `desktop-idle-3d.png`) to `docs/hero/shots/` and starts `vite preview` on port 4173 if it is not already running.
 
 ## Modify the sculpture
 
@@ -15,6 +15,7 @@ The home hero is a lazy WebGL scene under ordinary HTML content. Its static fall
 - `?heroTime=12` freezes visual clocks at that exact second.
 - `?heroState=idle|hover:inference|request:1.1|failure:inference|recover:inference` selects a deterministic simulation state. Hover/failure/recover service IDs must exist in topology.
 - `?heroCamera=wide|node|profile` selects the camera framing.
+- `?hero=3d` switches to the 3D scene; the plate is the default.
 - `?heroWebGL=off` forces the static fallback for screenshot and accessibility checks.
 
 The pure parser is in `heroUrlState.ts`; keep it deterministic and update `tests/unit/hero-url-state.test.ts` for new parameters. Simulation timings and route outcomes remain owned by `simulation.ts`.

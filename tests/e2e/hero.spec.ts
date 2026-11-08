@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("home hero", () => {
-  test("renders a WebGL scene or the static fallback", async ({ page }) => {
+  test("renders the art plate, a WebGL scene or the static fallback", async ({ page }) => {
     await page.goto("/");
     const hero = page.locator("[aria-labelledby='hero-heading']");
-    await expect(hero).toHaveAttribute("data-hero-renderer", /^(webgl|static)$/);
+    await expect(hero).toHaveAttribute("data-hero-renderer", /^(plate|webgl|static)$/);
     await expect(hero).toHaveAttribute("data-hero-ready", "true", { timeout: 30_000 });
     await expect(page.getByRole("heading", { name: "Clarity under load." })).toBeVisible();
   });
@@ -58,10 +58,10 @@ test.describe("home hero", () => {
     { name: "light desktop", theme: "light", viewport: { width: 1440, height: 900 } },
     { name: "dark mobile", theme: "dark", viewport: { width: 390, height: 844 } },
   ]) {
-    test(`draws the full scene in ${variant.name}`, async ({ page }) => {
+    test(`draws the full 3D scene in ${variant.name}`, async ({ page }) => {
       await page.addInitScript((t) => localStorage.setItem("portfolio-theme", t), variant.theme);
       await page.setViewportSize(variant.viewport);
-      await page.goto("/?heroTime=12&heroState=idle");
+      await page.goto("/?hero=3d&heroTime=12&heroState=idle");
       const hero = page.locator("[aria-labelledby='hero-heading']");
       await expect(hero).toHaveAttribute("data-hero-ready", "true", { timeout: 30_000 });
       test.skip(
@@ -81,4 +81,75 @@ test.describe("home hero", () => {
         .toBeGreaterThan(5_000);
     });
   }
+
+  test.describe("art plate", () => {
+    const hero = (page: import("@playwright/test").Page) =>
+      page.locator("[aria-labelledby='hero-heading']");
+
+    test("loads the plate and its live layer by default", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.addInitScript(() => localStorage.setItem("portfolio-theme", "dark"));
+      await page.goto("/?heroTime=12&heroState=idle");
+      await expect(hero(page)).toHaveAttribute("data-hero-ready", "true", { timeout: 30_000 });
+      const art = page.locator(".hero-plate-art");
+      await expect(art).toHaveAttribute("src", /plate-dark/);
+      await expect
+        .poll(() => art.evaluate((img: HTMLImageElement) => img.naturalWidth))
+        .toBeGreaterThan(0);
+      const renderer = await hero(page).getAttribute("data-hero-renderer");
+      expect(["plate", "static"]).toContain(renderer);
+      if (renderer === "plate") {
+        await expect(page.locator(".hero-plate-canvas")).toHaveAttribute("data-ready", "true");
+      }
+      await expect(page.locator(".hero-plate-hotspot")).toHaveCount(7);
+    });
+
+    test("uses the light plate in the light theme", async ({ page }) => {
+      await page.addInitScript(() => localStorage.setItem("portfolio-theme", "light"));
+      await page.goto("/");
+      await expect(page.locator(".hero-plate-art")).toHaveAttribute("src", /plate-light/);
+    });
+
+    test("heroWebGL=off keeps the plate as a static image", async ({ page }) => {
+      await page.goto("/?heroWebGL=off");
+      await expect(hero(page)).toHaveAttribute("data-hero-renderer", "static");
+      await expect(hero(page)).toHaveAttribute("data-hero-ready", "true");
+      await expect(page.locator(".hero-plate-art")).toBeVisible();
+    });
+
+    test("a module hotspot opens its details", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto("/?heroTime=12&heroState=idle");
+      await page.getByRole("button", { name: "Model Inference details" }).click();
+      await expect(page.getByRole("dialog")).toContainText("Model Inference");
+    });
+
+    test("a failed service marks its hotspot", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto("/?heroTime=12&heroState=failure:inference");
+      await expect(page.locator(".hero-plate-hotspot[data-service='inference']")).toHaveClass(
+        /is-failed/
+      );
+    });
+
+    // Regression: on tablet the callout labels were hidden but their leader lines stayed.
+    test("callout labels and leader lines show and hide together", async ({ page }) => {
+      for (const [width, visible] of [
+        [1440, true],
+        [834, false],
+      ] as const) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto("/?heroTime=12&heroState=idle");
+        const callouts = page.locator(".hero-plate-callout");
+        const leaders = page.locator(".hero-plate-leader");
+        await expect(leaders.first()).toBeAttached();
+        const shown = async (loc: typeof leaders) =>
+          await loc.evaluateAll(
+            (els) => els.filter((el) => getComputedStyle(el).display !== "none").length
+          );
+        expect(await shown(callouts)).toBe(visible ? await callouts.count() : 0);
+        expect(await shown(leaders)).toBe(visible ? await leaders.count() : 0);
+      }
+    });
+  });
 });

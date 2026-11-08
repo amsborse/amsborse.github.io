@@ -2,10 +2,13 @@ import { heroReducer, initialHeroState, planRoute, type HeroState } from "./simu
 import { SERVICES, type ServiceId } from "./topology";
 
 export type HeroCamera = "wide" | "node" | "profile";
+/** `plate` is the art-plate hero (default); `3d` is the real-time scene, kept as an option. */
+export type HeroScene = "plate" | "3d";
 
 export interface HeroUrlState {
   fixedTime: number | null;
   camera: HeroCamera;
+  scene: HeroScene;
   state: HeroState;
 }
 
@@ -26,6 +29,7 @@ export function parseHeroUrl(search: string, defaultTime = 0): HeroUrlState {
   const now = fixedTime ?? defaultTime;
   const rawCamera = params.get("heroCamera");
   const camera: HeroCamera = rawCamera === "node" || rawCamera === "profile" ? rawCamera : "wide";
+  const scene: HeroScene = params.get("hero") === "3d" ? "3d" : "plate";
   const stateParam = params.get("heroState") ?? "idle";
   let state = initialHeroState;
 
@@ -53,5 +57,5 @@ export function parseHeroUrl(search: string, defaultTime = 0): HeroUrlState {
     state = heroReducer(failed, { type: "recover", now: recoveryStartedAt });
   }
 
-  return { fixedTime, camera, state };
+  return { fixedTime, camera, scene, state };
 }
