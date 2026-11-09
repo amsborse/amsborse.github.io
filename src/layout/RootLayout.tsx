@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Lenis from "lenis";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
+import { SkyField } from "@/components/sky/SkyField";
 import { isImmersiveSandbox, shouldDisableGlobalEffects } from "@/layout/immersiveRoutes";
 import { readFlashcardAnimationPriority } from "@/lib/flashcardAnimationPriority";
 
@@ -35,6 +36,8 @@ export function RootLayout() {
   const isHome = location.pathname === "/";
   const isImmersive = isImmersiveSandbox(location.pathname);
   const disableGlobalEffects = shouldDisableGlobalEffects(location.pathname);
+  // The earlier particle network stays available: open any page with `?ambient=particles`.
+  const wantsParticles = new URLSearchParams(location.search).get("ambient") === "particles";
 
   useEffect(() => {
     if (disableGlobalEffects || prefersReducedMotion) {
@@ -111,7 +114,8 @@ export function RootLayout() {
       className={`relative flex flex-col ${isImmersive ? "h-dvh overflow-hidden" : "min-h-screen overflow-hidden"}`}
       style={{ background: "transparent" }}
     >
-      {!disableGlobalEffects ? (
+      {!disableGlobalEffects && !isHome ? <SkyField /> : null}
+      {!disableGlobalEffects && wantsParticles ? (
         <Suspense fallback={null}>
           <LazyInteractiveParticles intensity="intense" />
         </Suspense>

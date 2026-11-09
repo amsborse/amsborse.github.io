@@ -15,6 +15,15 @@ async function countParticleFrames(page: Page) {
 const frames = (page: Page) =>
   page.evaluate(() => (window as unknown as { __particleFrames: number }).__particleFrames);
 
+test.describe("page background", () => {
+  test("is the CSS sky by default, with no particle canvas", async ({ page }) => {
+    await page.goto("/experience");
+    await expect(page.locator(".sky-field")).toHaveCount(1);
+    await expect(page.locator("canvas.fixed")).toHaveCount(0);
+  });
+});
+
+// The particle network is opt-in now (`?ambient=particles`); its cost limits still hold.
 test.describe("background particles cost", () => {
   test("under reduced motion they redraw on scroll, not every frame", async ({ browser }) => {
     const context = await browser.newContext({
@@ -23,7 +32,7 @@ test.describe("background particles cost", () => {
     });
     const page = await context.newPage();
     await countParticleFrames(page);
-    await page.goto("/");
+    await page.goto("/?ambient=particles");
     await expect(page.locator("canvas.fixed")).toHaveCount(1);
     await page.waitForTimeout(800);
     const settled = await frames(page);
@@ -37,7 +46,7 @@ test.describe("background particles cost", () => {
 
   test("keep animating without input when motion is allowed", async ({ page }) => {
     await countParticleFrames(page);
-    await page.goto("/");
+    await page.goto("/?ambient=particles");
     await expect(page.locator("canvas.fixed")).toHaveCount(1);
     const start = await frames(page);
     // The headless test browser draws in software (and slower still on a loaded machine), so
@@ -55,7 +64,7 @@ test.describe("background particles cost", () => {
       hasTouch: true,
     });
     const page = await context.newPage();
-    await page.goto("/");
+    await page.goto("/?ambient=particles");
     const canvas = page.locator("canvas.fixed");
     await expect(canvas).toHaveCount(1);
     await expect.poll(() => canvas.evaluate((c: HTMLCanvasElement) => c.width)).toBeGreaterThan(0);

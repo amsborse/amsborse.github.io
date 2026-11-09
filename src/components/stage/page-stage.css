@@ -1,97 +1,176 @@
 /*
- * Cinematic page stage: a lit dark stage (like the Sutra hero) in both themes. It breaks out of the
- * page's reading column to one shared width so every inner page opens with the same frame; copy sits
- * left, the scene is weighted right. Dark mode feathers the edges into the page; light mode gives it
- * rounded corners and a soft paper shadow instead.
+ * Chapter stage: every inner page opens on another place in the hero's island world. A generated
+ * art plate (night and dawn versions) sits on the page itself, feathered at every edge so there is
+ * no box; the copy is set on the left in the page's own ink. Two thin live layers, lantern light
+ * that breathes and mist that drifts, run only while the stage is on screen.
  */
 .page-stage {
-  --stage-w: min(72rem, calc(100vw - 2rem));
+  --stage-w: min(80rem, 100vw);
+  --lean-x: 0;
+  --lean-y: 0;
+  --glow-x: 72%;
+  --glow-y: 50%;
   position: relative;
-  isolation: isolate;
   width: var(--stage-w);
-  margin: 0 calc(50% - var(--stage-w) / 2) 3.5rem;
-  min-height: 420px;
-  overflow: hidden;
+  margin: -1rem calc(50% - var(--stage-w) / 2) 3rem;
+  min-height: clamp(24rem, 36vw, 31rem);
   display: flex;
   align-items: center;
-  color: #f4f1e9;
-  background:
-    radial-gradient(60% 90% at 72% 55%, rgba(30, 78, 72, 0.42), transparent 70%),
-    radial-gradient(40% 60% at 70% 80%, rgba(120, 84, 34, 0.16), transparent 70%),
-    radial-gradient(70% 120% at 10% 40%, rgba(12, 22, 30, 0.9), transparent 75%),
-    linear-gradient(180deg, #0a1216, #071013 60%, #0a0f0f);
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent),
-    linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent),
-    linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
-  mask-composite: intersect;
 }
-.page-stage__gpu,
+.page-stage--writing {
+  --glow-x: 89%;
+  --glow-y: 44%;
+}
+.page-stage--contact {
+  --glow-x: 71%;
+  --glow-y: 46%;
+}
+.page-stage--projects {
+  --glow-x: 80%;
+  --glow-y: 68%;
+}
+.page-stage--about {
+  --glow-x: 81%;
+  --glow-y: 76%;
+}
+.page-stage--learning {
+  --glow-x: 72%;
+  --glow-y: 40%;
+}
+
 .page-stage__static {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+}
+.page-stage__plate {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: min(100%, 62rem);
+  aspect-ratio: 1672 / 941;
+  transform: translate3d(calc(var(--lean-x) * -7px), calc(-50% + var(--lean-y) * -5px), 0);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 2%, #000 34%, #000 86%, transparent 99%),
+    linear-gradient(180deg, transparent 1%, #000 20%, #000 80%, transparent 99%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 2%, #000 34%, #000 86%, transparent 99%),
+    linear-gradient(180deg, transparent 1%, #000 20%, #000 80%, transparent 99%);
+  mask-composite: intersect;
+}
+.page-stage__art {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
-.page-stage__gpu {
-  opacity: 0;
-  transition: opacity 1.2s ease;
+.page-stage__glow {
+  position: absolute;
+  left: var(--glow-x);
+  top: var(--glow-y);
+  width: 46%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 190, 96, 0.2),
+    rgba(255, 176, 74, 0.07) 55%,
+    transparent
+  );
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transform: translate3d(calc(var(--lean-x) * -6px), calc(var(--lean-y) * -4px), 0);
 }
-.page-stage__static {
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 1.2s ease;
+.page-stage__mist {
+  position: absolute;
+  left: 30%;
+  right: -10%;
+  top: 56%;
+  height: 22%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    color-mix(in srgb, var(--color-ink) 9%, transparent),
+    transparent
+  );
+  filter: blur(18px);
+  opacity: 0.5;
 }
-.page-stage[data-renderer="gpu"] .page-stage__gpu {
-  opacity: 1;
+[data-theme="light"] .page-stage__mist {
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 252, 244, 0.85), transparent);
+  opacity: 0.7;
 }
-.page-stage[data-renderer="gpu"] .page-stage__static {
-  opacity: 0;
+[data-theme="light"] .page-stage__glow {
+  mix-blend-mode: soft-light;
+  opacity: 0.8;
 }
+.page-stage[data-live="true"] .page-stage__glow {
+  animation: stage-breathe 7s ease-in-out infinite alternate;
+}
+.page-stage[data-live="true"] .page-stage__mist {
+  animation: stage-drift 26s ease-in-out infinite alternate;
+}
+@keyframes stage-breathe {
+  from {
+    opacity: 0.42;
+    scale: 0.96;
+  }
+  to {
+    opacity: 0.9;
+    scale: 1.04;
+  }
+}
+@keyframes stage-drift {
+  from {
+    transform: translate3d(-5%, 0, 0);
+  }
+  to {
+    transform: translate3d(6%, -6%, 0);
+  }
+}
+
 .page-stage__copy {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 34rem;
-  padding: 3.5rem clamp(1.5rem, 5vw, 4.5rem);
-  pointer-events: none;
-}
-.page-stage__copy a {
-  pointer-events: auto;
+  max-width: 37rem;
+  padding: 3rem clamp(1.25rem, 4vw, 3.5rem);
 }
 .page-stage__copy h1 {
-  margin: 0.85rem 0 0;
-  font: 600 clamp(2.5rem, 4.6vw, 4.1rem) / 1.04 var(--font-display, Georgia, serif);
+  margin: 0.7rem 0 0;
+  font: 600 clamp(2.6rem, 4.8vw, 4.4rem) / 1.02 var(--font-display, Georgia, serif);
   letter-spacing: -0.035em;
-  color: #fbfaf6;
+  color: var(--color-ink);
   text-wrap: balance;
 }
 .page-stage__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   margin: 0;
-  color: #e3c07c;
-  font:
-    500 0.7rem/1.5 ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    monospace;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  color: var(--color-accent);
+  font: 500 0.9rem/1.5 var(--font-sans, system-ui, sans-serif);
+}
+/* The current: the thin line of lantern light that runs through every chapter. */
+.page-stage__eyebrow::before {
+  content: "";
+  width: 2.25rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent));
 }
 .page-stage__lede {
-  max-width: 30rem;
+  max-width: 31rem;
   margin-top: 1.15rem;
-  color: #dfe6e3;
-  font: 400 1.05rem/1.7 var(--font-sans, system-ui, sans-serif);
+  color: var(--color-body);
+  font: 400 1.08rem/1.7 var(--font-sans, system-ui, sans-serif);
   text-wrap: pretty;
 }
 .page-stage__lede a,
 .page-stage__links a {
-  color: #f3d08f;
+  color: var(--color-accent);
   text-decoration: underline;
-  text-decoration-color: rgba(243, 208, 143, 0.45);
+  text-decoration-color: var(--color-accent-line);
   text-underline-offset: 4px;
   transition:
     color 0.2s ease,
@@ -99,12 +178,12 @@
 }
 .page-stage__lede a:hover,
 .page-stage__links a:hover {
-  color: #fff0cb;
+  color: var(--color-accent-bright);
   text-decoration-color: currentColor;
 }
 .page-stage__lede a:focus-visible,
 .page-stage__links a:focus-visible {
-  outline: 2px solid #f3d08f;
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -112,46 +191,50 @@
   margin-top: 1.35rem;
 }
 
-/* Light theme: the stage stays a lit dark stage, set on the paper like a print, not feathered. */
-[data-theme="light"] .page-stage {
-  -webkit-mask-image: none;
-  mask-image: none;
-  border-radius: 1.25rem;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 2px 6px rgba(60, 45, 22, 0.08),
-    0 22px 50px -12px rgba(60, 45, 22, 0.28);
-}
-
-@media (max-width: 767px) {
+@media (max-width: 899px) {
+  /* Stacked: the scene first, cropped to its subject, then the copy on the page below it. */
   .page-stage {
-    min-height: 340px;
-    align-items: flex-end;
-    border-radius: 1.1rem;
-    -webkit-mask-image: none;
-    mask-image: none;
+    --stage-w: 100vw;
+    display: block;
+    min-height: 0;
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
   }
-  /* Scrim under the copy so text stays crisp over the scene. */
+  .page-stage__static {
+    position: relative;
+    height: clamp(13rem, 56vw, 24rem);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 16%, #000 78%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 16%, #000 78%, transparent);
+  }
+  .page-stage__plate {
+    top: 50%;
+    right: -4%;
+    width: auto;
+    height: 118%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 46%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent 18%, #000 46%, #000 90%, transparent);
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+  }
   .page-stage__copy {
-    padding: 7rem 1.35rem 2rem;
-    background: linear-gradient(
-      180deg,
-      transparent,
-      rgba(6, 11, 13, 0.82) 45%,
-      rgba(6, 11, 13, 0.92)
-    );
+    max-width: 40rem;
+    padding: 0.5rem 1.25rem 0;
   }
   .page-stage__copy h1 {
-    font-size: 2.35rem;
+    font-size: clamp(2.3rem, 9vw, 3.2rem);
   }
   .page-stage__lede {
-    font-size: 0.97rem;
+    font-size: 1rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-stage__gpu,
-  .page-stage__static {
-    transition: none;
+  .page-stage__plate,
+  .page-stage__glow {
+    transform: translate3d(0, -50%, 0);
+  }
+  .page-stage__glow {
+    transform: none;
   }
 }

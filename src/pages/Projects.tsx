@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
 import { LearningInteractiveCard } from "@/components/learning/LearningInteractiveCard";
 import { HUB_CARD_GRID } from "@/components/InteractiveCard";
-import { SectionHeading } from "@/components/SectionHeading";
+import { PageStage } from "@/components/stage/PageStage";
 import { Seo } from "@/components/Seo";
 import { SelectedWork } from "@/components/SelectedWork";
 import { EarlierWork } from "@/components/EarlierWork";
@@ -32,10 +32,11 @@ export default function ProjectsPage() {
       />
 
       <div className="article-shell max-w-[1440px] page-top pb-16 sm:pb-20 lg:pb-24">
-        <SectionHeading
-          eyebrow="Portfolio & Systems Arsenal"
+        <PageStage
+          motif="projects"
+          eyebrow="Projects"
           title="Projects & Systems Arsenal"
-          subtitle="Software builds, product systems, interactive labs, and algorithm visualizers."
+          lede="Software builds, product systems, interactive labs, and algorithm visualizers."
         />
 
         <div className="mb-16">

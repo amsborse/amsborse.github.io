@@ -22,55 +22,58 @@
 :root:not([data-theme]) {
   color-scheme: dark;
 
-  --color-ink: #f8fafc;
-  --color-ink-soft: #e2e8f0;
-  --color-body: #94a3b8;
-  --color-ink-muted: #64748b;
+  --color-ink: #f4f1ea;
+  --color-ink-soft: #e3dfd5;
+  --color-body: #a9aba2;
+  --color-ink-muted: #7f8279;
   --color-bg: #07080d;
-  --color-surface: rgba(13, 17, 28, 0.55);
-  --color-surface-alt: rgba(18, 24, 40, 0.65);
-  --color-surface-mid: rgba(30, 41, 59, 0.7);
-  --color-surface-elevated: rgba(20, 26, 45, 0.6);
-  --color-surface-wash: rgba(15, 23, 42, 0.35);
+  --color-surface: rgba(15, 18, 19, 0.62);
+  --color-surface-alt: rgba(20, 24, 25, 0.72);
+  --color-surface-mid: rgba(33, 38, 37, 0.76);
+  --color-surface-elevated: rgba(23, 27, 28, 0.72);
+  --color-surface-wash: rgba(14, 17, 18, 0.4);
   --color-section-sage: var(--color-bg);
   --color-section-lavender: var(--color-bg);
   --color-section-blush: var(--color-bg);
   --color-section-parchment: var(--color-bg);
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
-  --color-accent: #38bdf8;
-  --color-accent-bright: #0ea5e9;
-  --color-accent-dim: #0284c7;
-  --color-accent-soft: rgba(56, 189, 248, 0.12);
-  --color-gold: #f59e0b;
-  --color-gold-muted: #d97706;
-  --color-gold-soft: rgba(245, 158, 11, 0.14);
-  --color-gold-faint: rgba(245, 158, 11, 0.08);
-  --color-accent-line: rgba(56, 189, 248, 0.4);
-  --color-on-accent: #041018;
-  --color-reading-canvas: #090b11;
+  --color-border: rgba(244, 241, 234, 0.09);
+  --color-border-strong: rgba(244, 241, 234, 0.16);
+  --color-accent: #f2a93b;
+  --color-accent-bright: #ffc163;
+  --color-accent-dim: #c9821e;
+  --color-accent-soft: rgba(242, 169, 59, 0.12);
+  --color-gold: #f2a93b;
+  --color-gold-muted: #c9821e;
+  --color-gold-soft: rgba(242, 169, 59, 0.14);
+  --color-gold-faint: rgba(242, 169, 59, 0.08);
+  --color-accent-line: rgba(242, 169, 59, 0.4);
+  --color-on-accent: #1a1206;
+  --color-reading-canvas: #0a0c0f;
   --shadow-card:
     0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 16px -8px rgba(0, 0, 0, 0.8),
-    0 10px 28px -12px rgba(56, 189, 248, 0.06);
+    0 14px 32px -16px rgba(0, 0, 0, 0.6);
   --shadow-card-hover:
     0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 20px -6px rgba(0, 0, 0, 0.9),
-    0 26px 52px -18px rgba(56, 189, 248, 0.14), 0 0 0 1px rgba(245, 158, 11, 0.16);
+    0 28px 56px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(242, 169, 59, 0.18);
   --motif-crease: linear-gradient(
     168deg,
     transparent 0%,
     rgba(255, 255, 255, 0.02) 48%,
     transparent 100%
   );
-  --hub-title-gradient: linear-gradient(to right, #ffffff, #e2e8f0, #94a3b8);
-  --hub-card-bg: #131b29;
-  --hub-card-bg-gradient: linear-gradient(155deg, #172234 0%, #111827 52%, #0c121c 100%);
-  --hub-card-border: rgba(255, 255, 255, 0.08);
-  --hub-card-border-hover: rgba(34, 211, 238, 0.35);
+  --hub-title-gradient: linear-gradient(to right, #f4f1ea, #f4f1ea);
+  --hub-card-bg: #111516;
+  --hub-card-bg-gradient: linear-gradient(155deg, #161b1c 0%, #101415 52%, #0b0e10 100%);
+  --hub-card-border: rgba(244, 241, 234, 0.09);
+  --hub-card-border-hover: rgba(242, 169, 59, 0.4);
   --chrome-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
   --backdrop-scrim: rgba(3, 4, 8, 0.72);
-  --body-noise-opacity: 0.12;
-  --body-glow-opacity: 0.65;
-  --color-chrome-bg: rgba(7, 8, 13, 0.72);
+  --body-noise-opacity: 0.08;
+  --body-glow-opacity: 0.7;
+  --color-moss: #8fae7e;
+  --color-moss-soft: rgba(143, 174, 126, 0.14);
+  --color-water: #0b1014;
+  --color-chrome-bg: rgba(7, 8, 13, 0.9);
 }
 
 :root[data-theme="light"] {
@@ -78,10 +81,10 @@
 
   --color-ink: #1c1917;
   --color-ink-soft: #292524;
-  --color-body: #44403c;
-  --color-ink-muted: #78716c;
+  --color-body: #4a463f;
+  --color-ink-muted: #6f685f;
   --color-bg: #f5f0e6;
-  --color-chrome-bg: rgba(245, 240, 230, 0.72);
+  --color-chrome-bg: rgba(245, 240, 230, 0.92);
   --color-surface: rgba(255, 252, 247, 0.85);
   --color-surface-alt: rgba(255, 252, 247, 0.95);
   --color-surface-mid: rgba(247, 242, 233, 0.96);
@@ -93,38 +96,41 @@
   --color-section-parchment: var(--color-bg);
   --color-border: rgba(68, 64, 60, 0.12);
   --color-border-strong: rgba(68, 64, 60, 0.2);
-  --color-accent: #0284c7;
-  --color-accent-bright: #0369a1;
-  --color-accent-dim: #075985;
-  --color-accent-soft: rgba(2, 132, 199, 0.1);
-  --color-gold: #b45309;
-  --color-gold-muted: #92400e;
-  --color-gold-soft: rgba(180, 83, 9, 0.12);
-  --color-gold-faint: rgba(180, 83, 9, 0.06);
-  --color-accent-line: rgba(2, 132, 199, 0.35);
+  --color-accent: #9a4a06;
+  --color-accent-bright: #b45309;
+  --color-accent-dim: #7c3a04;
+  --color-accent-soft: rgba(154, 74, 6, 0.1);
+  --color-gold: #9a4a06;
+  --color-gold-muted: #7c3a04;
+  --color-gold-soft: rgba(154, 74, 6, 0.12);
+  --color-gold-faint: rgba(154, 74, 6, 0.06);
+  --color-accent-line: rgba(154, 74, 6, 0.35);
   --color-on-accent: #ffffff;
   --color-reading-canvas: #fbf8f2;
   --shadow-card:
-    0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 16px -8px rgba(68, 64, 60, 0.1),
-    0 10px 28px -12px rgba(2, 132, 199, 0.08);
+    0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 16px -8px rgba(68, 64, 60, 0.12),
+    0 14px 32px -16px rgba(68, 64, 60, 0.14);
   --shadow-card-hover:
-    0 1px 0 rgba(255, 255, 255, 1), 0 8px 20px -6px rgba(68, 64, 60, 0.14),
-    0 26px 52px -18px rgba(2, 132, 199, 0.12), 0 0 0 1px rgba(180, 83, 9, 0.12);
+    0 1px 0 rgba(255, 255, 255, 1), 0 8px 20px -6px rgba(68, 64, 60, 0.16),
+    0 28px 56px -20px rgba(68, 64, 60, 0.2), 0 0 0 1px rgba(154, 74, 6, 0.16);
   --motif-crease: linear-gradient(
     168deg,
     transparent 0%,
     rgba(68, 64, 60, 0.04) 48%,
     transparent 100%
   );
-  --hub-title-gradient: linear-gradient(to right, #1c1917, #44403c, #78716c);
+  --hub-title-gradient: linear-gradient(to right, #1c1917, #1c1917);
   --hub-card-bg: #fffdf9;
   --hub-card-bg-gradient: linear-gradient(155deg, #fffdf9 0%, #f7f2e9 52%, #efe8dc 100%);
   --hub-card-border: rgba(68, 64, 60, 0.12);
-  --hub-card-border-hover: rgba(2, 132, 199, 0.35);
+  --hub-card-border-hover: rgba(154, 74, 6, 0.4);
   --chrome-shadow: 0 1px 0 rgba(68, 64, 60, 0.08);
   --backdrop-scrim: rgba(245, 240, 230, 0.85);
   --body-noise-opacity: 0.05;
   --body-glow-opacity: 0.42;
+  --color-moss: #4f6b43;
+  --color-moss-soft: rgba(79, 107, 67, 0.12);
+  --color-water: #e9e2d3;
   --cosmic-grid-rgb: 120, 113, 108;
 }
 
@@ -175,16 +181,16 @@
     pointer-events: none;
     opacity: var(--body-glow-opacity);
     background:
-      radial-gradient(ellipse 70% 55% at 15% -10%, rgba(56, 189, 248, 0.15), transparent 52%),
-      radial-gradient(ellipse 65% 50% at 85% 15%, rgba(139, 92, 246, 0.12), transparent 50%),
-      radial-gradient(ellipse 60% 45% at 50% 105%, rgba(245, 158, 11, 0.08), transparent 45%);
+      radial-gradient(ellipse 70% 55% at 12% -10%, rgba(143, 174, 126, 0.07), transparent 52%),
+      radial-gradient(ellipse 65% 50% at 88% 12%, rgba(242, 169, 59, 0.07), transparent 50%),
+      radial-gradient(ellipse 60% 45% at 50% 105%, rgba(242, 169, 59, 0.05), transparent 45%);
   }
 
   :root[data-theme="light"] body::after {
     background:
-      radial-gradient(ellipse 70% 55% at 15% -10%, rgba(2, 132, 199, 0.08), transparent 52%),
-      radial-gradient(ellipse 65% 50% at 85% 15%, rgba(180, 83, 9, 0.06), transparent 50%),
-      radial-gradient(ellipse 60% 45% at 50% 105%, rgba(2, 132, 199, 0.05), transparent 45%);
+      radial-gradient(ellipse 70% 55% at 12% -10%, rgba(79, 107, 67, 0.07), transparent 52%),
+      radial-gradient(ellipse 65% 50% at 88% 12%, rgba(180, 83, 9, 0.06), transparent 50%),
+      radial-gradient(ellipse 60% 45% at 50% 105%, rgba(180, 83, 9, 0.04), transparent 45%);
   }
 
   :root[data-theme="light"] body::before {
@@ -720,20 +726,10 @@
     background-color: var(--color-reading-canvas);
   }
 
+  /* The essay index sits directly on the page: no lighter column behind it. */
   .writing-index--editorial {
     position: relative;
-    background:
-      radial-gradient(
-        ellipse 85% 60% at 0% -5%,
-        color-mix(in srgb, var(--color-accent) 7%, transparent),
-        transparent 50%
-      ),
-      radial-gradient(
-        ellipse 70% 50% at 100% 15%,
-        color-mix(in srgb, var(--color-gold) 5%, transparent),
-        transparent 48%
-      ),
-      var(--color-reading-canvas);
+    background: none;
   }
 
   .article-reading .prose-article {

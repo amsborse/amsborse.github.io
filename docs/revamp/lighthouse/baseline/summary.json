@@ -1,0 +1,189 @@
+{
+  "label": "baseline",
+  "summary": [
+    {
+      "page": "home",
+      "preset": "mobile",
+      "performance": 60,
+      "accessibility": 92,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 3786,
+      "cls": 0,
+      "tbtMs": 2599,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch",
+        "target-size"
+      ]
+    },
+    {
+      "page": "home",
+      "preset": "desktop",
+      "performance": 69,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 1042,
+      "cls": 0,
+      "tbtMs": 968,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "experience",
+      "preset": "mobile",
+      "performance": 55,
+      "accessibility": 94,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2873,
+      "cls": 0.3997569866342649,
+      "tbtMs": 940,
+      "failedA11y": [
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "experience",
+      "preset": "desktop",
+      "performance": 82,
+      "accessibility": 94,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 680,
+      "cls": 0.337618933779584,
+      "tbtMs": 85,
+      "failedA11y": [
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "projects",
+      "preset": "mobile",
+      "performance": 75,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2767,
+      "cls": 0,
+      "tbtMs": 937,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "projects",
+      "preset": "desktop",
+      "performance": 82,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 886,
+      "cls": 0.337618933779584,
+      "tbtMs": 90,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "writing",
+      "preset": "mobile",
+      "performance": 50,
+      "accessibility": 95,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 3194,
+      "cls": 0.2831105710814095,
+      "tbtMs": 2256,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "writing",
+      "preset": "desktop",
+      "performance": 92,
+      "accessibility": 95,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 716,
+      "cls": 0.17383287104438244,
+      "tbtMs": 19,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "article",
+      "preset": "mobile",
+      "performance": 93,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 3112,
+      "cls": 0.04993735042350173,
+      "tbtMs": 82,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "article",
+      "preset": "desktop",
+      "performance": 85,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 695,
+      "cls": 0.2945432783824486,
+      "tbtMs": 0,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "about",
+      "preset": "mobile",
+      "performance": 70,
+      "accessibility": 95,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2834,
+      "cls": 0.3997569866342649,
+      "tbtMs": 326,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "about",
+      "preset": "desktop",
+      "performance": 83,
+      "accessibility": 95,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 646,
+      "cls": 0.337618933779584,
+      "tbtMs": 0,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    }
+  ],
+  "failures": []
+}

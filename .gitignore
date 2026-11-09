@@ -34,3 +34,11 @@ tmp_resume/
 .agent-memory/screenshot-manifests/
 .agent-memory/compaction-report.json
 .agent-memory/**/*.tmp
+
+# Revamp evidence: screenshots and raw Lighthouse reports stay local (about 45 MB);
+# the ledger, prompts, manifests and Lighthouse summaries are committed.
+docs/revamp/**/*.jpg
+docs/revamp/**/*.png
+docs/revamp/lighthouse/*/*.json
+!docs/revamp/lighthouse/*/summary.json
+design/
