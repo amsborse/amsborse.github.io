@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ExperienceCard } from "@/components/ExperienceCard";
+import { ExperienceTimeline } from "@/components/experience/ExperienceTimeline";
 import { Seo } from "@/components/Seo";
 import { PageStage } from "@/components/stage/PageStage";
 import { experience } from "@/data";
@@ -32,11 +32,7 @@ export default function ExperiencePage() {
             </>
           }
         />
-        <div className="mt-12">
-          {experience.map((entry, idx) => (
-            <ExperienceCard key={entry.id} entry={entry} index={idx} />
-          ))}
-        </div>
+        <ExperienceTimeline entries={experience} />
       </div>
     </>
   );

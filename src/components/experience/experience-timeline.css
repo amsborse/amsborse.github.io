@@ -1,0 +1,496 @@
+.experience-timeline {
+  --timeline-rail-x: 10.5rem;
+  position: relative;
+  margin-top: 3.5rem;
+}
+
+.experience-timeline__heading {
+  margin: 0 0 2.25rem;
+  color: var(--color-ink);
+  font: 500 clamp(1.45rem, 2.4vw, 1.9rem) / 1.2 var(--font-display, Georgia, serif);
+  letter-spacing: -0.02em;
+}
+
+.experience-timeline__list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experience-timeline__track {
+  position: relative;
+}
+
+.experience-timeline__rail,
+.experience-timeline__current {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: var(--timeline-rail-x);
+  width: 1px;
+  transform-origin: top;
+}
+
+.experience-timeline__rail {
+  background: var(--color-border-strong);
+}
+
+.experience-timeline__current {
+  background: var(--color-accent-line);
+  box-shadow: 0 0 12px var(--color-accent-line);
+}
+
+.experience-stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9rem 3rem minmax(0, 1fr);
+  align-items: start;
+  min-width: 0;
+  padding: 0 0 4.25rem;
+}
+
+.experience-stop:last-child {
+  padding-bottom: 0;
+}
+
+.experience-stop__date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  padding: 0.18rem 1rem 0 0;
+  color: var(--color-body);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.experience-stop__date span:nth-child(2) {
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+}
+
+.experience-stop__lantern {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 1rem;
+  height: 1rem;
+  place-items: center;
+  margin: 0.2rem auto 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-bg);
+  transition:
+    border-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-stop__lantern > span {
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  transition:
+    background-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-stop.is-lit .experience-stop__lantern {
+  border-color: var(--color-accent-line);
+}
+
+.experience-stop.is-lit .experience-stop__lantern > span {
+  background: var(--color-accent);
+  box-shadow: 0 0 11px var(--color-accent-line);
+}
+
+.experience-stop--major .experience-stop__lantern {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.05rem;
+}
+
+.experience-stop--major .experience-stop__lantern > span {
+  width: 0.48rem;
+  height: 0.48rem;
+}
+
+.experience-stop__content {
+  min-width: 0;
+  padding: 0 0 2rem 1.35rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.experience-stop:last-child .experience-stop__content {
+  border-bottom: 0;
+}
+
+.experience-stop--major .experience-stop__content {
+  padding-bottom: 2.6rem;
+}
+
+.experience-stop__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.experience-stop__title {
+  margin: 0;
+  color: var(--color-ink);
+  font: 500 1.28rem / 1.3 var(--font-display, Georgia, serif);
+  letter-spacing: -0.015em;
+}
+
+.experience-stop--major .experience-stop__title {
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+}
+
+.experience-stop__company {
+  margin: 0.2rem 0 0;
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 550;
+}
+
+.experience-stop__location {
+  margin: 0;
+  color: var(--color-body);
+  font-size: 0.9rem;
+}
+
+.experience-stop__summary {
+  max-width: 52rem;
+  margin: 1rem 0 0;
+  color: var(--color-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.experience-stop__technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experience-stop__technologies li {
+  padding: 0.12rem 0.55rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-body);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.experience-sketch {
+  margin: 1.6rem 0 0;
+  padding: 1.1rem 0 1.2rem;
+  border-block: 1px solid var(--color-border);
+}
+
+.experience-sketch__flow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.experience-sketch__node {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.experience-sketch__node--service {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+}
+
+.experience-sketch__value {
+  color: var(--color-ink);
+  font: 500 1.15rem / 1.15 var(--font-display, Georgia, serif);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.experience-sketch__node--service .experience-sketch__value {
+  font: 600 0.9rem / 1.2 var(--font-sans, system-ui, sans-serif);
+  letter-spacing: 0;
+}
+
+.experience-sketch__node--result .experience-sketch__value {
+  color: var(--color-accent);
+}
+
+.experience-sketch__label {
+  color: var(--color-body);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.experience-sketch__lanes {
+  display: grid;
+  grid-template-columns: repeat(7, 0.4rem);
+  gap: 0.28rem;
+  padding-block: 0.15rem;
+}
+
+.experience-sketch__lanes i {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--color-moss, var(--color-ink-muted));
+}
+
+.experience-sketch__edge {
+  position: relative;
+  flex: 1 1 1.5rem;
+  min-width: 1.25rem;
+  max-width: 4.5rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: var(--color-border-strong);
+}
+
+.experience-sketch__edge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0;
+  transform: translateX(-110%);
+}
+
+.experience-sketch.is-moving .experience-sketch__edge::after {
+  animation: experience-current 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.experience-outcomes {
+  margin-top: 1.55rem;
+}
+
+.experience-outcomes__label {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.experience-outcomes__list {
+  display: grid;
+  gap: 0.72rem;
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experience-outcomes__list li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--color-body);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.experience-outcomes__list li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 0.35rem;
+  height: 1px;
+  background: var(--color-accent);
+  content: "";
+}
+
+.experience-outcomes__figure {
+  color: var(--color-ink);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.experience-outcomes__toggle {
+  min-height: 2.75rem;
+  margin: 0.45rem 0 0 0.25rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-outcomes__toggle:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface);
+}
+
+.experience-outcomes__disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-outcomes__disclosure.is-open {
+  grid-template-rows: 1fr;
+}
+
+.experience-outcomes__disclosure > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.experience-outcomes__disclosure .experience-outcomes__list {
+  margin-top: 0.8rem;
+}
+
+.experience-stop:not(.experience-stop--major) .experience-stop__content {
+  padding-top: 0.1rem;
+}
+
+.experience-stop:not(.experience-stop--major) .experience-stop__summary,
+.experience-stop:not(.experience-stop--major) .experience-outcomes__list li {
+  font-size: 0.94rem;
+}
+
+.experience-stop:not(.experience-stop--major) .experience-stop__title {
+  font-weight: 400;
+}
+
+.experience-stop:not(.experience-stop--major) .experience-stop__company {
+  color: var(--color-body);
+}
+
+@keyframes experience-current {
+  0% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(260%);
+  }
+}
+
+@media (max-width: 700px) {
+  .experience-timeline {
+    --timeline-rail-x: 0.5rem;
+    margin-top: 2.8rem;
+  }
+
+  .experience-timeline__heading {
+    margin-left: 2.1rem;
+  }
+
+  .experience-stop {
+    grid-template-columns: 2.1rem minmax(0, 1fr);
+    padding-bottom: 3rem;
+  }
+
+  .experience-stop__date {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0 0 0.65rem 0.8rem;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .experience-stop__date span:nth-child(2) {
+    font-size: 0.85rem;
+  }
+
+  .experience-stop__lantern {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    margin: 0.1rem auto 0;
+  }
+
+  .experience-stop--major .experience-stop__lantern {
+    margin-top: 0;
+  }
+
+  .experience-stop__content {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 0 0 1.8rem 0.8rem;
+  }
+
+  .experience-stop--major .experience-stop__content {
+    padding-bottom: 2rem;
+  }
+
+  .experience-stop__header {
+    align-items: flex-start;
+  }
+
+  .experience-stop__location {
+    flex-basis: 100%;
+  }
+
+  .experience-stop__title {
+    font-size: 1.22rem;
+  }
+
+  .experience-stop--major .experience-stop__title {
+    font-size: 1.55rem;
+  }
+
+  .experience-sketch__flow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+
+  .experience-sketch__edge {
+    flex: none;
+    width: 2px;
+    min-width: 0;
+    height: 1.1rem;
+    margin-left: 0.6rem;
+  }
+
+  .experience-sketch__edge::after {
+    display: none;
+  }
+}
+
+@media (min-width: 701px) {
+  .experience-timeline__rail,
+  .experience-timeline__current {
+    bottom: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-stop__lantern,
+  .experience-stop__lantern > span,
+  .experience-outcomes__toggle,
+  .experience-outcomes__disclosure {
+    transition: none;
+  }
+
+  .experience-sketch.is-moving .experience-sketch__edge::after {
+    animation: none;
+  }
+}

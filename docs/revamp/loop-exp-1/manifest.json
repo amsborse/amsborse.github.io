@@ -1,0 +1,16 @@
+{
+  "label": "loop-exp-1",
+  "baseUrl": "http://127.0.0.1:4281",
+  "shots": [
+    "docs/revamp/loop-exp-1/experience-1440-dark-top.jpg",
+    "docs/revamp/loop-exp-1/experience-1440-dark-full.jpg",
+    "docs/revamp/loop-exp-1/experience-1440-light-top.jpg",
+    "docs/revamp/loop-exp-1/experience-1440-light-full.jpg",
+    "docs/revamp/loop-exp-1/experience-390-dark-top.jpg",
+    "docs/revamp/loop-exp-1/experience-390-dark-full.jpg",
+    "docs/revamp/loop-exp-1/experience-390-light-top.jpg",
+    "docs/revamp/loop-exp-1/experience-390-light-full.jpg"
+  ],
+  "failures": [],
+  "consoleErrors": []
+}
