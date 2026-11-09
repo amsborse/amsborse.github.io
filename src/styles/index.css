@@ -869,6 +869,11 @@
     @apply mx-auto max-w-[min(72rem,100%)] px-4 sm:px-6 lg:px-10;
   }
 
+  /* Inner pages open below the fixed site header (about 77px tall at every width). */
+  .page-top {
+    padding-top: calc(var(--site-header-h, 4.875rem) + 1.5rem);
+  }
+
   .sr-only {
     position: absolute;
     width: 1px;

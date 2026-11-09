@@ -13,7 +13,7 @@ export default function ExperiencePage() {
         path="/experience"
       />
 
-      <div className="article-shell max-w-6xl py-16 sm:py-20 lg:py-24">
+      <div className="article-shell max-w-6xl page-top pb-16 sm:pb-20 lg:pb-24">
         <PageStage
           motif="experience"
           eyebrow="Experience"

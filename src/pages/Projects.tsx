@@ -31,7 +31,7 @@ export default function ProjectsPage() {
         path="/projects"
       />
 
-      <div className="article-shell max-w-[1440px] py-16 sm:py-20 lg:py-24">
+      <div className="article-shell max-w-[1440px] page-top pb-16 sm:pb-20 lg:pb-24">
         <SectionHeading
           eyebrow="Portfolio & Systems Arsenal"
           title="Projects & Systems Arsenal"

@@ -82,7 +82,7 @@ export default function About() {
     <>
       <Seo title="About" description={about.seoDescription} path="/about" />
 
-      <div className="article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
+      <div className="article-shell max-w-3xl page-top pb-16 sm:pb-20 lg:pb-24">
         <PageStage
           motif="about"
           eyebrow="About"

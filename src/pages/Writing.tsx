@@ -54,7 +54,7 @@ export default function WritingPage() {
         path="/arsenal/writing"
       />
 
-      <div className="writing-index writing-index--editorial article-shell max-w-3xl py-16 sm:py-20 lg:py-24">
+      <div className="writing-index writing-index--editorial article-shell max-w-3xl page-top pb-16 sm:pb-20 lg:pb-24">
         <PageStage
           motif="writing"
           eyebrow="Writing"

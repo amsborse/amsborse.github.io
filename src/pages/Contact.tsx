@@ -60,7 +60,7 @@ export default function ContactPage() {
         path="/contact"
       />
 
-      <div className="article-shell max-w-2xl py-16 sm:py-20 lg:py-24">
+      <div className="article-shell max-w-2xl page-top pb-16 sm:pb-20 lg:pb-24">
         <p className="section-label font-mono uppercase tracking-widest text-xs text-[var(--color-ink-muted)]">
           Contact
         </p>
