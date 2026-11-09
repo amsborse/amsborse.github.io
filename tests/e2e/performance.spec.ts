@@ -40,9 +40,11 @@ test.describe("background particles cost", () => {
     await page.goto("/");
     await expect(page.locator("canvas.fixed")).toHaveCount(1);
     const start = await frames(page);
-    await page.waitForTimeout(1000);
-    // The headless test browser draws in software, so only "still redrawing" is asserted.
-    expect((await frames(page)) - start).toBeGreaterThan(3);
+    // The headless test browser draws in software (and slower still on a loaded machine), so
+    // only "still redrawing without input" is asserted, not a frame rate.
+    await expect
+      .poll(async () => (await frames(page)) - start, { timeout: 5_000 })
+      .toBeGreaterThan(3);
   });
 
   test("never draw above 2x pixels on a 3x phone", async ({ browser }) => {

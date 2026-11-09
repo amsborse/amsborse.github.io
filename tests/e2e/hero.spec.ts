@@ -80,7 +80,9 @@ test.describe("home hero", () => {
     // can take longer than that, so hold the clock while asserting each caption.
     await page.clock.install();
     await page.goto("/");
-    await page.clock.pauseAt(Date.now() + 1_000);
+    // Pause relative to the page's clock: a slow page load can outrun the runner's Date.now().
+    const pageNow = await page.evaluate(() => Date.now());
+    await page.clock.pauseAt(pageNow + 1_000);
     const caption = page.getByTestId("hero-caption");
     await openConsole(page);
     await page.getByRole("button", { name: "Send a request" }).click();
