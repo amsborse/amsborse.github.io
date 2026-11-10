@@ -34,7 +34,7 @@ export default function Article() {
 
   if (post === undefined) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center text-sm text-[var(--color-ink-muted)]">
+      <div className="flex min-h-[100svh] items-center justify-center text-sm text-[var(--color-ink-muted)]">
         Loading…
       </div>
     );

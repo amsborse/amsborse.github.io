@@ -47,15 +47,15 @@ export function Navbar() {
         <NavLink
           to="/"
           className="site-brand rounded focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-          aria-label={`${site.name}, home`}
           onClick={() => setOpen(false)}
         >
           <span className="site-brand__mark" aria-hidden="true">
             AB<span className="site-brand__dot">.</span>
           </span>
-          <span className="site-brand__text" aria-hidden="true">
-            <span className="site-brand__name">{site.name}</span>
+          <span className="site-brand__text">
+            <span className="site-brand__name">{site.name}</span>{" "}
             <span className="site-brand__role">{ROLE}</span>
+            <span className="sr-only">, home</span>
           </span>
         </NavLink>
 

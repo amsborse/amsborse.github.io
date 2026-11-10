@@ -16,7 +16,8 @@ const LazyInteractiveParticles = lazy(() =>
 
 function PageSkeleton() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
+    // A full screen tall, so the footer starts below the fold and does not jump when the page arrives.
+    <div className="flex min-h-[100svh] items-center justify-center">
       <div className="flex flex-col items-center gap-3">
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--color-accent)] border-t-transparent" />
         <span className="font-mono text-sm tracking-wider text-[var(--color-ink-muted)]">

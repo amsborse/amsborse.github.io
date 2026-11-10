@@ -5,7 +5,7 @@ test.describe("site header", () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/projects");
     const header = page.locator("header");
-    await header.getByRole("link", { name: /Akshay Borse, home/ }).click();
+    await header.getByRole("link", { name: /Akshay Borse\s+Engineer & Writer\s*, home/ }).click();
     await expect(page).toHaveURL(/\/$/);
     await header.getByRole("link", { name: /Get in touch/ }).click();
     await expect(page).toHaveURL(/\/about#contact$/);

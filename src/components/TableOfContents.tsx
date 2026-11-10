@@ -12,7 +12,7 @@ export function TableOfContents({ items, variant = "minimal" }: TableOfContentsP
   if (variant === "minimal") {
     return (
       <nav className="text-[0.8125rem] leading-relaxed" aria-label="On this page">
-        <p className="mb-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--color-ink-muted)]/80">
+        <p className="mb-3 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--color-body)]">
           On this page
         </p>
         <ul className="space-y-2 border-l border-[var(--color-border)]/50 pl-4">

@@ -39,7 +39,7 @@ export default function WritingPage() {
           lede="Notes on building systems that hold up — reliability, API design, observability, and why writing things down is part of the engineering."
         />
         {loading ? (
-          <p className="mt-16 text-base text-[var(--color-body)]">Loading essays…</p>
+          <p className="mt-16 min-h-[100svh] text-base text-[var(--color-body)]">Loading essays…</p>
         ) : (
           <WritingPublication posts={posts} />
         )}

@@ -1103,7 +1103,8 @@
 
 .hero-plate-hotspot {
   position: absolute;
-  width: max(2.25rem, calc(84px * var(--plate-s, 1)));
+  /* Never smaller than a 24px target, never wide enough to cover a neighbour on a phone. */
+  width: max(1.625rem, calc(84px * var(--plate-s, 1)));
   aspect-ratio: 1;
   border: 1px solid transparent;
   border-radius: 999px;
