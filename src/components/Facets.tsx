@@ -7,9 +7,7 @@ export function Facets() {
 
   return (
     <section aria-labelledby="facets-title" className="article-shell max-w-6xl py-16 sm:py-24">
-      <p className="font-mono text-xs uppercase tracking-[0.15em] text-[var(--color-accent)]">
-        {facetsIntro.label}
-      </p>
+      <p className="chapter-eyebrow">{facetsIntro.label}</p>
       <h2
         id="facets-title"
         className="theme-heading mt-3 max-w-[18ch] font-display text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.04] tracking-[-0.03em]"
@@ -34,7 +32,7 @@ export function Facets() {
               to={facet.to}
               className="group flex h-full flex-col gap-3 py-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
-              <span className="flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.15em] text-[var(--color-ink-muted)]">
+              <span className="flex items-baseline gap-3 text-sm text-[var(--color-body)]">
                 <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
                 <span className="text-[var(--color-accent)]">{facet.label}</span>
               </span>
