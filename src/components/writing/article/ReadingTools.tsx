@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+﻿import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ChapterRail } from "@/components/ChapterRail";
 import { TableOfContents } from "@/components/TableOfContents";
 import { usePrefersReducedMotion } from "@/hooks/useParallax";
@@ -68,14 +68,43 @@ export function railStopFor(items: TocItem[], stops: { id: string }[], activeId?
   return stops[0]?.id;
 }
 
+/** Ways to fit the contents in one screen, roomiest first; "window" always fits (it follows the reader). */
+export const CONTENTS_FIT_MODES = ["roomy", "compact", "sections", "dense", "window"] as const;
+export type ContentsFit = (typeof CONTENTS_FIT_MODES)[number];
+
+/** Applies each fit mode in turn and keeps the first one whose list no longer overflows. */
+export function fitContents(apply: (mode: ContentsFit) => void, fits: () => boolean): ContentsFit {
+  for (const mode of CONTENTS_FIT_MODES) {
+    apply(mode);
+    if (mode === "window" || fits()) return mode;
+  }
+  return "window";
+}
+
 /** Left: the full table of contents. Right: the shared chapter dot rail. One tracker drives both. */
 export function ArticleContents({ items }: { items: TocItem[] }) {
   const rail = useRef<HTMLElement>(null);
   const stops = useMemo(() => railSections(items), [items]);
   const [current, setCurrent] = useState<string>();
+  const reducedMotion = usePrefersReducedMotion();
+  useLayoutEffect(() => {
+    const aside = rail.current;
+    const nav = aside?.querySelector("nav");
+    if (!aside || !nav) return;
+    const fit = () =>
+      fitContents(
+        (mode) => (aside.dataset.fit = mode),
+        () => nav.scrollHeight <= nav.clientHeight + 1
+      );
+    fit();
+    void document.fonts?.ready.then(fit);
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, [items]);
   useEffect(() => {
     if (items.length < 3) return;
     const links = rail.current?.querySelectorAll("a");
+    let windowed: string | undefined;
     const update = () => {
       // Look the headings up each frame: the article body can re-render its markup after this
       // effect runs, and a detached heading reports top 0, which reads as "already passed".
@@ -91,10 +120,28 @@ export function ArticleContents({ items }: { items: TocItem[] }) {
       const passed = headings.filter((heading) => heading.getBoundingClientRect().top <= line);
       const active = passed.at(-1) ?? headings[0];
       setCurrent(active?.id);
+      // Folded modes hide subsections, so their section carries the highlight.
+      const fit = rail.current?.dataset.fit;
+      const marked =
+        fit === "sections" || fit === "dense" || fit === "window"
+          ? railStopFor(items, stops, active?.id)
+          : active?.id;
+      let markedLink: HTMLAnchorElement | undefined;
       links?.forEach((link) => {
-        if (link.hash.slice(1) === active?.id) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
+        if (link.hash.slice(1) !== marked) return link.removeAttribute("aria-current");
+        link.setAttribute("aria-current", "location");
+        markedLink = link;
       });
+      // A list too long for the screen does not scroll by hand: it keeps the current section
+      // centred in a fixed window.
+      const nav = rail.current?.querySelector("nav");
+      if (fit === "window" && nav && markedLink && windowed !== marked) {
+        windowed = marked;
+        nav.scrollTo({
+          top: markedLink.offsetTop - nav.clientHeight / 2 + markedLink.offsetHeight / 2,
+          behavior: reducedMotion ? "auto" : "smooth",
+        });
+      }
     };
     // Recompute once per frame while scrolling. Observer bands alone miss a glide that comes
     // to rest inside a band (the heading never crosses the reading line in a reported frame).
@@ -114,7 +161,7 @@ export function ArticleContents({ items }: { items: TocItem[] }) {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
-  }, [items]);
+  }, [items, stops, reducedMotion]);
   if (items.length < 3) return null;
   return (
     <>

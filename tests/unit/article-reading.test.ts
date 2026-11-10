@@ -7,6 +7,7 @@ import { ArticleReader } from "@/components/writing/article/ArticleReader";
 import {
   ArticleContents,
   ArticleReadingProgress,
+  fitContents,
   railSections,
   railStopFor,
 } from "@/components/writing/article/ReadingTools";
@@ -519,5 +520,72 @@ describe("reading observer lifecycle", () => {
     expect(
       output.querySelector('.chapter-rail [aria-current="location"]')?.getAttribute("href")
     ).toBe("#two");
+  });
+
+  it("fits the contents in one screen, folding subsections before falling back to a window", () => {
+    const tried: string[] = [];
+    const fitWhen = (ok: string) =>
+      fitContents(
+        (mode) => tried.push(mode),
+        () => tried.at(-1) === ok
+      );
+    expect(fitWhen("roomy")).toBe("roomy");
+    tried.length = 0;
+    expect(fitWhen("sections")).toBe("sections");
+    expect(tried).toEqual(["roomy", "compact", "sections"]);
+    tried.length = 0;
+    expect(fitWhen("never")).toBe("window");
+    expect(tried).toEqual(["roomy", "compact", "sections", "dense", "window"]);
+  });
+
+  it("marks the section of a folded subsection and keeps it centred in the window", async () => {
+    observers();
+    const queued: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) =>
+      queued.push(callback)
+    );
+    vi.stubGlobal("innerHeight", 800);
+    const items = [
+      { id: "one", text: "one", level: 2 as const },
+      { id: "two", text: "two", level: 2 as const },
+      { id: "two-a", text: "two a", level: 3 as const },
+      { id: "three", text: "three", level: 2 as const },
+    ];
+    const tops: Record<string, number> = { one: -900, two: -400, "two-a": 100, three: 900 };
+    const output = await mount(
+      createElement(
+        "div",
+        { id: "article-body" },
+        createElement(ArticleContents, { items }),
+        ...items.map((item) => createElement("h2", { id: item.id, key: item.id }, item.text))
+      )
+    );
+    items.forEach((item) => {
+      document.getElementById(item.id)!.getBoundingClientRect = () =>
+        ({ top: tops[item.id] }) as DOMRect;
+    });
+    const aside = output.querySelector("aside")!;
+    const nav = aside.querySelector("nav")!;
+    const scrollTo = vi.fn();
+    nav.scrollTo = scrollTo as typeof nav.scrollTo;
+    const scroll = () =>
+      act(async () => {
+        window.dispatchEvent(new Event("scroll"));
+        queued.splice(0).forEach((callback) => callback(0));
+      });
+    const marked = () => aside.querySelector('[aria-current="location"]')?.getAttribute("href");
+    aside.dataset.fit = "roomy";
+    await scroll();
+    expect(marked()).toBe("#two-a");
+    aside.dataset.fit = "sections";
+    await scroll();
+    expect(marked()).toBe("#two");
+    expect(scrollTo).not.toHaveBeenCalled();
+    aside.dataset.fit = "window";
+    await scroll();
+    expect(marked()).toBe("#two");
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+    await scroll();
+    expect(scrollTo).toHaveBeenCalledTimes(1);
   });
 });

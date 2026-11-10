@@ -266,10 +266,14 @@
     pointer-events: none;
   }
 
+  /* The contents always fit one screen and never scroll by hand: ReadingTools picks the
+     roomiest of roomy → compact (one line each) → sections (subsections folded into their
+     section) → dense (smaller type) → window (a fixed window that keeps the current section centred). */
   .article-contents nav {
+    position: relative;
     width: var(--contents-width);
     max-height: calc(100svh - var(--site-header-h, 5rem) - 4rem);
-    overflow-y: auto;
+    overflow: hidden;
     padding: 0.5rem;
     background: var(--color-reading-canvas);
     pointer-events: auto;
@@ -280,15 +284,56 @@
     pointer-events: none;
   }
 
+  .article-contents nav li {
+    margin-block: 0;
+  }
+
+  .article-contents[data-fit="sections"] li[data-level="3"],
+  .article-contents[data-fit="dense"] li[data-level="3"],
+  .article-contents[data-fit="window"] li[data-level="3"] {
+    display: none;
+  }
+
+  .article-contents[data-fit="window"] nav {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 3.5rem,
+      #000 calc(100% - 3.5rem),
+      transparent
+    );
+  }
+
   .article-contents .toc-reading-link {
     display: flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 2.25rem;
+    padding-block: 0.2rem;
+    line-height: 1.35;
     text-decoration: none;
     border-left: 1px solid transparent;
     padding-left: 0.5rem;
     margin-left: -0.5rem;
     color: var(--color-body);
+  }
+
+  .article-contents:not([data-fit="roomy"]) .toc-reading-link {
+    display: block;
+    min-height: 0;
+    padding-block: 0.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .article-contents[data-fit="dense"] nav {
+    max-height: calc(100svh - var(--site-header-h, 5rem) - 3rem);
+  }
+
+  .article-contents[data-fit="dense"] .toc-reading-link {
+    padding-block: 0.05rem;
+    font-size: 0.75rem;
+    line-height: 1.25;
   }
 
   .article-contents .toc-reading-link[aria-current="location"] {

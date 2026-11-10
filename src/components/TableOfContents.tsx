@@ -19,12 +19,14 @@ export function TableOfContents({ items, variant = "minimal" }: TableOfContentsP
           {items.map((item) => (
             <li
               key={item.id}
+              data-level={item.level}
               className={
                 item.level === 3 ? "ml-0 pl-2 text-[0.78rem] text-[var(--color-ink-muted)]" : ""
               }
             >
               <a
                 href={`#${item.id}`}
+                title={item.text}
                 className="toc-reading-link text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
               >
                 {item.text}
