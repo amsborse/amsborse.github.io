@@ -11,7 +11,28 @@ export default defineConfig({
     screenshot: "only-on-failure",
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  // The WebGL hero specs draw in software in headless Chromium and measure frame cost, so they
+  // fail when they share the CPU with parallel workers. Each runs after the rest of the suite,
+  // on its own, rather than with looser timeouts.
+  projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      testIgnore: [/hero\.spec\.ts/, /hero-slow-device\.spec\.ts/],
+    },
+    {
+      name: "chromium-hero",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: /hero\.spec\.ts/,
+      dependencies: ["chromium"],
+    },
+    {
+      name: "chromium-hero-slow-device",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: /hero-slow-device\.spec\.ts/,
+      dependencies: ["chromium-hero"],
+    },
+  ],
   webServer: {
     command: "npm run dev",
     url: "http://localhost:1111",
