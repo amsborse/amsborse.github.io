@@ -249,12 +249,6 @@
   transform: none;
 }
 
-.article-time-left {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
 /* A small digital clock: fixed-width digits so the numbers tick in place. */
 .article-time-left__clock {
   font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
@@ -264,11 +258,6 @@
   line-height: 1;
   color: var(--color-accent);
   text-shadow: 0 0 0.6rem color-mix(in srgb, var(--color-accent) 35%, transparent);
-}
-
-.article-time-left__label {
-  padding-left: 0.6rem;
-  border-left: 1px solid color-mix(in srgb, var(--color-body) 18%, transparent);
 }
 
 :root[data-theme="light"] .article-time-left__clock {

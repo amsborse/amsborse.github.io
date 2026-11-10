@@ -277,7 +277,7 @@ export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) 
       <span className="article-time-left__clock" aria-hidden="true">
         {clock}
       </span>
-      <span className="article-time-left__label">{label}</span>
+      <span className="sr-only">{label}</span>
     </p>
   );
 }

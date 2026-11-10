@@ -66,6 +66,9 @@ test("an essay's own contents list is hidden and the time left counts down", asy
     const [m, s] = ((await clock.textContent()) ?? "").split(":").map(Number);
     return m * 60 + s;
   };
+  // Only the clock shows; the minutes stay for screen readers.
+  const pill = (await left.boundingBox())!.width;
+  expect(pill).toBeLessThan((await clock.boundingBox())!.width + 40);
   const before = await seconds();
   await page.waitForTimeout(1500);
   expect(await seconds()).toBe(before);
