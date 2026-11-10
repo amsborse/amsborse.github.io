@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import type { ParsedPost } from "@/utils/markdown";
+import type { ArticleSummary } from "@/utils/loadArticles";
 import { ChapterHeading } from "./ChapterHeading";
 import { formatArticleDate } from "@/components/writing/formatArticleDate";
 
@@ -12,7 +12,7 @@ const SHOWN = 3;
  * list keeps a reserved height and fills in place: nothing below it moves when titles arrive.
  */
 export function WritingChapter() {
-  const [posts, setPosts] = useState<ParsedPost[] | null>(null);
+  const [posts, setPosts] = useState<ArticleSummary[] | null>(null);
   const [failed, setFailed] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,9 +41,9 @@ export function WritingChapter() {
     if (!near) return;
     let alive = true;
     import("@/utils/loadArticles")
-      .then(({ getAllPosts }) => getAllPosts())
+      .then(({ getArticleSummaries }) => getArticleSummaries())
       .then((all) => {
-        if (alive) setPosts(all.slice(0, SHOWN));
+        if (alive) setPosts(all.filter((p) => !p.lang || p.lang === "en").slice(0, SHOWN));
       })
       .catch((error: unknown) => {
         console.error("[home] Could not load essays:", error);

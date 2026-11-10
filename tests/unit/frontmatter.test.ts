@@ -53,4 +53,40 @@ describe("parseFrontmatter", () => {
     const raw = "---\ntags: plain\n---\n\nBody";
     expect(parseFrontmatter(raw).data.tags).toEqual([]);
   });
+
+  it("parses Medium import fields as strings and numbers", () => {
+    const raw = [
+      "---",
+      'title: "Say \\"hi\\" \\\\ there"',
+      'subtitle: "A: colon"',
+      'source: "medium"',
+      'mediumUrl: "https://medium.com/p/abc"',
+      'series: "Life"',
+      "seriesPart: 3",
+      "rank: 2",
+      'cover: "/writing/x/01.webp"',
+      "coverWidth: 1600",
+      "coverHeight: 900",
+      'lang: "mr"',
+      'translationOf: "english-slug"',
+      "unknownKey: ignored",
+      "---",
+      "",
+      "Body",
+    ].join("\n");
+    const { data } = parseFrontmatter(raw);
+    expect(data.title).toBe('Say "hi" \\ there');
+    expect(data.subtitle).toBe("A: colon");
+    expect(data.source).toBe("medium");
+    expect(data.mediumUrl).toBe("https://medium.com/p/abc");
+    expect(data.series).toBe("Life");
+    expect(data.seriesPart).toBe(3);
+    expect(data.rank).toBe(2);
+    expect(data.cover).toBe("/writing/x/01.webp");
+    expect(data.coverWidth).toBe(1600);
+    expect(data.coverHeight).toBe(900);
+    expect(data.lang).toBe("mr");
+    expect(data.translationOf).toBe("english-slug");
+    expect(data).not.toHaveProperty("unknownKey");
+  });
 });

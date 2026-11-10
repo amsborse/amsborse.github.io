@@ -2,17 +2,16 @@ import { useEffect, useState } from "react";
 import { Seo } from "@/components/Seo";
 import { PageStage } from "@/components/stage/PageStage";
 import { WritingPublication } from "@/components/writing/WritingPublication";
-import { getAllPosts } from "@/utils/loadArticles";
-import type { ParsedPost } from "@/utils/markdown";
+import { getArticleSummaries, type ArticleSummary } from "@/utils/loadArticles";
 import "@/components/writing/writing-publication.css";
 
 export default function WritingPage() {
-  const [posts, setPosts] = useState<ParsedPost[]>([]);
+  const [posts, setPosts] = useState<ArticleSummary[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    getAllPosts().then((allPosts) => {
+    getArticleSummaries().then((allPosts) => {
       if (!cancelled) {
         setPosts(allPosts);
         setLoading(false);

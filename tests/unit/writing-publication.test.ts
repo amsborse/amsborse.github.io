@@ -4,9 +4,9 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { formatArticleDate } from "@/components/writing/formatArticleDate";
 import { WritingPublication } from "@/components/writing/WritingPublication";
-import type { ParsedPost } from "@/utils/markdown";
+import type { ArticleSummary } from "@/utils/loadArticles";
 
-const posts: ParsedPost[] = [
+const posts: ArticleSummary[] = [
   {
     slug: "older-feature",
     title: "An Older Feature",
@@ -15,8 +15,7 @@ const posts: ParsedPost[] = [
     tags: ["writing", "culture"],
     featured: true,
     readingMinutes: 4,
-    html: "",
-    toc: [],
+    headings: [],
   },
   {
     slug: "recent-essay",
@@ -26,8 +25,7 @@ const posts: ParsedPost[] = [
     tags: ["systems", "reliability"],
     featured: false,
     readingMinutes: 6,
-    html: "",
-    toc: [],
+    headings: [],
   },
   {
     slug: "newest-feature",
@@ -37,8 +35,7 @@ const posts: ParsedPost[] = [
     tags: ["APIs", "design"],
     featured: true,
     readingMinutes: 5,
-    html: "",
-    toc: [],
+    headings: [],
   },
 ];
 

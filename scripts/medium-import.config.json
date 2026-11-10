@@ -1,0 +1,15 @@
+{
+  "featuredTopN": 6,
+  "translations": {
+    "4ae8bce1af1f": "1c3ea377876f",
+    "fd177e50fb55": "c02f41a1b556",
+    "7345c9cddb57": "2aee7b78b88f"
+  },
+  "series": [
+    { "name": "Alchemy of the Mind", "pattern": "^Alchemy of the Mind\\s+(\\d+)" },
+    { "name": "The Yoga Sutras", "pattern": "Yoga Sutras" },
+    { "name": "Life", "pattern": "^Life\\s+0*(\\d+):" },
+    { "name": "Thinking About Thinking", "pattern": "^Thinking About Thinking.*?0*(\\d+)\\s*$" },
+    { "name": "A Note to Myself", "pattern": "A Note to Myself" }
+  ]
+}

@@ -1,0 +1,834 @@
+{
+  "imported": [
+    {
+      "slug": "no-one-is-coming-to-save-you",
+      "file": "2025-01-04_No-One-is-Coming-To-Save-You-f133f9ffbf87.html",
+      "images": 4
+    },
+    {
+      "slug": "i-dont-have-time",
+      "file": "2025-01-12_I-don-t-have-time-cd7a37668724.html",
+      "images": 8
+    },
+    {
+      "slug": "inference-vs-belief-the-fine-line-between-knowing-and-assuming",
+      "file": "2025-01-25_Inference-vs--Belief--The-Fine-Line-Between-Knowing-and-Assuming-2cc62e77903e.html",
+      "images": 11
+    },
+    {
+      "slug": "surrendering-to-the-universe-why-trusting-the-universe-is-the-ultimate-hack-for-peace",
+      "file": "2025-01-31_Surrendering-to-the-Universe--Why-Trusting-the-Universe-is-the-Ultimate-Hack-for-Peace-b2da00097b69.html",
+      "images": 10
+    },
+    {
+      "slug": "the-world-need-more-creators-not-followers-the-reason-im-writing",
+      "file": "2025-02-04_The-World-Need-More-Creators-Not-Followers--The-reason-I-m-writing-3ef2cf9da5d4.html",
+      "images": 6
+    },
+    {
+      "slug": "alchemy-of-the-mind-0-the-art-of-thought-transformation",
+      "file": "2025-02-14_Alchemy-of-the-Mind-0--The-Art-of-Thought-Transformation-7b100a78cdde.html",
+      "images": 3
+    },
+    {
+      "slug": "alchemy-of-the-mind-1-the-i-know-trap-aka-confirmation-bias",
+      "file": "2025-02-14_Alchemy-of-the-Mind-1--The--I-Know--Trap--aka-Confirmation-Bias--f141ae3f6d64.html",
+      "images": 5
+    },
+    {
+      "slug": "the-secret-to-invisible-forces-of-life-thoughts-emotions-feelings-and-experience",
+      "file": "2025-02-23_The-Secret-To-Invisible-Forces-Of-Life--Thoughts--Emotions--Feelings-and-Experience-37caf85a45fe.html",
+      "images": 9
+    },
+    {
+      "slug": "the-ultimate-cheat-sheet-to-emotions-feelings-what-they-mean-how-to-reframe-them",
+      "file": "2025-02-23_The-Ultimate-Cheat-Sheet-To-Emotions---Feelings--What-They-Mean---How-to-Reframe-Them-3f367e08f594.html",
+      "images": 41
+    },
+    {
+      "slug": "the-age-myth-why-30-doesnt-mark-the-end-of-your-adventure",
+      "file": "2025-03-07_The-Age-Myth--Why-30-Doesn-t-Mark-the-End-of-Your-Adventure-3054a99768e6.html",
+      "images": 13
+    },
+    {
+      "slug": "alchemy-of-the-mind-2-escaping-the-sunk-cost-fallacy",
+      "file": "2025-03-14_Alchemy-of-the-Mind-2--Escaping-the-Sunk-Cost-Fallacy-8d99eeda39f3.html",
+      "images": 4
+    },
+    {
+      "slug": "alchemy-of-the-mind-3-the-psychology-of-dressing-for-success",
+      "file": "2025-03-21_Alchemy-of-the-Mind-3--The-Psychology-of-Dressing-for-Success-cd57e1242b9c.html",
+      "images": 3
+    },
+    {
+      "slug": "the-power-of-meaning-why-chasing-importance-leaves-you-feeling-empty",
+      "file": "2025-03-30_The-Power-of-Meaning--Why-Chasing-Importance-Leaves-You-Feeling-Empty-69c5475685a9.html",
+      "images": 7
+    },
+    {
+      "slug": "life-01-difficult-situations-arent-a-test-from-god-theyre-a-mirror-of-your-dreams",
+      "file": "2025-07-04_Life-01--Difficult-Situations-Aren-t-a-Test-from-God---They-re-a-Mirror-of-Your-Dreams-4e3294cfbb80.html",
+      "images": 6
+    },
+    {
+      "slug": "alchemy-of-the-mind-4-the-evolution-of-self-discipline",
+      "file": "2025-07-11_Alchemy-of-the-Mind-4--The-Evolution-of-Self-Discipline-c3b4a8500a26.html",
+      "images": 3
+    },
+    {
+      "slug": "the-comfort-of-ego-when-our-identities-become-our-safety-net",
+      "file": "2025-07-21_The-Comfort-of-Ego--When-Our-Identities-Become-Our-Safety-Net-6f7a57cf90a0.html",
+      "images": 8
+    },
+    {
+      "slug": "how-to-teach-your-house-to-love-you-back",
+      "file": "2025-07-23_---How-to-Teach-Your-House-to-Love-You-Back-a601a32a010f.html",
+      "images": 6
+    },
+    {
+      "slug": "the-game-of-thought-how-to-master-your-mind",
+      "file": "2025-07-23_The-Game-of-Thought--How-To-Master-Your-Mind-77f1cbe23103.html",
+      "images": 6
+    },
+    {
+      "slug": "the-temple-of-unfinished-lessons",
+      "file": "2025-07-25_---The-Temple-of-Unfinished-Lessons-2eedd50f1b13.html",
+      "images": 6
+    },
+    {
+      "slug": "stress-is-just-your-mind-playing-horror-films-without-your-permission-marathi",
+      "file": "2025-07-28_---------------------------------------------------------------------4ae8bce1af1f.html",
+      "images": 0
+    },
+    {
+      "slug": "stress-is-just-your-mind-playing-horror-films-without-your-permission",
+      "file": "2025-07-28_----Stress-Is-Just-Your-Mind-Playing-Horror-Films-Without-Your-Permission-1c3ea377876f.html",
+      "images": 7
+    },
+    {
+      "slug": "seven-and-a-half-lessons-about-the-brain-not-just-a-summary-but-a-wake-up-call",
+      "file": "2025-07-28_-Seven-and-a-Half-Lessons-About-the-Brain----Not-Just-a-Summary--But-a-Wake-Up-Call-381dcda3bc0e.html",
+      "images": 7
+    },
+    {
+      "slug": "tulips-children-and-the-things-we-grow-without-realizing",
+      "file": "2025-07-30_--Tulips--Children--and-the-Things-We-Grow-Without-Realizing-165617026e01.html",
+      "images": 8
+    },
+    {
+      "slug": "stoicism-the-emperors-mirror-meditation-by-marcus-aurelius-marathi",
+      "file": "2025-07-31_--------------------------------------------------Meditations-fd177e50fb55.html",
+      "images": 0
+    },
+    {
+      "slug": "the-best-lessons-from-how-to-win-friends-and-influence-people-that-still-matter-today",
+      "file": "2025-07-31_----The-Best-Lessons-from-How-to-Win-Friends-and-Influence-People---That-Still-Matter-Today--85eb8b2a1ee8.html",
+      "images": 9
+    },
+    {
+      "slug": "your-words-gave-it-meaning-a-shogun-lesson-etched-in-silence",
+      "file": "2025-07-31_---Your-Words-Gave-It-Meaning----A-Shogun-Lesson-Etched-in-Silence-95ddb1e87987.html",
+      "images": 6
+    },
+    {
+      "slug": "stoicism-the-emperors-mirror-meditation-by-marcus-aurelius",
+      "file": "2025-08-01_---Stoicism---The-Emperor-s-Mirror--Meditation-By-Marcus-Aurelius-c02f41a1b556.html",
+      "images": 10
+    },
+    {
+      "slug": "the-lie-we-tell-about-hard-work-marathi",
+      "file": "2025-08-02_----------------------------7345c9cddb57.html",
+      "images": 0
+    },
+    {
+      "slug": "the-lie-we-tell-about-hard-work",
+      "file": "2025-08-02_The-Lie-We-Tell-About--Hard-Work-------2aee7b78b88f.html",
+      "images": 6
+    },
+    {
+      "slug": "why-is-eye-contact-so-damn-hard",
+      "file": "2025-08-04_----Why-Is-Eye-Contact-So-Damn-Hard--48c6abac5846.html",
+      "images": 4
+    },
+    {
+      "slug": "should-you-have-a-purpose-or-a-goal-in-life",
+      "file": "2025-08-04_---Should-You-Have-a-Purpose-or-a-Goal-in-Life--7d0f62b2f0ce.html",
+      "images": 9
+    },
+    {
+      "slug": "you-are-what-you-consume",
+      "file": "2025-08-04_---You-Are-What-You-Consume----c8e3075c444c.html",
+      "images": 5
+    },
+    {
+      "slug": "the-myth-of-losing-weight",
+      "file": "2025-08-05_----The-Myth-of--Losing-Weight--09b4bd31f03d.html",
+      "images": 8
+    },
+    {
+      "slug": "youre-not-here-to-converse-youre-here-to-connect",
+      "file": "2025-08-05_You-re-Not-Here-to-Converse--You-re-Here-to-Connect--45d87fc92bc0.html",
+      "images": 7
+    },
+    {
+      "slug": "how-one-question-changed-how-i-move-through-life",
+      "file": "2025-08-06_----How-One-Question-Changed-How-I-Move-Through-Life-e945ddc0bdef.html",
+      "images": 10
+    },
+    {
+      "slug": "this-one-shift-changed-how-i-see-every-problem-in-my-life",
+      "file": "2025-08-07_---This-One-Shift-Changed-How-I-See-Every--Problem--in-My-Life-78ef43ab60b8.html",
+      "images": 9
+    },
+    {
+      "slug": "win-your-shot-not-the-game",
+      "file": "2025-08-08_---Win-Your-Shot--Not-the-Game-7c0ede286b50.html",
+      "images": 7
+    },
+    {
+      "slug": "self-image-the-silent-puppet-master-that-runs-your-life",
+      "file": "2025-08-11_Self-Image---The-Silent-Puppet-Master-That-Runs-Your-Life-8fa77eabcbae.html",
+      "images": 7
+    },
+    {
+      "slug": "the-same-tool-can-build-a-rocket-or-waste-a-lifetime-the-difference-is-the-hand-that-holds-it",
+      "file": "2025-08-12_---The-Same-Tool-Can-Build-a-Rocket-or-Waste-a-Lifetime---The-Difference-Is-the-Hand-That-Holds-It-10726c1f5cb4.html",
+      "images": 8
+    },
+    {
+      "slug": "the-linger-of-a-responsible-soul",
+      "file": "2025-08-13_The-Linger-of-a-Responsible-Soul-7466f9e2329e.html",
+      "images": 8
+    },
+    {
+      "slug": "the-art-of-interviewing-lessons-for-senior-engineers-and-for-life",
+      "file": "2025-08-19_The-Art-of-Interviewing--Lessons-for-Senior-Engineers--and-for-Life--6b60b28ea45e.html",
+      "images": 18
+    },
+    {
+      "slug": "beyond-fate-understanding-karma-as-possibility",
+      "file": "2025-08-22_Beyond-Fate--Understanding-Karma-as-Possibility-16cddb850515.html",
+      "images": 17
+    },
+    {
+      "slug": "yoga-isnt-about-flexibility-its-about-freedom",
+      "file": "2025-08-31_---Yoga-Isn-t-About-Flexibility--It-s-About-Freedom--a17686f8c88d.html",
+      "images": 10
+    },
+    {
+      "slug": "what-yogis-knew-about-emotions-that-neuroscience-is-just-catching-up-to",
+      "file": "2025-09-14_--What-Yogis-Knew-About-Emotions-That-Neuroscience-Is-Just-Catching-Up-To-33fdda2796dd.html",
+      "images": 9
+    },
+    {
+      "slug": "10-hidden-roots-of-negativity-and-how-to-uproot-them",
+      "file": "2025-10-05_---10-Hidden-Roots-of-Negativity---And-How-to-Uproot-Them-ad5c682c73cb.html",
+      "images": 10
+    },
+    {
+      "slug": "the-yoga-sutras-of-patanjali-the-ancient-science-of-the-modern-mind",
+      "file": "2025-10-11_----The-Yoga-Sutras-of-Patanjali--The-Ancient-Science-of-the-Modern-Mind-9bb26991ffb3.html",
+      "images": 5
+    },
+    {
+      "slug": "the-myth-of-luck",
+      "file": "2025-10-12_---The-Myth-of-Luck-d003c6d8a57f.html",
+      "images": 7
+    },
+    {
+      "slug": "21-questions-that-can-change-how-you-see-life-if-you-sit-with-them-long-enough",
+      "file": "2025-10-14_--21-Questions-That-Can-Change-How-You-See-Life--If-You-Sit-With-Them-Long-Enough--134d002069ec.html",
+      "images": 6
+    },
+    {
+      "slug": "truth-has-a-metabolism",
+      "file": "2025-10-17_---Truth-Has-a-Metabolism-a381299b0078.html",
+      "images": 6
+    },
+    {
+      "slug": "from-noise-to-knowing-the-science-of-right-action",
+      "file": "2025-10-19_---From-Noise-to-Knowing--The-Science-of-Right-Action-cc6518bcdda0.html",
+      "images": 8
+    },
+    {
+      "slug": "what-if-life-isnt-meant-to-be-managed",
+      "file": "2025-10-30_What-If-Life-Isn-t-Meant-to-Be-Managed--eda44bd74233.html",
+      "images": 6
+    },
+    {
+      "slug": "the-yoga-sutras-1-1-atha-yoga-anusasanam",
+      "file": "2025-11-01_----The-Yoga-Sutras-1-1---Atha-Yoga-Anu--sanam-cfc2d5c186a9.html",
+      "images": 8
+    },
+    {
+      "slug": "thinking-about-thinking-the-inner-experiments-01",
+      "file": "2025-11-02_Thinking-About-Thinking--The-Inner-Experiments---01-e3e8aa5803da.html",
+      "images": 8
+    },
+    {
+      "slug": "a-deep-dive-into-the-quiet-unhappiness-most-people-carry",
+      "file": "2025-11-30_A-Deep-Dive-Into-the-Quiet-Unhappiness-Most-People-Carry-8ff52e4b72af.html",
+      "images": 33
+    },
+    {
+      "slug": "the-quiet-weight-you-learn-to-carry-without-realizing-it",
+      "file": "2025-12-13_The-Quiet-Weight-You-Learn-to-Carry-Without-Realizing-It-69e8bf93bf92.html",
+      "images": 10
+    },
+    {
+      "slug": "youre-exhausted-because-you-keep-explaining-yourself",
+      "file": "2025-12-13_You-re-Exhausted-Because-You-Keep-Explaining-Yourself-c32d9838badf.html",
+      "images": 10
+    },
+    {
+      "slug": "how-to-grow-smarter-when-intelligence-is-everywhere",
+      "file": "2025-12-16_--How-to-grow-smarter-when-intelligence-is-everywhere-6ccfcb29a6d7.html",
+      "images": 15
+    },
+    {
+      "slug": "a-note-to-myself-clarity",
+      "file": "2025-12-20_----A-Note-to-Myself--Clarity-5404e70d5a63.html",
+      "images": 13
+    },
+    {
+      "slug": "acceptance-the-first-operation-in-human-decision-systems",
+      "file": "2025-12-27_Acceptance--The-First-Operation-in-Human-Decision-Systems-0e81aa67ea01.html",
+      "images": 1
+    },
+    {
+      "slug": "direction-feels-far-fetched-when-energy-is-spent-maintaining-life-instead-of-compounding-direction",
+      "file": "2025-12-31_Direction-Feels-Far-Fetched-When-Energy-Is-Spent-Maintaining-Life-Instead-of-Compounding-Direction-b5be6a832cfb.html",
+      "images": 1
+    },
+    {
+      "slug": "the-day-stress-stopped-making-sense",
+      "file": "2026-01-18_The-Day-Stress-Stopped-Making-Sense-4cf8a5cc446a.html",
+      "images": 1
+    },
+    {
+      "slug": "life-isnt-hard-weakness-makes-it-feel-hard",
+      "file": "2026-01-20_Life-Isn-t-Hard---Weakness-Makes-It-Feel-Hard-1fa62cd10077.html",
+      "images": 1
+    },
+    {
+      "slug": "when-growth-makes-you-harder-to-relate-to",
+      "file": "2026-01-22_When-Growth-Makes-You-Harder-to-Relate-To-57c82f2f3bde.html",
+      "images": 1
+    },
+    {
+      "slug": "when-self-improvement-stops-helping",
+      "file": "2026-01-22_When-Self-Improvement-Stops-Helping-6e8cc650afe3.html",
+      "images": 1
+    },
+    {
+      "slug": "self-respect-knowing-when-to-step-away-from-a-conversation",
+      "file": "2026-01-24_----Self-Respect--Knowing-When-to-Step-Away-From-a-Conversation-5f568a038734.html",
+      "images": 1
+    },
+    {
+      "slug": "how-to-improve-your-quality-of-life-without-spending-a-dollar",
+      "file": "2026-02-02_How-to-Improve-Your-Quality-of-Life-Without-Spending-a-Dollar-59fc7e1db4fe.html",
+      "images": 1
+    },
+    {
+      "slug": "motivation-works-in-bursts-life-doesnt",
+      "file": "2026-02-02_Motivation-Works-in-Bursts--Life-Doesn-t--d7c5528f1058.html",
+      "images": 1
+    },
+    {
+      "slug": "the-most-dangerous-mistakes-happen-when-you-think-youre-right",
+      "file": "2026-03-09_The-Most-Dangerous-Mistakes-Happen-When-You-Think-You-re-Right-29872269ecd6.html",
+      "images": 1
+    }
+  ],
+  "skipped": [
+    {
+      "file": "2025-01-15_I-was-bored-as-well-last-year-but-I-understood-that-all-the-choices-were-made-by-me--72d5d50a882e.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-06_Check-this-out---https---medium-com--amsborse-surrendering-to-the-universe-why-trusting-the-universe-a11625d05003.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-08_Check-this-out--https---medium-com--amsborse-no-one-is-coming-to-save-you-f133f9ffbf87-dea00787216e.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-11_I-have-had-some-personal-experiences-and-I-m-also-a-science-guy-but-I-do-believe-there-is-something--043fa71dc5f8.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-12_I-agree-I-ve-been-exposed-to-Japanese-culture-through-anime-but-I-can-relate-they-have-spent-years--05f7bc7c3670.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-22_---b103c38f399e.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-22_Thank-You---For-the-promotion----360780cc27ff.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-22_Thank-You-for-the-kind-words--a05bdcc8ef95.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-22_Will-check-them-out-definitely-147d2a22effb.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-02-28_this-is-truth-d733868b9023.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-04_Great-article--58addcccf3cc.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-06_Thank-You---5bec2c14f446.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-12_Very-well-written--0c953da719d4.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-13_Thank-You---1d4a547d2c6c.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-14_I-found-this-article-to-be-very-informative-and-actionable--005734a45852.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-16_Having-a-positive-outlook-on-things-does-help-in-many-ways--200aa550d455.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-16_Ohhhh--Thanks-for-the-information--d41f05f7631f.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-17_The-mask-of-pretense-was-very-hard-to-remove-speaking-from-experience--8033ce747abc.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-18_Excellent--ee11f0bc7f6c.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-19_This-is-so-true-knowing-is-something-that-cannot-be-explained-it-has-to-be-experienced-and-then-it--92c1654a562a.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-03-21_Excellent-article--I-really-enjoyed-the-conversation-with-the-brain--4839f5f76794.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-07-22_Very-true-just-like-how-words-and-labels-can-affect-the-external-reality-they-also-bind-your--da0bd443b6e9.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-08-02_That-s-beautiful-way-to-put-it--2bb108fbea83.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-08-19_Great-piece--Love-is-about-understanding-than-about-looks--9fd460bb5268.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-08-24_We-cannot-change-the-anyone-else-we-can-only-change-ourselves--fd8867eb5013.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-06_Thank-You--bb9eb1538847.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-06_Writing-also-helps-in-thinking-through-things-which-is-a-really-good-exercise-for-the-mind--56ac180d1952.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-06_Yes-AI-can-play-with-words-but-it-lacks-depth-and-emotions--60449c58cc0d.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-06_Yes-bringing-emotions--rasa--into-writing-is-a-great-way-to-pass-on-the-experience-with-the--ae565f944ed9.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-15_A-flower-doesn-t-think-it-s-beautiful-we-project-that-quality-on-the-flower--984a93570902.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-15_Learning-new-language-improves-neuroplasticity--d485ad5cdee1.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-15_Like-your-depth-and-understanding-of-life-and-consciousness--Excited-for-more-insights-----5487ff8c42f8.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-10-16_That-s-a-great-connection--7250bb4309a4.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-11-08_Great-that-you-started-this-journey-of-writing--b6a35ccee737.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-11-08_Thank-You--9261e2fe38a9.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-11-08_Thank-You--and-all-the-answers-are-within-we-just-have-to-sit-with-them-long-enough-find-the-truth--1cbdcfe085af.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-11-08_Thank-You--comments-like-this-keep-me-motivated--2f6ca4f46e90.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "2025-12-17_Thank-You----2da6b5f32fff.html",
+      "reason": "no title graf (comment response)"
+    },
+    {
+      "file": "draft_----------------------------------4879aa234c21.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_---Prompt--Marathi-Blog-Translation-8cccf74372c8.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_---The-Lived-Truth-Writing-Prompt--Abridged-Master-Version--8ae9f226fa5d.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_---The-Rasa-Infused-Divine-Writing-Prompt--Upgraded--c9ec87a78f83.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_A-Note-to-Myself---Trust-11a417e08016.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_A-late-train-could-be-an-opportunity-7b7654170e17.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Actions-259cf623e94a.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Alchemy-Of-The-Mind-4--This-is-who-I-am-731bb5d4ee9e.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Alchemy-Of-The-Mind-5--Maturity-669d1367d261.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Alchemy-of-mind--Evolving-beyond-thought-a49fe671cd67.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Aphorisms-baddc5d96829.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_April-2025-78e878745796.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_August-2025-e5493ac9bde2.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Belief-vs-Faith-5a5113da4c6e.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Belief-vs-Faith-dbaceda74f3e.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Communication-338a60c00cf8.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Communication-3a95c97d399f.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Conflict--The-root-of-all-evil-f23c5e86db69.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Content-d8042406eb10.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Creativity-bda2c65c607d.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_December-2025-1345de81dde7.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Divine-Writing-445df05f3dd0.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Ego-9815348b368e.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Emotional-Intelligence-17c0dd9ffd3a.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_External-Stimulation--Attachment-and-Boredom-eca02a77ec82.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Flow-7bd0bc6909e9.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Happiness-c6d188e2ca9e.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Home-799566a4bb8c.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_How-To-Actually-Build-Habits-Through-Self-Image-18652b901cae.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_How-do-different-people-get-different-challenges--37d936722184.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_How-to-add-color-and-flavour-to-your-life-549e85be6203.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_How-to-write-a-title-1fdd8f186e02.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Identity-vs-Habit-1cc593cd9613.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Insitinct-458beed7184d.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Invisible-Illness--Shouldn-t-mental-health-be-solved-by-mental-food-just-like-how-physically--d2ea00b7efe4.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_June-2025-ecef4958cebf.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Knowledge-vs-Wisdom-14c01c7a9ef0.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Knowledge-vs-Wisdom-58c2735d0b07.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Knowledge-vs-Wisdom-9a462383bcf9.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Let-Results-Be-Rhythmic--Not-Constant-273e6a704d52.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Love-Marriage-and-Kids-d10ab9fa7e84.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_March-2025-921034123afe.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Maturity-e394fa4141f4.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_May-2025-07aaade2105d.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Mediore-life-f4c6f92b573c.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Mind-Tricks-0--The-Series-cadd30565702.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Moments-Series-1-5e52c5a15fea.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Music-9c4bdbf3b326.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_November-2025-0759cbad0ac4.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_October-2025-b915c61033dc.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_People-prefer-talking-about-past-b5c4502a9c45.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Perspective-vs-Perception-0fa069c7c4c8.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Philosophy-0c5a3edcd717.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Reality--The-Truth-You-Choose-to-Believe-146043b9a1ba.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Reputation---The-Exhausting-Job-of-Being-Someone-You-re-Not-1710d20a6904.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Resume-Prompts-2d2d072518a7.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Science---Spirituality-9862985e078e.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Sensations-8ee19d24ef34.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Song-b31aa471411c.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Subconcious-mind--b1771dd2c02a.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_The-Cardinal-Virtues-c7ffbfe16feb.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_The-Illusion-Series-1--4d4918ffea6c.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_The-Inner-Voice-We-All-Have-bc90ea853978.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_The-Power-of-Rewriting-Your-Past--Without-Changing-a-Single-Event--8c282ba09b1b.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_The-Sceret-behind-good-photos--c1b96ac2fe87.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_The-trap-of-competition-a6e411615672.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Thinking-About-Thinking---The-Inner-Experiment---02-b0c669c37794.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Title-2-56e26ec3e8ab.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Title-ac706513aaa9.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_To-be-creative-you-have-to-have-knowledge-and-experinece-of-varity-of-things-bb5874c9eb04.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Top-10-things-d7cc6f0eb54f.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_True-Sensitivity-edfc48edafa9.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_We-want-to-show-the-world-instead-of-be--f534550cac83.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Why-life-feels-monotonus-09513ed35140.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Why-systems-works-where-habits-fail-57d2537dac89.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_You-Don-t-Need-More-Answers--You-Just-Need-to-Hear-What-You-re-Still-Repeating--217a0ee68031.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_You-think-Because-of-your-environment-859c8117faf2.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_Your-Self-Image--The-GPS-for-Your-Life-c09c5790a45a.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_all-problems-in-life-are-solvable-with-minimal-effort-if-you-find-a-creative-way-to-solve-the--81af5f2591f3.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_if-life-feels-hard-you-are-missing-knowledge-and-experience-15d1f11e9c91.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_post-8a7aded02557.html",
+      "reason": "unpublished draft"
+    },
+    {
+      "file": "draft_psycological-reality-the-root-of-all-evil-87984d089f8b.html",
+      "reason": "unpublished draft"
+    }
+  ],
+  "problems": [],
+  "totals": {
+    "articles": 68,
+    "images": 503,
+    "recovered": 503,
+    "unrecoverable": 0,
+    "missingAlt": 493
+  }
+}

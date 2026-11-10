@@ -1,0 +1,162 @@
+/**
+ * EDITORIAL: the themes the writing page is browsed by. These are a curated reading of each
+ * article's own Medium tags and collection, not something Medium exported; the owner should
+ * review them. An article can sit in several themes. Matching is case-insensitive and exact
+ * per tag (Medium tags keep their original spelling, including "Conciousness" and "Dicipline").
+ */
+export type WritingCategory = {
+  id: string;
+  label: string;
+  /** One line shown with the theme. */
+  line: string;
+  tags: readonly string[];
+  collections?: readonly string[];
+};
+
+export const writingCategories: readonly WritingCategory[] = [
+  {
+    id: "consciousness",
+    label: "Consciousness",
+    line: "Awareness, attention and the older sciences of the mind.",
+    tags: [
+      "Consciousness",
+      "Conciousness",
+      "Yoga",
+      "Meditation",
+      "Spirituality",
+      "Karma",
+      "Manifestation",
+      "Vibration",
+      "Faith",
+      "Energy",
+      "Neuroscience",
+      "Brain",
+      "Mind",
+    ],
+    collections: ["New Earth Consciousness"],
+  },
+  {
+    id: "emotions",
+    label: "Emotions",
+    line: "What feelings are for, and how they move through a day.",
+    tags: [
+      "Emotions",
+      "Feelings",
+      "Emotional Intelligence",
+      "Stress",
+      "Anxiety",
+      "Happiness",
+      "Love",
+      "Trauma",
+      "Loneliness",
+      "Mental Health",
+      "Burnout",
+      "Therapy",
+    ],
+  },
+  {
+    id: "self-awareness",
+    label: "Self-awareness",
+    line: "Seeing yourself clearly: image, boundaries, attention.",
+    tags: [
+      "Self-awareness",
+      "Self Image",
+      "Self Respect",
+      "Self Exploration",
+      "Awareness",
+      "Boundaries",
+      "Clarity",
+      "Mindfulness",
+      "Responsibility",
+    ],
+  },
+  {
+    id: "growth",
+    label: "Growth",
+    line: "Change that lasts: discipline, energy, learning, failure.",
+    tags: [
+      "Personal Growth",
+      "Self Improvement",
+      "Personal Development",
+      "Growth",
+      "Motivation",
+      "Learning",
+      "Dicipline",
+      "Productivity",
+      "Success",
+      "Failure",
+      "Skills",
+      "Health",
+      "Weight Loss",
+      "Children",
+    ],
+  },
+  {
+    id: "philosophy",
+    label: "Philosophy",
+    line: "Meaning, purpose, fate and the questions that stay.",
+    tags: [
+      "Philosophy",
+      "Stoicism",
+      "Meaning",
+      "Purpose",
+      "Truth",
+      "Wisdom",
+      "Destiny",
+      "Fate",
+      "Reality",
+      "Uncertainty",
+      "Time",
+      "Luck",
+      "Fulfillment",
+    ],
+  },
+  {
+    id: "invisible-patterns",
+    label: "Invisible patterns",
+    line: "The loops, biases and habits of thought we rarely notice.",
+    tags: [
+      "Psychology",
+      "Psycology",
+      "Critical Thinking",
+      "Belief",
+      "Inference",
+      "Mindset",
+      "Thoughts",
+      "Perception",
+      "Decision Making",
+      "Evolutionary Psychology",
+      "Acceptance",
+      "Confidence",
+      "Communication",
+      "Conversations",
+      "Relationships",
+      "Connection",
+    ],
+    collections: ["Invisible Thinking Loops"],
+  },
+  {
+    id: "engineering",
+    label: "Engineering",
+    line: "Systems, interviews and the craft of building software.",
+    tags: [
+      "systems",
+      "reliability",
+      "engineering",
+      "APIs",
+      "design",
+      "backend",
+      "observability",
+      "SRE",
+      "teams",
+      "distributed systems",
+      "architecture",
+      "writing",
+      "culture",
+      "leadership",
+      "Software Development",
+      "Interview",
+      "Artificial Intelligence",
+    ],
+  },
+];

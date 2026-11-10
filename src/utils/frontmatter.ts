@@ -9,7 +9,43 @@ export type FrontData = {
   readingMinutes?: number;
   /** Optional; URL slug is always the filename — if set, should match the file slug. */
   slug?: string;
+  /** Medium import fields (see scripts/import-medium.mjs). */
+  subtitle?: string;
+  kicker?: string;
+  source?: string;
+  mediumId?: string;
+  mediumUrl?: string;
+  collection?: string;
+  series?: string;
+  seriesPart?: number;
+  lang?: string;
+  translationOf?: string;
+  rank?: number;
+  cover?: string;
+  coverWidth?: number;
+  coverHeight?: number;
 };
+
+const STRING_KEYS = [
+  "title",
+  "description",
+  "date",
+  "slug",
+  "subtitle",
+  "kicker",
+  "source",
+  "mediumId",
+  "mediumUrl",
+  "collection",
+  "series",
+  "lang",
+  "translationOf",
+  "cover",
+] as const;
+const NUMBER_KEYS = ["readingMinutes", "seriesPart", "rank", "coverWidth", "coverHeight"] as const;
+
+type StringKey = (typeof STRING_KEYS)[number];
+type NumberKey = (typeof NUMBER_KEYS)[number];
 
 export function parseFrontmatter(raw: string): { data: FrontData; body: string } {
   let text = raw;
@@ -38,17 +74,14 @@ export function parseFrontmatter(raw: string): { data: FrontData; body: string }
       data.featured = val === "true";
       continue;
     }
-    if (key === "readingMinutes") {
-      data.readingMinutes = Number(val);
+    if ((NUMBER_KEYS as readonly string[]).includes(key)) {
+      data[key as NumberKey] = Number(val);
       continue;
     }
     if (val.startsWith('"') && val.endsWith('"')) {
-      val = val.slice(1, -1).replace(/\\"/g, '"');
+      val = val.slice(1, -1).replace(/\\(["\\])/g, "$1");
     }
-    if (key === "title") data.title = val;
-    else if (key === "description") data.description = val;
-    else if (key === "date") data.date = val;
-    else if (key === "slug") data.slug = val;
+    if ((STRING_KEYS as readonly string[]).includes(key)) data[key as StringKey] = val;
   }
 
   return { data, body: m[2] };

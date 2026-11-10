@@ -47,3 +47,6 @@ docs/revamp/**/*.png
 docs/revamp/lighthouse/*/*.json
 !docs/revamp/lighthouse/*/summary.json
 design/
+
+# Medium importer original-image cache
+.cache/

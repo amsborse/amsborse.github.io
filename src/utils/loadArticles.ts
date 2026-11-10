@@ -1,72 +1,104 @@
 import { articleOrder } from "@/data/articles";
 import { parsePostMarkdown, type ParsedPost } from "@/utils/markdown";
 
-const rawModules = import.meta.glob<string>("../content/articles/*.md", {
+/**
+ * Listing data for one article: everything but the body. Medium imports come from the
+ * generated src/content/medium/index.json (scripts/import-medium.mjs), so listing pages never
+ * download the 68 article bodies; the few hand-written essays are parsed directly.
+ */
+export type ArticleSummary = Omit<ParsedPost, "html" | "toc"> & { headings: string[] };
+
+type Loader = () => Promise<string>;
+
+const handWritten = import.meta.glob<string>("../content/articles/*.md", {
+  query: "?raw",
+  import: "default",
+});
+const imported = import.meta.glob<string>("../content/articles/medium/*.md", {
   query: "?raw",
   import: "default",
 });
 
 function slugFromPath(path: string): string {
-  const normalized = path.replace(/\\/g, "/");
-  const file = normalized.split("/").pop() ?? path;
+  const file = path.replace(/\\/g, "/").split("/").pop() ?? path;
   return file.replace(/\.md$/i, "");
 }
 
-const slugOrder = articleOrder;
+function bySlug(modules: Record<string, Loader>): Map<string, Loader> {
+  return new Map(Object.entries(modules).map(([path, load]) => [slugFromPath(path), load]));
+}
 
-let cache: ParsedPost[] | null = null;
-let loadPromise: Promise<ParsedPost[]> | null = null;
+const handWrittenLoaders = bySlug(handWritten);
+const importedLoaders = bySlug(imported);
 
-async function parseAll(): Promise<ParsedPost[]> {
-  const bySlug = new Map<string, ParsedPost>();
+function loaderFor(slug: string): Loader | undefined {
+  return handWrittenLoaders.get(slug) ?? importedLoaders.get(slug);
+}
 
+export function toSummary(post: ParsedPost): ArticleSummary {
+  const summary: ArticleSummary & Partial<Pick<ParsedPost, "html" | "toc">> = {
+    ...post,
+    headings: post.toc.map((item) => item.text),
+  };
+  delete summary.html;
+  delete summary.toc;
+  return summary;
+}
+
+/** Newest first; same-day ties keep the curated hand-written order, then slug. */
+export function compareArticles(a: ArticleSummary, b: ArticleSummary): number {
+  const byDate = b.date.localeCompare(a.date);
+  if (byDate !== 0) return byDate;
+  const order = articleOrder as readonly string[];
+  const rank = (slug: string) => (order.includes(slug) ? order.indexOf(slug) : order.length);
+  return rank(a.slug) - rank(b.slug) || a.slug.localeCompare(b.slug);
+}
+
+async function loadHandWrittenSummaries(): Promise<ArticleSummary[]> {
+  const out: ArticleSummary[] = [];
   await Promise.all(
-    Object.entries(rawModules).map(async ([path, loader]) => {
-      const slug = slugFromPath(path);
+    [...handWrittenLoaders].map(async ([slug, load]) => {
       try {
-        const raw = await loader();
-        bySlug.set(slug, parsePostMarkdown(raw, slug));
+        out.push(toSummary(parsePostMarkdown(await load(), slug)));
       } catch (e) {
-        console.error(`[writing] Failed to parse "${slug}" (${path}):`, e);
+        console.error(`[writing] Failed to parse "${slug}":`, e);
       }
     })
   );
-
-  const ordered: ParsedPost[] = [];
-  for (const slug of slugOrder) {
-    const p = bySlug.get(slug);
-    if (p) ordered.push(p);
-  }
-  for (const [slug, p] of bySlug) {
-    if (!(slugOrder as readonly string[]).includes(slug as string)) {
-      ordered.push(p);
-    }
-  }
-  return ordered;
+  return out;
 }
 
-/** Load all markdown articles on demand (lazy per file). */
-export function loadArticles(): Promise<ParsedPost[]> {
-  if (cache) return Promise.resolve(cache);
-  if (!loadPromise) {
-    loadPromise = parseAll().then((posts) => {
-      cache = posts;
-      return posts;
+async function loadImportedSummaries(): Promise<ArticleSummary[]> {
+  const { default: index } = await import("@/content/medium/index.json");
+  return index as ArticleSummary[];
+}
+
+let summaries: Promise<ArticleSummary[]> | null = null;
+
+/** Every article (all languages), newest first, without bodies. Cached after the first call. */
+export function getArticleSummaries(): Promise<ArticleSummary[]> {
+  if (!summaries) {
+    summaries = Promise.all([loadHandWrittenSummaries(), loadImportedSummaries()]).then(
+      ([own, medium]) => [...own, ...medium].sort(compareArticles)
+    );
+    summaries.catch(() => {
+      summaries = null; // let a later call retry instead of caching the failure
     });
   }
-  return loadPromise;
+  return summaries;
 }
 
-export async function getAllPosts(): Promise<ParsedPost[]> {
-  return loadArticles();
-}
+const posts = new Map<string, Promise<ParsedPost | undefined>>();
 
-export async function getPostBySlug(slug: string): Promise<ParsedPost | undefined> {
-  const posts = await loadArticles();
-  return posts.find((p) => p.slug === slug);
-}
-
-export async function getFeaturedPosts(): Promise<ParsedPost[]> {
-  const posts = await loadArticles();
-  return posts.filter((p) => p.featured);
+/** Loads and parses only the one article that is being read. */
+export function getPostBySlug(slug: string): Promise<ParsedPost | undefined> {
+  const load = loaderFor(slug);
+  if (!load) return Promise.resolve(undefined);
+  let post = posts.get(slug);
+  if (!post) {
+    post = load().then((raw) => parsePostMarkdown(raw, slug));
+    post.catch(() => posts.delete(slug));
+    posts.set(slug, post);
+  }
+  return post;
 }

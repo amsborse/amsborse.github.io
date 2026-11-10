@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import type { ParsedPost } from "@/utils/markdown";
+import type { ArticleSummary } from "@/utils/loadArticles";
 import { formatArticleDate } from "@/components/writing/formatArticleDate";
 
-type WritingPublicationProps = { posts: ParsedPost[] };
+type WritingPublicationProps = { posts: ArticleSummary[] };
 
-function newestFirst(posts: ParsedPost[]): ParsedPost[] {
+function newestFirst(posts: ArticleSummary[]): ArticleSummary[] {
   return [...posts].sort((a, b) => b.date.localeCompare(a.date));
 }
 

@@ -4,7 +4,7 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { Seo } from "@/components/Seo";
 import { TableOfContents } from "@/components/TableOfContents";
 import { site } from "@/data";
-import { getAllPosts, getPostBySlug } from "@/utils/loadArticles";
+import { getArticleSummaries, getPostBySlug, type ArticleSummary } from "@/utils/loadArticles";
 import type { ParsedPost } from "@/utils/markdown";
 import NotFoundPage from "@/pages/NotFound";
 import { formatArticleDate } from "@/components/writing/formatArticleDate";
@@ -13,7 +13,7 @@ import "@/components/writing/article-polish.css";
 export default function Article() {
   const { slug } = useParams();
   const [post, setPost] = useState<ParsedPost | null | undefined>(undefined);
-  const [posts, setPosts] = useState<ParsedPost[]>([]);
+  const [posts, setPosts] = useState<ArticleSummary[]>([]);
 
   useEffect(() => {
     if (!slug) {
@@ -21,7 +21,7 @@ export default function Article() {
       return;
     }
     let cancelled = false;
-    Promise.all([getPostBySlug(slug), getAllPosts()]).then(([found, allPosts]) => {
+    Promise.all([getPostBySlug(slug), getArticleSummaries()]).then(([found, allPosts]) => {
       if (!cancelled) {
         setPost(found ?? null);
         setPosts(allPosts);
