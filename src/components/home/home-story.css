@@ -296,7 +296,7 @@
 .essays {
   /* Three rows are reserved (measured from the real titles at each width) so the list fills
      in place if a reader jumps straight to it; on a normal scroll it loads offscreen. */
-  min-height: 35rem;
+  min-height: 38rem;
   margin: clamp(2rem, 4vw, 3rem) 0 0;
   padding: 0;
   border-top: 1px solid var(--color-border);
@@ -304,7 +304,7 @@
 }
 @media (min-width: 600px) {
   .essays {
-    min-height: 28.5rem;
+    min-height: 29rem;
   }
 }
 @media (min-width: 768px) {
@@ -314,7 +314,7 @@
 }
 @media (min-width: 1024px) {
   .essays {
-    min-height: 22rem;
+    min-height: 23rem;
   }
 }
 .essays > li {
