@@ -29,6 +29,11 @@ tmp_resume/
 .autoreview/feedback/
 .autoreview/reports/visual-quality.json
 .autoreview/reports/state-matrix.json
+.autoreview/reports/_run.log
+# Temporary visual baselines the review tooling writes for throwaway test cards
+.agent-memory/visual-baselines/tempcard*__tmp-visual.json
+# Local Serena MCP config
+.serena/
 
 .agent-memory/feedback/raw/
 .agent-memory/screenshot-manifests/
