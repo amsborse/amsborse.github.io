@@ -1,3 +1,5 @@
+// Card styles load with the flashcard pages, not with every page.
+import "@/styles/precision-task-card.css";
 import { type CSSProperties, type PointerEvent, type ReactNode, useId } from "react";
 import {
   rarityColors,

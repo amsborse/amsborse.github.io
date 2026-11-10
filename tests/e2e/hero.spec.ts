@@ -80,9 +80,17 @@ test.describe("home hero", () => {
     // can take longer than that, so hold the clock while asserting each caption.
     await page.clock.install();
     await page.goto("/");
-    // Pause relative to the page's clock: a slow page load can outrun the runner's Date.now().
-    const pageNow = await page.evaluate(() => Date.now());
-    await page.clock.pauseAt(pageNow + 1_000);
+    // Pause relative to the page's clock. On a busy machine the page clock can pass the target
+    // before pauseAt arrives ("Cannot fast-forward to the past"), so read it again and retry.
+    for (let attempt = 0; ; attempt += 1) {
+      const pageNow = await page.evaluate(() => Date.now());
+      try {
+        await page.clock.pauseAt(pageNow + 1_000);
+        break;
+      } catch (error) {
+        if (attempt >= 4 || !String(error).includes("fast-forward to the past")) throw error;
+      }
+    }
     const caption = page.getByTestId("hero-caption");
     await openConsole(page);
     await page.getByRole("button", { name: "Send a request" }).click();

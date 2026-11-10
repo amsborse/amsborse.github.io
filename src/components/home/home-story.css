@@ -294,16 +294,27 @@
 /* ── Writing: a contents list ──────────────────────────────────────────── */
 
 .essays {
-  /* Three rows are reserved so the list fills in place when the essays load. */
-  min-height: 21rem;
+  /* Three rows are reserved (measured from the real titles at each width) so the list fills
+     in place if a reader jumps straight to it; on a normal scroll it loads offscreen. */
+  min-height: 35rem;
   margin: clamp(2rem, 4vw, 3rem) 0 0;
   padding: 0;
   border-top: 1px solid var(--color-border);
   list-style: none;
 }
+@media (min-width: 600px) {
+  .essays {
+    min-height: 28.5rem;
+  }
+}
 @media (min-width: 768px) {
   .essays {
-    min-height: 18.5rem;
+    min-height: 24.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .essays {
+    min-height: 22rem;
   }
 }
 .essays > li {

@@ -1,0 +1,177 @@
+{
+  "label": "mid",
+  "summary": [
+    {
+      "page": "home",
+      "preset": "mobile",
+      "performance": 58,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 4366,
+      "cls": 0,
+      "tbtMs": 1792,
+      "failedA11y": [
+        "label-content-name-mismatch",
+        "target-size"
+      ]
+    },
+    {
+      "page": "home",
+      "preset": "desktop",
+      "performance": 72,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 864,
+      "cls": 0,
+      "tbtMs": 723,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "experience",
+      "preset": "mobile",
+      "performance": 71,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2940,
+      "cls": 0,
+      "tbtMs": 1207,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "experience",
+      "preset": "desktop",
+      "performance": 82,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 990,
+      "cls": 0,
+      "tbtMs": 377,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "projects",
+      "preset": "mobile",
+      "performance": 53,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 4849,
+      "cls": 0,
+      "tbtMs": 2121,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "projects",
+      "preset": "desktop",
+      "performance": 78,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 1303,
+      "cls": 0,
+      "tbtMs": 406,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "writing",
+      "preset": "mobile",
+      "performance": 77,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2989,
+      "cls": 0.2235722964763062,
+      "tbtMs": 304,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "writing",
+      "preset": "desktop",
+      "performance": 91,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 908,
+      "cls": 0.1800557813371584,
+      "tbtMs": 62,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "article",
+      "preset": "mobile",
+      "performance": 53,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 4164,
+      "cls": 0.4993924665856622,
+      "tbtMs": 446,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "article",
+      "preset": "desktop",
+      "performance": 76,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 685,
+      "cls": 0.9071822455972588,
+      "tbtMs": 0,
+      "failedA11y": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "about",
+      "preset": "mobile",
+      "performance": 76,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2724,
+      "cls": 0.3997569866342649,
+      "tbtMs": 141,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "page": "about",
+      "preset": "desktop",
+      "performance": 76,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 669,
+      "cls": 0.9061184158100247,
+      "tbtMs": 0,
+      "failedA11y": [
+        "label-content-name-mismatch"
+      ]
+    }
+  ],
+  "failures": []
+}

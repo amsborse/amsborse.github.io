@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import type { ParsedPost } from "@/utils/markdown";
 import { ChapterHeading } from "./ChapterHeading";
@@ -7,14 +7,38 @@ import { formatArticleDate } from "@/components/writing/formatArticleDate";
 const SHOWN = 3;
 
 /**
- * The latest essays. Articles load on demand, so the list keeps a reserved height
- * and fills in place: nothing below it moves when the titles arrive.
+ * The latest essays. Articles load (and their markdown is parsed) only when the chapter nears
+ * the viewport, so a phone's first seconds are not spent on text it has not scrolled to. The
+ * list keeps a reserved height and fills in place: nothing below it moves when titles arrive.
  */
 export function WritingChapter() {
   const [posts, setPosts] = useState<ParsedPost[] | null>(null);
   const [failed, setFailed] = useState(false);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const [near, setNear] = useState(false);
+
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === "undefined") {
+      setNear(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "800px 0px" }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!near) return;
     let alive = true;
     import("@/utils/loadArticles")
       .then(({ getAllPosts }) => getAllPosts())
@@ -28,10 +52,15 @@ export function WritingChapter() {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [near]);
 
   return (
-    <section id="writing" aria-labelledby="writing-title" className="chapter article-shell">
+    <section
+      ref={sectionRef}
+      id="writing"
+      aria-labelledby="writing-title"
+      className="chapter article-shell"
+    >
       <ChapterHeading id="writing-title" eyebrow="Writing" title="Thinking, written down.">
         Essays on reliability, API design and observability.
       </ChapterHeading>

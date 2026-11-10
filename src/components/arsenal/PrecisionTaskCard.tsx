@@ -1,3 +1,5 @@
+// Card styles load with the flashcard pages, not with every page.
+import "@/styles/precision-task-card.css";
 /* Precision task card — copied from Arsenal @arsenal/ui */
 
 import {

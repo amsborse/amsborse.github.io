@@ -19,6 +19,7 @@ import {
 } from "./plateMap";
 import { dimmedEdges, type HeroState, type RouteSample } from "./simulation";
 import { EDGES, SERVICES, dependenciesOf, edgeById, type ServiceId } from "./topology";
+import { createFrameGovernor } from "./frameGovernor";
 
 export type PlateRendererKind = "plate" | "static";
 
@@ -287,15 +288,27 @@ export function HeroPlate({
     // Animate only while visible and allowed; otherwise draw on demand.
     let raf = 0;
     let visible = true;
-    const animating = () => {
-      const { reducedMotion: still, fixedTime: fixed, state: s } = live.current;
-      const ambient = !still && fixed === null;
-      return uploaded && visible && !document.hidden && (ambient || s.mode === "request");
+    // Where the GPU cannot hold ~30fps each ambient frame is a long task, so the plate settles
+    // on a still frame and only animates for requests the user starts.
+    const governor = createFrameGovernor();
+    const ambientAllowed = () => {
+      const { reducedMotion: still, fixedTime: fixed } = live.current;
+      return !still && fixed === null && !governor.slow;
     };
+    const animating = () =>
+      uploaded &&
+      visible &&
+      !document.hidden &&
+      (ambientAllowed() || live.current.state.mode === "request");
     const tick = (now: number) => {
       raf = 0;
       drawRef.current(now);
+      if (ambientAllowed() && live.current.state.mode !== "request" && governor.record(now)) {
+        canvas.dataset.ambient = "paused-slow";
+        console.info("Hero plate: frames are slower than 30fps, ambient motion paused");
+      }
       if (animating()) raf = requestAnimationFrame(tick);
+      else governor.reset();
     };
     const kick = () => {
       if (!raf) raf = requestAnimationFrame(tick);
