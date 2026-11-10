@@ -150,9 +150,9 @@
       "file": "src/components/ProjectCard.tsx"
     },
     {
-      "id": "component:experience-card",
+      "id": "component:experience-timeline",
       "type": "component",
-      "file": "src/components/ExperienceCard.tsx"
+      "file": "src/components/experience/ExperienceTimeline.tsx"
     },
     {
       "id": "component:god-sphere",
@@ -460,7 +460,7 @@
     { "from": "route:/about", "to": "data:about", "rel": "reads" },
     { "from": "route:/about", "to": "data:profile", "rel": "reads" },
     { "from": "route:/experience", "to": "data:experience", "rel": "reads" },
-    { "from": "route:/experience", "to": "component:experience-card", "rel": "uses" },
+    { "from": "route:/experience", "to": "component:experience-timeline", "rel": "uses" },
     { "from": "route:/about", "to": "data:contact", "rel": "reads" },
     { "from": "route:/projects", "to": "data:projects", "rel": "reads" },
     { "from": "route:/projects", "to": "component:project-card", "rel": "uses" },
@@ -510,7 +510,6 @@
       "rel": "uses"
     },
     { "from": "component:project-card", "to": "component:interactive-card", "rel": "uses" },
-    { "from": "component:experience-card", "to": "component:interactive-card", "rel": "uses" },
 
     { "from": "route:/learning", "to": "domain:learning", "rel": "part_of" },
     { "from": "route:/learning/coding-patterns", "to": "domain:learning", "rel": "part_of" },
