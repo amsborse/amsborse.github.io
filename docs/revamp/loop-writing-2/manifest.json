@@ -1,0 +1,16 @@
+{
+  "label": "loop-writing-2",
+  "baseUrl": "http://127.0.0.1:4282",
+  "shots": [
+    "docs/revamp/loop-writing-2/writing-1440-dark-top.jpg",
+    "docs/revamp/loop-writing-2/writing-1440-dark-full.jpg",
+    "docs/revamp/loop-writing-2/writing-1440-light-top.jpg",
+    "docs/revamp/loop-writing-2/writing-1440-light-full.jpg",
+    "docs/revamp/loop-writing-2/writing-390-dark-top.jpg",
+    "docs/revamp/loop-writing-2/writing-390-dark-full.jpg",
+    "docs/revamp/loop-writing-2/writing-390-light-top.jpg",
+    "docs/revamp/loop-writing-2/writing-390-light-full.jpg"
+  ],
+  "failures": [],
+  "consoleErrors": []
+}

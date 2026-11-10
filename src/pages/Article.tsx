@@ -4,13 +4,16 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { Seo } from "@/components/Seo";
 import { TableOfContents } from "@/components/TableOfContents";
 import { site } from "@/data";
-import { getPostBySlug } from "@/utils/loadArticles";
+import { getAllPosts, getPostBySlug } from "@/utils/loadArticles";
 import type { ParsedPost } from "@/utils/markdown";
 import NotFoundPage from "@/pages/NotFound";
+import { formatArticleDate } from "@/components/writing/formatArticleDate";
+import "@/components/writing/article-polish.css";
 
 export default function Article() {
   const { slug } = useParams();
   const [post, setPost] = useState<ParsedPost | null | undefined>(undefined);
+  const [posts, setPosts] = useState<ParsedPost[]>([]);
 
   useEffect(() => {
     if (!slug) {
@@ -18,8 +21,11 @@ export default function Article() {
       return;
     }
     let cancelled = false;
-    getPostBySlug(slug).then((found) => {
-      if (!cancelled) setPost(found ?? null);
+    Promise.all([getPostBySlug(slug), getAllPosts()]).then(([found, allPosts]) => {
+      if (!cancelled) {
+        setPost(found ?? null);
+        setPosts(allPosts);
+      }
     });
     return () => {
       cancelled = true;
@@ -39,6 +45,8 @@ export default function Article() {
   }
 
   const tagLine = post.tags.join(" · ");
+  const currentIndex = posts.findIndex((item) => item.slug === post.slug);
+  const nextPost = currentIndex >= 0 ? posts[currentIndex + 1] : undefined;
 
   return (
     <>
@@ -49,26 +57,27 @@ export default function Article() {
         path={`/arsenal/writing/${post.slug}`}
       />
 
-      <article className="article-reading pb-32 pt-8 sm:pt-10">
+      <article className="article-reading page-top pb-32">
         <div className="article-shell max-w-6xl">
           <nav aria-label="Breadcrumb">
             <Link
               to="/arsenal/writing"
-              className="inline-block text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-accent)]"
+              className="article-back-link inline-flex min-h-11 items-center gap-2 text-base text-[var(--color-body)] transition-colors hover:text-[var(--color-accent)]"
             >
-              ← All writing
+              <span aria-hidden="true">←</span>
+              <span>All writing</span>
             </Link>
           </nav>
 
-          <header className="mx-auto mt-12 max-w-[var(--article-measure-reading)] lg:mt-16">
+          <header className="article-reading__header mx-auto mt-12 max-w-[68ch] lg:mt-16">
             <h1 className="font-display text-[1.75rem] font-semibold leading-[1.22] tracking-[-0.02em] text-[var(--color-ink)] sm:text-[2rem] sm:leading-[1.2] lg:text-[2.15rem]">
               {post.title}
             </h1>
             <p className="mt-6 text-[1.05rem] leading-[1.72] text-[var(--color-body)] sm:text-[1.0625rem] sm:leading-[1.75]">
               {post.description}
             </p>
-            <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.8125rem] text-[var(--color-ink-muted)]">
-              <time dateTime={post.date}>{post.date}</time>
+            <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.9375rem] text-[var(--color-body)]">
+              <time dateTime={post.date}>{formatArticleDate(post.date)}</time>
               <span className="opacity-40" aria-hidden>
                 ·
               </span>
@@ -105,8 +114,22 @@ export default function Article() {
                 className="prose-article pb-6"
                 dangerouslySetInnerHTML={{ __html: post.html }}
               />
+              {nextPost ? (
+                <nav
+                  className="article-next mx-auto mt-16 max-w-[68ch]"
+                  aria-label="Essay navigation"
+                >
+                  <Link to={`/arsenal/writing/${nextPost.slug}`} className="article-next__link">
+                    <span className="article-next__label">Next essay</span>
+                    <span className="article-next__title">{nextPost.title}</span>
+                    <span className="article-next__arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </Link>
+                </nav>
+              ) : null}
               <footer className="mx-auto mt-24 max-w-[var(--article-measure-reading)] pt-2">
-                <p className="text-center text-[0.8125rem] leading-relaxed text-[var(--color-ink-muted)]">
+                <p className="text-center text-base leading-relaxed text-[var(--color-body)]">
                   {site.name}
                   <span className="mx-2 opacity-30">·</span>
                   <Link
