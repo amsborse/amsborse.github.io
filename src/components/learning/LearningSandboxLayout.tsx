@@ -12,8 +12,8 @@ type Props = {
 export function LearningSandboxLayout({ title, subtitle, children, controls, stats }: Props) {
   return (
     <div className="hub-page overflow-x-hidden">
-      <div className="absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-indigo-500/10 to-transparent blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-bl from-purple-500/10 to-transparent blur-[100px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-amber-500/[0.06] to-transparent blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-bl from-emerald-700/[0.05] to-transparent blur-[100px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         <Link

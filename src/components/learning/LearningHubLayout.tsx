@@ -8,16 +8,16 @@ type BlobVariant = "indigo" | "blue" | "purple";
 
 const BLOB_CLASSES: Record<BlobVariant, { top: string; bottom: string }> = {
   indigo: {
-    top: "from-indigo-500/10",
-    bottom: "from-purple-500/10",
+    top: "from-amber-500/[0.06]",
+    bottom: "from-emerald-700/[0.05]",
   },
   blue: {
     top: "from-blue-500/10",
     bottom: "from-teal-500/10",
   },
   purple: {
-    top: "from-purple-500/10",
-    bottom: "from-indigo-500/10",
+    top: "from-amber-500/[0.06]",
+    bottom: "from-emerald-700/[0.05]",
   },
 };
 

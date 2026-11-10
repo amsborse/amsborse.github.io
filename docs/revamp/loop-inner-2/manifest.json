@@ -1,0 +1,16 @@
+{
+  "label": "loop-inner-2",
+  "baseUrl": "http://127.0.0.1:4280",
+  "shots": [
+    "docs/revamp/loop-inner-2/learning-1440-dark-top.jpg",
+    "docs/revamp/loop-inner-2/learning-1440-dark-full.jpg",
+    "docs/revamp/loop-inner-2/learning-1440-light-top.jpg",
+    "docs/revamp/loop-inner-2/learning-1440-light-full.jpg",
+    "docs/revamp/loop-inner-2/learning-390-dark-top.jpg",
+    "docs/revamp/loop-inner-2/learning-390-dark-full.jpg",
+    "docs/revamp/loop-inner-2/learning-390-light-top.jpg",
+    "docs/revamp/loop-inner-2/learning-390-light-full.jpg"
+  ],
+  "failures": [],
+  "consoleErrors": []
+}

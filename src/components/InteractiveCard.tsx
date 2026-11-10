@@ -3,9 +3,9 @@ import { CSSProperties, memo, MouseEvent, ReactNode, useMemo, useRef } from "rea
 
 export type InteractiveCardDensity = "default" | "quad";
 
-export const HUB_PAGE_CONTAINER = "max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10";
+export const HUB_PAGE_CONTAINER = "max-w-[72rem] mx-auto px-6 md:px-10 relative z-10";
 export const HUB_CARD_GRID =
-  "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 xl:gap-6 items-stretch";
+  "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-6 items-stretch";
 
 export type InteractiveCardStatus = "active" | "coming-soon" | "sandbox" | "default";
 
@@ -43,7 +43,7 @@ const SHELL_DENSITY: Record<
     height: "",
     radius: "rounded-[20px]",
     shadow: "shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
-    hoverShadow: "hover:shadow-[0_24px_64px_rgba(0,0,0,0.16),0_0_0_1px_rgba(2,132,199,0.14)]",
+    hoverShadow: "hover:shadow-[0_24px_64px_rgba(0,0,0,0.16),0_0_0_1px_rgba(217,150,60,0.16)]",
     border: "border-[var(--hub-card-border)] hover:border-[var(--hub-card-border-hover)]",
   },
 };
@@ -105,7 +105,7 @@ export function InteractiveCardShell({
         <div className="absolute top-3 left-4 h-[2px] w-8 group-hover:w-16 bg-[var(--color-accent)] transition-all duration-500 ease-out" />
       ) : null}
       {density === "quad" && viewStyle === "glass" ? (
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(99,102,241,0.09),transparent_55%),radial-gradient(ellipse_at_80%_100%,rgba(34,211,238,0.06),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(217,150,60,0.08),transparent_55%),radial-gradient(ellipse_at_80%_100%,rgba(120,140,90,0.05),transparent_50%)]" />
       ) : null}
       <div
         className={`absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] ${densityStyles.radius}`}
@@ -123,7 +123,8 @@ export function InteractiveCardShell({
         }}
       />
       <div
-        className={`absolute top-0 inset-x-0 bg-gradient-to-r ${color} opacity-80 group-hover:opacity-100 transition-opacity duration-300 ${density === "quad" ? "h-[3px]" : "h-[2.5px]"}`}
+        data-tone={color}
+        className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--color-accent)] to-transparent opacity-30 group-hover:opacity-70 transition-opacity duration-300"
       />
       {children}
     </div>
@@ -158,7 +159,7 @@ export function InteractiveCardSplit({
   portal?: ReactNode;
   density?: "default" | "quad";
 }) {
-  const pad = density === "quad" ? "p-4 pr-2.5" : "p-5 pr-3";
+  const pad = density === "quad" ? "p-6 pt-7" : "p-5 pr-3";
   const leftHover = density === "quad" ? "group-hover:w-[58%]" : "group-hover:w-[60%]";
   const portalHover = density === "quad" ? "group-hover:w-[42%]" : "group-hover:w-[40%]";
 
@@ -198,7 +199,7 @@ export function InteractiveCardHeader({
   const label = statusLabel ?? STATUS_LABELS[status];
   const statusClass =
     status === "active" || status === "sandbox"
-      ? "bg-indigo-500/12 border-indigo-400/35 text-indigo-300 [[data-theme=light]_&]:bg-indigo-600/10 [[data-theme=light]_&]:border-indigo-600/35 [[data-theme=light]_&]:text-indigo-700"
+      ? "bg-amber-500/10 border-amber-400/30 text-amber-300 [[data-theme=light]_&]:bg-amber-700/10 [[data-theme=light]_&]:border-amber-800/30 [[data-theme=light]_&]:text-amber-800"
       : status === "coming-soon"
         ? "bg-slate-500/10 border-slate-500/25 text-slate-400 [[data-theme=light]_&]:text-stone-600"
         : "bg-white/5 border-white/10 text-slate-400 [[data-theme=light]_&]:bg-stone-900/5 [[data-theme=light]_&]:border-stone-900/10 [[data-theme=light]_&]:text-stone-600";
@@ -208,9 +209,7 @@ export function InteractiveCardHeader({
       className={`flex justify-between items-start gap-2 ${density === "quad" ? "mb-2.5" : "mb-3"}`}
     >
       {icon ? (
-        <div
-          className={`filter drop-shadow-[0_0_10px_rgba(255,255,255,0.12)] ${density === "quad" ? "text-xl" : "text-2xl"}`}
-        >
+        <div className={`grayscale opacity-80 ${density === "quad" ? "text-xl" : "text-2xl"}`}>
           {icon}
         </div>
       ) : (
@@ -218,9 +217,7 @@ export function InteractiveCardHeader({
       )}
       {badge ?? (
         <span
-          className={`uppercase font-mono tracking-wider rounded border shrink-0 ${statusClass} ${
-            density === "quad" ? "text-[7px] px-1.5 py-0.5 leading-tight" : "text-[8px] px-2 py-0.5"
-          }`}
+          className={`uppercase font-mono tracking-wider rounded border shrink-0 text-[10px] px-2 py-0.5 leading-tight ${statusClass}`}
         >
           {label}
         </span>
@@ -253,14 +250,14 @@ export function InteractiveCardBody({
     <>
       <h3
         className={`font-bold text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors duration-300 ${
-          density === "quad" ? "text-[13px] leading-snug mb-1" : "text-base mb-1.5"
+          density === "quad" ? "text-base leading-snug mb-1.5" : "text-base mb-1.5"
         }`}
       >
         {title}
       </h3>
       <p
         className={`text-[var(--color-body)] leading-snug ${clampClass} ${
-          density === "quad" ? "text-[10px] mb-2" : "text-[11px] leading-normal mb-3"
+          density === "quad" ? "text-[13px] leading-normal mb-3" : "text-[13px] leading-normal mb-3"
         }`}
       >
         {description}
@@ -279,12 +276,12 @@ export function InteractiveCardTags({
   if (tags.length === 0) return null;
 
   return (
-    <div className={`flex flex-wrap ${density === "quad" ? "gap-1 mb-2" : "gap-1.5 mb-3"}`}>
+    <div className={`flex flex-wrap ${density === "quad" ? "gap-1.5 mb-3" : "gap-1.5 mb-3"}`}>
       {tags.map((tag) => (
         <span
           key={tag}
           className={`font-mono text-slate-400 bg-white/[0.04] border border-white/[0.06] rounded [[data-theme=light]_&]:text-stone-600 [[data-theme=light]_&]:bg-stone-900/[0.04] [[data-theme=light]_&]:border-stone-900/10 ${
-            density === "quad" ? "text-[7px] px-1 py-px" : "text-[8px] px-1.5 py-0.5"
+            density === "quad" ? "text-[10.5px] px-1.5 py-0.5" : "text-[10.5px] px-1.5 py-0.5"
           }`}
         >
           {tag}
@@ -312,8 +309,8 @@ export function InteractiveCardFooter({
   if (href && (status === "active" || status === "sandbox")) {
     return (
       <div
-        className={`flex items-center gap-1 font-mono uppercase tracking-wider text-indigo-300 [[data-theme=light]_&]:text-indigo-700 group-hover:translate-x-1 transition-transform duration-300 ${
-          density === "quad" ? "text-[9px]" : "text-[10px]"
+        className={`flex items-center gap-1 font-mono uppercase tracking-wider text-amber-300 [[data-theme=light]_&]:text-amber-800 group-hover:translate-x-1 transition-transform duration-300 ${
+          density === "quad" ? "text-[11px]" : "text-[11px]"
         }`}
       >
         {ctaLabel} <span className="text-xs">➔</span>
@@ -325,7 +322,7 @@ export function InteractiveCardFooter({
     return (
       <div
         className={`font-mono uppercase tracking-wider text-slate-400 [[data-theme=light]_&]:text-stone-600 ${
-          density === "quad" ? "text-[9px]" : "text-[10px]"
+          density === "quad" ? "text-[11px]" : "text-[11px]"
         }`}
       >
         Research Phase
