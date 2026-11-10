@@ -8,6 +8,7 @@ import { SelectedWork } from "@/components/SelectedWork";
 import { EarlierWork } from "@/components/EarlierWork";
 import { projectCategories, projects, type ProjectCategory } from "@/data";
 import { ARSENAL_HUB_SECTIONS } from "@/data/arsenalTopics";
+import "@/components/projects/projects.css";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory | "labs" | "all">("all");
@@ -17,11 +18,18 @@ export default function ProjectsPage() {
 
   const filteredProjects = useMemo(() => {
     if (filter === "all" || filter === "labs") return projects;
-    return projects.filter((p) => p.category === filter);
+    return projects.filter((project) => project.category === filter);
   }, [filter]);
 
-  const featured = filteredProjects.filter((p) => p.featured);
-  const other = filteredProjects.filter((p) => !p.featured);
+  const featured = filteredProjects.filter((project) => project.featured);
+  const other = filteredProjects.filter((project) => !project.featured);
+  const filters: { id: ProjectCategory | "labs" | "all"; label: string }[] = [
+    { id: "all", label: "All" },
+    ...projectCategories
+      .filter((category) => projects.some((project) => project.category === category.id))
+      .map((category) => ({ id: category.id, label: category.label })),
+    { id: "labs", label: "Visual labs" },
+  ];
 
   return (
     <>
@@ -43,69 +51,60 @@ export default function ProjectsPage() {
           <SelectedWork embedded />
         </div>
 
-        {/* Category Filters */}
-        <div className="mt-10 flex flex-wrap gap-x-1 gap-y-2 border-b border-[var(--color-border)] pb-2">
-          <button
-            type="button"
-            onClick={() => setFilter("all")}
-            className={`px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded ${
-              filter === "all"
-                ? "border-b border-[var(--color-accent)]/45 text-[var(--color-ink)]"
-                : "border-b border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
-            }`}
-          >
-            All
-          </button>
-          {projectCategories
-            .filter((c) => projects.some((p) => p.category === c.id))
-            .map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setFilter(c.id)}
-                className={`px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded ${
-                  filter === c.id
-                    ? "border-b border-[var(--color-accent)]/45 text-[var(--color-ink)]"
-                    : "border-b border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
-                }`}
-              >
-                {c.label}
-              </button>
-            ))}
-          <button
-            type="button"
-            onClick={() => setFilter("labs")}
-            className={`px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded ${
-              filter === "labs"
-                ? "border-b border-[var(--color-accent)]/45 text-[var(--color-ink)]"
-                : "border-b border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-body)]"
-            }`}
-          >
-            Visual Labs & Experiments
-          </button>
-        </div>
+        <nav className="project-filters" aria-label="Filter projects">
+          {filters.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              aria-pressed={filter === item.id}
+              onClick={() => setFilter(item.id)}
+              className="project-filter"
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
 
         {showProjects ? (
           <>
-            <h3 className="section-label mt-14">Featured Projects</h3>
-            {featured.length === 0 ? (
-              <p className="mt-6 border-t border-dashed border-[var(--color-border)] py-12 text-center text-sm text-[var(--color-ink-muted)]">
-                No projects in this category. Try “All” or another filter.
-              </p>
-            ) : (
-              <div className={`mt-8 ${HUB_CARD_GRID}`}>
-                {featured.map((p, index) => (
-                  <ProjectCard key={p.id} project={p} index={index} viewStyle="nodes" />
-                ))}
-              </div>
-            )}
+            <section aria-labelledby="featured-projects-title" className="project-section">
+              <h2 id="featured-projects-title" className="project-section__title">
+                Featured projects
+              </h2>
+              {featured.length === 0 ? (
+                <p className="project-empty-state">
+                  No projects in this category. Try “All” or another filter.
+                </p>
+              ) : (
+                <div className="project-case-list">
+                  {featured.map((project) => (
+                    <ProjectCard key={project.id} project={project} />
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {other.length > 0 ? (
+              <section aria-labelledby="other-projects-title" className="project-section">
+                <h2 id="other-projects-title" className="project-section__title">
+                  Other engineering builds
+                </h2>
+                <div className="project-case-list">
+                  {other.map((project) => (
+                    <ProjectCard key={project.id} project={project} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
           </>
         ) : null}
 
         {showLabs ? (
-          <div id="arsenal" className="mt-20">
-            <h3 className="section-label">Systems Arsenal & Interactive Labs</h3>
-            <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
+          <section id="arsenal" aria-labelledby="arsenal-title" className="project-section">
+            <h2 id="arsenal-title" className="project-section__title">
+              Systems arsenal & interactive labs
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-[var(--color-body)]">
               Interactive WebGL visualizers, neural meshes, roadmaps, and system sandboxes.
             </p>
             <div className={`mt-8 ${HUB_CARD_GRID}`}>
@@ -118,18 +117,7 @@ export default function ProjectsPage() {
                 />
               ))}
             </div>
-          </div>
-        ) : null}
-
-        {showProjects && other.length > 0 ? (
-          <>
-            <h3 className="section-label mt-20">Other Engineering Builds</h3>
-            <div className={`mt-8 ${HUB_CARD_GRID}`}>
-              {other.map((p, index) => (
-                <ProjectCard key={p.id} project={p} index={index} viewStyle="nodes" />
-              ))}
-            </div>
-          </>
+          </section>
         ) : null}
 
         {filter === "all" ? <EarlierWork /> : null}

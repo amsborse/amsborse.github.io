@@ -6,10 +6,10 @@ const GITHUB = "https://github.com/amsborse/";
 export function EarlierWork() {
   return (
     <section aria-labelledby="earlier-work-title" className="mt-24">
-      <h3 id="earlier-work-title" className="section-label">
+      <h2 id="earlier-work-title" className="project-section__title">
         Earlier work
-      </h3>
-      <p className="mt-2 max-w-2xl text-sm text-[var(--color-body)]">
+      </h2>
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-[var(--color-body)]">
         University projects, hackathons and first experiments, 2017–2019. Kept public as a record of
         where the work started.
       </p>
@@ -22,7 +22,7 @@ export function EarlierWork() {
               rel="noopener noreferrer"
               className="group flex items-baseline gap-4 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] sm:gap-8"
             >
-              <span className="w-10 shrink-0 font-mono text-xs tabular-nums text-[var(--color-ink-muted)]">
+              <span className="w-10 shrink-0 font-mono text-[0.9375rem] tabular-nums text-[var(--color-body)]">
                 {item.year}
               </span>
               <span className="min-w-0 flex-1 sm:flex sm:items-baseline sm:gap-6">
@@ -30,12 +30,12 @@ export function EarlierWork() {
                   {item.title}
                 </span>
                 {item.note ? (
-                  <span className="mt-1 block text-sm text-[var(--color-body)] sm:mt-0">
+                  <span className="mt-1 block text-base text-[var(--color-body)] sm:mt-0">
                     {item.note}
                   </span>
                 ) : null}
               </span>
-              <span className="inline-flex shrink-0 items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]">
+              <span className="inline-flex shrink-0 items-center gap-2 text-sm text-[var(--color-body)]">
                 <span className="hidden sm:inline">{item.language ?? ""}</span>
                 <span
                   aria-hidden="true"
