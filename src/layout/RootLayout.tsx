@@ -7,6 +7,7 @@ import { Navbar } from "./Navbar";
 import { SkyField } from "@/components/sky/SkyField";
 import { isImmersiveSandbox, shouldDisableGlobalEffects } from "@/layout/immersiveRoutes";
 import { readFlashcardAnimationPriority } from "@/lib/flashcardAnimationPriority";
+import { registerGlide } from "@/layout/pageScroll";
 
 const LazyInteractiveParticles = lazy(() =>
   import("@/components/InteractiveParticles").then((mod) => ({
@@ -56,6 +57,7 @@ export function RootLayout() {
     });
 
     lenisRef.current = lenis;
+    registerGlide((target) => lenis.scrollTo(target, { offset: -80 }));
 
     let rafId = 0;
     let paused = document.hidden;
@@ -77,6 +79,7 @@ export function RootLayout() {
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(rafId);
+      registerGlide(null);
       lenis.destroy();
       lenisRef.current = null;
     };

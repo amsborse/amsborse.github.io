@@ -250,20 +250,24 @@
   display: none;
 }
 
-@media (min-width: 1440px) {
+/* Contents on the left of the text, the chapter dot rail (shared with the home page) on the
+   right: both appear from the same width so the page stays balanced. The gap clears the
+   outset figures, which run ~20% wider than the reading measure. */
+@media (min-width: 1280px) and (min-height: 560px) {
   .article-contents {
+    --contents-width: min(14rem, calc(50vw - var(--article-measure-reading) / 2 - 5.5rem));
     display: block;
     /* Independent of the article's containment and the shell's overflow clipping. */
     position: fixed;
     z-index: 3;
-    left: calc(50% + var(--article-measure-reading) / 2 + 2.5rem);
+    right: calc(50% + var(--article-measure-reading) / 2 + 4.5rem);
     top: calc(var(--site-header-h, 5rem) + 2rem);
-    width: 10.5rem;
+    width: var(--contents-width);
     pointer-events: none;
   }
 
   .article-contents nav {
-    width: 10.5rem;
+    width: var(--contents-width);
     max-height: calc(100svh - var(--site-header-h, 5rem) - 4rem);
     overflow-y: auto;
     padding: 0.5rem;
@@ -417,6 +421,7 @@
 }
 
 .article-chrome,
+.article-rail,
 .article-atmosphere svg,
 .article-atmosphere__tide {
   transition: opacity 300ms ease-out;
@@ -429,6 +434,7 @@
 
 .article-reading[data-focus="true"] .article-chrome,
 body[data-article-focus="true"] .article-contents,
+body[data-article-focus="true"] .article-rail,
 body[data-article-focus="true"] .site-header,
 body[data-article-focus="true"] #main + footer {
   opacity: 0;
@@ -437,6 +443,7 @@ body[data-article-focus="true"] #main + footer {
 
 .article-reading[data-focus="true"] .article-chrome:focus-within,
 body[data-article-focus="true"] .article-contents:focus-within,
+body[data-article-focus="true"] .article-rail:focus-within,
 body[data-article-focus="true"] .site-header:focus-within,
 body[data-article-focus="true"] #main + footer:focus-within {
   opacity: 1;

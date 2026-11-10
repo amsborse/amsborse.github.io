@@ -93,6 +93,22 @@ describe("reading-room interaction", () => {
     expect(growth.getAttribute("aria-pressed")).toBe("false");
   });
 
+  it("takes the reader to the filtered archive when a theme is chosen, not when cleared", async () => {
+    const scrolled: Element[] = [];
+    // jsdom has no layout, so it ships without scrollIntoView; record the requests instead.
+    HTMLElement.prototype.scrollIntoView = function (this: HTMLElement) {
+      scrolled.push(this);
+    };
+    const growth = [...container.querySelectorAll(".reading-theme")].find((element) =>
+      element.textContent?.includes("Growth")
+    )!;
+    await click(growth);
+    expect(scrolled).toEqual([container.querySelector("#reading-archive")]);
+    await click(growth);
+    expect(scrolled).toHaveLength(1);
+    delete (HTMLElement.prototype as Partial<HTMLElement>).scrollIntoView;
+  });
+
   it("writes search to the URL, announces results, and clears query and theme together", async () => {
     const search = container.querySelector<HTMLInputElement>("#writing-search")!;
     await act(async () => {

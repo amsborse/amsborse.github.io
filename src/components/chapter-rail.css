@@ -1,0 +1,120 @@
+/* ── Chapter rail ──────────────────────────────────────────────────────────
+   Shared by the home page (six chapters) and article pages (one stop per section).
+   --rail-stop is the height of one stop: roomy for a few chapters, compressed so a long
+   essay's sections still fit the viewport. */
+
+.chapter-rail {
+  --rail-stop: 2.75rem;
+  position: fixed;
+  z-index: 30;
+  top: 50%;
+  right: 1.1rem;
+  display: none;
+  transform: translateY(-50%);
+}
+.chapter-rail[data-dense] {
+  --rail-stop: min(2.75rem, calc(72svh / var(--rail-count)));
+}
+@media (min-width: 1280px) and (min-height: 560px) {
+  .chapter-rail {
+    display: block;
+  }
+}
+.chapter-rail ol {
+  position: relative;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chapter-rail__track {
+  position: absolute;
+  top: calc(var(--rail-stop) / 2);
+  right: calc(0.6875rem - 0.5px);
+  bottom: calc(var(--rail-stop) / 2);
+  width: 1px;
+  background: var(--color-border-strong);
+}
+.chapter-rail__current {
+  position: absolute;
+  inset: 0;
+  transform-origin: top;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent-line);
+}
+.chapter-rail__stop {
+  position: relative;
+  display: flex;
+  height: var(--rail-stop);
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  border-radius: 0.25rem;
+}
+.chapter-rail__stop:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.chapter-rail__dot {
+  width: 1.375rem;
+  height: min(1.375rem, var(--rail-stop));
+  flex: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-ink-muted) 0 2.5px,
+    var(--color-bg) 3px 5px,
+    transparent 5.5px
+  );
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.chapter-rail__label {
+  max-width: 17rem;
+  overflow: hidden;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  background: var(--color-surface-elevated);
+  color: var(--color-ink);
+  font: 500 0.82rem/1.3 var(--font-sans, system-ui, sans-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  pointer-events: none;
+  transition:
+    opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.chapter-rail:not([data-dense]):hover .chapter-rail__label,
+.chapter-rail:not([data-dense]):focus-within .chapter-rail__label,
+/* Dense rails have no room for every label: name only the stop under the pointer or focus. */
+.chapter-rail[data-dense] .chapter-rail__stop:hover .chapter-rail__label,
+.chapter-rail[data-dense] .chapter-rail__stop:focus-visible .chapter-rail__label {
+  opacity: 1;
+  transform: none;
+}
+.chapter-rail[data-dense] .chapter-rail__label {
+  position: absolute;
+  right: 2.1rem;
+}
+.chapter-rail__stop[aria-current] .chapter-rail__dot {
+  background: radial-gradient(
+    circle,
+    var(--color-accent) 0 3.5px,
+    var(--color-bg) 4px 5.5px,
+    transparent 6px
+  );
+  transform: scale(1.15);
+}
+.chapter-rail__stop[aria-current] .chapter-rail__label {
+  border-color: var(--color-accent-line);
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-rail__dot,
+  .chapter-rail__label {
+    transition: none;
+  }
+}

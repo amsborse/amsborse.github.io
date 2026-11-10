@@ -1,4 +1,5 @@
-﻿import { useEffect, useRef } from "react";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { ChapterRail } from "@/components/ChapterRail";
 import { TableOfContents } from "@/components/TableOfContents";
 import { usePrefersReducedMotion } from "@/hooks/useParallax";
 import type { TocItem } from "@/utils/markdown";
@@ -50,43 +51,88 @@ export function ArticleReadingProgress() {
   );
 }
 
+/**
+ * The dot rail shows the essay's main sections; subsections fold into the section above
+ * them. Essays without h2 headings use every heading instead.
+ */
+export function railSections(items: TocItem[]) {
+  const main = items.filter((item) => item.level === 2);
+  return (main.length >= 3 ? main : items).map(({ id, text }) => ({ id, label: text }));
+}
+
+/** The rail stop for the heading being read: itself, or the nearest rail section above it. */
+export function railStopFor(items: TocItem[], stops: { id: string }[], activeId?: string) {
+  const ids = new Set(stops.map((stop) => stop.id));
+  const index = items.findIndex((item) => item.id === activeId);
+  for (let i = index; i >= 0; i--) if (ids.has(items[i].id)) return items[i].id;
+  return stops[0]?.id;
+}
+
+/** Left: the full table of contents. Right: the shared chapter dot rail. One tracker drives both. */
 export function ArticleContents({ items }: { items: TocItem[] }) {
   const rail = useRef<HTMLElement>(null);
+  const stops = useMemo(() => railSections(items), [items]);
+  const [current, setCurrent] = useState<string>();
   useEffect(() => {
     if (items.length < 3) return;
-    const headings = items.flatMap((item) => {
-      const heading = document.getElementById(item.id);
-      return heading ? [heading] : [];
-    });
     const links = rail.current?.querySelectorAll("a");
-    const body = document.getElementById("article-body");
     const update = () => {
+      // Look the headings up each frame: the article body can re-render its markup after this
+      // effect runs, and a detached heading reports top 0, which reads as "already passed".
+      const headings = items.flatMap((item) => {
+        const heading = document.getElementById(item.id);
+        return heading ? [heading] : [];
+      });
+      const body = document.getElementById("article-body");
       const line = window.innerHeight * 0.25;
       const bounds = body?.getBoundingClientRect();
       if (rail.current && bounds)
         rail.current.dataset.visible = String(bounds.top <= line && bounds.bottom > line);
       const passed = headings.filter((heading) => heading.getBoundingClientRect().top <= line);
       const active = passed.at(-1) ?? headings[0];
+      setCurrent(active?.id);
       links?.forEach((link) => {
         if (link.hash.slice(1) === active?.id) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       });
     };
-    const observer = new IntersectionObserver(update, { rootMargin: "-15% 0px -60% 0px" });
-    headings.forEach((heading) => observer.observe(heading));
-    if (body) observer.observe(body);
+    // Recompute once per frame while scrolling. Observer bands alone miss a glide that comes
+    // to rest inside a band (the heading never crosses the reading line in a reported frame).
+    let frame = 0;
+    const schedule = () => {
+      if (!frame)
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          update();
+        });
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     update();
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
   }, [items]);
   if (items.length < 3) return null;
   return (
-    <aside
-      ref={rail}
-      className="article-contents article-chrome"
-      aria-label="Article sections"
-      data-visible="false"
-    >
-      <TableOfContents items={items} variant="minimal" />
-    </aside>
+    <>
+      <aside
+        ref={rail}
+        className="article-contents article-chrome"
+        aria-label="Article sections"
+        data-visible="false"
+      >
+        <TableOfContents items={items} variant="minimal" />
+      </aside>
+      <ChapterRail
+        chapters={stops}
+        label="Sections of this essay"
+        activeId={railStopFor(items, stops, current)}
+        progressTargetId="article-body"
+        className="article-rail"
+      />
+    </>
   );
 }

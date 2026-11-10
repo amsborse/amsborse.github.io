@@ -4,6 +4,7 @@ import type { ArticleSummary } from "@/utils/loadArticles";
 import { categoriesFor, isPrimaryLanguage } from "@/utils/writingCatalog";
 import { writingCategories } from "@/data/writingCategories";
 import { formatArticleDate } from "@/components/writing/formatArticleDate";
+import { glideTo } from "@/layout/pageScroll";
 import {
   articlesByYear,
   featuredArticles,
@@ -158,9 +159,12 @@ export function WritingPublication({ posts }: { posts: ArticleSummary[] }) {
                 className="reading-theme"
                 aria-pressed={filters.theme === category.id}
                 aria-controls="reading-archive"
-                onClick={() =>
-                  update({ ...filters, theme: filters.theme === category.id ? null : category.id })
-                }
+                onClick={() => {
+                  const selecting = filters.theme !== category.id;
+                  update({ ...filters, theme: selecting ? category.id : null });
+                  // The filtered archive sits below the fold: take the reader to it.
+                  if (selecting) glideTo(document.getElementById("reading-archive"));
+                }}
               >
                 <span className="reading-theme__count">{counts.get(category.id)} essays</span>
                 <span className="reading-theme__name">{category.label}</span>

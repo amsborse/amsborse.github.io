@@ -4,7 +4,12 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ArticleReader } from "@/components/writing/article/ArticleReader";
-import { ArticleContents, ArticleReadingProgress } from "@/components/writing/article/ReadingTools";
+import {
+  ArticleContents,
+  ArticleReadingProgress,
+  railSections,
+  railStopFor,
+} from "@/components/writing/article/ReadingTools";
 import { useReadingFocus } from "@/components/writing/article/useReadingFocus";
 import {
   articleLanguageLabel,
@@ -209,6 +214,26 @@ describe("article reader markup", () => {
     ).toBe("Also in मराठी");
   });
 
+  it("puts main sections on the dot rail and folds subsections into the section above", () => {
+    const items = [
+      { id: "a", text: "A", level: 2 as const },
+      { id: "a1", text: "A1", level: 3 as const },
+      { id: "b", text: "B", level: 2 as const },
+      { id: "c", text: "C", level: 2 as const },
+    ];
+    const stops = railSections(items);
+    expect(stops).toEqual([
+      { id: "a", label: "A" },
+      { id: "b", label: "B" },
+      { id: "c", label: "C" },
+    ]);
+    expect(railStopFor(items, stops, "a1")).toBe("a");
+    expect(railStopFor(items, stops, "c")).toBe("c");
+    expect(railStopFor(items, stops, undefined)).toBe("a");
+    // Too few main sections: every heading becomes a stop.
+    expect(railSections(items.slice(0, 3)).map((stop) => stop.id)).toEqual(["a", "a1", "b"]);
+  });
+
   it("keeps absent metadata absent and hides the TOC below three headings", () => {
     const output = renderReader(fixture, []);
     expect(output.querySelector(".article-kicker")).toBeNull();
@@ -399,8 +424,11 @@ describe("reading observer lifecycle", () => {
     expect(intersections).toHaveLength(0);
   });
 
-  it("highlights the current TOC section and releases its observer", async () => {
-    const { intersections } = observers();
+  it("follows the section being read on every scroll and releases its listeners", async () => {
+    observers();
+    const queued: FrameRequestCallback[] = [];
+    const frames = vi.fn((callback: FrameRequestCallback) => queued.push(callback));
+    vi.stubGlobal("requestAnimationFrame", frames);
     const items = ["one", "two", "three"].map((id) => ({ id, text: id, level: 2 as const }));
     const output = await mount(
       createElement(
@@ -411,23 +439,85 @@ describe("reading observer lifecycle", () => {
       )
     );
     vi.stubGlobal("innerHeight", 800);
-    items.forEach((item, index) =>
+    const tops = { one: -100, two: -100, three: 500 };
+    items.forEach((item) =>
       vi
         .spyOn(document.getElementById(item.id)!, "getBoundingClientRect")
-        .mockReturnValue({ top: index === 2 ? 500 : -100 } as DOMRect)
+        .mockImplementation(() => ({ top: tops[item.id as keyof typeof tops] }) as DOMRect)
     );
     const railBounds = vi
       .spyOn(output.querySelector("#article-body")!, "getBoundingClientRect")
       .mockReturnValue({ top: 0, bottom: 2000 } as DOMRect);
-    intersections[0].callback([], {} as IntersectionObserver);
+    const scroll = () =>
+      act(async () => {
+        window.dispatchEvent(new Event("scroll"));
+        queued.splice(0).forEach((callback) => callback(0));
+      });
+    const current = (selector: string) =>
+      output.querySelector(`${selector} [aria-current="location"]`)?.getAttribute("href");
+    await scroll();
     expect(output.querySelector("aside")?.dataset.visible).toBe("true");
-    expect(output.querySelector('[aria-current="location"]')?.getAttribute("href")).toBe("#two");
-    expect(output.querySelectorAll('[aria-current="location"]')).toHaveLength(1);
+    expect(current("aside")).toBe("#two");
+    expect(output.querySelectorAll('aside [aria-current="location"]')).toHaveLength(1);
+    // The dot rail on the other side follows the same section.
+    expect(output.querySelectorAll(".chapter-rail a")).toHaveLength(3);
+    expect(current(".chapter-rail")).toBe("#two");
+    // A rail click glides "three" to rest just above the reading line (200px) without ever
+    // crossing an observer band edge: the next scroll frame must still pick it up.
+    tops.three = 192;
+    await scroll();
+    expect(current("aside")).toBe("#three");
+    expect(current(".chapter-rail")).toBe("#three");
     railBounds.mockReturnValue({ top: -2000, bottom: 0 } as DOMRect);
-    intersections[0].callback([], {} as IntersectionObserver);
+    await scroll();
     expect(output.querySelector("aside")?.dataset.visible).toBe("false");
     await act(async () => root!.unmount());
     root = undefined;
-    expect(intersections[0].disconnect).toHaveBeenCalledOnce();
+    frames.mockClear();
+    window.dispatchEvent(new Event("scroll"));
+    expect(frames).not.toHaveBeenCalled();
+  });
+
+  it("keeps tracking headings that the article body re-renders after the tracker starts", async () => {
+    observers();
+    const queued: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) =>
+      queued.push(callback)
+    );
+    vi.stubGlobal("innerHeight", 800);
+    const items = ["one", "two", "three"].map((id) => ({ id, text: id, level: 2 as const }));
+    const output = await mount(
+      createElement(
+        "div",
+        { id: "article-body" },
+        createElement(ArticleContents, { items }),
+        createElement("div", { className: "prose" })
+      )
+    );
+    const prose = output.querySelector(".prose")!;
+    const render = (tops: Record<string, number>) => {
+      prose.replaceChildren(
+        ...items.map((item) => {
+          const heading = document.createElement("h2");
+          heading.id = item.id;
+          heading.getBoundingClientRect = () => ({ top: tops[item.id] }) as DOMRect;
+          return heading;
+        })
+      );
+    };
+    // The tracker mounts before the body markup settles; the body then replaces its headings.
+    render({ one: 0, two: 0, three: 0 });
+    await act(async () => {});
+    render({ one: -900, two: 192, three: 1400 });
+    await act(async () => {
+      window.dispatchEvent(new Event("scroll"));
+      queued.splice(0).forEach((callback) => callback(0));
+    });
+    expect(output.querySelector('aside [aria-current="location"]')?.getAttribute("href")).toBe(
+      "#two"
+    );
+    expect(
+      output.querySelector('.chapter-rail [aria-current="location"]')?.getAttribute("href")
+    ).toBe("#two");
   });
 });
