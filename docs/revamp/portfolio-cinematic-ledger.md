@@ -21,7 +21,11 @@ at `59cb64f` (2026-11-09). Nothing here is pushed, merged or deployed.
 | 3 UX and motion | build-animation | Skill, loaded; read `workflows/cinematic-plate/cinematic-plate.md` in full | Text-free generated plate per chapter, exported with `export-plate.py`, thin live layers (glow, mist, pointer lean), paused offscreen, reduced-motion path | Shader water on inner plates: two CSS layers are enough there and cost nothing |
 | All | coordinate-agents | Skill, loaded; read `workflows/codex-implement.md` and `shared/codex-bridge.md` | Recorded under "Delegation log" | — |
 
-Later phases append their rows below as each skill is loaded.
+| 4–6 Pages | fix-bug | Skill, loaded | Reproduce, failing regression test, smallest fix, confirm in the built site; entries under "Bug fixes" | None |
+| 7 Quality | test-everything | Skill, loaded | Baseline and after counts from real runs, e2e at 360/412/768/1440, flaky runs reproduced and fixed at the cause | Coverage push beyond the branch: out of scope |
+| 7 Quality | verify | Skill, loaded | Rebuilt `dist`, after-screenshots of the real preview, Lighthouse on the built site | Both themes for every probe: themes covered in the screenshot set, not in Lighthouse |
+| 7 Quality | review-code | Skill, loaded; read `shared/codex-bridge.md` | Codex review of the branch against `master`, every finding verified (below) | Fallback agents: Codex was not out of quota |
+| — | local-report, sutra-deploy-rerun | Not used, per the brief | — | Excluded by the brief |
 
 ## Phase 1: audit
 
@@ -208,8 +212,8 @@ produced a night image (`-01`) and a dawn image (`-02`), exported with the build
 | experience | Experience stage | `prompts/experience.md` |
 | projects | Projects stage | `prompts/projects.md` |
 | writing | Writing stage | `prompts/writing.md` |
-| contact | Contact (pending integration) | `prompts/contact.md` |
-| horizon | Section transitions (pending integration) | `prompts/horizon.md` |
+| contact | Home contact chapter (`ContactChapter`) | `prompts/contact.md` |
+| horizon | Home horizon interlude (`HorizonInterlude`) | `prompts/horizon.md` |
 | learning | Learning stage (run `20261109T232846-image-c8d89a`) | `prompts/learning.md` |
 | about | About stage (run `20261109T233029-image-e9fb28`) | `prompts/about.md` |
 
@@ -218,6 +222,14 @@ produced a night image (`-01`) and a dawn image (`-02`), exported with the build
 | Slice | Agent | Worktree / branch | Status |
 | --- | --- | --- | --- |
 | Section plates (7 areas, 14 images) | Codex (image mode) | n/a | Done, reviewed image by image |
+| Experience timeline | Codex (`codex-bridge run`, workspace-write) | `../amsborse-cinematic-revamp-codex-experience` | Done; diff reviewed, checks rerun, integrated as `c1c448e` |
+| Writing index and article (`20261109T234349-frontend-897d7f`) | Codex | `../amsborse-cinematic-revamp-codex-writing` | Done; integrated as `e5cb2be` |
+| Projects showcase (`20261109T234349-frontend-5706e0`) | Codex | `../amsborse-cinematic-revamp-codex-projects` | Done; integrated as `4398aa5` |
+| Branch review (`20261110T044509-review-6c5c63`) | Codex (review, read-only) | n/a | Done, 2 findings: 1 confirmed and fixed, 1 rejected |
+
+The three Codex worktrees were removed with `git worktree remove`; their empty folders are still
+held open by another process and could not be deleted (`Device or resource busy`). They are empty
+and safe to delete by hand.
 
 ## Improvement loops
 
@@ -229,3 +241,83 @@ produced a night image (`-01`) and a dawn image (`-02`), exported with the build
   removed), added the Projects stage and the Writing nav entry (fits at 768). Remaining: the old
   cards on Experience, Projects and Writing (next slices); uppercase mono labels; faint banding
   left of the night plates on very dark screens.
+
+## Bug fixes (fix-bug)
+
+Each fix has a regression test that failed before the fix and passes after it.
+
+| Bug | Cause | Fix | Regression test |
+| --- | --- | --- | --- |
+| Article back link hidden under the fixed header | The article wrapper had no top offset | Uses `.page-top` (`e5cb2be`) | `tests/e2e/article-offset.spec.ts` |
+| Footer jumps while a page loads (CLS 0.17–0.4 in the baseline) | Lazy-route placeholder was short, so the footer moved when the page arrived | Placeholder is a full screen tall (`60141ac`) | `tests/e2e/layout-shift.spec.ts` |
+| Lighthouse a11y failures (logo name, hotspot overlap, TOC contrast) | Logo's spoken name differed from its visible text; hotspots overlapped on phones; low-contrast label | Fixed names, spacing and contrast (`60141ac`) | `tests/e2e/a11y-targets.spec.ts` |
+| Hero blocks taps and scrolling on slow GPUs | Every ambient WebGL frame became a long task when the device could not hold 30fps | Frame governor settles the plate on a still frame (early verdict after three frames over 68 ms) (`f86867a`) | `tests/unit/hero-frame-governor.test.ts`, `tests/e2e/hero-slow-device.spec.ts` |
+| Essay list pushes the home page when it fills | Rows were not reserved while essays were parsed | Essays load near the viewport into rows sized per width (`f86867a`) | `tests/e2e/home-essays.spec.ts` |
+| Hero caption test fails with "Cannot fast-forward to the past" (also on `master`) | The page clock moved past the pause time between reading it and pausing | Retry the pause with a fresh clock reading; setup only, no assertion changed (`f86867a`) | The existing `hero.spec.ts` case, 8 of 8 under parallel load |
+| Page stages keep moving when reduced motion is turned on mid-visit (Codex finding) | Setting read once at mount; reduced-motion CSS missed glow and mist | Subscribes to the media query; CSS stops both animations (`64373c7`) | `tests/e2e/page-stage-motion.spec.ts` |
+
+## Phase 7: quality
+
+### Tests (real runs)
+
+- Unit (Vitest): 23 files, 154 tests passing. Typecheck clean, lint 0 errors.
+- End-to-end (Playwright, Chromium): 84 of 84 passing on the last full run.
+- Load-sensitive: in some full parallel runs `hero-slow-device`, `hero.spec.ts:124` and
+  `home-essays.spec.ts:412` failed once each and passed in isolation and on rerun (slow-device
+  4 of 4 serially). No assertion or timeout was loosened; the slow-device test now prints the
+  long tasks it saw so a future failure can be diagnosed.
+- Repo lifecycle: `agent:task` → `review:run` (fast) → `agent:finish`, both passed. The fast
+  review scoped itself to the last commit (knowledge graph only), so it is not evidence for the
+  whole branch; the suites above are.
+
+### Codex review
+
+Run `20261110T044509-review-6c5c63` (branch against `master`, read-only, 81 s).
+
+1. **ChapterRail rootMargin uses percentages (medium): rejected.** Probed in Chromium at
+   1440×900, 1280×720 and 390×844: the rail marked the right chapter for all six chapters.
+2. **PageStage reads reduced motion only once (medium): confirmed** and fixed in `64373c7`
+   (see "Bug fixes").
+
+### Lighthouse (production build, `npx lighthouse`, real runs)
+
+Perf / a11y per page. Baseline is `master` at `59cb64f`; final is this branch after `64373c7`.
+
+| Page | Mobile before | Mobile final | Desktop before | Desktop final |
+| --- | --- | --- | --- | --- |
+| Home | 60 / 92 | 58 / 96 | 69 / 96 | 73 / 100 |
+| Experience | 55 / 94 | 93 / 100 | 82 / 94 | 100 / 100 |
+| Projects | 75 / 96 | 67 / 100 | 82 / 96 | 91 / 100 |
+| Writing | 50 / 95 | 89 / 100 | 92 / 95 | 100 / 100 |
+| Article | 93 / 96 | 91 / 100 | 85 / 96 | 100 / 100 |
+| About | 70 / 95 | 95 / 100 | 83 / 95 | 100 / 100 |
+
+CLS is 0 on every page in the final run (baseline had 0.17–0.4 on several). Reports:
+`docs/revamp/lighthouse/{baseline,after,mid,final}/`. Writing mobile was 93 in the "after" run
+and 89 in "final" with no change to that page; treat ±4 as run-to-run noise.
+
+**Targets not met.** Performance ≥ 90 is missed on Home mobile (58) and desktop (73), and
+Projects mobile (67); Writing mobile is at the edge (89–93). Accessibility ≥ 95 is met on every
+page.
+
+- Home: TBT 3,250 ms on mobile. Profiling (`scripts/revamp-tbt.mjs`, `revamp-profile.mjs`)
+  shows the first style and layout pass (motion library reading the window size) plus the WebGL
+  hero; with `?heroWebGL=off` TBT halves (2,266 → 1,139 ms). Getting to 90 needs the hero to
+  start as the still plate and upgrade to WebGL after first input or idle, which changes the
+  first impression, so it is left as a decision.
+- Projects: LCP 4.4 s is the stage art image, which is not discoverable in the initial HTML.
+  A preload for the stage image per route would address it.
+- Home mobile a11y 96: the target-size audit still flags one hero hotspot (28 px button whose
+  spacing to its neighbour is under 24 px at 412 px wide).
+
+### Screenshots
+
+Before: `docs/revamp/baseline/`. After: `docs/revamp/after/` (176 shots from the rebuilt
+`dist`, `manifest.json` lists them). PNGs are gitignored; regenerate with
+`node scripts/revamp-shots.mjs <label>`.
+
+### Environment notes
+
+- A stale Vite dev server on port 1111 (started from this worktree earlier) served an overlay
+  error for a deleted file. Stopping it was refused by the session's safety classifier, so the
+  e2e runs reused it after a cache-invalidating touch. Stop it by hand when done.
