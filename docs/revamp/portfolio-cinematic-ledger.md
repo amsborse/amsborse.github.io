@@ -320,4 +320,5 @@ Before: `docs/revamp/baseline/`. After: `docs/revamp/after/` (176 shots from the
 
 - A stale Vite dev server on port 1111 (started from this worktree earlier) served an overlay
   error for a deleted file. Stopping it was refused by the session's safety classifier, so the
-  e2e runs reused it after a cache-invalidating touch. Stop it by hand when done.
+  e2e runs reused it after a cache-invalidating touch. It had exited by the end of the session;
+  no ports from this work were left listening.
