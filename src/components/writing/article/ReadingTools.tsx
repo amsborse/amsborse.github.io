@@ -206,11 +206,20 @@ export function timeLeftLabel(remaining: number, total: number, readingMinutes: 
   return `${Math.max(1, Math.round((readingMinutes * remaining) / total))} min left`;
 }
 
+/** The same share as a digital clock, "05:00" … "00:00", so it ticks with every scroll. */
+export function timeLeftClock(remaining: number, total: number, readingMinutes: number) {
+  const seconds =
+    remaining > 0 && total > 0 ? Math.round((readingMinutes * 60 * remaining) / total) : 0;
+  const pad = (value: number) => String(value).padStart(2, "0");
+  return `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
+}
+
 const countWords = (text: string | null) => (text ?? "").split(/\s+/).filter(Boolean).length;
 
 /** Counts down the minutes left from the words below the reading line, as the reader scrolls. */
 export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) {
   const [label, setLabel] = useState<string>();
+  const [clock, setClock] = useState("00:00");
   const [reading, setReading] = useState(false);
   useEffect(() => {
     const body = document.getElementById("article-body");
@@ -239,6 +248,7 @@ export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) 
         line
       );
       setLabel(timeLeftLabel(words, total, readingMinutes));
+      setClock(timeLeftClock(words, total, readingMinutes));
     };
     const schedule = () => {
       if (!frame && !document.hidden) frame = requestAnimationFrame(update);
@@ -264,7 +274,10 @@ export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) 
   return (
     <p className="article-time-left" data-visible={reading && label ? "true" : "false"}>
       <span className="sr-only">Reading time: </span>
-      {label}
+      <span className="article-time-left__clock" aria-hidden="true">
+        {clock}
+      </span>
+      <span className="article-time-left__label">{label}</span>
     </p>
   );
 }

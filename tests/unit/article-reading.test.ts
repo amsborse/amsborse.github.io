@@ -10,6 +10,7 @@ import {
   fitContents,
   railSections,
   railStopFor,
+  timeLeftClock,
   timeLeftLabel,
   wordsRemaining,
 } from "@/components/writing/article/ReadingTools";
@@ -637,5 +638,12 @@ describe("reading observer lifecycle", () => {
     expect(timeLeftLabel(600, 1000, 5)).toBe("3 min left");
     expect(timeLeftLabel(20, 1000, 5)).toBe("1 min left");
     expect(timeLeftLabel(0, 1000, 5)).toBe("Finished");
+    // The clock ticks with every scrolled word: 5:00 at the top, down to 00:00.
+    expect(timeLeftClock(1000, 1000, 5)).toBe("05:00");
+    expect(timeLeftClock(999, 1000, 5)).toBe("05:00");
+    expect(timeLeftClock(600, 1000, 5)).toBe("03:00");
+    expect(timeLeftClock(523, 1000, 5)).toBe("02:37");
+    expect(timeLeftClock(0, 1000, 5)).toBe("00:00");
+    expect(timeLeftClock(10, 0, 5)).toBe("00:00");
   });
 });

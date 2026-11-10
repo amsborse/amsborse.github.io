@@ -60,6 +60,18 @@ test("an essay's own contents list is hidden and the time left counts down", asy
   expect(start).toBeGreaterThan(1);
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.55));
   await expect.poll(minutes).toBeLessThan(start);
+  // The digital clock ticks down with the scroll, not with wall time.
+  const clock = left.locator(".article-time-left__clock");
+  const seconds = async () => {
+    const [m, s] = ((await clock.textContent()) ?? "").split(":").map(Number);
+    return m * 60 + s;
+  };
+  const before = await seconds();
+  await page.waitForTimeout(1500);
+  expect(await seconds()).toBe(before);
+  await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+  await expect.poll(seconds).toBeLessThan(before);
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await expect(left).toContainText("Finished");
+  await expect(clock).toHaveText("00:00");
 });
