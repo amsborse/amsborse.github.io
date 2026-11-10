@@ -237,4 +237,8 @@
   .page-stage__glow {
     transform: none;
   }
+  .page-stage[data-live="true"] .page-stage__glow,
+  .page-stage[data-live="true"] .page-stage__mist {
+    animation: none;
+  }
 }

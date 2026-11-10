@@ -32,13 +32,15 @@ test("the hero stops blocking the main thread on a slow phone", async ({ browser
   await page.waitForTimeout(4000);
   const from = await page.evaluate(() => performance.now());
   await page.waitForTimeout(3000);
-  const blocking = await page.evaluate(
+  const tasks = await page.evaluate(
     (start) =>
       (window as unknown as { __tasks: { start: number; duration: number }[] }).__tasks
         .filter((task) => task.start >= start)
-        .reduce((sum, task) => sum + Math.max(0, task.duration - 50), 0),
+        .map((task) => Math.round(task.duration)),
     from
   );
+  const ambient = await page.locator(".hero-plate-canvas").getAttribute("data-ambient");
   await context.close();
-  expect(blocking).toBeLessThan(300);
+  const blocking = tasks.reduce((sum, duration) => sum + Math.max(0, duration - 50), 0);
+  expect(blocking, `ambient=${ambient} long tasks=${tasks.join(",")}`).toBeLessThan(300);
 });

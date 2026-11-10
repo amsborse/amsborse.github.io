@@ -35,6 +35,21 @@ export function useDocumentTheme(): Theme {
   return useSyncExternalStore(subscribeToTheme, readTheme, () => "dark");
 }
 
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+function subscribeToReducedMotion(onChange: () => void) {
+  const query = window.matchMedia(reducedMotionQuery);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+/** The reader's reduced-motion setting, kept current while the page is open. */
+function usePrefersReducedMotion(): boolean {
+  return useSyncExternalStore(
+    subscribeToReducedMotion,
+    () => window.matchMedia(reducedMotionQuery).matches,
+    () => false
+  );
+}
+
 const wantsClassicStage = () =>
   typeof window !== "undefined" &&
   new URLSearchParams(window.location.search).get("stage") === "classic";
@@ -63,7 +78,9 @@ export function PageStage(props: StageProps) {
 function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageProps) {
   const stage = useRef<HTMLElement>(null);
   const theme = useDocumentTheme();
-  useStageLife(stage);
+  // Follows the system setting live, so turning reduced motion on mid-visit stills the stage.
+  const still = usePrefersReducedMotion();
+  useStageLife(stage, still);
   const base = `${import.meta.env.BASE_URL}assets/cinematic/${plates[motif]}/${plates[motif]}-${theme}`;
   return (
     <section
@@ -104,11 +121,10 @@ function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageP
  * Runs the stage's live layers only while it is on screen, and lets the plate lean a few pixels
  * toward the pointer. Reduced motion and touch devices keep the plate still.
  */
-function useStageLife(stage: React.RefObject<HTMLElement | null>) {
+function useStageLife(stage: React.RefObject<HTMLElement | null>, still: boolean) {
   useEffect(() => {
     const element = stage.current;
     if (!element || typeof IntersectionObserver === "undefined") return;
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (still) return;
 
     let onScreen = false;
@@ -149,6 +165,9 @@ function useStageLife(stage: React.RefObject<HTMLElement | null>) {
       document.removeEventListener("visibilitychange", sync);
       window.removeEventListener("pointermove", onPointer);
       cancelAnimationFrame(frame);
+      delete element.dataset.live;
+      element.style.removeProperty("--lean-x");
+      element.style.removeProperty("--lean-y");
     };
-  }, [stage]);
+  }, [stage, still]);
 }
