@@ -10,12 +10,15 @@ import {
   fitContents,
   railSections,
   railStopFor,
+  timeLeftLabel,
+  wordsRemaining,
 } from "@/components/writing/article/ReadingTools";
 import { useReadingFocus } from "@/components/writing/article/useReadingFocus";
 import {
   articleLanguageLabel,
   articlePresentation,
   articleProgress,
+  articleSections,
   articleTranslations,
   isReadingShortcut,
   primaryArticleTheme,
@@ -587,5 +590,52 @@ describe("reading observer lifecycle", () => {
     expect(scrollTo).toHaveBeenCalledTimes(1);
     await scroll();
     expect(scrollTo).toHaveBeenCalledTimes(1);
+  });
+
+  it("hides an essay's own written-in contents and leaves it out of the rails", async () => {
+    const summaries = await getArticleSummaries();
+    let found = 0;
+    for (const summary of summaries) {
+      const post = (await getPostBySlug(summary.slug))!;
+      const own = post.toc.filter((item) => /table of contents/i.test(item.text));
+      if (!own.length) continue;
+      found += 1;
+      expect(articleSections(post.toc), summary.slug).toEqual(
+        post.toc.filter((item) => !own.includes(item))
+      );
+      const body = document.createElement("div");
+      body.innerHTML = articlePresentation(post).bodyHtml;
+      const heading = body.querySelector(`[id="${own[0].id}"]`)!;
+      expect(heading.classList.contains("article-authored-contents"), summary.slug).toBe(true);
+      // The list right under the heading goes with it; the essay's first section stays.
+      const list = heading.nextElementSibling!;
+      expect(list.tagName, summary.slug).toMatch(/^(OL|UL)$/);
+      expect(list.classList.contains("article-authored-contents"), summary.slug).toBe(true);
+      const firstSection = body.querySelector(`[id="${articleSections(post.toc)[0].id}"]`)!;
+      expect(firstSection.classList.contains("article-authored-contents")).toBe(false);
+      // A separator before and after the list collapses to one.
+      const separators = Array.from(body.children).filter(
+        (node) => node.tagName === "HR" && !node.classList.contains("article-authored-contents")
+      );
+      for (const [index, node] of separators.entries())
+        expect(separators[index + 1] === node.nextElementSibling, summary.slug).toBe(false);
+    }
+    expect(found).toBeGreaterThanOrEqual(6);
+  }, 20_000);
+
+  it("counts down the minutes left from the words still below the reading line", () => {
+    const blocks = [
+      { top: -400, bottom: -100, words: 300 },
+      { top: 100, bottom: 300, words: 200 },
+      { top: 400, bottom: 900, words: 500 },
+    ];
+    expect(wordsRemaining(blocks, -500)).toBe(1000);
+    expect(wordsRemaining(blocks, 200)).toBe(600);
+    expect(wordsRemaining(blocks, 1000)).toBe(0);
+    // It starts at the header's "N min read" and ends at "Finished".
+    expect(timeLeftLabel(1000, 1000, 5)).toBe("5 min left");
+    expect(timeLeftLabel(600, 1000, 5)).toBe("3 min left");
+    expect(timeLeftLabel(20, 1000, 5)).toBe("1 min left");
+    expect(timeLeftLabel(0, 1000, 5)).toBe("Finished");
   });
 });

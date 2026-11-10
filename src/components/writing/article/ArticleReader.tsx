@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
 import { site } from "@/data";
@@ -6,11 +7,12 @@ import type { ParsedPost } from "@/utils/markdown";
 import { categoriesFor, relatedArticles } from "@/utils/writingCatalog";
 import { formatArticleDate } from "../formatArticleDate";
 import { ArticleAtmosphere } from "./ArticleAtmosphere";
-import { ArticleContents, ArticleReadingProgress } from "./ReadingTools";
+import { ArticleContents, ArticleReadingProgress, ArticleTimeLeft } from "./ReadingTools";
 import { useReadingFocus } from "./useReadingFocus";
 import {
   articleLanguageLabel,
   articlePresentation,
+  articleSections,
   articleTranslations,
   primaryArticleTheme,
 } from "./articleHelpers";
@@ -24,6 +26,7 @@ export function ArticleReader({
 }) {
   const [focused, toggleFocus] = useReadingFocus();
   const { bodyHtml, coverHtml } = articlePresentation(post);
+  const sections = useMemo(() => articleSections(post.toc), [post.toc]);
   const { original, translations } = articleTranslations(post, summaries);
   const related = relatedArticles(toSummary(post), summaries);
   const index = summaries.findIndex((item) => item.slug === post.slug);
@@ -38,8 +41,9 @@ export function ArticleReader({
         path={`/arsenal/writing/${post.slug}`}
       />
       <ArticleReadingProgress />
+      <ArticleTimeLeft key={post.slug} readingMinutes={post.readingMinutes} />
       <ArticleAtmosphere theme={primaryArticleTheme(post)} focused={focused} />
-      <ArticleContents items={post.toc} />
+      <ArticleContents items={sections} />
       {focused ? (
         <button
           type="button"

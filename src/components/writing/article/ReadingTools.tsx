@@ -183,3 +183,88 @@ export function ArticleContents({ items }: { items: TocItem[] }) {
     </>
   );
 }
+
+type ReadingBlock = { top: number; bottom: number; words: number };
+
+/** Words still ahead of the reading line; the block it crosses counts the part below it. */
+export function wordsRemaining(blocks: readonly ReadingBlock[], line: number) {
+  let words = 0;
+  for (const { top, bottom, words: count } of blocks) {
+    if (top >= line) words += count;
+    else if (bottom > line) words += (count * (bottom - line)) / (bottom - top);
+  }
+  return Math.round(words);
+}
+
+/**
+ * "4 min left" … "1 min left", then "Finished". The essay's own reading time (its word count
+ * at 220 words a minute) scaled by the share of words still ahead, so the countdown starts
+ * at the "N min read" in the header.
+ */
+export function timeLeftLabel(remaining: number, total: number, readingMinutes: number) {
+  if (remaining <= 0 || total <= 0) return "Finished";
+  return `${Math.max(1, Math.round((readingMinutes * remaining) / total))} min left`;
+}
+
+const countWords = (text: string | null) => (text ?? "").split(/\s+/).filter(Boolean).length;
+
+/** Counts down the minutes left from the words below the reading line, as the reader scrolls. */
+export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) {
+  const [label, setLabel] = useState<string>();
+  const [reading, setReading] = useState(false);
+  useEffect(() => {
+    const body = document.getElementById("article-body");
+    if (!body) return;
+    let blocks: { element: Element; words: number }[] = [];
+    let total = 0;
+    // Hidden blocks (the essay's own contents list, the duplicated cover) are not read.
+    const measure = () => {
+      blocks = Array.from(body.children, (element) => ({
+        element,
+        words: element.getClientRects().length ? countWords(element.textContent) : 0,
+      })).filter((block) => block.words > 0);
+      total = blocks.reduce((sum, block) => sum + block.words, 0);
+    };
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.3;
+      const bounds = body.getBoundingClientRect();
+      setReading(bounds.top <= line && bounds.bottom > 0);
+      const words = wordsRemaining(
+        blocks.map(({ element, words }) => {
+          const rect = element.getBoundingClientRect();
+          return { top: rect.top, bottom: rect.bottom, words };
+        }),
+        line
+      );
+      setLabel(timeLeftLabel(words, total, readingMinutes));
+    };
+    const schedule = () => {
+      if (!frame && !document.hidden) frame = requestAnimationFrame(update);
+    };
+    const resize = new ResizeObserver(() => {
+      measure();
+      schedule();
+    });
+    resize.observe(body);
+    measure();
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    document.addEventListener("visibilitychange", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      document.removeEventListener("visibilitychange", schedule);
+    };
+  }, [readingMinutes]);
+  return (
+    <p className="article-time-left" data-visible={reading && label ? "true" : "false"}>
+      <span className="sr-only">Reading time: </span>
+      {label}
+    </p>
+  );
+}

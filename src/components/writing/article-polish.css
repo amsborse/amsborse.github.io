@@ -216,8 +216,44 @@
   transform: translateX(-50%);
 }
 
-.article-reading .prose-article .medium-figure.article-figure--duplicate {
+.article-reading .prose-article .medium-figure.article-figure--duplicate,
+.article-reading .prose-article .article-authored-contents {
   display: none;
+}
+
+/* Minutes left, counted from the words still below the reading line. */
+.article-time-left {
+  position: fixed;
+  z-index: 40;
+  top: calc(var(--site-header-h, 5rem) + 0.75rem);
+  right: 1rem;
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--color-reading-canvas);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-body) 14%, transparent);
+  color: var(--color-body);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.article-time-left[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-time-left {
+    transform: none;
+    transition: none;
+  }
 }
 
 .article-reading .prose-article blockquote.medium-pullquote {

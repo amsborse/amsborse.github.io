@@ -1,5 +1,5 @@
 import type { ArticleSummary } from "@/utils/loadArticles";
-import type { ParsedPost } from "@/utils/markdown";
+import type { ParsedPost, TocItem } from "@/utils/markdown";
 import { categoriesFor } from "@/utils/writingCatalog";
 
 export function primaryArticleTheme(post: Pick<ParsedPost, "tags" | "collection">) {
@@ -16,13 +16,68 @@ function addClass(tag: string, name: string): string {
     : tag.replace(/\s*\/?>$/, (end) => ` class="${name}"${end}`);
 }
 
+const AUTHORED_CONTENTS = /^[^\p{L}]*table of contents\s*$/iu;
+
+/** Some essays carry their own "Table of Contents" heading; the page's contents rail replaces it. */
+export function isAuthoredContents(item: Pick<TocItem, "text">) {
+  return AUTHORED_CONTENTS.test(item.text);
+}
+
+/** The headings the contents and dot rails show: an essay's own contents section is left out. */
+export function articleSections(toc: readonly TocItem[]) {
+  return toc.filter((item) => !isAuthoredContents(item));
+}
+
+/**
+ * Marks a written-in contents section (its heading, the list under it, and the separator after
+ * it when one also comes before it) so CSS hides it; the text itself stays in the page.
+ */
+function markAuthoredContents(html: string, toc: readonly TocItem[]) {
+  let out = html;
+  for (const { id } of toc.filter(isAuthoredContents)) {
+    if (!/^[\w-]+$/.test(id)) continue;
+    const section = new RegExp(
+      `(<hr\\b[^>]*>\\s*)?(<h([2-4])\\b[^>]*\\sid="${id}"[^>]*>[\\s\\S]*?</h\\3>)` +
+        `(\\s*<(ol|ul)\\b[^>]*>[\\s\\S]*?</\\5>)?(\\s*<hr\\b[^>]*>)?`,
+      "i"
+    );
+    out = out.replace(
+      section,
+      (
+        _whole,
+        before: string | undefined,
+        heading: string,
+        _level: string,
+        list: string | undefined,
+        _tag: string | undefined,
+        after: string | undefined
+      ) => {
+        const hide = (block: string) =>
+          block.replace(/<[a-z][^>]*>/i, (open) => addClass(open, "article-authored-contents"));
+        return (
+          (before ?? "") +
+          hide(heading) +
+          (list ? hide(list) : "") +
+          (after ? (before ? hide(after) : after) : "")
+        );
+      }
+    );
+  }
+  return out;
+}
+
 /** Presentation classes only: source content, order, captions and image metadata stay intact. */
-export function articlePresentation(post: Pick<ParsedPost, "html" | "cover">) {
-  let bodyHtml = post.html.replace(/<img\b[^>]*>/gi, (tag) => {
-    const width = Number(attribute(tag, "width"));
-    const height = Number(attribute(tag, "height"));
-    return width > 0 && height / width > 1.4 ? addClass(tag, "article-image--portrait") : tag;
-  });
+export function articlePresentation(
+  post: Pick<ParsedPost, "html" | "cover"> & { toc?: readonly TocItem[] }
+) {
+  let bodyHtml = markAuthoredContents(post.html, post.toc ?? []).replace(
+    /<img\b[^>]*>/gi,
+    (tag) => {
+      const width = Number(attribute(tag, "width"));
+      const height = Number(attribute(tag, "height"));
+      return width > 0 && height / width > 1.4 ? addClass(tag, "article-image--portrait") : tag;
+    }
+  );
   const firstImage = /<img\b[^>]*>/i.exec(bodyHtml);
   const firstFigure = /<figure\b[^>]*>[\s\S]*?<\/figure>/i.exec(bodyHtml);
   let coverHtml: string | undefined;

@@ -40,3 +40,26 @@ for (const [width, height] of [
     });
   }
 }
+
+test("an essay's own contents list is hidden and the time left counts down", async ({ page }) => {
+  await page.setViewportSize({ width: 1536, height: 864 });
+  await page.goto("/arsenal/writing/motivation-works-in-bursts-life-doesnt");
+  const body = page.locator("#article-body");
+  await expect(body.getByRole("heading", { name: "Table of Contents" })).toBeHidden();
+  await expect(body.getByRole("heading", { name: /Days That Don.t Add Up/ })).toBeVisible();
+  await expect(page.locator(".article-contents a", { hasText: "Table of Contents" })).toHaveCount(
+    0
+  );
+
+  const left = page.locator(".article-time-left");
+  const minutes = async () => Number((await left.textContent())?.match(/(\d+) min left/)?.[1]);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.12));
+  await expect(left).toHaveAttribute("data-visible", "true");
+  await expect(left).toContainText(/\d+ min left/);
+  const start = await minutes();
+  expect(start).toBeGreaterThan(1);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.55));
+  await expect.poll(minutes).toBeLessThan(start);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await expect(left).toContainText("Finished");
+});
