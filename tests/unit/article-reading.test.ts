@@ -1,0 +1,433 @@
+import { createElement, act } from "react";
+import { createRoot, type Root } from "react-dom/client";
+import { renderToStaticMarkup } from "react-dom/server";
+import { MemoryRouter } from "react-router-dom";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ArticleReader } from "@/components/writing/article/ArticleReader";
+import { ArticleContents, ArticleReadingProgress } from "@/components/writing/article/ReadingTools";
+import { useReadingFocus } from "@/components/writing/article/useReadingFocus";
+import {
+  articleLanguageLabel,
+  articlePresentation,
+  articleProgress,
+  articleTranslations,
+  isReadingShortcut,
+  primaryArticleTheme,
+} from "@/components/writing/article/articleHelpers";
+import { getArticleSummaries, getPostBySlug } from "@/utils/loadArticles";
+import type { ParsedPost } from "@/utils/markdown";
+import { categoriesFor, relatedArticles } from "@/utils/writingCatalog";
+import { toSummary } from "@/utils/loadArticles";
+
+const fixture: ParsedPost = {
+  slug: "fixture",
+  title: "An essay",
+  description: "Description",
+  date: "2025-01-01",
+  tags: ["systems"],
+  featured: false,
+  readingMinutes: 3,
+  html: "<p>Body</p>",
+  toc: [],
+};
+
+beforeEach(() => {
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn(() => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+  );
+});
+
+describe("article presentation helpers", () => {
+  it("takes the first catalog theme without inventing one for unknown tags", () => {
+    expect(primaryArticleTheme({ tags: ["Psychology", "Consciousness"] })).toBe("consciousness");
+    expect(primaryArticleTheme({ tags: ["unknown"] })).toBeUndefined();
+    expect(primaryArticleTheme({ tags: [], collection: "New Earth Consciousness" })).toBe(
+      "consciousness"
+    );
+  });
+
+  it("hides only the matching first figure in place and preserves its alt, caption and srcset", () => {
+    const figure =
+      '<figure class="medium-figure" data-layout="fill"><img src="/cover.webp" alt="Source alt" width="800" height="400" srcset="/small.webp 400w" loading="lazy"><figcaption>Source caption</figcaption></figure>';
+    const html = `<p>Before</p>${figure}<p>After</p>${figure}`;
+    const result = articlePresentation({ html, cover: "/cover.webp" });
+    expect(result.bodyHtml).toBe(
+      html.replace('class="medium-figure"', 'class="medium-figure article-figure--duplicate"')
+    );
+    expect(result.coverHtml).toBe(figure.replace('loading="lazy"', 'loading="eager"'));
+    expect(result.bodyHtml.match(/article-figure--duplicate/g)).toHaveLength(1);
+  });
+
+  it("leaves differing covers, later matches, and images outside figures alone", () => {
+    for (const html of [
+      '<figure><img src="/different.webp"></figure><figure><img src="/cover.webp"></figure>',
+      '<p><img src="/cover.webp"></p><figure><img src="/cover.webp"></figure>',
+      '<figure><img data-src="/cover.webp" src="/different.webp"></figure>',
+      "<p>No images</p>",
+    ]) {
+      expect(articlePresentation({ html, cover: "/cover.webp" })).toEqual({
+        bodyHtml: html,
+        coverHtml: undefined,
+      });
+    }
+    const html = '<figure><img src="/cover.webp"></figure>';
+    expect(articlePresentation({ html }).bodyHtml).toBe(html);
+  });
+
+  it("handles single-quoted attributes and marks only genuinely tall images", () => {
+    const html =
+      "<figure data-layout='inset'><img class='source' src='/a?x=1&amp;y=2' width='100' height='141' alt=''></figure><img width='100' height='140'><img height='400'>";
+    const result = articlePresentation({ html, cover: "/a?x=1&y=2" });
+    expect(result.coverHtml).toContain("class='source article-image--portrait'");
+    expect(result.bodyHtml.match(/article-image--portrait/g)).toHaveLength(1);
+    expect(result.bodyHtml).toContain(
+      "<figure data-layout='inset' class=\"article-figure--duplicate\">"
+    );
+  });
+
+  it("uses real article loaders for themes, cover duplication, and unchanged source text", async () => {
+    const summaries = await getArticleSummaries();
+    for (const summary of summaries) {
+      const post = (await getPostBySlug(summary.slug))!;
+      expect(primaryArticleTheme(post)).toBe(categoriesFor(summary)[0]?.id);
+      const presented = articlePresentation(post);
+      const source = document.createElement("div");
+      source.innerHTML = post.html;
+      const output = document.createElement("div");
+      output.innerHTML = presented.bodyHtml;
+      expect(output.textContent, summary.slug).toBe(source.textContent);
+      expect(Array.from(output.querySelectorAll("img"), (img) => img.getAttribute("alt"))).toEqual(
+        Array.from(source.querySelectorAll("img"), (img) => img.getAttribute("alt"))
+      );
+      if (source.querySelector("figure img")?.getAttribute("src") === post.cover && post.cover) {
+        expect(output.querySelectorAll(".article-figure--duplicate"), summary.slug).toHaveLength(1);
+        expect(presented.coverHtml).toContain(post.cover);
+      }
+    }
+    const time = (await getPostBySlug("i-dont-have-time"))!;
+    const result = articlePresentation(time);
+    expect(result.bodyHtml.startsWith("<p>")).toBe(true);
+    expect(result.coverHtml).toContain("article-image--portrait");
+    expect(result.bodyHtml.indexOf("article-figure--duplicate")).toBeGreaterThan(
+      result.bodyHtml.indexOf("<h2")
+    );
+    const engineering = (await getPostBySlug("designing-for-reliability"))!;
+    expect(articlePresentation(engineering)).toEqual({
+      bodyHtml: engineering.html,
+      coverHtml: undefined,
+    });
+    // Parses every essay through jsdom (~2s alone); leave headroom when the whole suite runs in parallel.
+  }, 20_000);
+
+  it("finds real original / translation pairs without suggesting unrelated languages", async () => {
+    const summaries = await getArticleSummaries();
+    const translated = summaries.filter((item) => item.translationOf);
+    expect(translated.length).toBeGreaterThan(0);
+    for (const item of translated) {
+      const { original, translations } = articleTranslations(item, summaries);
+      expect(original?.slug).toBe(item.translationOf);
+      expect(translations).toEqual([]);
+      expect(articleTranslations(original!, summaries).translations).toContain(item);
+    }
+    expect(
+      articleTranslations({ slug: "missing", translationOf: "missing-too" }, summaries)
+    ).toEqual({ original: undefined, translations: [] });
+    expect(articleLanguageLabel("mr")).toBe("मराठी");
+    expect(articleLanguageLabel("fr")).toBe("fr");
+    expect(articleLanguageLabel(undefined)).toBeUndefined();
+  });
+
+  it("measures body geometry instead of document or element scrollTop", () => {
+    expect(articleProgress(200, 2000, 800)).toBe(0);
+    expect(articleProgress(0, 2000, 800)).toBe(0);
+    expect(articleProgress(-600, 2000, 800)).toBe(0.5);
+    expect(articleProgress(-1200, 2000, 800)).toBe(1);
+    expect(articleProgress(-2000, 2000, 800)).toBe(1);
+    expect(articleProgress(100, 400, 800)).toBe(0);
+    expect(articleProgress(0, 400, 800)).toBe(1);
+  });
+});
+
+function renderReader(
+  post: ParsedPost,
+  summaries: Awaited<ReturnType<typeof getArticleSummaries>>
+) {
+  const markup = renderToStaticMarkup(
+    createElement(MemoryRouter, null, createElement(ArticleReader, { post, summaries }))
+  );
+  const output = document.createElement("div");
+  output.innerHTML = markup;
+  return output;
+}
+
+describe("article reader markup", () => {
+  it("renders actual metadata, preserves Part 0, and uses compact related reading", async () => {
+    const summaries = await getArticleSummaries();
+    const post = (await getPostBySlug("alchemy-of-the-mind-0-the-art-of-thought-transformation"))!;
+    const output = renderReader(post, summaries);
+    expect(output.querySelector("h1")?.textContent).toBe(post.title);
+    expect(
+      output.querySelector('[href="/arsenal/writing?q=Alchemy%20of%20the%20Mind"]')?.textContent
+    ).toContain("Part 0");
+    expect(output.querySelector(".article-source-links a")?.getAttribute("rel")).toBe("noopener");
+    expect(output.querySelector(".article-source-links a")?.getAttribute("target")).toBe("_blank");
+    expect(
+      Array.from(output.querySelectorAll(".article-related__title"), (node) => node.textContent)
+    ).toEqual(relatedArticles(toSummary(post), summaries).map((item) => item.title));
+    expect(output.querySelectorAll(".article-related__link")).toHaveLength(3);
+    expect(output.querySelector(".article-cover img")?.getAttribute("src")).toBe(post.cover);
+    expect(output.querySelector(".article-focus-toggle")?.getAttribute("aria-pressed")).toBe(
+      "false"
+    );
+  });
+
+  it("shows kicker/subtitle as supplied and links every theme", async () => {
+    const summaries = await getArticleSummaries();
+    const post = (await getPostBySlug("a-note-to-myself-clarity"))!;
+    const output = renderReader(post, summaries);
+    expect(output.querySelector(".article-kicker")?.textContent).toBe(post.kicker);
+    expect(output.querySelector(".article-subtitle")?.textContent).toBe(post.subtitle);
+    for (const theme of categoriesFor(post))
+      expect(output.querySelector(`[href="/arsenal/writing?theme=${theme.id}"]`)?.textContent).toBe(
+        theme.label
+      );
+  });
+
+  it("sets Marathi lang and provides both directions of translation navigation", async () => {
+    const summaries = await getArticleSummaries();
+    const translation = summaries.find((item) => item.lang === "mr" && item.translationOf)!;
+    const translated = (await getPostBySlug(translation.slug))!;
+    const output = renderReader(translated, summaries);
+    expect(output.querySelector("article")?.lang).toBe("mr");
+    expect(
+      output.querySelector(`[href="/arsenal/writing/${translation.translationOf}"]`)?.textContent
+    ).toBe("Read in English");
+    const english = renderReader((await getPostBySlug(translation.translationOf!))!, summaries);
+    expect(
+      english.querySelector(`[href="/arsenal/writing/${translation.slug}"]`)?.textContent
+    ).toBe("Also in मराठी");
+  });
+
+  it("keeps absent metadata absent and hides the TOC below three headings", () => {
+    const output = renderReader(fixture, []);
+    expect(output.querySelector(".article-kicker")).toBeNull();
+    expect(output.querySelector(".article-cover")).toBeNull();
+    expect(output.querySelector(".article-contents")).toBeNull();
+    expect(output.querySelector(".article-subtitle")?.textContent).toBe(fixture.description);
+    const items = [
+      { id: "a", text: "A", level: 2 as const },
+      { id: "b", text: "B", level: 3 as const },
+    ];
+    expect(renderToStaticMarkup(createElement(ArticleContents, { items }))).toBe("");
+    expect(
+      renderToStaticMarkup(
+        createElement(ArticleContents, { items: [...items, { id: "c", text: "C", level: 2 }] })
+      )
+    ).toContain("On this page");
+  });
+});
+
+let root: Root | undefined;
+let host: HTMLDivElement | undefined;
+afterEach(async () => {
+  if (root) await act(async () => root?.unmount());
+  host?.remove();
+  root = undefined;
+  host = undefined;
+  localStorage.clear();
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
+
+function FocusHarness() {
+  const [focused, toggle] = useReadingFocus();
+  return createElement(
+    "div",
+    null,
+    createElement("button", { onClick: toggle, "aria-pressed": focused }, "Focus"),
+    createElement("input"),
+    createElement(
+      "div",
+      { contentEditable: true, suppressContentEditableWarning: true },
+      createElement("span", null, "Editable")
+    )
+  );
+}
+
+async function mountFocus() {
+  vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
+  host = document.createElement("div");
+  document.body.append(host);
+  root = createRoot(host);
+  await act(async () => root!.render(createElement(FocusHarness)));
+  return host;
+}
+
+describe("focus keyboard and persistence", () => {
+  it("toggles by button/F, ignores inputs and modifiers, exits with Escape and cleans up", async () => {
+    const host = await mountFocus();
+    const button = host.querySelector("button")!;
+    await act(async () => button.click());
+    expect(button.getAttribute("aria-pressed")).toBe("true");
+    expect(localStorage.getItem("writing-focus")).toBe("true");
+    await act(async () => window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })));
+    expect(button.getAttribute("aria-pressed")).toBe("false");
+    for (const target of [host.querySelector("input")!, host.querySelector("span")!]) {
+      await act(async () =>
+        target.dispatchEvent(new KeyboardEvent("keydown", { key: "f", bubbles: true }))
+      );
+      expect(button.getAttribute("aria-pressed")).toBe("false");
+    }
+    for (const modifier of ["ctrlKey", "metaKey", "altKey", "repeat", "isComposing"])
+      expect(isReadingShortcut(new KeyboardEvent("keydown", { key: "f", [modifier]: true }))).toBe(
+        false
+      );
+    await act(async () => window.dispatchEvent(new KeyboardEvent("keydown", { key: "f" })));
+    expect(document.body.dataset.articleFocus).toBe("true");
+    await act(async () => root!.unmount());
+    root = undefined;
+    expect(document.body.dataset.articleFocus).toBeUndefined();
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "f" }));
+    expect(document.body.dataset.articleFocus).toBeUndefined();
+  });
+
+  it("restores visitor preference and works when localStorage throws", async () => {
+    localStorage.setItem("writing-focus", "true");
+    const host = await mountFocus();
+    expect(host.querySelector("button")?.getAttribute("aria-pressed")).toBe("true");
+    await act(async () => root!.unmount());
+    root = undefined;
+    host.remove();
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("denied");
+    });
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("denied");
+    });
+    const restricted = await mountFocus();
+    await act(async () => restricted.querySelector("button")!.click());
+    expect(restricted.querySelector("button")?.getAttribute("aria-pressed")).toBe("true");
+  });
+});
+
+describe("reading observer lifecycle", () => {
+  function observers() {
+    const intersections: {
+      callback: IntersectionObserverCallback;
+      disconnect: ReturnType<typeof vi.fn>;
+    }[] = [];
+    const resizeDisconnect = vi.fn();
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        observe = vi.fn();
+        disconnect = vi.fn();
+        constructor(callback: IntersectionObserverCallback) {
+          intersections.push({ callback, disconnect: this.disconnect });
+        }
+      }
+    );
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        observe = vi.fn();
+        disconnect = resizeDisconnect;
+      }
+    );
+    return { intersections, resizeDisconnect };
+  }
+
+  async function mount(element: ReturnType<typeof createElement>) {
+    vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
+    host = document.createElement("div");
+    document.body.append(host);
+    root = createRoot(host);
+    await act(async () => root!.render(element));
+    return host;
+  }
+
+  it("updates body progress, skips hidden-tab frames and disconnects on unmount", async () => {
+    const { intersections, resizeDisconnect } = observers();
+    let frame: FrameRequestCallback | undefined;
+    const request = vi.fn((callback: FrameRequestCallback) => {
+      frame = callback;
+      return 1;
+    });
+    vi.stubGlobal("requestAnimationFrame", request);
+    vi.stubGlobal("cancelAnimationFrame", vi.fn());
+    const output = await mount(
+      createElement(
+        "div",
+        null,
+        createElement(ArticleReadingProgress),
+        createElement("div", { id: "article-body" })
+      )
+    );
+    vi.spyOn(document.getElementById("article-body")!, "getBoundingClientRect").mockReturnValue({
+      top: -600,
+      height: 2000,
+    } as DOMRect);
+    vi.stubGlobal("innerHeight", 800);
+    intersections[0].callback(
+      [{ isIntersecting: true } as IntersectionObserverEntry],
+      {} as IntersectionObserver
+    );
+    expect(output.querySelector<HTMLElement>(".article-progress__fill")?.style.transform).toBe(
+      "scaleX(0.5)"
+    );
+    window.dispatchEvent(new Event("scroll"));
+    expect(request).toHaveBeenCalledOnce();
+    frame!(0);
+    vi.spyOn(document, "hidden", "get").mockReturnValue(true);
+    window.dispatchEvent(new Event("scroll"));
+    expect(request).toHaveBeenCalledOnce();
+    await act(async () => root!.unmount());
+    root = undefined;
+    expect(intersections[0].disconnect).toHaveBeenCalledOnce();
+    expect(resizeDisconnect).toHaveBeenCalledOnce();
+  });
+
+  it("creates no progress observers under reduced motion", async () => {
+    vi.mocked(window.matchMedia).mockReturnValue({
+      matches: true,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    } as unknown as MediaQueryList);
+    const { intersections } = observers();
+    await mount(createElement(ArticleReadingProgress));
+    expect(intersections).toHaveLength(0);
+  });
+
+  it("highlights the current TOC section and releases its observer", async () => {
+    const { intersections } = observers();
+    const items = ["one", "two", "three"].map((id) => ({ id, text: id, level: 2 as const }));
+    const output = await mount(
+      createElement(
+        "div",
+        { id: "article-body" },
+        createElement(ArticleContents, { items }),
+        ...items.map((item) => createElement("h2", { id: item.id, key: item.id }, item.text))
+      )
+    );
+    vi.stubGlobal("innerHeight", 800);
+    items.forEach((item, index) =>
+      vi
+        .spyOn(document.getElementById(item.id)!, "getBoundingClientRect")
+        .mockReturnValue({ top: index === 2 ? 500 : -100 } as DOMRect)
+    );
+    const railBounds = vi
+      .spyOn(output.querySelector("#article-body")!, "getBoundingClientRect")
+      .mockReturnValue({ top: 0, bottom: 2000 } as DOMRect);
+    intersections[0].callback([], {} as IntersectionObserver);
+    expect(output.querySelector("aside")?.dataset.visible).toBe("true");
+    expect(output.querySelector('[aria-current="location"]')?.getAttribute("href")).toBe("#two");
+    expect(output.querySelectorAll('[aria-current="location"]')).toHaveLength(1);
+    railBounds.mockReturnValue({ top: -2000, bottom: 0 } as DOMRect);
+    intersections[0].callback([], {} as IntersectionObserver);
+    expect(output.querySelector("aside")?.dataset.visible).toBe("false");
+    await act(async () => root!.unmount());
+    root = undefined;
+    expect(intersections[0].disconnect).toHaveBeenCalledOnce();
+  });
+});
