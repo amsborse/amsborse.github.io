@@ -3,7 +3,7 @@
     "version": 1,
     "repo": "amsborse.github.io",
     "description": "Akshay Borse portfolio — React/Vite static site",
-    "lastUpdated": "2026-07-26",
+    "lastUpdated": "2026-11-09",
     "entrypoints": ["src/main.tsx", "src/App.tsx", "src/layout/RootLayout.tsx"]
   },
   "domains": [
@@ -416,6 +416,31 @@
       "id": "doc:kg-instructions",
       "type": "data",
       "file": ".cursor/knowledge-graph/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "id": "component:hero-section",
+      "type": "component",
+      "file": "src/components/hero/HeroSection.tsx"
+    },
+    {
+      "id": "component:hero-plate",
+      "type": "component",
+      "file": "src/components/hero/HeroPlate.tsx"
+    },
+    {
+      "id": "component:chapter-rail",
+      "type": "component",
+      "file": "src/components/home/ChapterRail.tsx"
+    },
+    {
+      "id": "component:home-chapters",
+      "type": "component",
+      "file": "src/components/home/chapters.ts"
+    },
+    {
+      "id": "component:page-stage",
+      "type": "component",
+      "file": "src/components/stage/PageStage.tsx"
     }
   ],
   "edges": [
@@ -517,6 +542,14 @@
 
     { "from": "script:validate", "to": "script:check-bundle-size", "rel": "depends_on" },
     { "from": "doc:agents", "to": "script:validate", "rel": "documents" },
-    { "from": "doc:kg-instructions", "to": "script:verify-kg", "rel": "documents" }
+    { "from": "doc:kg-instructions", "to": "script:verify-kg", "rel": "documents" },
+    { "from": "route:/", "to": "component:hero-section", "rel": "uses" },
+    { "from": "component:hero-section", "to": "component:hero-plate", "rel": "uses" },
+    { "from": "route:/", "to": "component:chapter-rail", "rel": "uses" },
+    { "from": "route:/", "to": "component:home-chapters", "rel": "uses" },
+    { "from": "route:/about", "to": "component:page-stage", "rel": "uses" },
+    { "from": "route:/experience", "to": "component:page-stage", "rel": "uses" },
+    { "from": "route:/projects", "to": "component:page-stage", "rel": "uses" },
+    { "from": "route:/arsenal/writing", "to": "component:page-stage", "rel": "uses" }
   ]
 }
