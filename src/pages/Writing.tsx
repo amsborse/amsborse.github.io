@@ -26,19 +26,22 @@ export default function WritingPage() {
     <>
       <Seo
         title="Writing"
-        description="Essays on systems, APIs, reliability, and engineering practice by Akshay Borse."
+        description="Essays on consciousness, emotions, self-awareness, growth and philosophy, alongside notes on building reliable systems."
         path="/arsenal/writing"
       />
 
-      <div className="writing-index writing-index--editorial article-shell max-w-3xl page-top pb-16 sm:pb-20 lg:pb-24">
+      <div className="writing-index writing-index--editorial article-shell max-w-6xl page-top pb-16 sm:pb-20 lg:pb-24">
         <PageStage
           motif="writing"
-          eyebrow="Writing"
+          eyebrow="Mind & craft"
           title="Essays"
-          lede="Notes on building systems that hold up — reliability, API design, observability, and why writing things down is part of the engineering."
+          lede="Essays on consciousness, emotions, self-awareness, growth and philosophy. Notes on building systems that hold up."
         />
         {loading ? (
-          <p className="mt-16 min-h-[100svh] text-base text-[var(--color-body)]">Loading essays…</p>
+          <div className="reading-loading" role="status">
+            <p>Opening the reading room…</p>
+            <div aria-hidden="true" />
+          </div>
         ) : (
           <WritingPublication posts={posts} />
         )}
