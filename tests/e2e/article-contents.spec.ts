@@ -52,7 +52,9 @@ test("an essay's own contents list is hidden and the time left counts down", asy
   );
 
   const left = page.locator(".article-time-left");
-  const minutes = async () => Number((await left.textContent())?.match(/(\d+) min left/)?.[1]);
+  // Read the screen-reader label alone: the clock's digits sit right before it in the text.
+  const label = left.locator(".sr-only").last();
+  const minutes = async () => Number((await label.textContent())?.match(/^(\d+) min left/)?.[1]);
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.12));
   await expect(left).toHaveAttribute("data-visible", "true");
   await expect(left).toContainText(/\d+ min left/);
@@ -77,4 +79,28 @@ test("an essay's own contents list is hidden and the time left counts down", asy
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await expect(left).toContainText("Finished");
   await expect(clock).toHaveText("00:00");
+});
+
+test("jumping through the contents keeps the clock counting", async ({ page }) => {
+  await page.setViewportSize({ width: 1536, height: 864 });
+  await page.goto("/arsenal/writing/motivation-works-in-bursts-life-doesnt");
+  const clock = page.locator(".article-time-left__clock");
+  const seconds = async () => {
+    const [m, s] = ((await clock.textContent()) ?? "").split(":").map(Number);
+    return m * 60 + s;
+  };
+  await expect(
+    page.locator("#article-body").getByRole("heading", { name: /Days That Don.t Add Up/ })
+  ).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 1500));
+  await expect(page.locator(".article-time-left")).toHaveAttribute("data-visible", "true");
+  await expect.poll(seconds).toBeGreaterThan(0);
+  // Clicking a contents entry re-renders the reader; the clock must keep tracking the text.
+  await page.locator("a.toc-reading-link:visible").nth(3).click();
+  await page.waitForTimeout(2000);
+  await expect.poll(seconds).toBeGreaterThan(0);
+  const after = await seconds();
+  await page.mouse.move(768, 432);
+  await page.mouse.wheel(0, 900);
+  await expect.poll(seconds).toBeLessThan(after);
 });

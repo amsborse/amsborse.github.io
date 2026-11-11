@@ -258,6 +258,12 @@ export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) 
       schedule();
     });
     resize.observe(body);
+    // If the body's blocks are ever replaced, count the new ones instead of detached old ones.
+    const content = new MutationObserver(() => {
+      measure();
+      schedule();
+    });
+    content.observe(body, { childList: true });
     measure();
     update();
     window.addEventListener("scroll", schedule, { passive: true });
@@ -266,6 +272,7 @@ export function ArticleTimeLeft({ readingMinutes }: { readingMinutes: number }) 
     return () => {
       cancelAnimationFrame(frame);
       resize.disconnect();
+      content.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       document.removeEventListener("visibilitychange", schedule);

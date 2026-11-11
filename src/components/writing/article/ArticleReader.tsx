@@ -25,7 +25,12 @@ export function ArticleReader({
   summaries: ArticleSummary[];
 }) {
   const [focused, toggleFocus] = useReadingFocus();
-  const { bodyHtml, coverHtml } = articlePresentation(post);
+  // Stable {__html} objects: React compares them by identity, and a fresh one on every render
+  // (a contents click, a focus toggle) would rebuild the article body under the reading tools.
+  const { body, cover } = useMemo(() => {
+    const { bodyHtml, coverHtml } = articlePresentation(post);
+    return { body: { __html: bodyHtml }, cover: coverHtml ? { __html: coverHtml } : undefined };
+  }, [post]);
   const sections = useMemo(() => articleSections(post.toc), [post.toc]);
   const { original, translations } = articleTranslations(post, summaries);
   const related = relatedArticles(toSummary(post), summaries);
@@ -102,8 +107,8 @@ export function ArticleReader({
             </div>
           </header>
           {post.cover ? (
-            coverHtml ? (
-              <div className="article-cover" dangerouslySetInnerHTML={{ __html: coverHtml }} />
+            cover ? (
+              <div className="article-cover" dangerouslySetInnerHTML={cover} />
             ) : (
               <figure className="article-cover">
                 <img
@@ -122,11 +127,7 @@ export function ArticleReader({
             )
           ) : null}
           <div className="article-reading__layout">
-            <div
-              id="article-body"
-              className="prose-article"
-              dangerouslySetInnerHTML={{ __html: bodyHtml }}
-            />
+            <div id="article-body" className="prose-article" dangerouslySetInnerHTML={body} />
           </div>
           <footer className="article-ending article-chrome">
             <nav className="article-source-links" aria-label="Other editions">
