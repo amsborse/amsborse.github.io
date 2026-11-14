@@ -86,7 +86,7 @@ export function DepthChapter() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Link to={study.to} className="study">
+            <Link to={study.to} className="study editorial-card">
               <svg className="study__sketch" viewBox="0 0 68 60" aria-hidden="true">
                 {study.sketch}
               </svg>

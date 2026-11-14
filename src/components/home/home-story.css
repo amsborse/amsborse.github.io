@@ -239,8 +239,6 @@
   height: 100%;
   align-items: flex-start;
   gap: 1.5rem;
-  padding: 1.75rem 0;
-  border-radius: 0.25rem;
   color: var(--color-ink);
 }
 .study__sketch {
@@ -472,5 +470,35 @@
   .chapter-link:hover > span[aria-hidden],
   .study:hover .study__arrow {
     transform: none;
+  }
+}
+
+/* Full-width, compact studies use the same material as the six facets. */
+.studies {
+  gap: 1.25rem;
+  border-top: 0;
+}
+.studies > li {
+  min-width: 0;
+  border-bottom: 0;
+}
+.study {
+  gap: 1.25rem;
+}
+.study__sketch {
+  width: var(--editorial-icon-size);
+  height: var(--editorial-icon-size);
+  padding: 0.35rem;
+  border: 1px solid var(--color-accent-line);
+  border-radius: var(--editorial-card-radius);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.study__text {
+  min-width: 0;
+}
+@media (max-width: 479px) {
+  .study {
+    flex-direction: column;
   }
 }

@@ -1807,3 +1807,117 @@
   .precision-flashcard__fit-slot--solo {
   flex: 1 1 auto;
 }
+
+/* Editorial card material: shared by the home studies and About values. */
+:root {
+  --editorial-card-radius: 0.85rem;
+  --editorial-card-padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  --editorial-icon-size: 3.75rem;
+  --page-light-pool: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  --page-tone: color-mix(in srgb, var(--color-surface-mid) 38%, var(--color-bg));
+}
+:root[data-theme="light"] {
+  --page-light-pool: color-mix(in srgb, var(--color-accent) 3%, transparent);
+  --page-tone: color-mix(in srgb, var(--color-surface-elevated) 34%, var(--color-bg));
+}
+
+.page-depth {
+  position: relative;
+  isolation: isolate;
+}
+.page-depth::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70vw 36rem at 15% 28%, var(--page-light-pool), transparent 75%),
+    radial-gradient(ellipse 65vw 40rem at 90% 55%, var(--page-light-pool), transparent 75%),
+    radial-gradient(ellipse 70vw 36rem at 20% 85%, var(--page-light-pool), transparent 75%),
+    linear-gradient(180deg, var(--color-bg), var(--page-tone) 45%, var(--color-bg));
+}
+
+.editorial-card {
+  padding: var(--editorial-card-padding);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--editorial-card-radius);
+  background: var(--hub-card-bg-gradient);
+  box-shadow: var(--shadow-card);
+}
+a.editorial-card {
+  transition:
+    transform var(--duration-micro) var(--ease-out-luxe),
+    border-color var(--duration-micro) var(--ease-out-luxe),
+    box-shadow var(--duration-micro) var(--ease-out-luxe);
+}
+a.editorial-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  a.editorial-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent-line);
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+
+.about-content {
+  width: 100%;
+  /* Same left edge as the plate copy, without altering the plate or its imagery. */
+  margin-left: calc(50% - min(40rem, 50vw) + clamp(1.25rem, 4vw, 3.5rem));
+}
+.about-connect-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--editorial-card-radius);
+  background: var(--color-surface);
+  transition:
+    background var(--duration-micro),
+    border-color var(--duration-micro);
+}
+.about-connect-row::after {
+  content: "↗";
+  color: var(--color-accent);
+  flex: none;
+}
+.about-connect-row__text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.about-connect-row:hover,
+.about-connect-row:focus-visible {
+  border-color: var(--color-accent-line);
+  background: var(--color-surface-elevated);
+}
+@media (max-width: 899px) {
+  .about-content {
+    width: auto;
+    margin-left: calc(1.25rem - 1rem);
+    margin-right: calc(1.25rem - 1rem);
+  }
+}
+@media (min-width: 640px) and (max-width: 899px) {
+  .about-content {
+    margin-inline: calc(1.25rem - 1.5rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  a.editorial-card,
+  .about-connect-row {
+    transition: none;
+  }
+}

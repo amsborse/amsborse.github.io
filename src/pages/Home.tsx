@@ -42,7 +42,7 @@ export default function Home() {
         path="/"
       />
 
-      <div className="home-page relative w-full selection:bg-[var(--color-accent-soft)]">
+      <div className="home-page page-depth relative w-full selection:bg-[var(--color-accent-soft)]">
         <div id="introduction">
           <HeroSection proofPoints={proofPoints} />
 
