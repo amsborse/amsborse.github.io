@@ -447,3 +447,11 @@
     transition: none;
   }
 }
+
+/* Keep the next chapter in view after the project plate. */
+.projects-page > .page-stage {
+  margin-bottom: 0;
+}
+.projects-page .showcase-chapters > .showcase-chapter:first-child {
+  padding-top: 1.5rem;
+}
