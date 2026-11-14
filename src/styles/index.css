@@ -72,7 +72,7 @@
   --color-moss: #8fae7e;
   --color-moss-soft: rgba(143, 174, 126, 0.14);
   --color-water: #0b1014;
-  --color-chrome-bg: rgba(7, 8, 13, 0.9);
+  --color-chrome-bg: rgb(7, 8, 13);
 }
 
 :root[data-theme="light"] {
@@ -83,7 +83,7 @@
   --color-body: #4a463f;
   --color-ink-muted: #6f685f;
   --color-bg: #f5f0e6;
-  --color-chrome-bg: rgba(245, 240, 230, 0.92);
+  --color-chrome-bg: rgb(245, 240, 230);
   --color-surface: rgba(255, 252, 247, 0.85);
   --color-surface-alt: rgba(255, 252, 247, 0.95);
   --color-surface-mid: rgba(247, 242, 233, 0.96);
