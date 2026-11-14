@@ -1,10 +1,11 @@
 import { Seo } from "@/components/Seo";
+import { SectionHeading } from "@/components/SectionHeading";
 import { PageStage } from "@/components/stage/PageStage";
 import { about, contactPage, links, profile, site } from "@/data";
 
 function ValuesSection({ values }: { values: readonly string[] }) {
   return (
-    <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
+    <ul className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
       {values.map((line) => {
         const colonIdx = line.indexOf(": ");
         const hasColon = colonIdx !== -1;
@@ -12,11 +13,12 @@ function ValuesSection({ values }: { values: readonly string[] }) {
         const desc = hasColon ? line.slice(colonIdx + 2) : line;
 
         return (
-          <li key={line} className="flex items-start gap-4 group">
-            <div className="h-[1px] w-8 mt-3 bg-[var(--color-border-strong)] group-hover:w-16 group-hover:bg-[var(--color-ink)] transition-all duration-500 ease-out shrink-0" />
+          <li key={line} className="editorial-card">
             <div className="text-base leading-relaxed text-[var(--color-body)]">
               {hasColon ? (
-                <strong className="font-semibold text-[var(--color-ink)]">{title}: </strong>
+                <h3 className="mb-2 font-display text-xl font-semibold text-[var(--color-ink)]">
+                  {title}
+                </h3>
               ) : null}
               {desc}
             </div>
@@ -36,14 +38,11 @@ function SocialLinksList() {
           href={links.social[row.key]}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-4 group py-1 pointer-events-auto w-fit rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+          className="about-connect-row group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
         >
-          <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-accent)] transition-all duration-500 ease-out" />
-          <div className="flex items-baseline gap-3">
-            <span className="font-mono uppercase tracking-widest text-sm text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)] transition-colors">
-              {row.label}
-            </span>
-            <span className="text-xs text-[var(--color-ink-muted)] font-sans">
+          <div className="about-connect-row__text">
+            <span className="text-base font-medium text-[var(--color-ink)]">{row.label}</span>
+            <span className="text-base text-[var(--color-body)] font-sans">
               — {row.description}
             </span>
           </div>
@@ -60,19 +59,16 @@ function EmailLink() {
         href={`mailto:${site.email}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-4 group py-1 pointer-events-auto w-fit rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+        className="about-connect-row group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
       >
-        <div className="h-[1px] w-12 bg-[var(--color-border-strong)] group-hover:w-24 group-hover:bg-[var(--color-accent)] transition-all duration-500 ease-out" />
-        <div className="flex items-baseline gap-3">
-          <span className="font-mono uppercase tracking-widest text-sm text-[var(--color-ink-muted)] group-hover:text-[var(--color-ink)] transition-colors">
-            Email
-          </span>
-          <span className="text-sm font-sans text-[var(--color-ink)] underline decoration-[var(--color-border-strong)] underline-offset-4 group-hover:decoration-[var(--color-accent)] transition-colors">
+        <div className="about-connect-row__text">
+          <span className="text-base font-medium text-[var(--color-ink)]">Email</span>
+          <span className="text-base font-sans text-[var(--color-ink)] underline decoration-[var(--color-border-strong)] underline-offset-4 group-hover:decoration-[var(--color-accent)] transition-colors">
             {site.email}
           </span>
         </div>
       </a>
-      <p className="mt-2 text-xs text-[var(--color-ink-muted)] pl-16">{contactPage.emailNote}</p>
+      <p className="mt-3 text-sm text-[var(--color-body)]">{contactPage.emailNote}</p>
     </div>
   );
 }
@@ -82,7 +78,7 @@ export default function About() {
     <>
       <Seo title="About" description={about.seoDescription} path="/about" />
 
-      <div className="article-shell max-w-3xl page-top pb-16 sm:pb-20 lg:pb-24">
+      <div className="about-page page-depth article-shell max-w-3xl page-top pb-16 sm:pb-20 lg:pb-24">
         <PageStage
           motif="about"
           eyebrow="About"
@@ -94,41 +90,39 @@ export default function About() {
           }
         />
 
-        <div className="space-y-6">
-          {about.intro.map((paragraph, i) => (
-            <p key={i} className="text-lg leading-relaxed text-[var(--color-body)] font-sans">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-
-        <div className="mt-16 pt-12 border-t border-[var(--color-border)]">
-          <h2 className="theme-heading text-2xl md:text-4xl font-display font-semibold text-[var(--color-ink)] uppercase tracking-wider">
-            {about.valuesHeading}
-          </h2>
-          <ValuesSection values={about.values} />
-        </div>
-
-        <section
-          id="contact"
-          className="scroll-mt-24 mt-16 pt-12 border-t border-[var(--color-border)]"
-        >
-          <h2 className="theme-heading text-2xl md:text-4xl font-display font-semibold text-[var(--color-ink)] uppercase tracking-wider">
-            Connect
-          </h2>
-          <p className="mt-5 leading-relaxed text-[var(--color-body)] text-lg">
-            {contactPage.intro}
-          </p>
-
-          <EmailLink />
-
-          <div className="mt-10">
-            <p className="font-mono uppercase tracking-widest text-xs text-[var(--color-ink-muted)] mb-4">
-              Networks
-            </p>
-            <SocialLinksList />
+        <div className="about-content">
+          <div className="space-y-6 max-w-[68ch]">
+            {about.intro.map((paragraph, i) => (
+              <p key={i} className="text-lg leading-relaxed text-[var(--color-body)] font-sans">
+                {paragraph}
+              </p>
+            ))}
           </div>
-        </section>
+
+          <div className="mt-16 pt-12 border-t border-[var(--color-border)]">
+            <SectionHeading eyebrow="About" title={about.valuesHeading} />
+            <ValuesSection values={about.values} />
+          </div>
+
+          <section
+            id="contact"
+            className="scroll-mt-24 mt-16 pt-12 border-t border-[var(--color-border)]"
+          >
+            <SectionHeading eyebrow="Networks" title="Connect" />
+            <p className="mt-5 leading-relaxed text-[var(--color-body)] text-lg">
+              {contactPage.intro}
+            </p>
+
+            <EmailLink />
+
+            <div className="mt-10">
+              <p className="font-mono uppercase tracking-widest text-xs text-[var(--color-ink-muted)] mb-4">
+                Networks
+              </p>
+              <SocialLinksList />
+            </div>
+          </section>
+        </div>
       </div>
     </>
   );
