@@ -379,6 +379,21 @@
     color: var(--color-ink-soft);
   }
 
+  .learning-page {
+    padding-bottom: 3rem;
+  }
+
+  .learning-page > .relative {
+    max-width: 80rem;
+    padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+  }
+
+  @media (max-width: 899px) {
+    .learning-page > .relative {
+      padding-inline: 1.25rem;
+    }
+  }
+
   .hub-title {
     background: var(--hub-title-gradient);
     @apply bg-clip-text text-transparent font-display font-semibold tracking-tight leading-none;
