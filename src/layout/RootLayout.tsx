@@ -1,3 +1,4 @@
+import { DesignEffects } from "@/components/DesignEffects";
 import { lazy, Suspense, useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
@@ -122,6 +123,7 @@ export function RootLayout() {
         Skip to content
       </a>
       <Navbar />
+      <DesignEffects />
       <main
         id="main"
         className={`relative z-10 ${isImmersive ? "min-h-0 flex-1 overflow-hidden" : "flex-1"}`}
