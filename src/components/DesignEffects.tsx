@@ -1,20 +1,17 @@
 import { useEffect } from "react";
+import { designById } from "@/designs/registry";
 import { useTheme } from "@/theme/ThemeProvider";
 
-const loaders = {
-  blueprint: () => import("@/designs/blueprint/effects"),
-  broadsheet: () => import("@/designs/broadsheet/effects"),
-} as const;
-
-/** Mounts the active design's own interactions; the original design has none. */
+/** Mounts the active design's own interactions, as declared in the design registry. */
 export function DesignEffects() {
   const { design } = useTheme();
 
   useEffect(() => {
-    if (design === "editorial") return;
+    const load = designById(design).effects;
+    if (!load) return;
     let cleanup: (() => void) | undefined;
     let cancelled = false;
-    loaders[design]()
+    load()
       .then((mod) => {
         if (!cancelled) cleanup = mod.mount();
       })

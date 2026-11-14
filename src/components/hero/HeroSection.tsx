@@ -1,4 +1,6 @@
 import {
+  type ComponentType,
+  type LazyExoticComponent,
   lazy,
   Suspense,
   useCallback,
@@ -17,16 +19,21 @@ import { qualityForViewport } from "./heroQuality";
 import { HeroPlate, type PlateRendererKind } from "./HeroPlate";
 import { HeroConsole } from "./HeroConsole";
 import { useDocumentDesign } from "@/theme/useDocumentDesign";
+import { designById, type DesignHeroProps, type SiteDesign } from "@/designs/registry";
 import "./hero.css";
 
-const HeroDrawing = lazy(() =>
-  import("@/designs/blueprint/HeroDrawing").then((module) => ({ default: module.HeroDrawing }))
-);
-const HeroFrontPage = lazy(() =>
-  import("@/designs/broadsheet/HeroFrontPage").then((module) => ({
-    default: module.HeroFrontPage,
-  }))
-);
+/** One lazy component per design hero, created once so React keeps it mounted. */
+const designHeroes = new Map<SiteDesign, LazyExoticComponent<ComponentType<DesignHeroProps>>>();
+function designHeroFor(design: SiteDesign) {
+  const load = designById(design).hero;
+  if (!load) return null;
+  let hero = designHeroes.get(design);
+  if (!hero) {
+    hero = lazy(load);
+    designHeroes.set(design, hero);
+  }
+  return hero;
+}
 
 const HeroCanvas = lazy(() =>
   import("./HeroCanvas").then((module) => ({ default: module.HeroCanvas }))
@@ -115,9 +122,10 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
   const words = headline.split(/\s+/);
 
   const plateMode = urlState.scene === "plate";
-  // Blueprint and Broadsheet replace the island with their own artwork; Editorial keeps it.
+  // A design with its own hero (see the design registry) replaces the island; Editorial keeps it.
   const design = useDocumentDesign();
-  const designHero = plateMode && design !== "editorial" ? design : null;
+  const DesignHero = plateMode ? designHeroFor(design) : null;
+  const designHero = DesignHero ? design : null;
   const plateWebGL = useMemo(
     () => new URLSearchParams(window.location.search).get("heroWebGL") !== "off",
     []
@@ -263,22 +271,13 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
       data-hero-triangles="0"
       data-design-hero={designHero ?? undefined}
     >
-      {designHero === "blueprint" && (
+      {DesignHero && (
         <Suspense fallback={null}>
-          <HeroDrawing
+          <DesignHero
+            theme={lightMode ? "light" : "dark"}
             hovered={state.hovered}
             failed={state.failed}
             reducedMotion={reducedMotion}
-            onHover={onHover}
-            onSelect={openService}
-          />
-        </Suspense>
-      )}
-      {designHero === "broadsheet" && (
-        <Suspense fallback={null}>
-          <HeroFrontPage
-            theme={lightMode ? "light" : "dark"}
-            hovered={state.hovered}
             onHover={onHover}
             onSelect={openService}
           />

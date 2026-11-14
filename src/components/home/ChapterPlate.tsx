@@ -1,18 +1,19 @@
 import { useDocumentTheme } from "@/components/stage/PageStage";
 import { LazyDesignPlate } from "@/designs/LazyDesignPlate";
 import { useDocumentDesign } from "@/theme/useDocumentDesign";
+import { designById } from "@/designs/registry";
 
 type PlateName = "horizon" | "contact";
 
 /** A generated art plate behind a chapter: decorative, theme-aware and lazy. */
 export function ChapterPlate({ name, className }: { name: PlateName; className: string }) {
   const theme = useDocumentTheme();
-  const design = useDocumentDesign();
+  const treatment = designById(useDocumentDesign()).plate;
   const base = `${import.meta.env.BASE_URL}assets/cinematic/${name}/${name}-${theme}`;
-  if (design !== "editorial") {
+  if (treatment) {
     return (
       <div className={className} aria-hidden="true">
-        <LazyDesignPlate src={`${base}.webp`} design={design} theme={theme} />
+        <LazyDesignPlate src={`${base}.webp`} treatment={treatment} theme={theme} />
       </div>
     );
   }

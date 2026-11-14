@@ -21,15 +21,40 @@ test.describe("design heroes", () => {
     await expect(page.getByRole("dialog")).toContainText("Model Inference");
   });
 
-  test("Broadsheet prints the halftone plate and a caption part opens the inspector", async ({
+  test("Broadsheet prints its own engraving, not the island, and a caption part opens the inspector", async ({
     page,
   }) => {
     await page.goto("/?design=broadsheet");
     const hero = page.getByTestId("design-hero");
     await expect(hero).toHaveAttribute("data-design-hero", "broadsheet");
-    await expect(hero.locator("canvas.design-plate")).toHaveAttribute("data-ready", "true", {
-      timeout: 15_000,
-    });
+    const engraving = hero.locator("canvas.bs-hero__engraving");
+    await expect(engraving).toHaveAttribute("data-ready", "true", { timeout: 15_000 });
+    await expect(hero.locator(".design-plate")).toHaveCount(0);
+    await expect(hero.locator("img[src*='plate-']")).toHaveCount(0);
+    // The engraving has real ink on it once printed in.
+    await expect
+      .poll(
+        () =>
+          engraving.evaluate((canvas: HTMLCanvasElement) => {
+            const context = canvas.getContext("2d");
+            if (!context || canvas.width === 0) return 0;
+            const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
+            const first = [data[0], data[1], data[2]];
+            let differing = 0;
+            for (let i = 0; i < data.length; i += 4 * 97) {
+              if (
+                Math.abs(data[i] - first[0]) +
+                  Math.abs(data[i + 1] - first[1]) +
+                  Math.abs(data[i + 2] - first[2]) >
+                60
+              )
+                differing += 1;
+            }
+            return differing;
+          }),
+        { timeout: 10_000 }
+      )
+      .toBeGreaterThan(200);
     await hero.getByRole("button", { name: "Data Storage" }).click();
     await expect(page.getByRole("dialog")).toContainText("Data Storage");
   });

@@ -323,3 +323,15 @@
     transition: none;
   }
 }
+
+/* The engraving canvas fills the photo frame; its own pixels are sized by the component. */
+.bs-hero__engraving {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+.bs-hero__engraving[data-ready="true"] {
+  opacity: 1;
+}

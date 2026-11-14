@@ -1,12 +1,13 @@
-export type SiteDesign = "editorial" | "blueprint" | "broadsheet";
+import { DEFAULT_DESIGN, DESIGNS, type SiteDesign } from "@/designs/registry";
+
+export type { SiteDesign } from "@/designs/registry";
 
 export const DESIGN_STORAGE_KEY = "portfolio-design";
 
-export const SITE_DESIGNS: { id: SiteDesign; label: string; hint: string }[] = [
-  { id: "editorial", label: "Editorial", hint: "Warm paper and amber, the original" },
-  { id: "blueprint", label: "Blueprint", hint: "Drafting grid, cyan ink, spec-sheet cards" },
-  { id: "broadsheet", label: "Broadsheet", hint: "Newsprint columns, vermilion, clipping cards" },
-];
+/** The switcher's menu, in registry order. */
+export const SITE_DESIGNS: { id: SiteDesign; label: string; hint: string }[] = DESIGNS.map(
+  ({ id, label, hint }) => ({ id, label, hint })
+);
 
 export function isSiteDesign(value: unknown): value is SiteDesign {
   return SITE_DESIGNS.some((d) => d.id === value);
@@ -14,7 +15,7 @@ export function isSiteDesign(value: unknown): value is SiteDesign {
 
 /** URL ?design= wins (for sharing and screenshots), then the saved choice, then the original. */
 export function resolveInitialDesign(): SiteDesign {
-  if (typeof window === "undefined") return "editorial";
+  if (typeof window === "undefined") return DEFAULT_DESIGN;
   try {
     const fromUrl = new URLSearchParams(window.location.search).get("design");
     if (isSiteDesign(fromUrl)) return fromUrl;
@@ -23,7 +24,7 @@ export function resolveInitialDesign(): SiteDesign {
   } catch {
     /* storage blocked: fall back to the original design */
   }
-  return "editorial";
+  return DEFAULT_DESIGN;
 }
 
 export function applySiteDesign(design: SiteDesign) {
