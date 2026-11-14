@@ -1,3 +1,14 @@
+.projects-page > :not(.page-stage) {
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  /* Match the centered stage's copy inset without changing its full-width plate. */
+  .projects-page > :not(.page-stage) {
+    max-width: calc(min(80rem, 100vw) - 2 * clamp(1.25rem, 4vw, 3.5rem));
+  }
+}
+
 .selected-work {
   color: var(--color-body);
 }

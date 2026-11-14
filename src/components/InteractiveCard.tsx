@@ -84,7 +84,7 @@ export function InteractiveCardShell({
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`hub-card-enter group relative flex flex-col overflow-hidden transition-all duration-300 ${variantClass} ${heightClass} ${disabled ? "cursor-not-allowed" : ""} ${className}`}
+      className={`hub-card-enter group relative flex h-full flex-col overflow-hidden transition-all duration-300 ${variantClass} ${heightClass} ${disabled ? "cursor-not-allowed" : ""} ${className}`}
       style={
         {
           ["--card-index"]: index,

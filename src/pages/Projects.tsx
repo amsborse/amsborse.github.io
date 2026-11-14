@@ -39,7 +39,7 @@ export default function ProjectsPage() {
         path="/projects"
       />
 
-      <div className="projects-page page-depth article-shell max-w-[1440px] page-top pb-16 sm:pb-20 lg:pb-24">
+      <div className="projects-page page-depth article-shell max-w-[1440px] page-top pb-12">
         <PageStage
           motif="projects"
           eyebrow="Projects"
