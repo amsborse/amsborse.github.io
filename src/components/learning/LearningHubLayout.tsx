@@ -52,7 +52,7 @@ export function LearningHubLayout({
     <>
       <Seo title={seo.title} description={seo.description} path={seo.path} />
 
-      <div className="hub-page">
+      <div className={`hub-page${seo.path === "/learning" ? " learning-page page-depth" : ""}`}>
         <div
           className={`absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr ${blobs.top} to-transparent blur-[120px] pointer-events-none`}
         />
