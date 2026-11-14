@@ -1867,7 +1867,7 @@ a.editorial-card:focus-visible {
 }
 
 .about-content {
-  width: 100%;
+  width: calc(min(80rem, 100vw) - 2 * clamp(1.25rem, 4vw, 3.5rem));
   /* Same left edge as the plate copy, without altering the plate or its imagery. */
   margin-left: calc(50% - min(40rem, 50vw) + clamp(1.25rem, 4vw, 3.5rem));
 }

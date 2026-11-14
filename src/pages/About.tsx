@@ -5,7 +5,7 @@ import { about, contactPage, links, profile, site } from "@/data";
 
 function ValuesSection({ values }: { values: readonly string[] }) {
   return (
-    <ul className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+    <ul className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {values.map((line) => {
         const colonIdx = line.indexOf(": ");
         const hasColon = colonIdx !== -1;
@@ -31,7 +31,7 @@ function ValuesSection({ values }: { values: readonly string[] }) {
 
 function SocialLinksList() {
   return (
-    <div className="mt-6 flex flex-col gap-4">
+    <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
       {contactPage.socialRows.map((row) => (
         <a
           key={row.key}
@@ -78,7 +78,7 @@ export default function About() {
     <>
       <Seo title="About" description={about.seoDescription} path="/about" />
 
-      <div className="about-page page-depth article-shell max-w-3xl page-top pb-16 sm:pb-20 lg:pb-24">
+      <div className="about-page page-depth article-shell max-w-6xl page-top pb-16 sm:pb-20 lg:pb-24">
         <PageStage
           motif="about"
           eyebrow="About"
@@ -100,7 +100,7 @@ export default function About() {
           </div>
 
           <div className="mt-16 pt-12 border-t border-[var(--color-border)]">
-            <SectionHeading eyebrow="About" title={about.valuesHeading} />
+            <SectionHeading title={about.valuesHeading} />
             <ValuesSection values={about.values} />
           </div>
 
