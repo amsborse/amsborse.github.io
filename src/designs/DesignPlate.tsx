@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { PlateTreatment } from "./registry";
 import { clamp01, cutRibbons, paintRibbons, smooth } from "./broadsheet/engraving";
-import { chapterScene, contours, type Chapter, type Spot } from "./chapterScenes";
+import { chapterScene, contourLevels, type Chapter, type Spot } from "./chapterScenes";
 import "./design-art.css";
 
 type Props = {
@@ -73,11 +73,11 @@ function drawContours(context: CanvasRenderingContext2D, chapter: Chapter, color
   };
   context.lineCap = "round";
   context.strokeStyle = colors.accent;
-  LEVELS.forEach((level, index) => {
+  contourLevels(survey, LEVELS, GRID.cols, GRID.rows).forEach((segments, index) => {
     context.lineWidth = index === 2 ? 0.0022 : 0.0012;
     context.globalAlpha = index === 2 ? 0.95 : 0.6;
     context.beginPath();
-    for (const [x1, y1, x2, y2] of contours(survey, level, GRID.cols, GRID.rows)) {
+    for (const [x1, y1, x2, y2] of segments) {
       context.moveTo(x1, y1);
       context.lineTo(x2, y2);
     }
