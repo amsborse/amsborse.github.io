@@ -1,1 +1,564 @@
-/* Blueprint design: every rule is scoped under :root[data-design="blueprint"]. */
+/* Blueprint is isolated from the editorial design, including all generated decoration. */
+:root[data-design="blueprint"] {
+  --font-sans: "Inter", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-serif: var(--font-sans);
+  --font-display: var(--font-sans);
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --editorial-card-radius: 2px;
+  --color-ink: #e5f1f8;
+  --color-ink-soft: #cbdde9;
+  --color-body: #afc5d6;
+  --color-ink-muted: #99b4c9;
+  --color-bg: #0a1626;
+  --color-surface: #0e2033;
+  --color-surface-alt: #11283e;
+  --color-surface-mid: #10253a;
+  --color-surface-elevated: #152e45;
+  --color-surface-wash: #0c1b2d;
+  --color-chrome-bg: #0b192a;
+  --color-accent: #46c8ea;
+  --color-accent-bright: #8ddff3;
+  --color-accent-dim: #63b8d0;
+  --color-accent-soft: rgb(70 200 234 / 10%);
+  --color-accent-line: rgb(70 200 234 / 42%);
+  --color-on-accent: #071c2c;
+  --color-border: #294359;
+  --color-border-strong: #46667f;
+  --color-reading-canvas: #0d1d2e;
+  --color-water: #0f2238;
+  --color-section-sage: var(--color-bg);
+  --color-section-lavender: var(--color-bg);
+  --color-section-blush: var(--color-bg);
+  --color-section-parchment: var(--color-bg);
+  --color-gold: var(--color-accent);
+  --color-gold-muted: var(--color-accent-dim);
+  --color-gold-soft: var(--color-accent-soft);
+  --color-gold-faint: color-mix(in srgb, var(--color-accent) 5%, transparent);
+  --color-moss: var(--color-accent);
+  --color-moss-soft: var(--color-accent-soft);
+  --shadow-card: 0 1px 0 rgb(70 200 234 / 5%);
+  --shadow-card-hover: var(--shadow-card);
+  --chrome-shadow: 0 1px 0 var(--color-border);
+  --hub-card-bg: var(--color-surface);
+  --hub-card-bg-gradient: linear-gradient(135deg, var(--color-surface-mid), var(--color-surface));
+  --hub-card-border: var(--color-border-strong);
+  --hub-card-border-hover: var(--color-accent);
+  --hub-title-gradient: linear-gradient(var(--color-ink), var(--color-ink));
+  --backdrop-scrim: rgb(4 15 28 / 88%);
+  --body-noise-opacity: 0;
+  --body-glow-opacity: 0;
+  --motif-crease: none;
+  --cosmic-grid-rgb: 70, 200, 234;
+  --bp-grid: rgb(70 200 234 / 5%);
+  --bp-grid-major: rgb(70 200 234 / 10%);
+}
+:root[data-design="blueprint"][data-theme="light"] {
+  --color-ink: #122d40;
+  --color-ink-soft: #254358;
+  --color-body: #38546a;
+  --color-ink-muted: #48657b;
+  --color-bg: #eef2f4;
+  --color-surface: #f6f9fa;
+  --color-surface-alt: #e7eef2;
+  --color-surface-mid: #edf3f6;
+  --color-surface-elevated: #ffffff;
+  --color-surface-wash: #e6eef3;
+  --color-chrome-bg: #eef2f4;
+  --color-accent: #0b5f8a;
+  --color-accent-bright: #084b70;
+  --color-accent-dim: #285f7a;
+  --color-accent-soft: rgb(11 95 138 / 8%);
+  --color-accent-line: rgb(11 95 138 / 42%);
+  --color-on-accent: #ffffff;
+  --color-border: #c0cfd9;
+  --color-border-strong: #849eaf;
+  --color-reading-canvas: #f7fafb;
+  --color-water: #dde8ee;
+  --shadow-card: 0 2px 6px rgb(22 55 77 / 5%);
+  --shadow-card-hover: var(--shadow-card);
+  --backdrop-scrim: rgb(238 242 244 / 94%);
+  --cosmic-grid-rgb: 11, 95, 138;
+  --bp-grid: rgb(11 95 138 / 5%);
+  --bp-grid-major: rgb(11 95 138 / 9%);
+}
+:root[data-design="blueprint"] body {
+  background:
+    radial-gradient(ellipse at 78% 8%, var(--color-water), transparent 65%), var(--color-bg);
+  font-family: var(--font-sans);
+  counter-reset: blueprint-sheet;
+}
+:root[data-design="blueprint"] body::before {
+  opacity: 1;
+  mix-blend-mode: normal;
+  background-image:
+    linear-gradient(var(--bp-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-major) 1px, transparent 1px),
+    linear-gradient(var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+  mask-image: radial-gradient(ellipse at 50% 25%, black 15%, transparent 85%);
+}
+:root[data-design="blueprint"] body::after {
+  display: none;
+}
+:root[data-design="blueprint"] :is(.sky-field, .page-depth)::before,
+:root[data-design="blueprint"] .sky-field > * {
+  display: none;
+}
+:root[data-design="blueprint"] :is(.page-depth, .hero-section, .page-stage) {
+  background: transparent;
+}
+:root[data-design="blueprint"]
+  :is(h1, h2, h3, h4, .chapter-title, .project-case__title, .essay__title, .hero-heading):not(
+    .sutra-embed *
+  ) {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  color: var(--color-ink);
+}
+:root[data-design="blueprint"] .hero-heading {
+  font-size: clamp(3rem, 6.4vw, 6.5rem);
+  line-height: 0.98;
+}
+:root[data-design="blueprint"] :is(.chapter-title, .page-stage h1) {
+  line-height: 1.05;
+}
+:root[data-design="blueprint"] :is(.chapter-lede, .page-stage__lede, .hero-body) {
+  color: var(--color-body);
+  line-height: 1.75;
+}
+:root[data-design="blueprint"]
+  :is(
+    .chapter-eyebrow,
+    .hero-eyebrow,
+    .page-stage__eyebrow,
+    .essay__meta,
+    .essay__index,
+    .project-case__category,
+    .project-case__toggle-label,
+    .showcase-chapter__stack,
+    .showcase-chapter__heading > p,
+    .hero-proof-label,
+    .nav-item,
+    .site-footer,
+    .project-filter
+  ) {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+:root[data-design="blueprint"] main h2:not(.sutra-embed *) {
+  counter-increment: blueprint-sheet;
+}
+:root[data-design="blueprint"] main h2:not(.sutra-embed *)::before {
+  content: counter(blueprint-sheet, decimal-leading-zero) " / ";
+  display: inline;
+  font: 500 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  vertical-align: middle;
+}
+:root[data-design="blueprint"] .chapter-eyebrow::before {
+  background: var(--color-accent);
+  width: 1rem;
+}
+:root[data-design="blueprint"]
+  :is(.site-header, .site-header--home, .site-header__panel, .site-footer) {
+  background: var(--color-chrome-bg);
+  backdrop-filter: none;
+  border-color: var(--color-border-strong);
+  box-shadow: var(--chrome-shadow);
+}
+:root[data-design="blueprint"] .site-footer {
+  border-top: 1px solid var(--color-border-strong);
+}
+:root[data-design="blueprint"] .nav-item {
+  border-radius: 0;
+}
+:root[data-design="blueprint"] .nav-item--active {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow:
+    inset 2px 0 var(--color-accent),
+    inset -2px 0 var(--color-accent);
+}
+:root[data-design="blueprint"] .nav-item--active::after {
+  background: var(--color-accent);
+  border-radius: 0;
+}
+:root[data-design="blueprint"]
+  :is(.site-header__cta, .hero-primary-cta, button, select, input, textarea) {
+  border-radius: 2px;
+}
+:root[data-design="blueprint"] :is(.site-header__cta, .hero-primary-cta) {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  box-shadow: none;
+}
+/* Spec-sheet registration marks occupy the border, never the content box. */
+:root[data-design="blueprint"]
+  :is(
+    .editorial-card,
+    .hub-card-enter,
+    .project-case,
+    .showcase-chapter,
+    .essay,
+    .about-connect-row,
+    [aria-labelledby="facets-title"] li
+  ) {
+  position: relative;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  background: var(--hub-card-bg-gradient);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: none;
+  overflow: visible;
+  transition:
+    border-color 240ms ease,
+    background-color 240ms ease;
+}
+:root[data-design="blueprint"]
+  :is(
+    .editorial-card,
+    .hub-card-enter,
+    .project-case,
+    .showcase-chapter,
+    .essay,
+    .about-connect-row,
+    [aria-labelledby="facets-title"] li
+  )::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  border-radius: 0;
+  background:
+    linear-gradient(var(--color-accent), var(--color-accent)) left top / 9px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left top / 1px 9px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right top / 9px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right top / 1px 9px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left bottom / 9px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left bottom / 1px 9px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right bottom / 9px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right bottom / 1px 9px no-repeat;
+  opacity: 0.55;
+  transition:
+    inset 240ms ease,
+    opacity 240ms ease;
+}
+:root[data-design="blueprint"]
+  :is(
+    .editorial-card,
+    .hub-card-enter,
+    .project-case,
+    .showcase-chapter,
+    .essay,
+    .about-connect-row,
+    [aria-labelledby="facets-title"] li
+  )::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--color-accent), var(--color-accent)) left top / 0 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left top / 1px 0 no-repeat,
+    linear-gradient(var(--bp-grid) 1px, transparent 1px) 0 0 / 20px 20px,
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px) 0 0 / 20px 20px;
+  opacity: 0;
+  transition:
+    background-size 300ms ease,
+    opacity 240ms ease;
+}
+:root[data-design="blueprint"]
+  :is(
+    .editorial-card,
+    .hub-card-enter,
+    .project-case,
+    .showcase-chapter,
+    .essay,
+    .about-connect-row,
+    [aria-labelledby="facets-title"] li
+  ):is(:hover, :focus-within) {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card);
+  transform: none;
+}
+:root[data-design="blueprint"]
+  :is(
+    .editorial-card,
+    .hub-card-enter,
+    .project-case,
+    .showcase-chapter,
+    .essay,
+    .about-connect-row,
+    [aria-labelledby="facets-title"] li
+  ):is(:hover, :focus-within)::before {
+  inset: -4px;
+  opacity: 1;
+}
+:root[data-design="blueprint"]
+  :is(
+    .editorial-card,
+    .hub-card-enter,
+    .project-case,
+    .showcase-chapter,
+    .essay,
+    .about-connect-row,
+    [aria-labelledby="facets-title"] li
+  ):is(:hover, :focus-within)::after {
+  opacity: 1;
+  background-size:
+    100% 1px,
+    1px 100%,
+    20px 20px,
+    20px 20px;
+}
+:root[data-design="blueprint"]
+  :is(.editorial-card, .hub-card-enter, .project-case, .essay, .about-connect-row):active {
+  box-shadow: inset 0 1px 0 var(--color-accent);
+}
+:root[data-design="blueprint"] .hub-card-enter {
+  background: var(--hub-card-bg-gradient) !important;
+}
+:root[data-design="blueprint"] .hub-card-enter > .absolute {
+  display: none;
+}
+:root[data-design="blueprint"]
+  .hub-card-enter
+  :is([class*="text-slate-"], [class*="text-stone-"], [class*="text-amber-"]) {
+  color: var(--color-body) !important;
+}
+:root[data-design="blueprint"] .hub-card-enter span.border {
+  background: var(--color-accent-soft);
+  border-color: var(--color-border);
+  border-radius: 0;
+}
+:root[data-design="blueprint"]
+  :is(.project-case__heading, .showcase-chapter__heading, .editorial-card > header) {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.8rem;
+}
+:root[data-design="blueprint"]
+  :is(.project-case__category, .project-architecture__node, .showcase-chapter__stack li) {
+  border-radius: 0;
+  font-family: var(--font-mono);
+}
+:root[data-design="blueprint"] .project-case-list {
+  gap: 1rem;
+}
+:root[data-design="blueprint"] .project-case__summary {
+  padding: 1.5rem;
+}
+:root[data-design="blueprint"] .project-case__body {
+  padding-inline: 1.5rem;
+}
+:root[data-design="blueprint"] .showcase-chapter {
+  padding: clamp(1rem, 3vw, 2rem);
+}
+:root[data-design="blueprint"] .essay {
+  padding: 1.25rem;
+  height: 100%;
+}
+:root[data-design="blueprint"] .essays {
+  gap: 1rem;
+}
+:root[data-design="blueprint"] .about-connect-row {
+  padding: 1rem;
+  margin-block: 0.75rem;
+}
+:root[data-design="blueprint"] .about-content :is(h2, h3) {
+  border-bottom: 1px solid var(--color-border-strong);
+  padding-bottom: 0.75rem;
+}
+:root[data-design="blueprint"] [aria-labelledby="facets-title"] ol {
+  gap: 1rem;
+  border: 0;
+}
+:root[data-design="blueprint"] [aria-labelledby="facets-title"] li > a {
+  padding: 1.4rem;
+}
+:root[data-design="blueprint"] [aria-labelledby="earlier-work-title"] li {
+  background: var(--color-surface);
+  padding-inline: 1rem;
+}
+:root[data-design="blueprint"]
+  :is(.hero-plate, .showcase-image, .page-stage__plate, .horizon__plate, .dock__plate) {
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  background-color: var(--color-water);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+:root[data-design="blueprint"]
+  :is(
+    .hero-plate-art,
+    .showcase-image img,
+    .page-stage__plate img,
+    .horizon__plate img,
+    .dock__plate img,
+    .hero-static-art
+  ) {
+  filter: grayscale(1) sepia(0.4) hue-rotate(155deg) saturate(0.8);
+  mix-blend-mode: luminosity;
+}
+:root[data-design="blueprint"][data-theme="light"]
+  :is(
+    .hero-plate-art,
+    .showcase-image img,
+    .page-stage__plate img,
+    .horizon__plate img,
+    .dock__plate img,
+    .hero-static-art
+  ) {
+  filter: grayscale(1) sepia(0.25) hue-rotate(155deg);
+  mix-blend-mode: multiply;
+}
+:root[data-design="blueprint"] :is(.hero-info-panel, .hero-console-panel, .hero-callout) {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  backdrop-filter: none;
+}
+:root[data-design="blueprint"] .chapter-rail__dot {
+  border-color: var(--color-accent-line);
+}
+:root[data-design="blueprint"] .chapter-rail__stop[aria-current] .chapter-rail__dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
+}
+:root[data-design="blueprint"] .bp-crosshair {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  color: var(--color-accent);
+}
+:root[data-design="blueprint"] .bp-crosshair[hidden] {
+  display: none;
+}
+:root[data-design="blueprint"] .bp-crosshair__x {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--bp-y);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+:root[data-design="blueprint"] .bp-crosshair__y {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--bp-x);
+  width: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+:root[data-design="blueprint"] .bp-crosshair__label {
+  position: absolute;
+  left: clamp(8px, var(--bp-x), calc(100% - 148px));
+  top: clamp(8px, calc(var(--bp-y) + 14px), calc(100% - 32px));
+  padding: 3px 6px;
+  background: var(--color-chrome-bg);
+  border: 1px solid var(--color-border);
+  font: 10px/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+}
+@media (max-width: 600px) {
+  :root[data-design="blueprint"] .hero-heading {
+    font-size: clamp(2.65rem, 11vw, 4rem);
+  }
+  :root[data-design="blueprint"] :is(.project-case__summary, .project-case__body) {
+    padding-inline: 1rem;
+  }
+  :root[data-design="blueprint"] .project-case__heading {
+    flex-wrap: wrap;
+  }
+  :root[data-design="blueprint"] :is(.hub-card-enter, .essay, .project-case) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-design="blueprint"] *,
+  :root[data-design="blueprint"] *::before,
+  :root[data-design="blueprint"] *::after {
+    transition: none !important;
+  }
+  :root[data-design="blueprint"] .bp-crosshair {
+    display: none;
+  }
+}
+@media (hover: none), (pointer: coarse) {
+  :root[data-design="blueprint"] .bp-crosshair {
+    display: none;
+  }
+  :root[data-design="blueprint"]
+    :is(
+      .editorial-card,
+      .hub-card-enter,
+      .project-case,
+      .showcase-chapter,
+      .essay,
+      .about-connect-row,
+      [aria-labelledby="facets-title"] li
+    ):hover::before {
+    inset: -1px;
+  }
+}
+/* Neutralize the original warm atmosphere without altering scene functionality. */
+:root[data-design="blueprint"] :is(.hero-canvas, .page-stage__gpu) {
+  filter: grayscale(1) sepia(0.35) hue-rotate(155deg) saturate(0.75);
+}
+:root[data-design="blueprint"] :is(.page-stage__glow, .page-stage__mist) {
+  display: none;
+}
+:root[data-design="blueprint"] .hero-heading-line {
+  white-space: normal;
+}
+:root[data-design="blueprint"] :is(.hero-plate, .showcase-image)::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--color-accent), var(--color-accent)) left top / 14px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left top / 1px 14px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right bottom / 14px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right bottom / 1px 14px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right top / 14px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right top / 1px 14px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left bottom / 14px 1px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) left bottom / 1px 14px no-repeat;
+}
+:root[data-design="blueprint"] a:focus-visible > .hub-card-enter {
+  border-color: var(--color-accent);
+}
+:root[data-design="blueprint"] a:focus-visible > .hub-card-enter::before {
+  inset: -4px;
+  opacity: 1;
+}
+:root[data-design="blueprint"] a:focus-visible > .hub-card-enter::after {
+  opacity: 1;
+  background-size:
+    100% 1px,
+    1px 100%,
+    20px 20px,
+    20px 20px;
+}
+
+:root[data-design="blueprint"] .nav-item {
+  letter-spacing: 0.06em;
+}

@@ -39,7 +39,7 @@ export function DesignSwitcher({ className = "" }: { className?: string }) {
         onClick={() => setOpen((v) => !v)}
       >
         <span className="design-switcher__swatch" data-swatch={current.id} aria-hidden="true" />
-        <span className="hidden text-xs font-medium xl:inline">{current.label}</span>
+        <span className="hidden text-xs font-medium 2xl:inline">{current.label}</span>
       </button>
       {open ? (
         <ul
