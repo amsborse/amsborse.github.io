@@ -420,8 +420,10 @@
   }
 
   .selected-work__intro > a {
+    flex-shrink: 0;
     align-self: end;
     font-size: 0.9375rem;
+    white-space: nowrap;
   }
 
   .project-case__summary {

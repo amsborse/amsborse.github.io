@@ -16,34 +16,34 @@ export function Footer() {
             </p>
           </div>
           <div className="flex flex-col gap-6 sm:flex-row sm:justify-between lg:justify-end lg:gap-16">
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-1.5">
               <p className="section-label">On this site</p>
               <Link
                 to="/projects"
-                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
+                className="link-editorial link-editorial--from-body py-0.5 text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Projects
               </Link>
               <Link
                 to="/arsenal/writing"
-                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
+                className="link-editorial link-editorial--from-body py-0.5 text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Writing & Essays
               </Link>
               <Link
                 to="/learning"
-                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
+                className="link-editorial link-editorial--from-body py-0.5 text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Learning Hub
               </Link>
               <Link
                 to="/about#contact"
-                className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
+                className="link-editorial link-editorial--from-body py-0.5 text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
               >
                 Contact
               </Link>
             </div>
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-1.5">
               <p className="section-label">Elsewhere</p>
               {socialNav.map(({ key, label }) => (
                 <a
@@ -51,7 +51,7 @@ export function Footer() {
                   href={links.social[key]}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-editorial link-editorial--from-body text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
+                  className="link-editorial link-editorial--from-body py-0.5 text-sm font-medium focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded"
                 >
                   {label}
                 </a>

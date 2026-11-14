@@ -37,9 +37,22 @@ const QuantumMeshLab = lazy(() => import("@/pages/arsenal/QuantumMeshLab"));
 const FlashcardsDeck = lazy(() => import("@/pages/FlashcardsDeck"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
+/**
+ * A redirect that holds a screen of height for the frame before it lands, so the footer never
+ * flashes into view and then jumps away (that jump was a 0.17 layout shift on /arsenal).
+ */
+function Redirect({ to }: { to: string }) {
+  return (
+    <>
+      <Navigate to={to} replace />
+      <div className="min-h-[100svh]" aria-hidden />
+    </>
+  );
+}
+
 function WritingSlugRedirect() {
   const { slug } = useParams();
-  return <Navigate to={`/arsenal/writing/${slug ?? ""}`} replace />;
+  return <Redirect to={`/arsenal/writing/${slug ?? ""}`} />;
 }
 
 function basename(): string | undefined {
@@ -87,7 +100,7 @@ export default function App() {
           <Route path="learning/algorithm/greedy" element={<AlgorithmGreedy />} />
           <Route path="learning/algorithm/trees" element={<AlgorithmTrees />} />
 
-          <Route path="arsenal" element={<Navigate to="/projects" replace />} />
+          <Route path="arsenal" element={<Redirect to="/projects" />} />
           <Route path="arsenal/writing" element={<Writing />} />
           <Route path="arsenal/writing/:slug" element={<Article />} />
           <Route path="arsenal/future-projects" element={<FutureProjectsHub />} />
@@ -98,12 +111,12 @@ export default function App() {
           <Route path="arsenal/gravity-well" element={<GravityWellLab />} />
           <Route path="arsenal/quantum-mesh" element={<QuantumMeshLab />} />
 
-          <Route path="writing" element={<Navigate to="/arsenal/writing" replace />} />
+          <Route path="writing" element={<Redirect to="/arsenal/writing" />} />
           <Route path="writing/:slug" element={<WritingSlugRedirect />} />
-          <Route path="contact" element={<Navigate to="/about#contact" replace />} />
-          <Route path="algorithm" element={<Navigate to="/arsenal/algorithm" replace />} />
-          <Route path="motion" element={<Navigate to="/arsenal/celestial-grid" replace />} />
-          <Route path="aether-lab" element={<Navigate to="/arsenal" replace />} />
+          <Route path="contact" element={<Redirect to="/about#contact" />} />
+          <Route path="algorithm" element={<Redirect to="/arsenal/algorithm" />} />
+          <Route path="motion" element={<Redirect to="/arsenal/celestial-grid" />} />
+          <Route path="aether-lab" element={<Redirect to="/arsenal" />} />
 
           <Route path="learning/flashcards/:deckId" element={<FlashcardsDeck />} />
           <Route path="404" element={<NotFoundPage />} />
