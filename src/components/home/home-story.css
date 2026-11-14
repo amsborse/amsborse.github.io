@@ -328,6 +328,11 @@
   padding: 1.5rem 0;
   border-radius: 0.25rem;
   color: var(--color-ink);
+  transition: background var(--duration-micro);
+}
+.essay:hover,
+.essay:focus-visible {
+  background: var(--color-surface-wash);
 }
 @media (min-width: 768px) {
   .essay {
@@ -357,6 +362,7 @@
 .essay:hover .essay__title,
 .essay:focus-visible .essay__title {
   background-size: 100% 1px;
+  color: var(--color-accent);
 }
 .essay__body {
   max-width: 38rem;
@@ -370,6 +376,12 @@
   font-size: 0.9rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .essay,
+  .essay__title {
+    transition: none;
+  }
 }
 @media (min-width: 768px) {
   .essay__meta {
