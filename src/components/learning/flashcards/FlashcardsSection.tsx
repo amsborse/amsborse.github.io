@@ -31,7 +31,7 @@ export function FlashcardsSection() {
 
   return (
     <section
-      className="mt-20 border-t theme-divider pt-16"
+      className="mt-12 border-t theme-divider pt-10 sm:mt-20 sm:pt-16"
       aria-labelledby="flashcards-heading"
       id="flashcards"
     >
