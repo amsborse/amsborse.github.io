@@ -129,6 +129,11 @@ function routesFor(state: HeroState): { id: string; d: string; kind: RouteKind }
 }
 
 const MAX_CANVAS_WIDTH = 2400;
+/**
+ * Observers report again when visibility falls below 1%, so a plate scrolled until its edge only
+ * touches the viewport (still `isIntersecting`, ratio 0) stops its loops instead of running on.
+ */
+const EDGE_THRESHOLDS: IntersectionObserverInit = { threshold: [0, 0.01] };
 
 export function HeroPlate({
   state,
@@ -314,9 +319,10 @@ export function HeroPlate({
       if (!raf) raf = requestAnimationFrame(tick);
     };
     const intersection = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+      // Edge contact alone reports isIntersecting while no pixel of the canvas is on screen.
+      visible = entry.isIntersecting && entry.intersectionRatio > 0;
       if (visible) kick();
-    });
+    }, EDGE_THRESHOLDS);
     intersection.observe(canvas);
     document.addEventListener("visibilitychange", kick);
     (canvas as HTMLCanvasElement & { __kick?: () => void }).__kick = kick;
@@ -418,9 +424,11 @@ export function HeroPlate({
       kick();
     };
     const intersection = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+      // A frame whose edge only touches the viewport reports isIntersecting with nothing on
+      // screen; the camera spring there would settle for seconds that nobody sees.
+      visible = entry.isIntersecting && entry.intersectionRatio > 0;
       if (visible) kick();
-    });
+    }, EDGE_THRESHOLDS);
     intersection.observe(frame);
     if (finePointer) window.addEventListener("pointermove", onPointer, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });

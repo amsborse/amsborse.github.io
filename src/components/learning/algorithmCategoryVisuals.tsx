@@ -88,7 +88,7 @@ export function GraphPortalVisual() {
               stroke="#34d399"
               strokeWidth="1"
               opacity="0.4"
-              className="animate-ping"
+              className="animate-ping motion-reduce:animate-none"
               style={{ transformOrigin: `${cx}px ${cy}px` }}
             />
           )}

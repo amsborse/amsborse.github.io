@@ -99,7 +99,7 @@ const TOPICS: LearningCardTopic[] = [
           stroke="#10b981"
           strokeWidth="1"
           opacity="0.3"
-          className="animate-ping"
+          className="animate-ping motion-reduce:animate-none"
           style={{ transformOrigin: "40px 100px" }}
         />
 
@@ -215,6 +215,9 @@ const TOPICS: LearningCardTopic[] = [
             .code-l2 { animation: type-line-2 5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
             .code-l3 { animation: type-line-3 5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
             .cursor { animation: blink-cursor 1s infinite step-start; }
+            @media (prefers-reduced-motion: reduce) {
+              .code-l1, .code-l2, .code-l3, .cursor { animation: none; }
+            }
           `}
         </style>
 

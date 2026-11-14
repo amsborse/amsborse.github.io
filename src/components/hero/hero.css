@@ -948,7 +948,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-scroll-cue span,
+  .hero-scroll-cue span {
+    animation: none;
+  }
+
   .hero-loading-orbit,
   .hero-loading-track span {
     animation-duration: 60s;
