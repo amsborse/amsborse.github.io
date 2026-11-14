@@ -1,0 +1,325 @@
+/* Artwork owned by the Blueprint and Broadsheet designs: the redrawn plates and the two heroes
+   that replace the island scene. Editorial never renders any of these. */
+
+.design-plate {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+}
+.design-plate[data-ready="true"] {
+  opacity: 1;
+}
+
+/* ---------- Shared hero frame: right-hand column on desktop, a band above the copy below ---------- */
+.bp-hero,
+.bs-hero {
+  position: absolute;
+  z-index: 2;
+  top: clamp(6.5rem, 12vh, 8rem);
+  right: max(5vw, calc((100vw - 1500px) / 2));
+  bottom: 10.5rem;
+  width: min(52vw, 860px);
+  margin: 0;
+}
+
+/* ---------- Blueprint: the topology as a technical sheet ---------- */
+.bp-hero {
+  display: grid;
+  place-items: center;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+.bp-hero__sheet {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.bp-hero__sheet text {
+  fill: var(--color-ink-soft, var(--color-ink));
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+}
+.bp-hero__frame {
+  fill: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+.bp-hero__dimension path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 0.8;
+}
+.bp-hero__sheet .bp-hero__dim-label {
+  fill: var(--color-accent);
+  paint-order: stroke;
+  stroke: var(--color-bg);
+  stroke-width: 6px;
+  font-size: 9px;
+}
+.bp-hero__sheet .bp-hero__row-label {
+  fill: var(--color-accent);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  paint-order: stroke;
+  stroke: var(--color-bg);
+  stroke-width: 5px;
+}
+.bp-hero__arrowhead {
+  fill: var(--color-accent);
+}
+.bp-hero__requests path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.6;
+}
+.bp-hero__sheet .bp-hero__requests text {
+  fill: var(--color-accent);
+  font-size: 8.5px;
+  paint-order: stroke;
+  stroke: var(--color-bg);
+  stroke-width: 5px;
+}
+.bp-hero__responses path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.1;
+  stroke-dasharray: 6 4;
+  opacity: 0.75;
+}
+.bp-hero__telemetry path {
+  fill: none;
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 1.5 4;
+  stroke-linecap: round;
+}
+.bp-hero__node {
+  cursor: pointer;
+  outline: none;
+}
+.bp-hero__box {
+  fill: var(--color-bg);
+  stroke: var(--color-accent);
+  stroke-width: 1.4;
+  transition: stroke-width 200ms ease;
+}
+.bp-hero__box-fill {
+  fill: transparent;
+  transition: fill 200ms ease;
+}
+.bp-hero__ticks {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1;
+}
+.bp-hero__sheet .bp-hero__node-name {
+  fill: var(--color-ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.bp-hero__sheet .bp-hero__node-meta {
+  fill: var(--color-ink-soft, var(--color-ink));
+  font-size: 7px;
+  letter-spacing: 0.06em;
+}
+.bp-hero__node:is(:hover, :focus-visible, [data-state="hover"]) .bp-hero__box {
+  stroke-width: 2.6;
+}
+.bp-hero__node:is(:hover, :focus-visible, [data-state="hover"]) .bp-hero__box-fill {
+  fill: url(#bp-hatch);
+}
+.bp-hero__node:focus-visible .bp-hero__box {
+  stroke-dasharray: 4 3;
+}
+.bp-hero__hatch {
+  stroke: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  stroke-width: 1.2;
+}
+.bp-hero__node[data-state="failed"] .bp-hero__box,
+.bp-hero__node[data-state="failed"] .bp-hero__ticks {
+  stroke: #e5484d;
+}
+.bp-hero__title-block rect,
+.bp-hero__title-block path {
+  fill: var(--color-bg);
+  stroke: var(--color-accent);
+  stroke-width: 1;
+}
+.bp-hero__title-block path {
+  fill: none;
+}
+.bp-hero__sheet .bp-hero__tb-strong {
+  fill: var(--color-ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.bp-hero__packet {
+  fill: var(--color-accent);
+  stroke: var(--color-bg);
+  stroke-width: 2;
+}
+
+/* The ink draws itself in once on arrival. */
+.bp-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: bp-draw 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards;
+}
+.bp-hero__responses .bp-draw,
+.bp-hero__node .bp-draw {
+  animation-delay: 0.35s;
+}
+@keyframes bp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Broadsheet: a front-page photograph with a dateline and caption ---------- */
+.bs-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-family: var(--font-serif);
+}
+.bs-hero__dateline {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding-block: 0.35rem;
+  border-block: 1px solid var(--color-ink);
+  color: var(--color-ink);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bs-hero__photo {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-ink);
+  background: var(--color-bg);
+}
+.bs-hero__plate {
+  position: absolute;
+  inset: 0;
+}
+.bs-hero__caption {
+  border-top: 4px double var(--color-ink);
+  padding-top: 0.5rem;
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+.bs-hero__caption strong {
+  margin-right: 0.35rem;
+  color: var(--color-accent);
+  font-family: var(--font-display, var(--font-serif));
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.bs-hero__part {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+.bs-hero__part:is(:hover, :focus-visible, [data-active="true"]) {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+.bs-hero__part:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* The copy column gives way to the artwork. */
+:root[data-design="broadsheet"] .hero-section[data-design-hero] .hero-copy:not(.sutra-embed *) {
+  width: min(38vw, 560px);
+}
+@media (min-width: 901px) {
+  :root[data-design="broadsheet"] .bs-hero {
+    width: min(50vw, 820px);
+  }
+}
+/* No island behind the copy, so it needs no backing plate that could cover the artwork. */
+:root[data-design] .hero-section[data-design-hero] .hero-copy:not(.sutra-embed *) {
+  background: transparent;
+}
+:root[data-design="broadsheet"] .hero-section[data-design-hero] .hero-heading {
+  font-size: clamp(3.2rem, 5.6vw, 6rem);
+}
+:root[data-design="broadsheet"] .hero-section[data-design-hero]::before {
+  display: none;
+}
+:root[data-design] .hero-section[data-design-hero]::after {
+  display: none;
+}
+:root[data-design="blueprint"] .hero-section[data-design-hero] .hero-copy {
+  width: min(36vw, 500px);
+}
+
+@media (max-width: 900px) {
+  .bp-hero,
+  .bs-hero {
+    top: 5.5rem;
+    right: 5vw;
+    bottom: auto;
+    left: 5vw;
+    width: auto;
+    height: calc(clamp(28rem, 48vh, 34rem) - 7rem);
+  }
+  :root[data-design] .hero-section[data-design-hero] .hero-copy:not(.sutra-embed *) {
+    width: min(78vw, 35rem);
+  }
+}
+@media (max-width: 600px) {
+  .bp-hero,
+  .bs-hero {
+    top: 4.75rem;
+    right: 1.35rem;
+    left: 1.35rem;
+    height: 16.25rem;
+  }
+  :root[data-design] .hero-section[data-design-hero] .hero-copy:not(.sutra-embed *) {
+    width: 100%;
+  }
+  .bs-hero__caption {
+    font-size: 0.78rem;
+  }
+  /* A phone keeps the figure line; "Explore the system" opens the same inspector. */
+  .bs-hero__parts {
+    display: none;
+  }
+  .bs-hero__dateline {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .design-plate {
+    transition: none;
+  }
+}

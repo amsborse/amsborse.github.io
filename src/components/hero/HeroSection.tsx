@@ -16,7 +16,17 @@ import { parseHeroUrl } from "./heroUrlState";
 import { qualityForViewport } from "./heroQuality";
 import { HeroPlate, type PlateRendererKind } from "./HeroPlate";
 import { HeroConsole } from "./HeroConsole";
+import { useDocumentDesign } from "@/theme/useDocumentDesign";
 import "./hero.css";
+
+const HeroDrawing = lazy(() =>
+  import("@/designs/blueprint/HeroDrawing").then((module) => ({ default: module.HeroDrawing }))
+);
+const HeroFrontPage = lazy(() =>
+  import("@/designs/broadsheet/HeroFrontPage").then((module) => ({
+    default: module.HeroFrontPage,
+  }))
+);
 
 const HeroCanvas = lazy(() =>
   import("./HeroCanvas").then((module) => ({ default: module.HeroCanvas }))
@@ -105,6 +115,9 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
   const words = headline.split(/\s+/);
 
   const plateMode = urlState.scene === "plate";
+  // Blueprint and Broadsheet replace the island with their own artwork; Editorial keeps it.
+  const design = useDocumentDesign();
+  const designHero = plateMode && design !== "editorial" ? design : null;
   const plateWebGL = useMemo(
     () => new URLSearchParams(window.location.search).get("heroWebGL") !== "off",
     []
@@ -230,6 +243,13 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
   }, []);
   const now = currentTime;
 
+  useEffect(() => {
+    if (!designHero) return;
+    setRenderer("static");
+    setCanvasFailed(false);
+    setReady(true);
+  }, [designHero]);
+
   return (
     <section
       ref={rootRef}
@@ -241,8 +261,30 @@ export function HeroSection({ proofPoints }: { proofPoints: HeroProofPoint[] }) 
       data-hero-fixed={String(urlState.fixedTime !== null)}
       data-hero-drawcalls="0"
       data-hero-triangles="0"
+      data-design-hero={designHero ?? undefined}
     >
-      {plateMode && (
+      {designHero === "blueprint" && (
+        <Suspense fallback={null}>
+          <HeroDrawing
+            hovered={state.hovered}
+            failed={state.failed}
+            reducedMotion={reducedMotion}
+            onHover={onHover}
+            onSelect={openService}
+          />
+        </Suspense>
+      )}
+      {designHero === "broadsheet" && (
+        <Suspense fallback={null}>
+          <HeroFrontPage
+            theme={lightMode ? "light" : "dark"}
+            hovered={state.hovered}
+            onHover={onHover}
+            onSelect={openService}
+          />
+        </Suspense>
+      )}
+      {plateMode && !designHero && (
         <HeroPlate
           state={state}
           sampleRef={routeSample}

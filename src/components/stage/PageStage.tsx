@@ -1,4 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+import { LazyDesignPlate } from "@/designs/LazyDesignPlate";
+import { useDocumentDesign } from "@/theme/useDocumentDesign";
 import "./page-stage.css";
 
 /** Motifs the earlier line-art stage knows how to draw. */
@@ -78,6 +80,7 @@ export function PageStage(props: StageProps) {
 function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageProps) {
   const stage = useRef<HTMLElement>(null);
   const theme = useDocumentTheme();
+  const design = useDocumentDesign();
   // Follows the system setting live, so turning reduced motion on mid-visit stills the stage.
   const still = usePrefersReducedMotion();
   useStageLife(stage, still);
@@ -91,18 +94,22 @@ function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageP
     >
       <div className="page-stage__static" aria-hidden="true">
         <div className="page-stage__plate">
-          <picture key={theme}>
-            <source media="(max-width: 720px)" srcSet={`${base}-960.webp`} />
-            <img
-              className="page-stage__art"
-              src={`${base}.webp`}
-              alt=""
-              width={1672}
-              height={941}
-              decoding="async"
-              fetchPriority="high"
-            />
-          </picture>
+          {design === "editorial" ? (
+            <picture key={theme}>
+              <source media="(max-width: 720px)" srcSet={`${base}-960.webp`} />
+              <img
+                className="page-stage__art"
+                src={`${base}.webp`}
+                alt=""
+                width={1672}
+                height={941}
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
+          ) : (
+            <LazyDesignPlate src={`${base}.webp`} design={design} theme={theme} />
+          )}
           <span className="page-stage__glow" />
         </div>
         <span className="page-stage__mist" />
