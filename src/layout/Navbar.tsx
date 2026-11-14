@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { navItems, site } from "@/data";
 
 const ROLE = "Engineer & Writer";
@@ -98,10 +99,12 @@ export function Navbar() {
           >
             Get in touch <span aria-hidden="true">↗</span>
           </NavLink>
-          <ThemeToggle className="ml-1" />
+          <DesignSwitcher className="ml-1" />
+          <ThemeToggle />
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
+          <DesignSwitcher />
           <ThemeToggle />
           <button
             type="button"

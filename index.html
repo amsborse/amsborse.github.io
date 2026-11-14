@@ -21,6 +21,15 @@
         document.documentElement.style.colorScheme = theme;
         var meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.setAttribute("content", theme === "light" ? "#f6f4ef" : "#07080d");
+        var designs = ["editorial", "blueprint", "broadsheet"];
+        var design = "editorial";
+        try {
+          var fromUrl = new URLSearchParams(window.location.search).get("design");
+          var savedDesign = localStorage.getItem("portfolio-design");
+          if (designs.indexOf(fromUrl) >= 0) design = fromUrl;
+          else if (designs.indexOf(savedDesign) >= 0) design = savedDesign;
+        } catch (e) {}
+        document.documentElement.setAttribute("data-design", design);
       })();
     </script>
     <meta

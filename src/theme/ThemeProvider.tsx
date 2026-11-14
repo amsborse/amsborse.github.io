@@ -14,12 +14,15 @@ import {
   type SiteTheme,
   THEME_STORAGE_KEY,
 } from "./theme";
+import { applySiteDesign, resolveInitialDesign, saveSiteDesign, type SiteDesign } from "./design";
 
 type ThemeContextValue = {
   theme: SiteTheme;
   cardScheme: "light" | "dark";
   setTheme: (theme: SiteTheme) => void;
   toggleTheme: () => void;
+  design: SiteDesign;
+  setDesign: (design: SiteDesign) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -32,6 +35,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(THEME_STORAGE_KEY, next);
     applySiteTheme(next);
   }, []);
+
+  const [design, setDesignState] = useState<SiteDesign>(() => resolveInitialDesign());
+
+  const setDesign = useCallback((next: SiteDesign) => {
+    setDesignState(next);
+    saveSiteDesign(next);
+    applySiteDesign(next);
+  }, []);
+
+  useEffect(() => {
+    applySiteDesign(design);
+  }, [design]);
 
   const toggleTheme = useCallback(() => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -47,8 +62,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       cardScheme: cardColorScheme(theme),
       setTheme,
       toggleTheme,
+      design,
+      setDesign,
     }),
-    [setTheme, theme, toggleTheme]
+    [design, setDesign, setTheme, theme, toggleTheme]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
