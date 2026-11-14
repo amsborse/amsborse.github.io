@@ -413,6 +413,7 @@ export const HubInteractiveCard = memo(function HubInteractiveCard({
       index={index}
       href={link}
       disabled={disabled}
+      className={status === "coming-soon" ? "hub-card--coming-soon" : ""}
       height={height}
       density={density}
       viewStyle={viewStyle}
@@ -447,7 +448,7 @@ export const HubInteractiveCard = memo(function HubInteractiveCard({
             </div>
           </>
         }
-        portal={portal}
+        portal={status === "coming-soon" ? undefined : portal}
       />
     </InteractiveCardShell>
   );

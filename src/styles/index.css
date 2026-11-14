@@ -1871,6 +1871,27 @@ a.editorial-card:focus-visible {
   /* Same left edge as the plate copy, without altering the plate or its imagery. */
   margin-left: calc(50% - min(40rem, 50vw) + clamp(1.25rem, 4vw, 3.5rem));
 }
+
+/* Planned labs remain readable, but do not advertise an active interaction. */
+.hub-card--coming-soon,
+.hub-card--coming-soon:hover {
+  background: var(--color-surface-wash) !important;
+  border: 1px dashed var(--color-border-strong);
+  box-shadow: none;
+  translate: none;
+}
+.hub-card--coming-soon p {
+  color: color-mix(in srgb, var(--color-body) 85%, var(--color-ink-muted));
+}
+.hub-card--coming-soon h3 {
+  color: var(--color-ink);
+}
+.hub-card--coming-soon > .absolute {
+  display: none;
+}
+.hub-card--coming-soon > .relative > div {
+  width: 100%;
+}
 .about-connect-row {
   display: flex;
   align-items: center;
