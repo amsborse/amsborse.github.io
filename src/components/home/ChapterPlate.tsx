@@ -13,7 +13,7 @@ export function ChapterPlate({ name, className }: { name: PlateName; className: 
   if (treatment) {
     return (
       <div className={className} aria-hidden="true">
-        <LazyDesignPlate src={`${base}.webp`} treatment={treatment} theme={theme} />
+        <LazyDesignPlate chapter={name} treatment={treatment} theme={theme} />
       </div>
     );
   }

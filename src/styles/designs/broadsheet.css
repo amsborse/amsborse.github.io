@@ -389,7 +389,6 @@
   right: 1rem;
   mask-image: none;
   -webkit-mask-image: none;
-  opacity: 0.6;
 }
 :root[data-design="broadsheet"] .page-stage__copy {
   position: relative;
@@ -398,8 +397,8 @@
 :root[data-design="broadsheet"] .page-stage__copy > :is(h1, p, div) {
   background-color: var(--color-bg);
 }
-:root[data-design="broadsheet"]
-  :is(.page-stage__plate, .horizon__plate, .dock__plate, .showcase-image, .article-cover)::after {
+/* Newsprint dots over photographs only: the chapter plates are already engraved. */
+:root[data-design="broadsheet"] :is(.showcase-image, .article-cover)::after {
   content: "";
   position: absolute;
   inset: 0;

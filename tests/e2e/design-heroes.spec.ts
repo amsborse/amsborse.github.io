@@ -59,3 +59,31 @@ test.describe("design heroes", () => {
     await expect(page.getByRole("dialog")).toContainText("Data Storage");
   });
 });
+
+test.describe("design chapter plates", () => {
+  for (const [design, treatment] of [
+    ["broadsheet", "engraving"],
+    ["blueprint", "contour"],
+  ] as const) {
+    test(`${design} draws the about chapter's own ${treatment}, never the cinematic photo`, async ({
+      page,
+    }) => {
+      const photos: string[] = [];
+      page.on("request", (request) => {
+        if (request.url().includes("/assets/cinematic/")) photos.push(request.url());
+      });
+      await page.goto(`/about?design=${design}`);
+      const plate = page.locator(`.page-stage canvas.design-plate--${treatment}`);
+      await expect(plate).toHaveAttribute("data-chapter", "about");
+      await expect(plate).toHaveAttribute("data-ready", "true", { timeout: 15_000 });
+      const inked = await plate.evaluate((canvas: HTMLCanvasElement) => {
+        const { data } = canvas.getContext("2d")!.getImageData(0, 0, canvas.width, canvas.height);
+        let count = 0;
+        for (let i = 3; i < data.length; i += 4 * 53) if (data[i] > 40) count += 1;
+        return count;
+      });
+      expect(inked).toBeGreaterThan(300);
+      expect(photos).toEqual([]);
+    });
+  }
+});

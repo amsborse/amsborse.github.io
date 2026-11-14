@@ -18,8 +18,8 @@ export type DesignHeroProps = {
   onSelect: (id: ServiceId) => void;
 };
 
-/** How the cinematic chapter plates are redrawn in this design's medium. */
-export type PlateTreatment = "halftone" | "linework";
+/** How this design draws each chapter's own plate: cut as an engraving or surveyed as contours. */
+export type PlateTreatment = "engraving" | "contour";
 
 export type DesignDefinition = {
   id: string;
@@ -29,7 +29,7 @@ export type DesignDefinition = {
   hero?: () => Promise<{ default: ComponentType<DesignHeroProps> }>;
   /** Page-wide interactions, mounted while the design is active; `mount` returns cleanup. */
   effects?: () => Promise<{ mount: () => () => void }>;
-  /** Redraws the chapter plates. Omit to keep the original photographs. */
+  /** Draws the chapter plates in this medium. Omit to keep the original photographs. */
   plate?: PlateTreatment;
 };
 
@@ -42,7 +42,7 @@ export const DESIGNS = [
     hero: () =>
       import("./blueprint/HeroDrawing").then((module) => ({ default: module.HeroDrawing })),
     effects: () => import("./blueprint/effects"),
-    plate: "linework",
+    plate: "contour",
   },
   {
     id: "broadsheet",
@@ -53,7 +53,7 @@ export const DESIGNS = [
         default: module.HeroFrontPage,
       })),
     effects: () => import("./broadsheet/effects"),
-    plate: "halftone",
+    plate: "engraving",
   },
 ] as const satisfies readonly DesignDefinition[];
 

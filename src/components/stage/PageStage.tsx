@@ -109,7 +109,7 @@ function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageP
               />
             </picture>
           ) : (
-            <LazyDesignPlate src={`${base}.webp`} treatment={treatment} theme={theme} />
+            <LazyDesignPlate chapter={motif} treatment={treatment} theme={theme} />
           )}
           <span className="page-stage__glow" />
         </div>
