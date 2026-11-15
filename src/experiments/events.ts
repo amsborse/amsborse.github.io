@@ -40,21 +40,6 @@ export type EventBatch = {
   events: ExperimentEvent[];
 };
 
-/**
- * Strips anything in free text (an error message) that could identify a person or a page they
- * came from: URLs, email addresses, long numbers and long tokens. The site runs it before sending
- * and the Worker again before storing, so a modified client cannot skip it.
- */
-export function scrubText(text: string, max: number): string {
-  return text
-    .replace(/[a-z][a-z0-9+.-]*:\/\/\S+/gi, "<url>")
-    .replace(/[^\s@]+@[^\s@]+\.[^\s@]+/g, "<email>")
-    .replace(/\d{4,}/g, "#")
-    .replace(/[A-Za-z0-9_-]{24,}/g, "<token>")
-    .replace(/\p{Cc}/gu, " ")
-    .slice(0, max);
-}
-
 export type Sender = (body: string) => boolean;
 
 /**
@@ -64,7 +49,8 @@ export type Sender = (body: string) => boolean;
  * a console error so a broken endpoint never grows the queue without bound.
  */
 export class EventQueue {
-  private queue: ExperimentEvent[] = [];
+  /** Each event keeps the header from when it happened, so a later design switch never relabels it. */
+  private queue: Array<{ header: Omit<EventBatch, "events">; event: ExperimentEvent }> = [];
   private retried = false;
 
   constructor(
@@ -78,17 +64,17 @@ export class EventQueue {
   }
 
   push(event: ExperimentEvent): void {
-    this.queue.push(event);
+    this.queue.push({ header: this.header(), event });
     if (this.queue.length >= this.limits.maxEvents) this.flush();
   }
 
   /** Sends everything queued. Returns the number of events handed to the sender. */
   flush(): number {
-    if (this.queue.length === 0) return 0;
-    const header = this.header();
     let sent = 0;
     while (this.queue.length > 0) {
-      const chunk = this.takeChunk(header);
+      const header = this.queue[0].header;
+      const entries = this.takeChunk(header);
+      const chunk = entries.map((entry) => entry.event);
       const body = JSON.stringify({ ...header, events: chunk } satisfies EventBatch);
       if (this.send(body)) {
         sent += chunk.length;
@@ -101,20 +87,25 @@ export class EventQueue {
         continue;
       }
       // Put the chunk back in front and try again on the next flush.
-      this.queue.unshift(...chunk);
+      this.queue.unshift(...entries);
       this.retried = true;
       break;
     }
     return sent;
   }
 
-  /** The longest prefix of the queue whose body fits the size limit (always at least one). */
-  private takeChunk(header: Omit<EventBatch, "events">): ExperimentEvent[] {
+  /**
+   * The longest prefix of the queue that shares one header and whose body fits the size limit
+   * (always at least one).
+   */
+  private takeChunk(header: Omit<EventBatch, "events">) {
+    const key = JSON.stringify(header);
     const base = JSON.stringify({ ...header, events: [] }).length;
     let bytes = base;
     let count = 0;
     while (count < this.queue.length) {
-      const next = JSON.stringify(this.queue[count]).length + 1;
+      if (count > 0 && JSON.stringify(this.queue[count].header) !== key) break;
+      const next = JSON.stringify(this.queue[count].event).length + 1;
       if (count > 0 && bytes + next > this.limits.maxBodyBytes) break;
       bytes += next;
       count += 1;
@@ -156,4 +147,53 @@ export function classifyLink(href: string, origin: string): string | null {
   if (path.startsWith("/arsenal/writing") || path.startsWith("/writing")) return "writing";
   if (path.startsWith("/projects") || path.startsWith("/arsenal/")) return "project";
   return null;
+}
+
+/**
+ * Error reports carry only the error's type, never its message: a message can hold anything
+ * the page was handling (names, addresses, ids). Anything not on this list is sent as "other".
+ */
+export const ERROR_TYPES = [
+  "Error",
+  "TypeError",
+  "RangeError",
+  "ReferenceError",
+  "SyntaxError",
+  "URIError",
+  "EvalError",
+  "AggregateError",
+  "SecurityError",
+  "NetworkError",
+  "AbortError",
+  "ChunkLoadError",
+  "UnhandledRejection",
+  "other",
+] as const;
+
+export function errorType(name: unknown): string {
+  return typeof name === "string" &&
+    (ERROR_TYPES as readonly string[]).includes(name) &&
+    name !== "other"
+    ? name
+    : "other";
+}
+
+/** Why weights.json could not be used, as a fixed category instead of the error message. */
+export const WEIGHTS_FAILURES = [
+  "timeout",
+  "http",
+  "network",
+  "parse",
+  "invalid",
+  "other",
+] as const;
+
+export function weightsFailureKind(error: unknown): (typeof WEIGHTS_FAILURES)[number] {
+  if (!(error instanceof Error)) return "other";
+  if (error.name === "AbortError" || error.name === "TimeoutError") return "timeout";
+  if (error.message.startsWith("weights.json answered HTTP")) return "http";
+  if (error.message.startsWith("weights.json")) return "invalid";
+  if (error.name === "SyntaxError") return "parse";
+  if (error.name === "TypeError") return "network";
+  return "other";
 }

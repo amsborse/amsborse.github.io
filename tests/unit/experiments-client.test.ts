@@ -8,7 +8,13 @@ import {
 } from "../../src/experiments/assignment";
 import { prepareExperiment } from "../../src/experiments/client";
 import { ASSIGNMENT_STORAGE_KEY } from "../../src/experiments/config";
-import { EventQueue, classifyLink, type ExperimentEvent } from "../../src/experiments/events";
+import {
+  EventQueue,
+  classifyLink,
+  errorType,
+  weightsFailureKind,
+  type ExperimentEvent,
+} from "../../src/experiments/events";
 import { isBot, mayMeasure, optedOut } from "../../src/experiments/privacy";
 import { seededRng } from "../../src/experiments/random";
 import { isEngaged } from "../../src/experiments/score";
@@ -329,6 +335,50 @@ describe("EventQueue", () => {
     q.push(event(2));
     expect(q.flush()).toBe(1);
     error.mockRestore();
+  });
+
+  it("keeps each event under the header it happened with", () => {
+    let source: "auto" | "picker" = "auto";
+    const bodies: string[] = [];
+    const q = new EventQueue(
+      () => ({ ...header(), source }),
+      (b) => (bodies.push(b), true)
+    );
+    q.push(event(1));
+    q.push(event(2));
+    source = "picker";
+    q.push(event(3));
+    expect(q.flush()).toBe(3);
+    expect(
+      bodies
+        .map((b) => JSON.parse(b))
+        .map((b) => [b.source, b.events.map((e: ExperimentEvent) => e.ts)])
+    ).toEqual([
+      ["auto", [1, 2]],
+      ["picker", [3]],
+    ]);
+  });
+});
+
+describe("error reports carry no free text", () => {
+  it("sends only a known error type, else other", () => {
+    expect(errorType("TypeError")).toBe("TypeError");
+    expect(errorType("Jane Doe's error")).toBe("other");
+    expect(errorType(undefined)).toBe("other");
+    expect(errorType("TypeError: user at 192.168.1.42")).toBe("other");
+  });
+
+  it("maps a weights failure to a fixed category", () => {
+    const abort = new Error("aborted");
+    abort.name = "AbortError";
+    expect(weightsFailureKind(abort)).toBe("timeout");
+    expect(weightsFailureKind(new Error("weights.json answered HTTP 503"))).toBe("http");
+    expect(weightsFailureKind(new Error("weights.json: weights sum to zero"))).toBe("invalid");
+    expect(weightsFailureKind(new SyntaxError("Unexpected token < at me@example.com"))).toBe(
+      "parse"
+    );
+    expect(weightsFailureKind(new TypeError("Failed to fetch"))).toBe("network");
+    expect(weightsFailureKind("boom")).toBe("other");
   });
 });
 

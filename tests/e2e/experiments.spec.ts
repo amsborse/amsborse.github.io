@@ -106,7 +106,12 @@ test("a picker choice persists, is never overridden, and is reported as a switch
   await hideTab(page);
   await expect
     .poll(() => batches.flatMap((b) => b.events).find((e) => e.t === "design_switch"))
-    .toMatchObject({ label: "broadsheet" });
+    .toMatchObject({ label: "broadsheet", value: 1 });
+  // Regression: events queued before the switch were sent under the picker's source, so the
+  // Worker (which counts sessions with an automatic event) lost the switch-away entirely.
+  const sourceOf = (t: string) => batches.find((b) => b.events.some((e) => e.t === t))?.source;
+  expect(sourceOf("pageview")).toBe("auto");
+  expect(sourceOf("design_switch")).toBe("auto");
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-design", "broadsheet");
@@ -136,6 +141,35 @@ test("events fire with the design, ids and no personal data", async ({ page }) =
     expect(Object.keys(b).sort()).toEqual(["assigned", "events", "sid", "source", "v", "vid"]);
     expect(JSON.stringify(b)).not.toMatch(/utm_source|#top|Mozilla/);
   }
+});
+
+test("an error is reported by its type only, never its message", async ({ page }) => {
+  await weightsFor(page, "blueprint");
+  const batches = await recordEvents(page);
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-design", "blueprint");
+  // A message can carry anything: a name, an address, an id. Only the error type may leave.
+  await page.evaluate(() => {
+    setTimeout(() => {
+      throw new TypeError("user Jane Doe at 192.168.1.42 failed");
+    });
+    const custom = new Error("account 42 for Jane");
+    custom.name = "Jane Doe's error";
+    setTimeout(() => {
+      throw custom;
+    });
+  });
+  await page.waitForTimeout(200);
+  await hideTab(page);
+  await expect
+    .poll(() => batches.flatMap((b) => b.events).filter((e) => e.t === "js_error").length)
+    .toBe(2);
+  const labels = batches
+    .flatMap((b) => b.events)
+    .filter((e) => e.t === "js_error")
+    .map((e) => e.label);
+  expect(labels).toEqual(["TypeError", "other"]);
+  expect(JSON.stringify(batches)).not.toMatch(/Jane|192\.168/);
 });
 
 test("nothing is sent under Global Privacy Control", async ({ page }) => {

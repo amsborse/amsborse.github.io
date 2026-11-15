@@ -19,7 +19,14 @@ import {
   WEIGHTS_TIMEOUT_MS,
 } from "./config";
 import { EXPERIMENTS_ENDPOINT } from "./endpoint";
-import { beaconSender, classifyLink, EventQueue, scrubText, type ExperimentEvent } from "./events";
+import {
+  beaconSender,
+  classifyLink,
+  errorType,
+  EventQueue,
+  weightsFailureKind,
+  type ExperimentEvent,
+} from "./events";
 import { browserSignals, mayMeasure } from "./privacy";
 import { cryptoRng, type Rng } from "./random";
 
@@ -89,7 +96,7 @@ function reportWeightsFailure(error: unknown, design: string) {
     t: "weights_error",
     ts: Date.now(),
     design,
-    label: scrubText(reason, 120),
+    label: weightsFailureKind(error),
   });
 }
 
@@ -328,10 +335,10 @@ class Tracker {
     if (kind === "outbound" || kind === "contact") this.flush();
   };
 
-  private onError = (name: string, message: string) => {
+  private onError = (name: unknown) => {
     if (this.errorsThisPage >= 5) return;
     this.errorsThisPage += 1;
-    this.push({ t: "js_error", path: this.path, label: scrubText(`${name}: ${message}`, 100) });
+    this.push({ t: "js_error", path: this.path, label: errorType(name) });
   };
 
   private sendVitals() {
@@ -384,10 +391,11 @@ class Tracker {
       else this.visibleSince = Date.now();
     });
     window.addEventListener("pagehide", this.onPageHide);
-    window.addEventListener("error", (e) => this.onError(e.error?.name ?? "Error", e.message));
+    // Only the error's type is reported (see errorType); the message never leaves the page.
+    window.addEventListener("error", (e) => this.onError(e.error?.name ?? "Error"));
     window.addEventListener("unhandledrejection", (e) => {
-      const reason = e.reason as { name?: string; message?: string } | undefined;
-      this.onError(reason?.name ?? "UnhandledRejection", reason?.message ?? String(e.reason));
+      const reason = e.reason as { name?: unknown } | undefined;
+      this.onError(reason instanceof Error ? reason.name : "UnhandledRejection");
     });
     window.setInterval(() => this.flush(), BATCH.intervalMs);
     this.observeVitals();

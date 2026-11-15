@@ -53,8 +53,8 @@ where it applies, `path` (pathname only), `value` (a number) and `label` (a shor
 | `design_switch` | The visitor picks another design                  | the design picked; `value` 1 if it left the assigned one |
 | `bounce`        | A one-page session left under 10 s visible and under 25% scroll, with no click | visible milliseconds |
 | `lcp`, `cls`    | When the page hides (performance guardrails)      | LCP in ms, CLS score                       |
-| `js_error`      | An uncaught error or rejection                    | first 100 characters of name and message   |
-| `weights_error` | `weights.json` failed                             | first 120 characters of the reason         |
+| `js_error`      | An uncaught error or rejection                    | error type only (`TypeError`…, else `other`) |
+| `weights_error` | `weights.json` failed                             | category: `timeout`, `http`, `network`, `parse`, `invalid`, `other` |
 
 Events are batched and sent with `navigator.sendBeacon` when the tab hides, every 30 s, at 20
 events, and straight away on outbound or contact clicks. The Worker keeps request logging off,

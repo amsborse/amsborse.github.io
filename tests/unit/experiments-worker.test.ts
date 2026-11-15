@@ -270,18 +270,38 @@ describe("worker /events hardening", () => {
     expect(await count()).toBe(0);
   });
 
-  it("scrubs free text in error labels on the server too", async () => {
-    await post(
+  it("stores only allowlisted error types, never error text", async () => {
+    const free = await post(
       batch("blueprint", [
         {
           t: "js_error",
-          label: "TypeError: me@example.com at https://amsborse.github.io/x?token=abc 1234567",
+          label: "TypeError: me@example.com at https://amsborse.github.io/x?token=abc",
         },
       ])
     );
-    const row = await env.DB.prepare("SELECT label FROM events").first<{ label: string }>();
-    expect(row?.label).not.toMatch(/example\.com|https?:|1234567/);
-    expect(row?.label).toMatch(/<email>.*<url>.*#/);
+    expect(free.status).toBe(400);
+    const reason = await post(
+      batch("blueprint", [{ t: "weights_error", label: "weights.json answered HTTP 500" }])
+    );
+    expect(reason.status).toBe(400);
+    expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM events").first<{ n: number }>()).toEqual(
+      { n: 0 }
+    );
+
+    expect(
+      (
+        await post(
+          batch("blueprint", [
+            { t: "js_error", label: "TypeError" },
+            { t: "weights_error", label: "timeout" },
+          ])
+        )
+      ).status
+    ).toBeLessThan(300);
+    const rows = await env.DB.prepare("SELECT label FROM events ORDER BY t").all<{
+      label: string;
+    }>();
+    expect(rows.results.map((r) => r.label)).toEqual(["TypeError", "timeout"]);
   });
 
   it("answers only known paths and methods", async () => {

@@ -19,7 +19,8 @@ import {
 } from "../../src/experiments/bandit";
 import { BATCH, BOUNCE, ENGAGED } from "../../src/experiments/config";
 import {
-  scrubText,
+  ERROR_TYPES,
+  WEIGHTS_FAILURES,
   type EventBatch,
   type EventType,
   type ExperimentEvent,
@@ -72,11 +73,11 @@ export interface RateLimiter {
  * What each event may carry. Anything outside these rules is dropped (one bad event) or refused
  * (a bad batch), so a modified client cannot store free text or out-of-range numbers.
  *   value: [min, max] when the event carries a number, null when it must not.
- *   label: the allowed labels, "designs" for a design id, "text" for scrubbed free text, or null.
+ *   label: the allowed labels, "designs" for a design id, or null. No free text is stored.
  */
 type Rule = {
   value: readonly [number, number] | null;
-  label: readonly string[] | "designs" | "text" | null;
+  label: readonly string[] | "designs" | null;
 };
 const DAY_MS = 24 * 3_600_000;
 const RULES: Record<EventType, Rule> = {
@@ -89,8 +90,8 @@ const RULES: Record<EventType, Rule> = {
   bounce: { value: [0, BOUNCE.visibleMs], label: null },
   lcp: { value: [0, 120_000], label: null },
   cls: { value: [0, 10], label: null },
-  js_error: { value: null, label: "text" },
-  weights_error: { value: null, label: "text" },
+  js_error: { value: null, label: ERROR_TYPES },
+  weights_error: { value: null, label: WEIGHTS_FAILURES },
 };
 const SOURCES = new Set(["url", "picker", "auto", "fallback", "default"]);
 const MAX_EVENTS_PER_BATCH = 50;
@@ -177,10 +178,7 @@ function cleanEvent(raw: unknown, designs: readonly string[], now: number): Expe
   } else if (e.value !== undefined) return null;
 
   let label: string | undefined;
-  if (rule.label === "text") {
-    if (typeof e.label !== "string") return null;
-    label = scrubText(e.label, 120);
-  } else if (rule.label === "designs") {
+  if (rule.label === "designs") {
     if (typeof e.label !== "string" || !designs.includes(e.label)) return null;
     label = e.label;
   } else if (rule.label) {
