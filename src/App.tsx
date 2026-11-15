@@ -1,5 +1,6 @@
-import { lazy } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
+import { lazy, useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { trackPageview } from "@/experiments/client";
 import { RootLayout } from "@/layout/RootLayout";
 import Home from "@/pages/Home";
 
@@ -36,6 +37,14 @@ const GravityWellLab = lazy(() => import("@/pages/arsenal/GravityWellLab"));
 const QuantumMeshLab = lazy(() => import("@/pages/arsenal/QuantumMeshLab"));
 const FlashcardsDeck = lazy(() => import("@/pages/FlashcardsDeck"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
+const Experiments = lazy(() => import("@/pages/Experiments"));
+
+/** Counts each route as a page view for the design experiment (a no-op when not measuring). */
+function ExperimentPageviews() {
+  const { pathname } = useLocation();
+  useEffect(() => trackPageview(window.location.pathname), [pathname]);
+  return null;
+}
 
 /**
  * A redirect that holds a screen of height for the frame before it lands, so the footer never
@@ -64,6 +73,7 @@ function basename(): string | undefined {
 export default function App() {
   return (
     <BrowserRouter basename={basename()}>
+      <ExperimentPageviews />
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
@@ -119,6 +129,7 @@ export default function App() {
           <Route path="aether-lab" element={<Redirect to="/arsenal" />} />
 
           <Route path="learning/flashcards/:deckId" element={<FlashcardsDeck />} />
+          <Route path="experiments" element={<Experiments />} />
           <Route path="404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

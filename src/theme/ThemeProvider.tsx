@@ -14,6 +14,7 @@ import {
   type SiteTheme,
   THEME_STORAGE_KEY,
 } from "./theme";
+import { trackDesignSwitch } from "@/experiments/client";
 import { applySiteDesign, resolveInitialDesign, saveSiteDesign, type SiteDesign } from "./design";
 
 type ThemeContextValue = {
@@ -42,6 +43,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setDesignState(next);
     saveSiteDesign(next);
     applySiteDesign(next);
+    // A picker choice is a preference: it is saved above and always wins from now on.
+    trackDesignSwitch(next);
   }, []);
 
   useEffect(() => {

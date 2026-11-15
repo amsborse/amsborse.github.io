@@ -16,5 +16,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts", "autoreview.config.ts", "scripts/vite-plugin-flashcards-api.ts"]
+  "include": [
+    "vite.config.ts",
+    "autoreview.config.ts",
+    "scripts/vite-plugin-flashcards-api.ts",
+    "scripts/vite-plugin-experiments-dev.ts"
+  ]
 }

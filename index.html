@@ -26,8 +26,13 @@
         try {
           var fromUrl = new URLSearchParams(window.location.search).get("design");
           var savedDesign = localStorage.getItem("portfolio-design");
+          var assigned = null;
+          try {
+            assigned = JSON.parse(localStorage.getItem("portfolio-design-assignment") || "null");
+          } catch (e) {}
           if (designs.indexOf(fromUrl) >= 0) design = fromUrl;
           else if (designs.indexOf(savedDesign) >= 0) design = savedDesign;
+          else if (assigned && designs.indexOf(assigned.design) >= 0) design = assigned.design;
         } catch (e) {}
         document.documentElement.setAttribute("data-design", design);
       })();
