@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE INDEX IF NOT EXISTS events_sid ON events (sid);
 CREATE INDEX IF NOT EXISTS events_type_design ON events (t, design);
 CREATE INDEX IF NOT EXISTS events_received ON events (received_at);
+-- A resent batch (a beacon retried after a lost response) must not count twice: the Worker
+-- inserts with OR IGNORE, and this index makes an identical event from the same session a no-op.
+CREATE UNIQUE INDEX IF NOT EXISTS events_dedupe
+  ON events (sid, t, ts, design, COALESCE(path, ''), COALESCE(value, -1), COALESCE(label, ''));
 
 CREATE TABLE IF NOT EXISTS weights (
   id INTEGER PRIMARY KEY CHECK (id = 1),

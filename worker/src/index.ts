@@ -17,8 +17,13 @@ import {
   updateWeights,
   type WeightLogEntry,
 } from "../../src/experiments/bandit";
-import { BATCH, ENGAGED } from "../../src/experiments/config";
-import type { EventBatch, EventType } from "../../src/experiments/events";
+import { BATCH, BOUNCE, ENGAGED } from "../../src/experiments/config";
+import {
+  scrubText,
+  type EventBatch,
+  type EventType,
+  type ExperimentEvent,
+} from "../../src/experiments/events";
 import { cryptoRng, type Rng } from "../../src/experiments/random";
 import { buildResults } from "../../src/experiments/results";
 import {
@@ -55,24 +60,48 @@ export interface Env {
   ALLOWED_ORIGINS: string;
   /** Days of raw events to keep. */
   RETENTION_DAYS?: string;
+  /** Workers Rate Limiting binding (free plan, approximate, per Cloudflare location). */
+  EVENTS_LIMITER?: RateLimiter;
 }
 
-const EVENT_TYPES: ReadonlySet<EventType> = new Set<EventType>([
-  "pageview",
-  "engaged_time",
-  "scroll",
-  "click",
-  "return_visit",
-  "design_switch",
-  "bounce",
-  "lcp",
-  "cls",
-  "js_error",
-  "weights_error",
-]);
+export interface RateLimiter {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+}
+
+/**
+ * What each event may carry. Anything outside these rules is dropped (one bad event) or refused
+ * (a bad batch), so a modified client cannot store free text or out-of-range numbers.
+ *   value: [min, max] when the event carries a number, null when it must not.
+ *   label: the allowed labels, "designs" for a design id, "text" for scrubbed free text, or null.
+ */
+type Rule = {
+  value: readonly [number, number] | null;
+  label: readonly string[] | "designs" | "text" | null;
+};
+const DAY_MS = 24 * 3_600_000;
+const RULES: Record<EventType, Rule> = {
+  pageview: { value: null, label: null },
+  engaged_time: { value: [0, DAY_MS], label: null },
+  scroll: { value: [25, 100], label: null },
+  click: { value: null, label: ["project", "writing", "contact", "outbound"] },
+  return_visit: { value: [0, 7 * 24], label: null },
+  design_switch: { value: [0, 1], label: "designs" },
+  bounce: { value: [0, BOUNCE.visibleMs], label: null },
+  lcp: { value: [0, 120_000], label: null },
+  cls: { value: [0, 10], label: null },
+  js_error: { value: null, label: "text" },
+  weights_error: { value: null, label: "text" },
+};
 const SOURCES = new Set(["url", "picker", "auto", "fallback", "default"]);
 const MAX_EVENTS_PER_BATCH = 50;
+/** A tab session that sends more than this is not a person reading; later events are refused. */
+export const MAX_EVENTS_PER_SESSION = 500;
+/** Browser clocks drift; events claiming to be further than this from the server's clock are dropped. */
+const MAX_CLOCK_SKEW_MS = 2 * DAY_MS;
 const ID = /^[0-9a-f-]{16,64}$/i;
+/** Site paths only: letters, digits and a few separators. Anything else is not stored. */
+const PATH = /^\/[A-Za-z0-9/_.~-]{0,199}$/;
+const SCROLL_MARKS = new Set([25, 50, 75, 100]);
 
 const designsOf = (env: Env) =>
   env.DESIGNS.split(",")
@@ -87,6 +116,12 @@ function corsHeaders(request: Request, env: Env): Record<string, string> {
   return { "Access-Control-Allow-Origin": origin, Vary: "Origin" };
 }
 
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "no-referrer",
+  "Cross-Origin-Resource-Policy": "cross-origin",
+};
+
 function json(
   body: unknown,
   status: number,
@@ -98,35 +133,90 @@ function json(
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": maxAge > 0 ? `public, max-age=${maxAge}` : "no-store",
+      ...SECURITY_HEADERS,
       ...headers,
     },
   });
 }
 
+function text(body: string, status: number, headers: Record<string, string> = {}): Response {
+  return new Response(body, {
+    status,
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
+      ...SECURITY_HEADERS,
+      ...headers,
+    },
+  });
+}
+
+/** One event cleaned to the stored fields, or null when it breaks its type's rules. */
+function cleanEvent(raw: unknown, designs: readonly string[], now: number): ExperimentEvent | null {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const e = raw as Record<string, unknown>;
+  const rule = typeof e.t === "string" ? RULES[e.t as EventType] : undefined;
+  if (!rule || !Object.hasOwn(RULES, e.t as string)) return null;
+  if (typeof e.design !== "string" || !designs.includes(e.design)) return null;
+  if (typeof e.ts !== "number" || !Number.isFinite(e.ts)) return null;
+  if (Math.abs(e.ts - now) > MAX_CLOCK_SKEW_MS) return null;
+
+  let path: string | undefined;
+  if (e.path !== undefined) {
+    if (typeof e.path !== "string") return null;
+    path = e.path.split(/[?#]/)[0];
+    if (!PATH.test(path)) return null;
+  }
+
+  let value: number | undefined;
+  if (rule.value) {
+    if (typeof e.value !== "number" || !Number.isFinite(e.value)) return null;
+    if (e.value < rule.value[0] || e.value > rule.value[1]) return null;
+    if (e.t === "scroll" && !SCROLL_MARKS.has(e.value)) return null;
+    value = e.value;
+  } else if (e.value !== undefined) return null;
+
+  let label: string | undefined;
+  if (rule.label === "text") {
+    if (typeof e.label !== "string") return null;
+    label = scrubText(e.label, 120);
+  } else if (rule.label === "designs") {
+    if (typeof e.label !== "string" || !designs.includes(e.label)) return null;
+    label = e.label;
+  } else if (rule.label) {
+    if (typeof e.label !== "string" || !rule.label.includes(e.label)) return null;
+    label = e.label;
+  } else if (e.label !== undefined) return null;
+
+  return { t: e.t as EventType, ts: Math.round(e.ts), design: e.design, path, value, label };
+}
+
 /** Validates one batch and keeps only the fields we store. Throws with a reason. */
-export function cleanBatch(raw: unknown, designs: readonly string[]): EventBatch {
-  const b = raw as Partial<EventBatch> | null;
-  if (!b || b.v !== 1) throw new Error("unknown batch version");
+export function cleanBatch(
+  raw: unknown,
+  designs: readonly string[],
+  now: number = Date.now()
+): EventBatch {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw new Error("not a batch");
+  const b = raw as Partial<EventBatch>;
+  if (b.v !== 1) throw new Error("unknown batch version");
   if (typeof b.vid !== "string" || !ID.test(b.vid)) throw new Error("bad visitor id");
   if (typeof b.sid !== "string" || !ID.test(b.sid)) throw new Error("bad session id");
   if (typeof b.source !== "string" || !SOURCES.has(b.source)) throw new Error("bad source");
-  if (b.assigned !== null && !designs.includes(String(b.assigned)))
+  if (b.assigned !== null && (typeof b.assigned !== "string" || !designs.includes(b.assigned)))
     throw new Error("bad assigned design");
   if (!Array.isArray(b.events) || b.events.length === 0) throw new Error("no events");
   if (b.events.length > MAX_EVENTS_PER_BATCH) throw new Error("too many events");
   const events = b.events
-    .filter((e) => e && EVENT_TYPES.has(e.t) && designs.includes(e.design) && Number.isFinite(e.ts))
-    .map((e) => ({
-      t: e.t,
-      ts: Math.round(e.ts),
-      design: e.design,
-      path: typeof e.path === "string" ? e.path.split(/[?#]/)[0].slice(0, 200) : undefined,
-      value: typeof e.value === "number" && Number.isFinite(e.value) ? e.value : undefined,
-      label: typeof e.label === "string" ? e.label.slice(0, 120) : undefined,
-    }));
+    .map((e) => cleanEvent(e, designs, now))
+    .filter((e): e is ExperimentEvent => e !== null);
   if (events.length === 0) throw new Error("no valid events");
-  return { v: 1, vid: b.vid, sid: b.sid, assigned: b.assigned ?? null, source: b.source, events };
+  return { v: 1, vid: b.vid, sid: b.sid, assigned: b.assigned, source: b.source, events };
 }
+
+/** Allowed request types for /events: what sendBeacon sends for a string, and plain JSON. */
+const isAllowedContentType = (type: string | null) =>
+  type === null || /^(text\/plain|application\/json)(\s*;.*)?$/i.test(type);
 
 async function receiveEvents(
   request: Request,
@@ -134,21 +224,40 @@ async function receiveEvents(
   cors: Record<string, string>
 ): Promise<Response> {
   // Only the site's own pages may send. sendBeacon always sets Origin on a cross-origin POST.
-  if (!cors["Access-Control-Allow-Origin"]) return new Response("forbidden", { status: 403 });
+  // This keeps other websites' pages out; it is not authentication (any script can set Origin),
+  // which is why everything below validates, limits and deduplicates as if the sender were hostile.
+  if (!cors["Access-Control-Allow-Origin"]) return text("forbidden", 403);
+  if (!isAllowedContentType(request.headers.get("Content-Type")))
+    return text("unsupported content type", 415, cors);
   const length = Number(request.headers.get("Content-Length") ?? 0);
-  if (length > BATCH.maxBodyBytes) return new Response("too large", { status: 413, headers: cors });
-  const text = await request.text();
-  if (text.length > BATCH.maxBodyBytes)
-    return new Response("too large", { status: 413, headers: cors });
-  let batch: EventBatch;
+  if (length > BATCH.maxBodyBytes) return text("too large", 413, cors);
+  // Abuse brake before any database work. Keys hold no visitor data: one shared key caps the
+  // total write rate (protecting the free D1 quota), not any one person.
+  if (env.EVENTS_LIMITER && !(await env.EVENTS_LIMITER.limit({ key: "events" })).success)
+    return text("slow down", 429, { ...cors, "Retry-After": "60" });
+  const body = await readCapped(request, BATCH.maxBodyBytes);
+  if (body === null) return text("too large", 413, cors);
+  let parsed: unknown;
   try {
-    batch = cleanBatch(JSON.parse(text), designsOf(env));
-  } catch (error) {
-    return new Response(`bad batch: ${(error as Error).message}`, { status: 400, headers: cors });
+    parsed = JSON.parse(body);
+  } catch {
+    return text("bad batch: not JSON", 400, cors);
   }
+  let batch: EventBatch;
   const received = Date.now();
+  try {
+    batch = cleanBatch(parsed, designsOf(env), received);
+  } catch (error) {
+    return text(`bad batch: ${(error as Error).message}`, 400, cors);
+  }
+  const stored = await env.DB.prepare("SELECT COUNT(*) AS n FROM events WHERE sid = ?")
+    .bind(batch.sid)
+    .first<{ n: number }>();
+  if (Number(stored?.n ?? 0) + batch.events.length > MAX_EVENTS_PER_SESSION)
+    return text("session limit reached", 429, cors);
+  // OR IGNORE plus the unique index makes a resent batch (a retried beacon) a no-op.
   const insert = env.DB.prepare(
-    "INSERT INTO events (received_at, vid, sid, assigned, source, t, ts, design, path, value, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    "INSERT OR IGNORE INTO events (received_at, vid, sid, assigned, source, t, ts, design, path, value, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
   );
   await env.DB.batch(
     batch.events.map((e) =>
@@ -167,7 +276,32 @@ async function receiveEvents(
       )
     )
   );
-  return new Response(null, { status: 204, headers: cors });
+  return new Response(null, { status: 204, headers: { ...SECURITY_HEADERS, ...cors } });
+}
+
+/** Reads at most `max` bytes of the body, or null when it is larger (whatever Content-Length said). */
+async function readCapped(request: Request, max: number): Promise<string | null> {
+  if (!request.body) return "";
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > max) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  const all = new Uint8Array(size);
+  let at = 0;
+  for (const c of chunks) {
+    all.set(c, at);
+    at += c.byteLength;
+  }
+  return new TextDecoder().decode(all);
 }
 
 async function storedWeights(env: Env): Promise<WeightsDoc | null> {
@@ -285,6 +419,13 @@ export async function runUpdate(
   return log;
 }
 
+/** The only paths the Worker answers, and the one method each accepts (plus CORS preflight). */
+const ROUTES: Record<string, string> = {
+  "/events": "POST",
+  "/weights.json": "GET",
+  "/results": "GET",
+};
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -299,28 +440,28 @@ export default {
         },
       });
     }
+    const allowed = ROUTES[url.pathname];
+    if (!allowed) return text("not found", 404, cors);
+    if (request.method !== allowed)
+      return text("method not allowed", 405, { ...cors, Allow: allowed });
     try {
-      if (url.pathname === "/events" && request.method === "POST")
-        return await receiveEvents(request, env, cors);
-      if (url.pathname === "/weights.json" && request.method === "GET") {
+      if (url.pathname === "/events") return await receiveEvents(request, env, cors);
+      if (url.pathname === "/weights.json") {
         return json(await currentWeights(env), 200, cors, 300);
       }
-      if (url.pathname === "/results" && request.method === "GET") {
-        const results = buildResults({
-          stats: await collectStats(env),
-          baseline: env.BASELINE,
-          weights: await currentWeights(env),
-          history: await history(env),
-          now: new Date(),
-          windowDays: retentionDays(env),
-          rng: cryptoRng(),
-        });
-        return json(results, 200, cors, 60);
-      }
-      return new Response("not found", { status: 404, headers: cors });
+      const results = buildResults({
+        stats: await collectStats(env),
+        baseline: env.BASELINE,
+        weights: await currentWeights(env),
+        history: await history(env),
+        now: new Date(),
+        windowDays: retentionDays(env),
+        rng: cryptoRng(),
+      });
+      return json(results, 200, cors, 60);
     } catch (error) {
       console.error("[experiments] request failed", error);
-      return new Response("server error", { status: 500, headers: cors });
+      return text("server error", 500, cors);
     }
   },
 

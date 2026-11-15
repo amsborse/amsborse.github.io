@@ -76,7 +76,9 @@ describe("updateWeights", () => {
     });
     expect(r.log.changed).toBe(false);
     expect(r.doc.weights).toEqual(start.weights);
-    expect(r.log.reason).toMatch(/broadsheet 60/);
+    expect(r.log.reason).toMatch(/short: broadsheet\)/);
+    // The public log never carries a raw count below the reporting threshold.
+    expect(r.log.reason).not.toMatch(/broadsheet \d/);
   });
 
   it("moves at most once per interval", () => {

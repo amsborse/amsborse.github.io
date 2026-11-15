@@ -23,8 +23,10 @@ export async function stabilizeForScreenshot(
 
   await page
     .evaluate(async () => {
-      const imgs = [...document.images];
-      await Promise.all(
+      // A lazy image outside the viewport never loads, and a stalled request never settles,
+      // so wait only for eager images and never longer than 5 s.
+      const imgs = [...document.images].filter((img) => img.loading !== "lazy");
+      const loaded = Promise.all(
         imgs.map((img) =>
           img.complete
             ? Promise.resolve()
@@ -34,6 +36,7 @@ export async function stabilizeForScreenshot(
               })
         )
       );
+      await Promise.race([loaded, new Promise((resolve) => setTimeout(resolve, 5_000))]);
     })
     .catch(() => undefined);
 

@@ -178,7 +178,7 @@ function DesignCard({
 }) {
   const g = d.guardrails;
   const verdict = VERDICT[d.verdict];
-  const progress = Math.min(1, d.engaged / minEngaged);
+  const progress = d.engaged === null ? 0 : Math.min(1, d.engaged / minEngaged);
   return (
     <article className="exp-card" data-design={d.design}>
       <header className="exp-card-head">
@@ -190,7 +190,9 @@ function DesignCard({
             </Explain>
             {" · "}
             <Explain text="Visits that stayed 30 seconds or more with the tab visible, read past half the page, or opened a project, article, contact link or outside link — without switching to another design.">
-              {d.engaged.toLocaleString()} engaged
+              {d.engaged === null
+                ? "engaged: not enough data"
+                : `${d.engaged.toLocaleString()} engaged`}
             </Explain>
           </p>
         </div>
@@ -226,7 +228,9 @@ function DesignCard({
         >
           {d.readyToMove
             ? "Has enough engaged visits to move"
-            : `${d.engaged} of ${minEngaged} engaged visits before it can move`}
+            : d.engaged === null
+              ? `Needs ${minEngaged} engaged visits before it can move`
+              : `${d.engaged} of ${minEngaged} engaged visits before it can move`}
         </Explain>
         <div className="exp-ready-track" aria-hidden="true">
           <div className="exp-ready-fill" style={{ transform: `scaleX(${progress})` }} />
@@ -263,13 +267,17 @@ function DesignCard({
         />
         <Guardrail
           label="Switched away"
-          value={d.sessions < MIN_VISITS_TO_REPORT ? null : pct(d.switchedAway / d.sessions, 1)}
+          value={d.switchedAway === null ? null : pct(d.switchedAway / d.sessions, 1)}
           text="Visits where the person picked a different design in the picker: a sign they did not like this one."
         />
       </dl>
     </article>
   );
 }
+
+/** A withheld or missing count says so; it is never shown as 0. */
+const engagedText = (n: number | null | undefined) =>
+  typeof n === "number" ? `${n} engaged` : "engaged count withheld (too few visits)";
 
 function History({ entries }: { entries: WeightLogEntry[] }) {
   if (entries.length === 0) {
@@ -292,7 +300,7 @@ function History({ entries }: { entries: WeightLogEntry[] }) {
             {Object.keys(e.to).map((d) => (
               <Explain
                 key={d}
-                text={`${labelOf(d)}: ${e.samples[d]?.engaged ?? 0} engaged of ${e.samples[d]?.sessions ?? 0} visits at the time${
+                text={`${labelOf(d)}: ${engagedText(e.samples[d]?.engaged)} of ${e.samples[d]?.sessions ?? 0} visits at the time${
                   e.probabilityBest
                     ? `, ${pct(e.probabilityBest[d] ?? 0)} chance of being best`
                     : ""

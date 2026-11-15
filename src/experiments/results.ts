@@ -32,8 +32,10 @@ export type DesignResult = {
   design: string;
   /** Sessions on an automatic assignment to this design. */
   sessions: number;
-  engaged: number;
-  switchedAway: number;
+  /** null below MIN_VISITS_TO_REPORT sessions, so a handful of visits cannot be singled out. */
+  engaged: number | null;
+  /** null below MIN_VISITS_TO_REPORT sessions, like engaged. */
+  switchedAway: number | null;
   /** null below MIN_VISITS_TO_REPORT sessions: the page shows "not enough data". */
   rate: { mean: number; low: number; high: number } | null;
   weight: number;
@@ -43,6 +45,22 @@ export type DesignResult = {
   /** Whether this design has the engaged visits it needs before its weight may move. */
   readyToMove: boolean;
 };
+
+/** Counts below the reporting threshold are withheld: only sessions (a plain visit total) stays. */
+const enough = (sessions: number) => sessions >= MIN_VISITS_TO_REPORT;
+
+/** The weight log with each design's engaged count withheld while it had too few visits. */
+export function redactHistory(history: readonly WeightLogEntry[]): WeightLogEntry[] {
+  return history.map((e) => ({
+    ...e,
+    samples: Object.fromEntries(
+      Object.entries(e.samples).map(([d, s]) => [
+        d,
+        { sessions: s.sessions, engaged: enough(s.sessions) ? s.engaged : null },
+      ])
+    ),
+  }));
+}
 
 export function buildResults(input: {
   stats: readonly DesignStats[];
@@ -58,7 +76,7 @@ export function buildResults(input: {
     generatedAt: input.now.toISOString(),
     windowDays: input.windowDays,
     weights: input.weights,
-    history: input.history,
+    history: redactHistory(input.history),
     settings: {
       floor: BANDIT.floor,
       minEngagedPerDesign: BANDIT.minEngagedPerDesign,
@@ -75,12 +93,9 @@ export function buildResults(input: {
       return {
         design: s.design,
         sessions: s.sessions,
-        engaged: s.engaged,
-        switchedAway: s.switchedAway,
-        rate:
-          s.sessions >= MIN_VISITS_TO_REPORT
-            ? credibleInterval(s.engaged, s.sessions, input.rng)
-            : null,
+        engaged: enough(s.sessions) ? s.engaged : null,
+        switchedAway: enough(s.sessions) ? s.switchedAway : null,
+        rate: enough(s.sessions) ? credibleInterval(s.engaged, s.sessions, input.rng) : null,
         weight: input.weights.weights[s.design] ?? 0,
         guardrails: s.guardrails,
         verdict: v.verdict,

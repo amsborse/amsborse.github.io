@@ -19,7 +19,7 @@ import {
   WEIGHTS_TIMEOUT_MS,
 } from "./config";
 import { EXPERIMENTS_ENDPOINT } from "./endpoint";
-import { beaconSender, classifyLink, EventQueue, type ExperimentEvent } from "./events";
+import { beaconSender, classifyLink, EventQueue, scrubText, type ExperimentEvent } from "./events";
 import { browserSignals, mayMeasure } from "./privacy";
 import { cryptoRng, type Rng } from "./random";
 
@@ -89,7 +89,7 @@ function reportWeightsFailure(error: unknown, design: string) {
     t: "weights_error",
     ts: Date.now(),
     design,
-    label: reason.slice(0, 120),
+    label: scrubText(reason, 120),
   });
 }
 
@@ -331,7 +331,7 @@ class Tracker {
   private onError = (name: string, message: string) => {
     if (this.errorsThisPage >= 5) return;
     this.errorsThisPage += 1;
-    this.push({ t: "js_error", path: this.path, label: `${name}: ${message}`.slice(0, 100) });
+    this.push({ t: "js_error", path: this.path, label: scrubText(`${name}: ${message}`, 100) });
   };
 
   private sendVitals() {

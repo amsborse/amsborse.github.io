@@ -200,34 +200,72 @@ export async function runLayoutGeometryValidation(
         }
       }
 
-      // Content-edge collision
+      // Content-edge collision. A reader only sees an edge where a box paints one (a border, a
+      // fill that differs from what is behind it, a shadow), so content is measured against the
+      // nearest such box, and only on its painted sides. Measuring against the direct parent
+      // flagged every heading flush with an invisible layout wrapper: hundreds of hits per page,
+      // none of them visible on screen.
+      const transparent = (c: string) => c === "transparent" || /^rgba\(.*,\s*0\)$/.test(c.trim());
+      const fillOf = (s: CSSStyleDeclaration) =>
+        (transparent(s.backgroundColor) ? "" : s.backgroundColor) +
+        (s.backgroundImage === "none" ? "" : s.backgroundImage);
+      const paintedSides = (el: Element) => {
+        const s = getComputedStyle(el);
+        const fill = fillOf(s);
+        const behind = el.parentElement ? fillOf(getComputedStyle(el.parentElement)) : "";
+        const whole = (fill !== "" && fill !== behind) || s.boxShadow !== "none";
+        const side = (name: "Top" | "Right" | "Bottom" | "Left") =>
+          whole ||
+          (parseFloat(s[`border${name}Width`]) > 0 &&
+            s[`border${name}Style`] !== "none" &&
+            !transparent(s[`border${name}Color`]));
+        return [side("Left"), side("Right"), side("Top"), side("Bottom")];
+      };
+      const frameOf = (el: Element) => {
+        for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+          const sides = paintedSides(a);
+          if (sides.some(Boolean)) return { box: a, sides };
+        }
+        return null;
+      };
       for (const g of geos) {
-        const parent = g.el.parentElement;
-        if (!parent) continue;
-        const pr = parent.getBoundingClientRect();
-        if (pr.width < 8 || pr.height < 8) continue;
-        const left = g.boundingRect.left - pr.left;
-        const right = pr.right - g.boundingRect.right;
-        const top = g.boundingRect.top - pr.top;
-        const bottom = pr.bottom - g.boundingRect.bottom;
         const interactive = isInteractive(g);
+        // Only what draws text itself or is a control; wrappers are judged through their content.
+        if (!(interactive || (g.text && carriesContent(g)))) continue;
+        if (intentional(g.el) || g.boundingRect.width <= 1 || g.boundingRect.height <= 1) continue;
+        const frame = frameOf(g.el);
+        if (!frame) continue;
+        const pr = frame.box.getBoundingClientRect();
+        if (pr.width < 8 || pr.height < 8) continue;
+        // An element that paints nothing itself shows only its content, so its own padding
+        // counts as space (a full-width row link padded away from the divider above it).
+        const own = getComputedStyle(g.el);
+        const inset = paintedSides(g.el).some(Boolean)
+          ? [0, 0, 0, 0]
+          : [own.paddingLeft, own.paddingRight, own.paddingTop, own.paddingBottom].map(parseFloat);
+        const r = g.boundingRect;
+        const gaps = [r.left - pr.left, pr.right - r.right, r.top - pr.top, pr.bottom - r.bottom]
+          .map((gap, i) => gap + inset[i])
+          .filter((_, i) => frame.sides[i]);
         const min = interactive ? thresholds.interactiveToEdgePx : thresholds.textToEdgePx;
-        if (g.text || interactive) {
-          if (left < min || right < min || top < min || bottom < min) {
-            issues.push({
-              category: "layout",
-              severity: "medium",
-              confidence: 0.85,
-              selector: g.selector,
-              explanation: `Content-edge collision: ${g.selector} within ${Math.min(left, right, top, bottom).toFixed(1)}px of container edge (threshold ${min}px)`,
-              recommendedFix: "Increase padding/margin to meet spacing minimums.",
-            });
-          }
+        const closest = Math.min(...gaps);
+        if (closest < min) {
+          issues.push({
+            category: "layout",
+            severity: "medium",
+            confidence: 0.85,
+            selector: g.selector,
+            explanation: `Content-edge collision: ${g.selector} within ${closest.toFixed(1)}px of container edge (threshold ${min}px)`,
+            recommendedFix: "Increase padding/margin to meet spacing minimums.",
+          });
         }
       }
 
       // Clipping
       for (const g of geos) {
+        // A visually hidden (sr-only) box is 1px with overflow hidden on purpose: its text is
+        // for screen readers, so nothing a reader sees is clipped.
+        if (g.clientRect.width <= 1 || g.clientRect.height <= 1) continue;
         if (g.scroll.width > g.clientRect.width + 2 || g.scroll.height > g.clientRect.height + 2) {
           const style = getComputedStyle(g.el);
           if (

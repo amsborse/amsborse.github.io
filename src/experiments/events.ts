@@ -40,6 +40,21 @@ export type EventBatch = {
   events: ExperimentEvent[];
 };
 
+/**
+ * Strips anything in free text (an error message) that could identify a person or a page they
+ * came from: URLs, email addresses, long numbers and long tokens. The site runs it before sending
+ * and the Worker again before storing, so a modified client cannot skip it.
+ */
+export function scrubText(text: string, max: number): string {
+  return text
+    .replace(/[a-z][a-z0-9+.-]*:\/\/\S+/gi, "<url>")
+    .replace(/[^\s@]+@[^\s@]+\.[^\s@]+/g, "<email>")
+    .replace(/\d{4,}/g, "#")
+    .replace(/[A-Za-z0-9_-]{24,}/g, "<token>")
+    .replace(/\p{Cc}/gu, " ")
+    .slice(0, max);
+}
+
 export type Sender = (body: string) => boolean;
 
 /**

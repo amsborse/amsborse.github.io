@@ -28,7 +28,8 @@ export type WeightLogEntry = {
   from: Record<string, number>;
   to: Record<string, number>;
   /** Sessions and engaged sessions per design that the decision was based on. */
-  samples: Record<string, { sessions: number; engaged: number }>;
+  /** engaged is null in the public results while a design had too few visits to report. */
+  samples: Record<string, { sessions: number; engaged: number | null }>;
   probabilityBest: Record<string, number> | null;
   guardrails: Record<string, GuardrailVerdict>;
 };
@@ -213,9 +214,7 @@ export function updateWeights(input: BanditInput): { doc: WeightsDoc; log: Weigh
   let reason: string;
   if (short.length > 0) {
     target = { ...from };
-    reason = `waiting for ${config.minEngagedPerDesign} engaged visits per design (short: ${short
-      .map((d) => `${d} ${samples[d].engaged}`)
-      .join(", ")})`;
+    reason = `waiting for ${config.minEngagedPerDesign} engaged visits per design (short: ${short.join(", ")})`;
   } else {
     pBest = probabilityBest(
       designs.map(

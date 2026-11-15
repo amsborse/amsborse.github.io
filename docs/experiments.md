@@ -62,6 +62,50 @@ stores only the fields above plus the time it received them, and deletes rows af
 (`RETENTION_DAYS`). Cloudflare necessarily sees the connecting IP to deliver the request; the
 Worker never reads or stores it.
 
+## What the Worker accepts
+
+The Worker trusts nothing the browser sends; the site's own checks are a convenience, not the
+defence. `POST /events` answers:
+
+| Status | When |
+| ------ | ---- |
+| 204 | Stored (or already stored: a resent batch is counted once). |
+| 400 | Not JSON, wrong version, a visitor or session id that is not 16–64 hex characters (dashes allowed), an unknown `source` or `assigned` design, no events, more than 50 events, or no valid event left. The body says which. |
+| 403 | No `Origin` header from `ALLOWED_ORIGINS`. |
+| 413 | Body over 16 KB, by `Content-Length` or while reading it (a missing header does not bypass it). |
+| 415 | A content type other than `text/plain` or `application/json`. |
+| 429 | The rate limiter refused it (with `Retry-After: 60`), or the session already stored 500 events. |
+
+Each event is checked against its type: an unknown type, design or path, a time more than two
+days from the server clock, a value of the wrong kind or out of range (scroll only at 25, 50, 75
+or 100; LCP up to 120 s; CLS up to 10; return visits up to 7 days), a click label other than the
+four kinds, or a value or label on an event that carries none drops that event. Error text is
+scrubbed again on the server (URLs, emails, long numbers and tokens removed) before it is stored.
+Other paths answer 404 and other methods 405 with an `Allow` header.
+
+The `Origin` check and CORS only stop other websites' pages from posting through a visitor's
+browser. They are **not authentication**: anyone can send any `Origin` from a script. What
+actually bounds abuse is the validation above, the per-session cap, deduplication, and the rate
+limiter.
+
+**Rate limiting.** `worker/wrangler.toml` binds Cloudflare's Workers Rate Limiting API
+(`EVENTS_LIMITER`, 60 requests per 60 s), which is free on every plan and needs no dashboard
+setup: `wrangler deploy` (version 4.36 or later) creates it. The limit is counted per Cloudflare
+location and is approximate. Its key is the fixed string `events`, never the IP or an id, so it
+protects the database quota rather than singling anyone out. The trade-off: a flood can make the
+Worker refuse real visitors' events for a minute (the site carries on; only measurement pauses),
+and it cannot fully protect D1's free daily write allowance of 100,000 rows. On the free plan
+running out returns errors until the next day; it never costs money. If abuse becomes real, add
+a WAF rate-limiting rule on the Worker route in the dashboard (Security → WAF → Rate limiting
+rules; one rule is free).
+
+**Results.** `/results` is public and returns aggregates only: per-design totals, rates and the
+weight log. It never returns rows, ids, times, paths or labels. Engaged and switched-away counts
+are withheld (`null`) for a design under 30 visits, in the summary and in the weight log, and the
+log's reason names designs that are short without their counts. If that is ever not enough, put
+the `/results` path behind Cloudflare Access (Zero Trust → Access → Applications, free for up to
+50 users) and point the results page at it.
+
 ## How the score and weights work
 
 A session is **engaged** when, on its assigned design and without switching away in the picker,
