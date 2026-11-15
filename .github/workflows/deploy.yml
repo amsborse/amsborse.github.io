@@ -48,6 +48,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # Design experiments Worker (docs/experiments.md). Empty turns experiments off.
+          VITE_EXPERIMENTS_URL: ${{ vars.VITE_EXPERIMENTS_URL }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
