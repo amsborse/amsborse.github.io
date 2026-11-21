@@ -31,7 +31,8 @@ export function WritingChapter() {
           observer.disconnect();
         }
       },
-      { rootMargin: "800px 0px" }
+      // Generous: the chapter plates boot as the reader scrolls past them, sharing the main thread.
+      { rootMargin: "1400px 0px" }
     );
     observer.observe(section);
     return () => observer.disconnect();

@@ -36,7 +36,7 @@ describe("project chapters and case files", () => {
     }
   });
 
-  it("keeps every showcase screenshot's dimensions and its theme-aware source handling", () => {
+  it("keeps the Sutra hero and renders every project's existing content with a unique emblem", () => {
     const markup = renderToStaticMarkup(
       createElement(
         MemoryRouter,
@@ -45,29 +45,32 @@ describe("project chapters and case files", () => {
       )
     );
     const document = new DOMParser().parseFromString(markup, "text/html");
-    const images = Array.from(document.querySelectorAll(".showcase-image img"));
-
-    // As before the revamp: the live Sutra hero stands in for Sutra's first screenshot,
-    // and every other project leads with its first one.
-    expect(images).toHaveLength(
-      showcase.reduce(
-        (count, project) => count + (project.id === "sutra" ? project.images.length - 1 : 1),
-        0
-      )
+    expect(document.querySelectorAll(".sutra-embed")).toHaveLength(1);
+    expect(document.querySelector(".hero-scene")?.getAttribute("src")).toContain(
+      "projects/sutra-dawn.webp"
     );
-    for (const image of images) {
-      expect(image.getAttribute("width")).toBeTruthy();
-      expect(image.getAttribute("height")).toBeTruthy();
-      expect(image.getAttribute("loading")).toBe("lazy");
-      expect(image.getAttribute("decoding")).toBe("async");
-    }
+    expect(document.querySelector(".showcase-grid img")).toBeNull();
+    expect(document.querySelectorAll(".showcase-grid article")).toHaveLength(showcase.length);
+    const signatures = new Set<string>();
     for (const project of showcase) {
-      expect(document.body.textContent).toContain(project.title);
-      expect(document.body.textContent).toContain(project.summary);
+      const card = document.querySelector(`article[aria-labelledby="showcase-${project.id}"]`);
+      expect(card?.querySelector("h3")?.textContent).toBe(project.title);
+      expect(card?.querySelector(".showcase-card__summary")?.textContent).toBe(project.summary);
+      expect(Array.from(card?.querySelectorAll("li") ?? [], (tag) => tag.textContent)).toEqual(
+        project.tags
+      );
+      expect(card?.querySelector(".showcase-card__status")?.textContent).toBe(project.status);
+      const emblem = card?.querySelector("svg");
+      expect(emblem?.getAttribute("aria-hidden")).toBe("true");
+      expect(emblem?.querySelectorAll("path")).toHaveLength(2);
+      signatures.add(emblem?.innerHTML ?? "");
       for (const link of project.links) {
-        expect(document.querySelector(`a[href="${link.href}"]`)).not.toBeNull();
+        const anchor = card?.querySelector(`a[href="${link.href}"]`);
+        expect(anchor?.textContent).toContain(link.label);
+        expect(anchor?.getAttribute("target")).toBe("_blank");
+        expect(anchor?.getAttribute("rel")).toContain("noreferrer");
       }
     }
-    expect(document.querySelectorAll(".showcase-chapter")).toHaveLength(showcase.length);
+    expect(signatures.size).toBe(showcase.length);
   });
 });

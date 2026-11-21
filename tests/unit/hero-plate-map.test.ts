@@ -3,13 +3,10 @@ import {
   PLATE_FOCUS,
   PLATE_H,
   PLATE_MODULES,
-  PLATE_ORBITS,
-  PLATE_RINGS,
   PLATE_SPHERE,
   PLATE_W,
   edgeCurve,
   fitPlate,
-  orbitPoint,
 } from "@/components/hero/plateMap";
 import { FRAGMENT } from "@/components/hero/plateGL";
 import { SERVICES } from "@/components/hero/topology";
@@ -72,33 +69,11 @@ describe("hero plate map", () => {
   });
 });
 
-describe("orbiting ring lights", () => {
-  // The orbits are fitted to the glass rings in the plate; the modules sit on the rings,
-  // so each ring module must be close to some orbit or the lights would float off the glass.
-  it("passes every orbit near the ring modules", () => {
-    const nearest = (pt: { x: number; y: number }) =>
-      Math.min(
-        ...PLATE_ORBITS.flatMap((o) =>
-          Array.from({ length: 720 }, (_, i) => {
-            const q = orbitPoint(o, (i / 720) * Math.PI * 2);
-            return Math.hypot(q.x - pt.x, q.y - pt.y);
-          })
-        )
-      );
-    for (const id of ["gateway", "policy", "inference"] as const) {
-      expect(nearest(PLATE_MODULES[id]), id).toBeLessThan(45);
-    }
-  });
-
-  it("keeps every orbit inside the ring area and moving", () => {
-    for (const o of PLATE_ORBITS) {
-      expect(Math.abs(o.speed)).toBeGreaterThan(0.1);
-      for (let i = 0; i < 64; i++) {
-        const q = orbitPoint(o, (i / 64) * Math.PI * 2);
-        expect(q.x).toBeGreaterThan(PLATE_RINGS.x0 - 20);
-        expect(q.x).toBeLessThan(PLATE_RINGS.x1 + 20);
-      }
-    }
-    expect(FRAGMENT.match(/orbit \+= orbitLights\(/g)).toHaveLength(PLATE_ORBITS.length);
+describe("ring light", () => {
+  // Regression: lights moved along fitted ellipses fell off the painted glass, because the
+  // painted rings are not true ellipses. Ring light must come only from the glass-gated layer.
+  it("draws no analytic orbit lights, only light gated by the glass pixels", () => {
+    expect(FRAGMENT).not.toMatch(/orbitLights\(/);
+    expect(FRAGMENT).toMatch(/light streaks travelling along the bright glass/);
   });
 });

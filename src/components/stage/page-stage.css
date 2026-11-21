@@ -1,15 +1,13 @@
 /*
  * Chapter stage: every inner page opens on another place in the hero's island world. A generated
  * art plate (night and dawn versions) sits on the page itself, feathered at every edge so there is
- * no box; the copy is set on the left in the page's own ink. Two thin live layers, lantern light
- * that breathes and mist that drifts, run only while the stage is on screen.
+ * no box; the copy is set on the left in the page's own ink. A shared single-pass canvas brings
+ * the painted light, water and glass to life while visible; the image remains its fallback.
  */
 .page-stage {
   --stage-w: min(80rem, 100vw);
   --lean-x: 0;
   --lean-y: 0;
-  --glow-x: 72%;
-  --glow-y: 50%;
   position: relative;
   width: var(--stage-w);
   margin: -1rem calc(50% - var(--stage-w) / 2) 3rem;
@@ -17,27 +15,6 @@
   display: flex;
   align-items: center;
 }
-.page-stage--writing {
-  --glow-x: 89%;
-  --glow-y: 44%;
-}
-.page-stage--contact {
-  --glow-x: 71%;
-  --glow-y: 46%;
-}
-.page-stage--projects {
-  --glow-x: 80%;
-  --glow-y: 68%;
-}
-.page-stage--about {
-  --glow-x: 81%;
-  --glow-y: 76%;
-}
-.page-stage--learning {
-  --glow-x: 72%;
-  --glow-y: 40%;
-}
-
 .page-stage__static {
   position: absolute;
   inset: 0;
@@ -65,24 +42,6 @@
   height: 100%;
   object-fit: cover;
 }
-.page-stage__glow {
-  position: absolute;
-  left: var(--glow-x);
-  top: var(--glow-y);
-  width: 46%;
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    rgba(255, 190, 96, 0.2),
-    rgba(255, 176, 74, 0.07) 55%,
-    transparent
-  );
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  transform: translate3d(calc(var(--lean-x) * -6px), calc(var(--lean-y) * -4px), 0);
-}
 .page-stage__mist {
   position: absolute;
   left: 30%;
@@ -101,25 +60,8 @@
   background: radial-gradient(50% 50% at 50% 50%, rgba(255, 252, 244, 0.85), transparent);
   opacity: 0.7;
 }
-[data-theme="light"] .page-stage__glow {
-  mix-blend-mode: soft-light;
-  opacity: 0.8;
-}
-.page-stage[data-live="true"] .page-stage__glow {
-  animation: stage-breathe 7s ease-in-out infinite alternate;
-}
 .page-stage[data-live="true"] .page-stage__mist {
   animation: stage-drift 26s ease-in-out infinite alternate;
-}
-@keyframes stage-breathe {
-  from {
-    opacity: 0.42;
-    scale: 0.96;
-  }
-  to {
-    opacity: 0.9;
-    scale: 1.04;
-  }
 }
 @keyframes stage-drift {
   from {
@@ -230,14 +172,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-stage__plate,
-  .page-stage__glow {
+  .page-stage__plate {
     transform: translate3d(0, -50%, 0);
   }
-  .page-stage__glow {
-    transform: none;
-  }
-  .page-stage[data-live="true"] .page-stage__glow,
   .page-stage[data-live="true"] .page-stage__mist {
     animation: none;
   }

@@ -28,7 +28,6 @@ export type {
   ProjectCategory,
   ProjectCategoryDef,
   SocialLinks,
-  ShowcaseImage,
   ShowcaseProject,
 } from "./types";
 

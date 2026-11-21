@@ -18,7 +18,11 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: [/hero\.spec\.ts/, /hero-slow-device\.spec\.ts/],
+      testIgnore: [
+        /hero\.spec\.ts/,
+        /hero-slow-device\.spec\.ts/,
+        /plate-motion-visible\.spec\.ts/,
+      ],
     },
     {
       name: "chromium-hero",
@@ -31,6 +35,17 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
       testMatch: /hero-slow-device\.spec\.ts/,
       dependencies: ["chromium-hero"],
+    },
+    {
+      name: "chromium-plate-motion",
+      // Ask for the real GPU where there is one: software GL is too slow for these plates, and
+      // the frame governor then (rightly) stills them. The spec skips, visibly, on software GL.
+      use: {
+        ...devices["Desktop Chrome"],
+        launchOptions: { args: ["--enable-gpu", "--ignore-gpu-blocklist", "--use-angle=default"] },
+      },
+      testMatch: /plate-motion-visible\.spec\.ts/,
+      dependencies: ["chromium-hero-slow-device"],
     },
   ],
   webServer: {

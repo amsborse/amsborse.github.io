@@ -19,7 +19,10 @@ test.describe("page background", () => {
   test("is the CSS sky by default, with no particle canvas", async ({ page }) => {
     await page.goto("/experience");
     await expect(page.locator(".sky-field")).toHaveCount(1);
-    await expect(page.locator("canvas.fixed")).toHaveCount(0);
+    // The lazy creature layer is the default ambient canvas; wait for it so the check below
+    // cannot pass early, then make sure the old particle network did not mount beside it.
+    await expect(page.locator("canvas[data-ambient-creatures]")).toBeAttached();
+    await expect(page.locator("canvas.fixed:not([data-ambient-creatures])")).toHaveCount(0);
   });
 });
 
