@@ -7,6 +7,7 @@ import { isUserClickable } from "../src/interaction-runner.ts";
 import { runDecorativeLineValidation } from "../src/visual/decorative-lines.ts";
 import { runLayoutGeometryValidation } from "../src/visual/geometry.ts";
 import { runTypographyValidation } from "../src/visual/typography.ts";
+import { stabilizeForScreenshot } from "../src/visual/screenshot-stable.ts";
 
 // One transparent pixel, served for every *.png the page asks for except missing.png.
 const PIXEL = Buffer.from(
@@ -44,6 +45,60 @@ describe("browser checks", () => {
       <div style="height:6000px"></div>
       <img loading="lazy" src="/projects/later.png" alt="">`);
     expect(await findBrokenImages(page, "/")).toEqual(["/missing.png"]);
+    await page.close();
+  }, 30_000);
+
+  it("prepares a screenshot without waiting forever on images that never load", async () => {
+    page = await browser.newPage({ viewport: { width: 800, height: 600 } });
+    // Regression: the review hung on the home page, whose lazy images below the fold never load.
+    await load(
+      `<div style="height:6000px"></div><img loading="lazy" src="/projects/later.png" alt="">`
+    );
+    const start = Date.now();
+    await stabilizeForScreenshot(page);
+    expect(Date.now() - start).toBeLessThan(3_000);
+    // An eager image whose request never answers stands for a stalled server: bounded, not forever.
+    await page.route("http://review.test/stalled.png", () => undefined);
+    await page.evaluate(() => {
+      const img = document.createElement("img");
+      img.src = "/stalled.png";
+      document.body.prepend(img);
+    });
+    const stalled = Date.now();
+    await stabilizeForScreenshot(page);
+    expect(Date.now() - stalled).toBeLessThan(8_000);
+    await page.close();
+  }, 30_000);
+
+  it("measures content-edge spacing against painted boxes, not invisible wrappers", async () => {
+    page = await browser.newPage({ viewport: { width: 800, height: 600 } });
+    // Regression: a heading flush with an unpainted layout column was flagged hundreds of
+    // times per page (/writing, /projects), though nothing visible touched it.
+    await load(`
+      <main>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px">
+          <div><h3 data-testid="flush">Flush with an invisible column</h3><p>Copy</p></div>
+          <div style="border:1px solid #888;padding:16px">
+            <h3 data-testid="padded">Inside a padded card</h3>
+          </div>
+        </div>
+        <div style="margin:24px;border:1px solid #888;padding:2px">
+          <p data-testid="cramped">Text touching the card's border</p>
+        </div>
+        <div style="margin:24px;border-bottom:1px solid #888;padding:0 0 16px">
+          <p data-testid="divider">Over a divider, sides open</p>
+        </div>
+        <ul style="margin:24px;list-style:none;padding:0">
+          <li style="border-top:1px solid #888"><a href="#" data-testid="row" style="display:block;padding:24px 0">A row link padded off its divider</a></li>
+          <li style="border-top:1px solid #888"><a href="#" data-testid="tight-row" style="display:block;padding:2px 0">A row link touching its divider</a></li>
+        </ul>
+      </main>`);
+    await prepareReviewPage(page);
+    const { findings } = await runLayoutGeometryValidation(page, "/", "main");
+    const flagged = findings
+      .filter((f) => /Content-edge collision/.test(f.explanation))
+      .map((f) => f.selector);
+    expect(flagged).toEqual(["[data-testid='cramped']", "[data-testid='tight-row']"]);
     await page.close();
   }, 30_000);
 
@@ -172,6 +227,8 @@ describe("browser checks", () => {
       </main>`);
     const geometry = await runLayoutGeometryValidation(page, "/", "body");
     expect(geometry.findings.filter((f) => f.category === "overlap")).toEqual([]);
+    // (e) The sr-only caption is 1x1 with overflow hidden on purpose; it is not clipped text.
+    expect(geometry.findings.filter((f) => /Clipping detected/.test(f.explanation))).toEqual([]);
     const det = await runDeterministicChecks(page, "/");
     expect(det.findings.filter((f) => /zero size/.test(f.explanation))).toEqual([]);
     const type = await runTypographyValidation(page, "/", "body");
@@ -191,10 +248,16 @@ describe("browser checks", () => {
           <button style="width:0;height:0;padding:0;border:0;overflow:hidden">x</button>
           <svg style="position:absolute;left:0;top:100px" width="400" height="40"><path d="M0 10 L400 30" stroke="black" fill="none"/></svg>
           <p style="position:absolute;left:20px;top:110px;margin:0">Text crossed by a leader line</p>
+          <p data-testid="cut" style="width:120px;height:20px;overflow:hidden;white-space:nowrap;margin-top:200px">Visible copy that runs well past its box</p>
         </section>
       </main>`);
     const geometry = await runLayoutGeometryValidation(page, "/", "body");
     expect(geometry.findings.filter((f) => f.category === "overlap").length).toBeGreaterThan(0);
+    expect(
+      geometry.findings
+        .filter((f) => /Clipping detected/.test(f.explanation))
+        .map((f) => f.selector)
+    ).toEqual(["[data-testid='cut']"]);
     const det = await runDeterministicChecks(page, "/");
     expect(det.findings.filter((f) => /zero size/.test(f.explanation)).length).toBe(1);
     const lines = await runDecorativeLineValidation(page, "/", "body");

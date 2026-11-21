@@ -1,0 +1,39 @@
+# Cloudflare Worker for design experiments (free plan). Setup: docs/experiments.md.
+# Nothing here is secret. Do not add credentials to this file.
+name = "portfolio-experiments"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# Keep request logs off: the Worker never needs them and they would include IPs.
+[observability]
+enabled = false
+
+[triggers]
+crons = ["17 4 * * *"] # once a day, 04:17 UTC
+
+[vars]
+# Must match src/designs/registry.ts (a unit test checks this).
+DESIGNS = "editorial,blueprint,broadsheet"
+BASELINE = "editorial"
+# Kill switch: "auto", "freeze" or "force:<design>". Takes effect on the next /weights.json.
+EXPERIMENT_MODE = "auto"
+ALLOWED_ORIGINS = "https://amsborse.github.io"
+RETENTION_DAYS = "90"
+
+# Workers Rate Limiting: free on every plan, applied before any database work. Counts are
+# approximate and kept per Cloudflare location, so this is an abuse brake, not an exact quota.
+# The key is a fixed string, never an IP or visitor id. Needs wrangler 4.36 or newer.
+# namespace_id is any number unique to this account; no dashboard setup is needed.
+[[ratelimits]]
+name = "EVENTS_LIMITER"
+namespace_id = "1801"
+[ratelimits.simple]
+limit = 60
+period = 60
+
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-experiments"
+# Replace with the id printed by `npx wrangler d1 create portfolio-experiments`.
+database_id = "00000000-0000-0000-0000-000000000000"

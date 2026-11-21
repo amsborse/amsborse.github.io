@@ -11,7 +11,10 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 /** Application JS budget in KiB — adjust if the code legitimately grows. */
-export const MAX_CODE_JS_KIB = 2200;
+// 2240 (provisional; was 2200): measured 2026-11-14, the experiment code adds 21.8 KiB minified:
+// the lazy /experiments page 10.9 KiB and the tracker in the shell 10.9 KiB (bandit and score
+// run only in the Worker). Build at master 2197.2 KiB, with experiments 2220.1 KiB. Do not raise.
+export const MAX_CODE_JS_KIB = 2240;
 /** Article content chunks (one per essay) in KiB — adjust when many essays are added. */
 export const MAX_ARTICLE_JS_KIB = 1200;
 

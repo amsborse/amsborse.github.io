@@ -378,6 +378,13 @@
       "path": "/contact",
       "notes": "Redirect → /about#contact"
     },
+    {
+      "id": "route:/experiments",
+      "type": "route",
+      "path": "/experiments",
+      "file": "src/pages/Experiments.tsx",
+      "notes": "Design experiment results (noindex); see docs/experiments.md"
+    },
     { "id": "route:404", "type": "route", "path": "/*", "file": "src/pages/NotFound.tsx" },
 
     {
