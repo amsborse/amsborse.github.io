@@ -258,7 +258,7 @@
   @media (min-width: 768px) {
     .site-header__bar {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(max-content, 1fr);
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     }
     .site-header__tools {
       justify-self: end;
