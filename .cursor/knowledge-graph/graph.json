@@ -3,7 +3,7 @@
     "version": 1,
     "repo": "amsborse.github.io",
     "description": "Akshay Borse portfolio — React/Vite static site",
-    "lastUpdated": "2026-11-09",
+    "lastUpdated": "2026-11-10",
     "entrypoints": ["src/main.tsx", "src/App.tsx", "src/layout/RootLayout.tsx"]
   },
   "domains": [
@@ -142,6 +142,12 @@
       "id": "component:interactive-particles",
       "type": "component",
       "file": "src/components/InteractiveParticles.tsx"
+    },
+    {
+      "id": "component:ambient-creatures",
+      "type": "component",
+      "file": "src/components/ambient/AmbientCreatures.tsx",
+      "notes": "Default canvas fireflies/butterflies, cursor steering, reduced-motion and visibility gates"
     },
     { "id": "component:reveal", "type": "component", "file": "src/components/Reveal.tsx" },
     {
@@ -447,6 +453,7 @@
     { "from": "entry:app", "to": "layout:root", "rel": "wraps" },
     { "from": "layout:root", "to": "layout:immersive-routes", "rel": "uses" },
     { "from": "layout:root", "to": "component:interactive-particles", "rel": "lazy_loads" },
+    { "from": "layout:root", "to": "component:ambient-creatures", "rel": "lazy_loads" },
     { "from": "layout:root", "to": "layout:navbar", "rel": "uses" },
     { "from": "layout:root", "to": "layout:footer", "rel": "uses" },
     { "from": "layout:navbar", "to": "data:navigation", "rel": "reads" },

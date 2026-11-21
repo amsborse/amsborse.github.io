@@ -14,6 +14,11 @@ const LazyInteractiveParticles = lazy(() =>
     default: mod.InteractiveParticles,
   }))
 );
+const LazyAmbientCreatures = lazy(() =>
+  import("@/components/ambient/AmbientCreatures").then((mod) => ({
+    default: mod.AmbientCreatures,
+  }))
+);
 
 function PageSkeleton() {
   return (
@@ -39,7 +44,7 @@ export function RootLayout() {
   const isImmersive = isImmersiveSandbox(location.pathname);
   const disableGlobalEffects = shouldDisableGlobalEffects(location.pathname);
   // The earlier particle network stays available: open any page with `?ambient=particles`.
-  const wantsParticles = new URLSearchParams(location.search).get("ambient") === "particles";
+  const ambient = new URLSearchParams(location.search).get("ambient");
 
   useEffect(() => {
     if (disableGlobalEffects || prefersReducedMotion) {
@@ -119,9 +124,13 @@ export function RootLayout() {
       style={{ background: "transparent" }}
     >
       {!disableGlobalEffects && !isHome ? <SkyField /> : null}
-      {!disableGlobalEffects && wantsParticles ? (
+      {!disableGlobalEffects && ambient !== "off" ? (
         <Suspense fallback={null}>
-          <LazyInteractiveParticles intensity="intense" />
+          {ambient === "particles" ? (
+            <LazyInteractiveParticles intensity="intense" />
+          ) : (
+            <LazyAmbientCreatures />
+          )}
         </Suspense>
       ) : null}
       {isHome ? (
