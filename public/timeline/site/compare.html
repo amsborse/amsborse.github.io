@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare designs</title>
+<script src="shared/boot.js"></script>
+<style>
+  :root {
+    --bg: #0b0c12; --bg-2: #141724; --surface: #171a27; --surface-2: #1d2131; --text: #f2f3f7; --muted: #b0b6c6;
+    --line: rgba(255,255,255,.11); --accent: #8b5cf6; --accent-ink: #c4b5fd; --on-accent: #fff;
+    --shadow: 0 30px 80px -36px rgba(0,0,0,.85); --ease: cubic-bezier(.2,.8,.2,1);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f1e9; --bg-2: #ece5d8; --surface: #fffdf8; --surface-2: #f8f4ec; --text: #1c1915; --muted: #5a5249;
+    --line: rgba(60,40,20,.14); --accent: #6d28d9; --accent-ink: #5b21b6; --shadow: 0 22px 50px -28px rgba(70,45,20,.4);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font: 15px/1.55 var(--sans); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: clip;
+    background: radial-gradient(1100px 600px at 12% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+                radial-gradient(900px 500px at 100% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 70%),
+                linear-gradient(var(--bg), var(--bg-2)) fixed; min-height: 100vh; }
+  :root[data-theme="light"] body { background: radial-gradient(1100px 600px at 12% -10%, rgba(255,255,255,.9), transparent 70%), linear-gradient(var(--bg), var(--bg-2)) fixed; }
+  a { color: inherit; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 48px 24px 96px; }
+  header { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: end; justify-content: space-between; margin-bottom: 36px; }
+  .kicker { font: 600 11px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--accent-ink); }
+  h1 { font: 600 clamp(32px, 5vw, 52px)/1.05 var(--serif); margin: 10px 0 8px; letter-spacing: -.01em; }
+  .lede { color: var(--muted); max-width: 60ch; margin: 0; }
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { font: 500 13px/1 var(--sans); color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    padding: 10px 14px; cursor: pointer; text-decoration: none; display: inline-flex; gap: 6px; align-items: center;
+    transition: border-color .2s, transform .2s var(--ease), background .2s; }
+  .btn:hover { border-color: var(--accent); }
+  .btn:active { transform: scale(.97); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .btn[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  details.old { grid-column: 1 / -1; margin-top: 8px; }
+  details.old > summary { cursor: pointer; font-weight: 600; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 12px 0; list-style-position: inside; }
+  details.old > summary small { text-transform: none; letter-spacing: 0; font-weight: 400; margin-left: 8px; opacity: .85; }
+  details.old > .grid { margin-top: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr)); gap: 22px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden;
+    display: flex; flex-direction: column; transition: border-color .25s, transform .3s var(--ease); }
+  .card.top { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+  .stage { position: relative; aspect-ratio: 16 / 10; background: var(--surface-2); border-bottom: 1px solid var(--line); overflow: hidden; }
+  .stage.phone { aspect-ratio: 16 / 10; display: grid; place-items: center; }
+  .stage img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .stage.phone img { width: auto; height: 100%; object-fit: contain; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .stage iframe { position: absolute; inset: 0; width: 200%; height: 200%; border: 0; transform: scale(.5); transform-origin: 0 0; background: var(--bg); }
+  .missing { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); font-size: 13px;
+    background: repeating-linear-gradient(135deg, transparent 0 12px, color-mix(in srgb, var(--line) 60%, transparent) 12px 13px); }
+  .missing b { display: block; color: var(--text); font-size: 14px; margin-bottom: 4px; }
+  .live-tag { position: absolute; top: 10px; left: 10px; font: 600 10px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
+    padding: 5px 8px; border-radius: 6px; background: var(--accent); color: var(--on-accent); }
+  .body { padding: 18px 20px 20px; display: grid; gap: 14px; flex: 1; }
+  .title { display: flex; align-items: baseline; gap: 10px; justify-content: space-between; }
+  .title h2 { font: 600 24px/1.1 var(--serif); margin: 0; }
+  .title .rank { font: 600 12px/1 var(--sans); color: var(--accent-ink); white-space: nowrap; }
+  .pitch { margin: 0; color: var(--muted); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .score { display: inline-flex; gap: 4px; }
+  .score button { width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);
+    font: 600 13px/1 var(--sans); cursor: pointer; transition: background .2s, border-color .2s; }
+  .score button[aria-checked="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .score-k { font-size: 12px; color: var(--muted); margin-right: 4px; }
+  textarea { width: 100%; min-height: 64px; resize: vertical; font: 14px/1.45 var(--sans); color: var(--text); background: var(--surface-2);
+    border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+  textarea::placeholder { color: var(--muted); }
+  .spacer { flex: 1; }
+  .saved { font-size: 12px; color: var(--muted); min-height: 1em; }
+  dialog { max-width: min(680px, calc(100vw - 32px)); width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--line);
+    border-radius: 16px; box-shadow: var(--shadow); padding: 20px; }
+  dialog::backdrop { background: rgba(5,6,10,.55); }
+  dialog pre { max-height: 50vh; overflow: auto; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-size: 12.5px; white-space: pre-wrap; word-break: break-word; }
+  @media (max-width: 560px) { .wrap { padding: 28px 16px 80px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div>
+      <div class="kicker">Life timeline · A/B</div>
+      <h1>Compare the designs</h1>
+      <p class="lede">Each card shows a real screenshot. Press <b>Load live</b> to try one in place, or <b>Open</b> to use it full screen. Score each design from 1 to 5, add a note, then export your picks. Everything stays in this browser.</p>
+    </div>
+    <div class="tools">
+      <button class="btn" id="shotMode" aria-pressed="false">Phone screenshots</button>
+      <button class="btn" id="theme">◐ Theme</button>
+      <button class="btn primary" id="export">Export my picks</button>
+      <a class="btn" href="index.html">← Back to the site</a>
+    </div>
+  </header>
+  <section class="grid" id="grid" aria-label="Designs"></section>
+</main>
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <h2 id="dlgTitle" style="margin:0 0 6px;font:600 22px/1.2 var(--serif)">Your picks</h2>
+  <p class="pitch" style="margin:0 0 12px">Saved as <code>life-timeline-picks.json</code>. A copy is below too.</p>
+  <pre id="dlgPre"></pre>
+  <div class="row" style="justify-content:flex-end;margin-top:12px">
+    <button class="btn" id="copy">Copy</button>
+    <button class="btn primary" id="close">Close</button>
+  </div>
+</dialog>
+<script>
+(function () {
+  'use strict';
+  var REG = window.LT_REGISTRY || [];
+  var KEY = 'lt.compare';
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var load = function () { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
+  var save = function (v) { try { localStorage.setItem(KEY, JSON.stringify(v)); return true; } catch (e) { console.error('compare: could not save picks', e); return false; } };
+  var state = load();
+  var phone = false;
+  var root = document.documentElement;
+  var grid = document.getElementById('grid');
+  // classic's screenshots live in _shots/classic-after until a plain _shots/classic run exists
+  var shotDirs = { classic: ['classic', 'classic-after'] };
+
+  function shotSrc(id, dirIdx) {
+    var dirs = shotDirs[id] || [id];
+    var dir = dirs[Math.min(dirIdx || 0, dirs.length - 1)];
+    return '../_shots/' + dir + '/' + root.dataset.theme + '-' + (phone ? 390 : 1440) + '.png';
+  }
+
+  function render() {
+    var scores = REG.map(function (d) { return (state[d.id] || {}).score || 0; });
+    var best = Math.max.apply(null, scores.concat(0));
+    var card = function (d) {
+      var s = state[d.id] || {};
+      return '<article class="card' + (best && s.score === best ? ' top' : '') + '" data-id="' + d.id + '">' +
+        '<div class="stage' + (phone ? ' phone' : '') + '"><img alt="Screenshot of the ' + esc(d.label) + ' design" loading="lazy" src="' + shotSrc(d.id) + '"></div>' +
+        '<div class="body">' +
+          '<div class="title"><h2>' + esc(d.label) + '</h2><span class="rank">' + (s.score ? 'Your score ' + s.score + '/5' : 'Not scored') + '</span></div>' +
+          '<p class="pitch">' + esc(d.pitch) + '</p>' +
+          '<div class="row" role="radiogroup" aria-label="Score for ' + esc(d.label) + '"><span class="score-k">Score</span><span class="score">' +
+            [1, 2, 3, 4, 5].map(function (n) { return '<button role="radio" aria-checked="' + (s.score === n) + '" data-score="' + n + '" aria-label="' + n + ' out of 5">' + n + '</button>'; }).join('') +
+          '</span></div>' +
+          '<label><span class="score-k">Note</span><textarea data-note placeholder="What works, what doesn\'t…">' + esc(s.note || '') + '</textarea></label>' +
+          '<div class="row"><button class="btn" data-live aria-pressed="false">Load live</button><a class="btn" href="index.html?design=' + d.id + '">Open</a>' +
+            '<button class="btn" data-default>Make it my default</button><span class="spacer"></span><span class="saved" aria-live="polite"></span></div>' +
+        '</div></article>';
+    };
+    var oldOpen = !!(grid.querySelector('details.old') || {}).open;
+    var old = REG.filter(function (d) { return d.legacy; });
+    grid.innerHTML = REG.filter(function (d) { return !d.legacy; }).map(card).join('') +
+      (old.length ? '<details class="old"' + (oldOpen ? ' open' : '') + '><summary>Old themes <small>' + esc(old.map(function (d) { return d.label; }).join(', ')) + '</small></summary><div class="grid">' + old.map(card).join('') + '</div></details>' : '');
+    grid.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('error', function () {
+        var id = img.closest('.card').dataset.id, tries = +(img.dataset.try || 0) + 1, dirs = shotDirs[id] || [id];
+        if (tries < dirs.length) { img.dataset.try = tries; img.src = shotSrc(id, tries); return; }
+        img.replaceWith(Object.assign(document.createElement('div'), { className: 'missing',
+          innerHTML: '<div><b>No screenshot yet</b>Run <code>python tools/shoot.py ' + esc(id) + '</code>, or press Load live.</div>' }));
+      });
+    });
+  }
+
+  function note(card, msg) { var el = card.querySelector('.saved'); el.textContent = msg; clearTimeout(el._t); el._t = setTimeout(function () { el.textContent = ''; }, 1600); }
+
+  grid.addEventListener('click', function (ev) {
+    var card = ev.target.closest('.card'); if (!card) return;
+    var id = card.dataset.id, s = state[id] = state[id] || {};
+    var sc = ev.target.closest('[data-score]');
+    if (sc) { s.score = +sc.dataset.score; s.at = new Date().toISOString(); var ok = save(state); render();
+      var c = grid.querySelector('[data-id="' + id + '"]'); c.querySelector('[data-score="' + s.score + '"]').focus(); note(c, ok ? 'Saved' : 'Could not save'); return; }
+    var live = ev.target.closest('[data-live]');
+    if (live) {
+      var stage = card.querySelector('.stage'), on = live.getAttribute('aria-pressed') !== 'true';
+      if (on) {
+        stage.classList.remove('phone');
+        stage.innerHTML = '<span class="live-tag">Live</span><iframe title="Live ' + esc(id) + ' design" loading="lazy" src="index.html?design=' + id + '&embed=1"></iframe>';
+        // phone widths: the iframe renders at 200% and scales to 50%, so a 390px card shows ~780px; fine for a preview
+      } else { render(); return; }
+      live.setAttribute('aria-pressed', 'true'); live.textContent = 'Back to screenshot'; return;
+    }
+    if (ev.target.closest('[data-default]')) {
+      try { localStorage.setItem('lt.design', id); note(card, 'The site now opens with ' + id); } catch (e) { console.error(e); note(card, 'Could not save'); }
+    }
+  });
+  grid.addEventListener('input', function (ev) {
+    if (!ev.target.matches('[data-note]')) return;
+    var card = ev.target.closest('.card'), id = card.dataset.id, s = state[id] = state[id] || {};
+    s.note = ev.target.value; s.at = new Date().toISOString();
+    clearTimeout(card._t); card._t = setTimeout(function () { note(card, save(state) ? 'Saved' : 'Could not save'); }, 400);
+  });
+  grid.addEventListener('keydown', function (ev) {
+    var b = ev.target.closest('[data-score]'); if (!b || ['ArrowLeft', 'ArrowRight'].indexOf(ev.key) < 0) return;
+    ev.preventDefault(); var n = Math.min(5, Math.max(1, +b.dataset.score + (ev.key === 'ArrowRight' ? 1 : -1)));
+    b.parentNode.querySelector('[data-score="' + n + '"]').click();
+  });
+
+  document.getElementById('shotMode').addEventListener('click', function () {
+    phone = !phone; this.setAttribute('aria-pressed', phone); this.textContent = phone ? 'Desktop screenshots' : 'Phone screenshots'; render();
+  });
+  document.getElementById('theme').addEventListener('click', function () {
+    var t = root.dataset.theme === 'dark' ? 'light' : 'dark'; root.dataset.theme = t;
+    try { localStorage.setItem('lt.theme', t); } catch (e) {} render();
+  });
+
+  function picks() {
+    var ranked = REG.map(function (d) { var s = state[d.id] || {}; return { id: d.id, label: d.label, score: s.score || null, note: s.note || '', updated: s.at || null }; })
+      .sort(function (a, b) { return (b.score || 0) - (a.score || 0); });
+    return { exported: new Date().toISOString(), default_design: (function () { try { return localStorage.getItem('lt.design'); } catch (e) { return null; } })(), ranking: ranked };
+  }
+  var dlg = document.getElementById('dlg');
+  document.getElementById('export').addEventListener('click', function () {
+    var json = JSON.stringify(picks(), null, 2);
+    document.getElementById('dlgPre').textContent = json;
+    try {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+      a.download = 'life-timeline-picks.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    } catch (e) { console.error('compare: download failed', e); }
+    dlg.showModal();
+  });
+  document.getElementById('close').addEventListener('click', function () { dlg.close(); });
+  document.getElementById('copy').addEventListener('click', function () {
+    var b = this; (navigator.clipboard ? navigator.clipboard.writeText(document.getElementById('dlgPre').textContent) : Promise.reject(new Error('no clipboard')))
+      .then(function () { b.textContent = 'Copied'; }, function (e) { console.error(e); b.textContent = 'Copy failed: select the text'; });
+  });
+
+  if (!REG.length) { grid.innerHTML = '<p class="missing" style="position:static">Design list missing: shared/boot.js did not load.</p>'; console.error('compare: no registry'); }
+  else render();
+})();
+</script>
+</body>
+</html>
