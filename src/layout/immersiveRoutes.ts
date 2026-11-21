@@ -15,5 +15,10 @@ export function isImmersiveSandbox(pathname: string): boolean {
 
 /** Disable Lenis + background particles on heavy or fixed-viewport routes. */
 export function shouldDisableGlobalEffects(pathname: string): boolean {
-  return isImmersiveSandbox(pathname) || pathname.startsWith("/arsenal/algorithm");
+  return (
+    isImmersiveSandbox(pathname) ||
+    pathname.startsWith("/arsenal/algorithm") ||
+    // Scrolls normally, but brings its own page atmosphere and particle scenes.
+    pathname.startsWith("/arsenal/infinity")
+  );
 }

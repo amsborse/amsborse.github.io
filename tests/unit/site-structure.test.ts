@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { facets, navItems } from "@/data";
+import { ARSENAL_LABS } from "@/data/arsenalTopics";
+import { isImmersiveSandbox, shouldDisableGlobalEffects } from "@/layout/immersiveRoutes";
 
 const appSource = readFileSync("src/App.tsx", "utf8");
 const routePaths = new Set(
@@ -20,6 +22,22 @@ describe("site structure", () => {
     for (const facet of facets) {
       expect(routePaths.has(facet.to), facet.to).toBe(true);
     }
+  });
+});
+
+describe("arsenal labs", () => {
+  it("points every lab card at a real route, with unique ids", () => {
+    const ids = ARSENAL_LABS.map((lab) => lab.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const lab of ARSENAL_LABS) {
+      expect(routePaths.has(lab.path), lab.path).toBe(true);
+    }
+  });
+
+  it("lists the infinity lab as a scrolling page with its own atmosphere", () => {
+    expect(ARSENAL_LABS.some((lab) => lab.path === "/arsenal/infinity")).toBe(true);
+    expect(isImmersiveSandbox("/arsenal/infinity")).toBe(false);
+    expect(shouldDisableGlobalEffects("/arsenal/infinity")).toBe(true);
   });
 });
 

@@ -3,6 +3,34 @@ import type { LearningCardTopic } from "@/components/learning/LearningInteractiv
 /** Visual lab sandboxes under Arsenal. */
 export const ARSENAL_LABS: LearningCardTopic[] = [
   {
+    id: "infinity",
+    title: "Infinity",
+    description:
+      "The infinity symbol as a living particle scene, with pointer-aware cards, magnetic links and a spiral galaxy.",
+    icon: "∞",
+    path: "/arsenal/infinity",
+    status: "active",
+    tags: ["Particles", "Pointer", "Signature"],
+    color: "from-amber-500 to-violet-600",
+    renderPortalVisual: () => (
+      <svg className="h-full w-full p-4" viewBox="0 0 200 200" fill="none">
+        <defs>
+          <linearGradient id="infinityLabGrad" x1="30" y1="100" x2="170" y2="100">
+            <stop offset="0%" stopColor="#f2a93b" />
+            <stop offset="100%" stopColor="#8b5cf6" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M100 100 C 80 70, 35 70, 35 100 C 35 130, 80 130, 100 100 C 120 70, 165 70, 165 100 C 165 130, 120 130, 100 100 Z"
+          stroke="url(#infinityLabGrad)"
+          strokeWidth="5"
+          strokeLinecap="round"
+        />
+        <circle cx="100" cy="100" r="4" fill="#ffc163" />
+      </svg>
+    ),
+  },
+  {
     id: "celestial-grid",
     title: "Celestial Grid",
     description:

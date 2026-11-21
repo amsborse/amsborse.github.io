@@ -34,6 +34,7 @@ const ParticleCoreLab = lazy(() => import("@/pages/arsenal/ParticleCoreLab"));
 const AnomalyMatrixLab = lazy(() => import("@/pages/arsenal/AnomalyMatrixLab"));
 const GravityWellLab = lazy(() => import("@/pages/arsenal/GravityWellLab"));
 const QuantumMeshLab = lazy(() => import("@/pages/arsenal/QuantumMeshLab"));
+const InfinityLab = lazy(() => import("@/pages/arsenal/InfinityLab"));
 const FlashcardsDeck = lazy(() => import("@/pages/FlashcardsDeck"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
@@ -97,6 +98,7 @@ export default function App() {
           <Route path="arsenal/anomaly-matrix" element={<AnomalyMatrixLab />} />
           <Route path="arsenal/gravity-well" element={<GravityWellLab />} />
           <Route path="arsenal/quantum-mesh" element={<QuantumMeshLab />} />
+          <Route path="arsenal/infinity" element={<InfinityLab />} />
 
           <Route path="writing" element={<Navigate to="/arsenal/writing" replace />} />
           <Route path="writing/:slug" element={<WritingSlugRedirect />} />

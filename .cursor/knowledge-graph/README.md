@@ -55,6 +55,7 @@ flowchart TB
     Anomaly["/arsenal/anomaly-matrix"]
     Gravity["/arsenal/gravity-well"]
     Quantum["/arsenal/quantum-mesh"]
+    Infinity["/arsenal/infinity"]
   end
 
   RootLayout --> core

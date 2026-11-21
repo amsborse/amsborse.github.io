@@ -30,6 +30,7 @@ const PAGES = [
     selector: "h1",
   },
   { path: "/arsenal/algorithm", title: "Algorithms", selector: "h1" },
+  { path: "/arsenal/infinity", title: "Infinity Lab", selector: "h1:has-text('Infinity')" },
 ];
 
 for (const page of PAGES) {

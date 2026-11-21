@@ -253,6 +253,12 @@
       "file": "src/pages/arsenal/QuantumMeshLab.tsx"
     },
     {
+      "id": "route:/arsenal/infinity",
+      "type": "route",
+      "path": "/arsenal/infinity",
+      "file": "src/pages/arsenal/InfinityLab.tsx"
+    },
+    {
       "id": "route:/writing",
       "type": "route",
       "path": "/writing",
