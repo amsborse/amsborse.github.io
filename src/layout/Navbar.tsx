@@ -61,18 +61,28 @@ export function Navbar() {
         </NavLink>
 
         <nav className="hidden items-center gap-1 md:flex lg:gap-0.5" aria-label="Primary">
-          {navItems.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                `${linkClass(isActive)} px-2.5 lg:px-3 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded`
-              }
-              end={to === "/"}
-            >
-              {label}
-            </NavLink>
-          ))}
+          {navItems.map(({ to, label, external }) =>
+            external ? (
+              <a
+                key={to}
+                href={to}
+                className={`${linkClass(false)} px-2.5 lg:px-3 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded`}
+              >
+                {label}
+              </a>
+            ) : (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  `${linkClass(isActive)} px-2.5 lg:px-3 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded`
+                }
+                end={to === "/"}
+              >
+                {label}
+              </NavLink>
+            )
+          )}
         </nav>
 
         <div className="site-header__tools hidden items-center gap-1 md:flex">
@@ -141,8 +151,20 @@ export function Navbar() {
           className="site-header__panel pointer-events-auto border-t border-[var(--color-border)] px-4 py-2 md:hidden"
         >
           <div className="flex flex-col">
-            {navItems.map(({ to, label }) => {
+            {navItems.map(({ to, label, external }) => {
               const isActive = to === "/" ? pathname === "/" : pathname.startsWith(to);
+              if (external) {
+                return (
+                  <a
+                    key={to}
+                    href={to}
+                    className={`min-h-[48px] py-3 ${linkClass(false)}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {label}
+                  </a>
+                );
+              }
               return (
                 <NavLink
                   key={to}

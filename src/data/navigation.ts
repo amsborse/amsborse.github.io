@@ -11,4 +11,5 @@ export const navItems: NavItem[] = [
   { to: "/arsenal/writing", label: "Writing" },
   { to: "/learning", label: "Learning" },
   { to: "/about", label: "About" },
+  { to: "/timeline/site/index.html", label: "Timeline", external: true },
 ];

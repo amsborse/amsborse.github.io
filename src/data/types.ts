@@ -51,7 +51,11 @@ export type ShowcaseProject = {
   links: { label: string; href: string }[];
 };
 
-export type NavItem = { to: string; label: string };
+export type NavItem = {
+  to: string;
+  label: string;
+  /** Static page outside the React router: render a plain link. */ external?: boolean;
+};
 
 export type SocialLinks = {
   github: string;
