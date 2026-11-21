@@ -1,4 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+import { LivingPlate } from "./LivingPlate";
+import { usePrefersReducedMotion } from "./usePlateMotion";
 import "./page-stage.css";
 
 /** Motifs the earlier line-art stage knows how to draw. */
@@ -11,7 +13,7 @@ const ClassicPageStage = lazy(() =>
 );
 
 /** Generated art plates, one scene per chapter, each lit separately for night and dawn. */
-const plates: Record<StageMotif, string> = {
+const plates: Record<StageMotif, StageMotif> = {
   about: "about",
   experience: "experience",
   projects: "projects",
@@ -33,21 +35,6 @@ const readTheme = (): Theme =>
 /** The site theme, read from the document so the stage also works outside the theme provider. */
 export function useDocumentTheme(): Theme {
   return useSyncExternalStore(subscribeToTheme, readTheme, () => "dark");
-}
-
-const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
-function subscribeToReducedMotion(onChange: () => void) {
-  const query = window.matchMedia(reducedMotionQuery);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
-/** The reader's reduced-motion setting, kept current while the page is open. */
-function usePrefersReducedMotion(): boolean {
-  return useSyncExternalStore(
-    subscribeToReducedMotion,
-    () => window.matchMedia(reducedMotionQuery).matches,
-    () => false
-  );
 }
 
 const wantsClassicStage = () =>
@@ -81,7 +68,6 @@ function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageP
   // Follows the system setting live, so turning reduced motion on mid-visit stills the stage.
   const still = usePrefersReducedMotion();
   useStageLife(stage, still);
-  const base = `${import.meta.env.BASE_URL}assets/cinematic/${plates[motif]}/${plates[motif]}-${theme}`;
   return (
     <section
       ref={stage}
@@ -91,19 +77,7 @@ function PlateStage({ motif, eyebrow, title, lede, children, count = 0 }: StageP
     >
       <div className="page-stage__static" aria-hidden="true">
         <div className="page-stage__plate">
-          <picture key={theme}>
-            <source media="(max-width: 720px)" srcSet={`${base}-960.webp`} />
-            <img
-              className="page-stage__art"
-              src={`${base}.webp`}
-              alt=""
-              width={1672}
-              height={941}
-              decoding="async"
-              fetchPriority="high"
-            />
-          </picture>
-          <span className="page-stage__glow" />
+          <LivingPlate name={plates[motif]} theme={theme} imageClassName="page-stage__art" />
         </div>
         <span className="page-stage__mist" />
       </div>

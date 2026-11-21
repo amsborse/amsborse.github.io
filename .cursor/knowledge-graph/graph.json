@@ -441,6 +441,12 @@
       "id": "component:page-stage",
       "type": "component",
       "file": "src/components/stage/PageStage.tsx"
+    },
+    {
+      "id": "component:living-plate",
+      "type": "component",
+      "file": "src/components/stage/LivingPlate.tsx",
+      "notes": "Still-first shared WebGL life layer for page and home chapter art plates"
     }
   ],
   "edges": [
@@ -546,6 +552,8 @@
     { "from": "component:hero-section", "to": "component:hero-plate", "rel": "uses" },
     { "from": "route:/", "to": "component:chapter-rail", "rel": "uses" },
     { "from": "route:/", "to": "component:home-chapters", "rel": "uses" },
+    { "from": "component:home-chapters", "to": "component:living-plate", "rel": "uses" },
+    { "from": "component:page-stage", "to": "component:living-plate", "rel": "uses" },
     { "from": "route:/about", "to": "component:page-stage", "rel": "uses" },
     { "from": "route:/experience", "to": "component:page-stage", "rel": "uses" },
     { "from": "route:/projects", "to": "component:page-stage", "rel": "uses" },
